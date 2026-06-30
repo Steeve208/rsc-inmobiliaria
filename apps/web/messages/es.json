@@ -1,0 +1,921 @@
+{
+  "metadata": {
+    "title": "RSC — Ecosistema Inmobiliario y Automotriz",
+    "description": "Todo lo que necesitas para comprar, alquilar o vender inmuebles y vehículos con crédito inteligente y 100% digital."
+  },
+  "nav": {
+    "properties": "Inmuebles",
+    "vehicles": "Vehículos",
+    "financing": "Financiación",
+    "credit": "Crédito",
+    "services": "Servicios",
+    "companies": "Empresas",
+    "paraEmpresas": "Para Empresas",
+    "help": "Ayuda",
+    "signIn": "Iniciar sesión",
+    "signUp": "Registrarse",
+    "signOut": "Cerrar sesión",
+    "wishlist": "Favoritos",
+    "changeRegion": "Cambiar región",
+    "globalSearch": {
+      "categoryLabel": "Categoría de búsqueda",
+      "properties": "Inmuebles",
+      "propertiesPlaceholder": "Buscar casas...",
+      "vehicles": "Vehículos",
+      "vehiclesPlaceholder": "Buscar carros...",
+      "companies": "Empresas",
+      "companiesPlaceholder": "Buscar empresas...",
+      "submit": "Buscar"
+    }
+  },
+  "auth": {
+    "continueWithGoogle": "Continuar con Google",
+    "orContinueWithEmail": "o continúa con correo",
+    "loading": "Cargando...",
+    "fields": {
+      "name": "Nombre completo",
+      "namePlaceholder": "Tu nombre",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@email.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Mínimo 8 caracteres"
+    },
+    "signIn": {
+      "title": "Inicia sesión en tu cuenta",
+      "subtitle": "Accede a tus favoritos, chats y visitas",
+      "submit": "Iniciar sesión",
+      "noAccount": "¿No tienes una cuenta?",
+      "link": "Iniciar sesión"
+    },
+    "signUp": {
+      "title": "Crea tu cuenta",
+      "subtitle": "Regístrate con correo o cuenta de Google",
+      "submit": "Crear cuenta",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "link": "Registrarse"
+    },
+    "errors": {
+      "generic": "Algo salió mal. Inténtalo de nuevo.",
+      "google": "No se pudo iniciar sesión con Google. Inténtalo de nuevo."
+    }
+  },
+  "markets": {
+    "names": {
+      "br": "Brasil",
+      "pt": "Portugal",
+      "us": "Estados Unidos",
+      "es": "España",
+      "fr": "Francia",
+      "ar": "Argentina"
+    },
+    "searchLocation": {
+      "br": "Ciudad",
+      "pt": "Ciudad",
+      "us": "Ciudad / Código postal",
+      "es": "Ciudad",
+      "fr": "Ciudad",
+      "ar": "Ciudad"
+    },
+    "detection": {
+      "message": "Detectamos que estás en {country}. ¿Es correcto?",
+      "confirm": "Sí, continuar",
+      "change": "Elegir otro país",
+      "dismiss": "Cerrar"
+    }
+  },
+  "landing": {
+    "hero": {
+      "titleStart": "Todo lo que necesitas para",
+      "titleHighlight": "comprar, alquilar o vender",
+      "titleEnd": "está en RSC.",
+      "subtitle": "El mayor ecosistema inmobiliario y automotriz del mundo, con crédito inteligente y todo 100% digital."
+    },
+    "search": {
+      "tabs": {
+        "properties": "Inmuebles",
+        "vehicles": "Vehículos",
+        "launches": "Lanzamientos"
+      },
+      "locationPlaceholder": "¿Dónde estás buscando?",
+      "queryPlaceholder": "¿Qué estás buscando?",
+      "submit": "Buscar",
+      "filters": {
+        "houses": "Casas",
+        "apartments": "Apartamentos",
+        "land": "Terrenos",
+        "commercial": "Comerciales",
+        "cars": "Coches",
+        "motorcycles": "Motos",
+        "trucks": "Camiones"
+      }
+    },
+    "credit": {
+      "title": "Simula tu crédito",
+      "benefits": {
+        "0": "Las mejores tasas del mercado",
+        "1": "Aprobación en hasta 24h",
+        "2": "Atención personalizada"
+      },
+      "cta": "Simular ahora"
+    },
+    "services": {
+      "properties": {
+        "title": "Inmuebles",
+        "description": "Encuentra casas, apartamentos y terrenos en todo el país.",
+        "link": "Ver inmuebles"
+      },
+      "vehicles": {
+        "title": "Vehículos",
+        "description": "Coches, motos, camiones y mucho más.",
+        "link": "Ver vehículos"
+      },
+      "financing": {
+        "title": "Financiación",
+        "description": "Simula y compara las mejores opciones de crédito.",
+        "link": "Simular ahora"
+      },
+      "insurance": {
+        "title": "Seguros",
+        "description": "Protección completa para ti, tu familia y tus bienes.",
+        "link": "Ver seguros"
+      },
+      "companies": {
+        "title": "Para Empresas",
+        "description": "Soluciones completas para inmobiliarias y concesionarios.",
+        "link": "Saber más"
+      }
+    },
+    "howItWorks": {
+      "title": "¿Cómo funciona RSC?",
+      "steps": {
+        "find": {
+          "title": "Encuentra",
+          "description": "Busca inmuebles o vehículos en tu región o en todo el país."
+        },
+        "choose": {
+          "title": "Elige",
+          "description": "Selecciona la opción ideal con toda la información."
+        },
+        "simulate": {
+          "title": "Simula",
+          "description": "Simula tu crédito y ve las mejores condiciones de financiación."
+        },
+        "approve": {
+          "title": "Aprueba",
+          "description": "Envía tus documentos y recibe aprobación rápida y segura."
+        },
+        "achieve": {
+          "title": "Realiza",
+          "description": "Firma digitalmente y cumple tu sueño con RSC."
+        }
+      }
+    },
+    "stats": {
+      "agencies": {
+        "value": "+25.000",
+        "label": "Inmobiliarias asociadas"
+      },
+      "dealerships": {
+        "value": "+15.000",
+        "label": "Concesionarios asociados"
+      },
+      "users": {
+        "value": "+2 millones",
+        "label": "Usuarios activos"
+      },
+      "properties": {
+        "value": "+5 millones",
+        "label": "Inmuebles disponibles"
+      },
+      "vehicles": {
+        "value": "+500 mil",
+        "label": "Vehículos disponibles"
+      }
+    }
+  },
+  "search": {
+    "pageTitle": "Búsqueda avanzada",
+    "pageSubtitle": "Encuentra inmuebles, vehículos y lanzamientos con filtros completos.",
+    "advancedTitle": "Filtros avanzados",
+    "tabs": {
+      "properties": "Inmuebles",
+      "vehicles": "Vehículos",
+      "launches": "Lanzamientos"
+    },
+    "quick": {
+      "locationPlaceholder": "¿Dónde estás buscando?",
+      "queryPlaceholder": "¿Qué estás buscando?",
+      "submit": "Buscar"
+    },
+    "views": {
+      "list": "Lista",
+      "map": "Mapa",
+      "gallery": "Galería"
+    },
+    "filters": {
+      "title": "Filtros",
+      "reset": "Limpiar",
+      "apply": "Aplicar filtros",
+      "country": "País",
+      "countryPlaceholder": "Ej: Brasil",
+      "state": "Estado",
+      "statePlaceholder": "Ej: SP",
+      "city": "Ciudad",
+      "cityPlaceholder": "Ej: São Paulo",
+      "neighborhood": "Barrio",
+      "neighborhoodPlaceholder": "Ej: Morumbi",
+      "priceMin": "Precio mín.",
+      "priceMax": "Precio máx.",
+      "type": "Tipo",
+      "typeAll": "Todos los tipos",
+      "types": {
+        "house": "Casa",
+        "apartment": "Apartamento",
+        "land": "Terreno",
+        "car": "Coche",
+        "motorcycle": "Moto",
+        "truck": "Camión"
+      },
+      "bedrooms": "Habitaciones",
+      "garage": "Garaje",
+      "pool": "Piscina",
+      "areaMin": "Área mín. (m²)",
+      "areaMax": "Área máx. (m²)",
+      "date": "Fecha",
+      "company": "Empresa",
+      "companyPlaceholder": "Nombre de la empresa",
+      "financingAvailable": "Financiación disponible"
+    },
+    "results": {
+      "count": "{count} resultados encontrados",
+      "empty": "No se encontraron resultados",
+      "emptyHint": "Intenta ajustar los filtros o ampliar la búsqueda.",
+      "mapHint": "Mostrando {count} anuncios en el mapa",
+      "bedrooms": "habitaciones",
+      "garage": "plazas"
+    }
+  },
+  "map": {
+    "noToken": "Configura NEXT_PUBLIC_MAPBOX_TOKEN para ver el mapa interactivo.",
+    "fallbackListings": "inmuebles en esta zona"
+  },
+  "paraEmpresas": {
+    "hero": {
+      "badge": "Soluciones B2B",
+      "titleStart": "Vende más con la",
+      "titleHighlight": "plataforma RSC",
+      "subtitle": "Inmobiliarias, concesionarios y constructoras en un solo ecosistema. Publica anuncios, recibe leads calificados y gestiona todo en el panel SaaS. Regístrate gratis y empieza a vender.",
+      "ctaPrimary": "Registrar mi empresa",
+      "imageAlt": "Vista corporativa de edificios modernos que representan empresas asociadas",
+      "bullets": {
+        "0": "Sin costo de setup",
+        "1": "Leads directo al panel",
+        "2": "Soporte dedicado"
+      }
+    },
+    "preview": {
+      "label": "Panel en tiempo real",
+      "leads": "Leads este mes",
+      "listings": "Anuncios activos",
+      "conversion": "Tasa de conversión",
+      "insightTitle": "Insight de la IA RSC",
+      "insightBody": "Los SUV híbridos tuvieron +34% de búsquedas en tu zona. Destaca 3 vehículos para captar más leads."
+    },
+    "audiences": {
+      "title": "Hecho para tu negocio",
+      "subtitle": "Si tienes una empresa, RSC fue construida para ti.",
+      "realEstate": {
+        "title": "Inmobiliarias",
+        "description": "Publica inmuebles, recibe contactos calificados y cierra más negocios con crédito integrado."
+      },
+      "dealerships": {
+        "title": "Concesionarios",
+        "description": "Stock online, leads en tiempo real y financiamiento digital para acelerar ventas."
+      },
+      "builders": {
+        "title": "Constructoras",
+        "description": "Lanza emprendimientos, gestiona unidades y conecta compradores al financiamiento."
+      }
+    },
+    "howItWorks": {
+      "title": "¿Cómo funciona el registro?",
+      "subtitle": "Tres sencillos pasos para empezar a vender en RSC.",
+      "submit": {
+        "title": "Envía tu solicitud",
+        "description": "Completa el formulario con los datos de tu empresa. Es rápido y gratuito."
+      },
+      "review": {
+        "title": "Revisión del equipo",
+        "description": "Nuestro equipo verifica tus datos en hasta 24 horas para garantizar seguridad."
+      },
+      "access": {
+        "title": "Recibe el acceso",
+        "description": "Recibirás un email con las credenciales para acceder a tu panel exclusivo."
+      }
+    },
+    "features": {
+      "title": "Todo en el panel SaaS",
+      "subtitle": "Una plataforma completa para publicar, vender y crecer.",
+      "listings": {
+        "title": "Gestión de anuncios",
+        "description": "Publica, edita y destaca inmuebles o vehículos en masa con pocos clics."
+      },
+      "leads": {
+        "title": "CRM de leads",
+        "description": "Recibe y organiza contactos, solicitudes y visitas en un solo lugar."
+      },
+      "chat": {
+        "title": "Chat integrado",
+        "description": "Conversa con compradores sin salir de la plataforma."
+      },
+      "analytics": {
+        "title": "Analytics avanzado",
+        "description": "Visualizaciones, conversiones y rendimiento por anuncio y región."
+      },
+      "trust": {
+        "title": "Sello verificado RSC",
+        "description": "Destácate con perfil verificado y mayor confianza de los compradores."
+      },
+      "ai": {
+        "title": "IA para ventas",
+        "description": "Sugerencias de precio, destacados e insights para vender más rápido."
+      }
+    },
+    "plans": {
+      "title": "Planes para cada etapa",
+      "subtitle": "Empieza gratis y escala según crece tu negocio.",
+      "popular": "Más popular",
+      "perMonth": "/mes",
+      "starter": {
+        "name": "Starter",
+        "description": "Para empezar a vender online",
+        "price": "Gratis",
+        "cta": "Empezar gratis",
+        "features": {
+          "0": "Hasta 10 anuncios activos",
+          "1": "Panel básico de leads",
+          "2": "Perfil de la empresa"
+        }
+      },
+      "growth": {
+        "name": "Growth",
+        "description": "Para equipos en crecimiento",
+        "price": "R$ 299",
+        "cta": "Probar 14 días gratis",
+        "features": {
+          "0": "Anuncios ilimitados",
+          "1": "CRM completo + chat",
+          "2": "Destacados premium"
+        }
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Para redes y grandes grupos",
+        "price": "A consultar",
+        "cta": "Hablar con ventas",
+        "features": {
+          "0": "Multi-sucursales",
+          "1": "API e integraciones",
+          "2": "Gerente de cuenta dedicado"
+        }
+      }
+    },
+    "cta": {
+      "title": "¿Listo para crecer con RSC?",
+      "subtitle": "Únete a miles de empresas que ya venden en el mayor ecosistema inmobiliario y automotriz. Regístrate gratis y nuestro equipo te contactará en hasta 24 horas.",
+      "primary": "Registrar mi empresa"
+    },
+    "panel": {
+      "title": "Panel de la Empresa",
+      "subtitle": "Accede a tu cuenta para gestionar anuncios, leads y equipo.",
+      "email": "Correo corporativo",
+      "emailPlaceholder": "tu@tuempresa.com",
+      "password": "Contraseña",
+      "submit": "Entrar al panel",
+      "noAccount": "¿Aún no tienes cuenta?",
+      "register": "Registra tu empresa",
+      "backToLanding": "Volver a Para Empresas"
+    },
+    "signup": {
+      "back": "Volver",
+      "title": "Registra tu empresa",
+      "subtitle": "Completa los datos para solicitar el registro de tu empresa. Nuestro equipo analizará tu solicitud y enviará las credenciales de acceso en hasta 24 horas.",
+      "company": "Nombre de la empresa",
+      "companyPlaceholder": "Ej: Inmobiliaria Valle",
+      "cnpj": "CNPJ / Documento",
+      "cnpjPlaceholder": "00.000.000/0001-00",
+      "email": "Correo corporativo",
+      "emailPlaceholder": "contacto@tuempresa.com",
+      "phone": "Teléfono / WhatsApp",
+      "phonePlaceholder": "(51) 99999-0000",
+      "submit": "Solicitar registro",
+      "submitting": "Enviando...",
+      "successTitle": "¡Solicitud enviada!",
+      "successMessage": "Recibimos los datos de tu empresa. Nuestro equipo analizará la solicitud y enviará las credenciales de acceso al panel en hasta 24 horas.",
+      "error": "No se pudo enviar la solicitud. Inténtalo de nuevo.",
+      "noteLabel": "Importante:",
+      "note": "Tras enviar tu solicitud, nuestro equipo analizará tus datos. Recibirás un correo con las credenciales de acceso al panel en hasta 24 horas tras la aprobación."
+    }
+  },
+  "imoveis": {
+    "ai": {
+      "placeholder": "Quiero una casa moderna cerca de un lago por menos de R$900.000...",
+      "submit": "Buscar con IA",
+      "searching": "Analizando...",
+      "hint": "Describe el inmueble de tus sueños en lenguaje natural"
+    },
+    "location": {
+      "useGps": "Usar mi ubicación",
+      "gpsDenied": "Permite el acceso a la ubicación en el navegador.",
+      "gpsFailed": "No se pudo identificar tu zona.",
+      "gpsUnsupported": "Tu navegador no soporta geolocalización.",
+      "osmAttribution": "Direcciones vía OpenStreetMap — gratis, sin API key."
+    },
+    "search": {
+      "title": "¿Qué estás buscando?",
+      "filters": "Filtros",
+      "clearAll": "Limpiar todo",
+      "priceUpTo": "Hasta",
+      "priceFrom": "Desde",
+      "buy": "Comprar",
+      "rent": "Alquilar",
+      "allTypes": "Casa",
+      "house": "Casa",
+      "apartment": "Apartamento",
+      "land": "Terreno",
+      "cityPlaceholder": "Ciudad",
+      "pricePlaceholder": "Precio",
+      "bedroomsPlaceholder": "Habitaciones",
+      "submit": "Buscar"
+    },
+    "categories": {
+      "house": "Casas",
+      "apartment": "Apartamentos",
+      "land": "Terrenos",
+      "commercial": "Comerciales",
+      "launches": "Lanzamientos",
+      "condo": "Condominios",
+      "beach": "Casas de playa",
+      "countryside": "Casas de campo"
+    },
+    "stats": {
+      "properties": "Inmuebles",
+      "agencies": "Inmobiliarias",
+      "builders": "Constructoras",
+      "countries": "Países",
+      "countriesValue": "{count} países"
+    },
+    "map": {
+      "location": "Ubicación",
+      "selectRegion": "Selecciona una región o usa el buscador de arriba",
+      "world": "Mundo",
+      "back": "Volver",
+      "listings": "{count} inmuebles",
+      "exploreWorld": "Selecciona un país para explorar",
+      "exploreCountry": "Estados en {country}",
+      "exploreState": "Ciudades en {state}",
+      "exploreCity": "Barrios en {city}",
+      "clickRegion": "Haz clic en una región para profundizar"
+    },
+    "filters": {
+      "title": "Filtros",
+      "reset": "Limpiar",
+      "transaction": "Transacción",
+      "type": "Tipo",
+      "house": "Casa",
+      "apartment": "Apartamento",
+      "land": "Terreno",
+      "state": "Estado",
+      "buy": "Comprar",
+      "rent": "Alquilar",
+      "condition": "Condición",
+      "new": "Nuevo",
+      "used": "Usado",
+      "price": "Precio",
+      "priceMin": "Mín.",
+      "priceMax": "Máx.",
+      "area": "Área",
+      "areaMin": "Mín. m²",
+      "areaMax": "Máx. m²",
+      "bedrooms": "Habitaciones",
+      "features": "Características",
+      "garage": "Garaje",
+      "pool": "Piscina",
+      "pets": "Acepta mascotas",
+      "financing": "Financiación disponible",
+      "rscCredit": "RSC Credit"
+    },
+    "views": {
+      "list": "Lista",
+      "gallery": "Galería",
+      "map": "Mapa",
+      "satellite": "Satélite"
+    },
+    "results": {
+      "title": "Resultados",
+      "count": "{count} inmuebles encontrados",
+      "searchPrompt": "Configura tu búsqueda y pulsa Buscar",
+      "searchPromptHint": "Usa los filtros para refinar tipo, precio, habitaciones y más.",
+      "empty": "No se encontraron inmuebles",
+      "emptyHint": "Intenta ajustar los filtros o explorar otra región."
+    },
+    "card": {
+      "verified": "Verificada",
+      "favorite": "Favorito",
+      "bedrooms": "habitaciones",
+      "bathrooms": "baños",
+      "simulateFinancing": "Simular financiación",
+      "viewProperty": "Ver inmueble"
+    },
+    "detail": {
+      "back": "Volver a inmuebles",
+      "verified": "Anuncio verificado",
+      "verifiedBadge": "Verificada",
+      "favorite": "Favorito",
+      "bedrooms": "Habitaciones",
+      "bathrooms": "Baños",
+      "garage": "Plazas",
+      "area": "Área",
+      "pool": "Piscina",
+      "yes": "Sí",
+      "description": "Descripción",
+      "descriptionTitle": "Descripción del inmueble",
+      "descriptionText": "Excelente {type} ubicado en {neighborhood}, {city}. Inmueble verificado por RSC con documentación completa y opciones de financiación disponibles.",
+      "readMore": "Leer más",
+      "readLess": "Leer menos",
+      "listedBy": "Anunciado por",
+      "published": "Publicado el {date}",
+      "contact": "Contactar",
+      "simulateFinancing": "Simular Financiación",
+      "creditTitle": "RSC Credit",
+      "creditText": "Simula tu crédito y recibe aprobación en hasta 24h.",
+      "simulateNow": "Simular ahora",
+      "breadcrumbHome": "Inicio",
+      "breadcrumbProperties": "Inmuebles",
+      "breadcrumbProperty": "Inmueble",
+      "neighborhoodLabel": "Barrio {neighborhood}",
+      "viewOnMap": "Ver en el mapa",
+      "share": "Compartir",
+      "save": "Guardar",
+      "report": "Denunciar",
+      "prevPhoto": "Foto anterior",
+      "nextPhoto": "Foto siguiente",
+      "viewAllPhotos": "Ver todas las {count} fotos",
+      "media": {
+        "photos": "Fotos",
+        "video": "Vídeo",
+        "tour": "Tour 360°",
+        "floorPlan": "Plano"
+      },
+      "featuresTitle": "Características",
+      "builtArea": "Área construida",
+      "landArea": "Área del terreno",
+      "suites": "Suites",
+      "livingRooms": "Salas",
+      "kitchen": "Cocina",
+      "laundry": "Lavandería",
+      "heating": "Calefacción",
+      "yearBuilt": "Año de construcción",
+      "locationTitle": "Ubicación",
+      "simulatorTitle": "Simula tu financiación",
+      "simulator": {
+        "propertyValue": "Valor del inmueble",
+        "downPayment": "Entrada",
+        "term": "Plazo (meses)",
+        "interestRate": "Tasa de interés (% mensual)",
+        "estimatedInstallment": "Cuota estimada:",
+        "perMonth": "/mes"
+      },
+      "salePrice": "Precio de venta",
+      "condoFee": "Condominio",
+      "iptu": "Impuesto predial",
+      "downFrom": "Entrada desde",
+      "installmentsFrom": "Cuotas desde",
+      "whatsapp": "Chatear en WhatsApp",
+      "sendMessage": "Enviar mensaje",
+      "scheduleVisit": "Agendar visita",
+      "onlineNow": "Respuesta rápida — en línea ahora",
+      "agency": "Inmobiliaria",
+      "yearsInMarket": "{years} años en el mercado",
+      "activeListings": "Activos",
+      "sold": "Vendidos",
+      "positiveReviews": "Reseñas positivas",
+      "agent": "Responsable",
+      "viewProfile": "Ver perfil",
+      "otherProperties": "Otros inmuebles",
+      "similarProperties": "Ver inmuebles similares"
+    },
+    "companies": {
+      "title": "Inmobiliarias Premium",
+      "subtitle": "Socios verificados por RSC",
+      "adLabel": "Premium",
+      "listings": "{count} anuncios"
+    },
+    "sections": {
+      "launches": "Lanzamientos",
+      "new": "Nuevo",
+      "projects": "Proyectos destacados",
+      "projectsSubtitle": "Emprendimientos de los mejores constructores",
+      "premium": "Casas Premium",
+      "premiumBadge": "Premium",
+      "recommended": "Recomendadas para ti",
+      "recommendedSubtitle": "Seleccionadas por IA según tu perfil",
+      "aiBadge": "IA"
+    },
+    "footer": {
+      "tagline": "El mayor ecosistema inmobiliario y automotriz del mundo.",
+      "properties": "Inmuebles",
+      "services": "Servicios",
+      "company": "Empresa",
+      "countries": "Países",
+      "states": "Estados en Brasil",
+      "more": "más",
+      "rights": "Todos los derechos reservados.",
+      "privacy": "Privacidad",
+      "terms": "Términos de uso"
+    }
+  },
+  "veiculos": {
+    "ai": {
+      "placeholder": "Busco un SUV híbrido en Porto Alegre por menos de R$250.000...",
+      "submit": "Buscar con IA",
+      "searching": "Analizando..."
+    },
+    "search": {
+      "title": "¿Qué vehículo buscas?",
+      "filters": "Filtros",
+      "clearAll": "Limpiar todo",
+      "priceUpTo": "Hasta",
+      "priceFrom": "Desde",
+      "cityPlaceholder": "Ciudad",
+      "submit": "Buscar"
+    },
+    "categories": {
+      "car": "Autos",
+      "suv": "SUV",
+      "sports": "Deportivos",
+      "van": "Vans",
+      "truck": "Camiones",
+      "motorcycle": "Motos",
+      "machinery": "Maquinaria",
+      "electric": "Eléctricos",
+      "hybrid": "Híbridos"
+    },
+    "stats": {
+      "vehicles": "Vehículos",
+      "dealerships": "Concesionarias",
+      "brands": "Marcas",
+      "countries": "Países",
+      "countriesValue": "{count} países"
+    },
+    "filters": {
+      "title": "Filtros",
+      "reset": "Limpiar",
+      "make": "Marca",
+      "model": "Modelo",
+      "modelPlaceholder": "Ej: Corolla",
+      "year": "Año",
+      "yearMin": "Desde",
+      "yearMax": "Hasta",
+      "price": "Precio",
+      "priceMin": "Mín.",
+      "priceMax": "Máx.",
+      "mileage": "Kilometraje",
+      "mileageMax": "Km máx.",
+      "fuel": "Combustible",
+      "gasoline": "Gasolina",
+      "diesel": "Diésel",
+      "flex": "Flex",
+      "electric": "Eléctrico",
+      "hybrid": "Híbrido",
+      "transmission": "Transmisión",
+      "manual": "Manual",
+      "automatic": "Automática",
+      "cvt": "CVT",
+      "color": "Color",
+      "colorPlaceholder": "Ej: Negro",
+      "engine": "Motor",
+      "enginePlaceholder": "Ej: 2.0",
+      "drive": "Tracción",
+      "fwd": "Delantera",
+      "rwd": "Trasera",
+      "awd": "AWD",
+      "4x4": "4x4",
+      "financing": "Financiación",
+      "state": "Estado",
+      "city": "Ciudad",
+      "cityPlaceholder": "Ciudad",
+      "all": "Todos"
+    },
+    "views": {
+      "list": "Lista",
+      "gallery": "Galería",
+      "map": "Mapa",
+      "satellite": "Satélite"
+    },
+    "results": {
+      "title": "Resultados",
+      "count": "{count} vehículos encontrados",
+      "searchPrompt": "Configura tu búsqueda y pulsa Buscar",
+      "searchPromptHint": "Usa los filtros para refinar marca, precio, año y más.",
+      "empty": "No se encontraron vehículos",
+      "emptyHint": "Intenta ajustar los filtros o explorar otra región."
+    },
+    "card": {
+      "verified": "Verificado",
+      "favorite": "Favorito",
+      "installmentFrom": "Cuota desde",
+      "save": "Guardar",
+      "simulate": "Simular"
+    },
+    "sections": {
+      "featured": "Vehículos destacados",
+      "featuredSubtitle": "Los más buscados esta semana",
+      "featuredBadge": "Destacado",
+      "premium": "Vehículos Premium",
+      "premiumBadge": "Premium",
+      "recommended": "Recomendados para ti",
+      "recommendedSubtitle": "Seleccionados por IA según tu perfil",
+      "aiBadge": "IA"
+    },
+    "dealers": {
+      "title": "Concesionarias Premium",
+      "subtitle": "Socios verificados por RSC",
+      "badge": "Premium",
+      "verified": "Verificada",
+      "listings": "{count} vehículos"
+    },
+    "detail": {
+      "breadcrumbHome": "Inicio",
+      "breadcrumbVehicles": "Vehículos",
+      "verifiedBadge": "Verificado",
+      "share": "Compartir",
+      "save": "Guardar",
+      "report": "Denunciar",
+      "prevPhoto": "Foto anterior",
+      "nextPhoto": "Foto siguiente",
+      "media": {
+        "photos": "Galería",
+        "video": "Vídeo",
+        "tour360": "360°"
+      },
+      "tour360Placeholder": "Tour 360° disponible — arrastra para explorar",
+      "year": "Año",
+      "mileage": "Kilometraje",
+      "fuel": "Combustible",
+      "engine": "Motor",
+      "descriptionTitle": "Descripción",
+      "readMore": "Leer más",
+      "readLess": "Leer menos",
+      "specsTitle": "Ficha técnica",
+      "historyTitle": "Historial",
+      "equipmentTitle": "Equipamiento",
+      "consumptionTitle": "Consumo",
+      "warrantyTitle": "Garantía",
+      "engineTitle": "Motor y transmisión",
+      "locationTitle": "Ubicación",
+      "simulatorTitle": "Simula tu financiación",
+      "simulator": {
+        "vehicleValue": "Valor del vehículo",
+        "downPayment": "Entrada",
+        "term": "Plazo (meses)",
+        "interestRate": "Tasa de interés (% mensual)",
+        "estimatedInstallment": "Cuota estimada:",
+        "perMonth": "/mes"
+      },
+      "similarVehicles": "Vehículos similares",
+      "downFrom": "Entrada desde",
+      "installmentsFrom": "Cuotas desde",
+      "simulateFinancing": "Simular financiación",
+      "contactDealer": "Contactar concesionaria",
+      "dealershipTitle": "Concesionaria",
+      "reviews": "reseñas",
+      "years": "Años",
+      "active": "Activos",
+      "sold": "Vendidos"
+    },
+    "footer": {
+      "tagline": "El mayor ecosistema inmobiliario y automotriz del mundo.",
+      "vehicles": "Vehículos",
+      "services": "Servicios",
+      "company": "Empresa",
+      "countries": "Países",
+      "states": "Estados en Brasil",
+      "rights": "Todos los derechos reservados.",
+      "privacy": "Privacidad",
+      "terms": "Términos de uso"
+    },
+    "dashboard": {
+      "title": "Dashboard Comprador",
+      "subtitle": "Gestiona tus favoritos, solicitudes y visitas",
+      "favorites": "Mis favoritos",
+      "requests": "Solicitudes",
+      "chats": "Chats",
+      "visits": "Visitas",
+      "compare": "Comparador",
+      "favoritesTitle": "Mis vehículos favoritos",
+      "favoritesEmpty": "Aún no has guardado ningún vehículo.",
+      "requestsTitle": "Solicitudes de financiación",
+      "requestsEmpty": "No tienes solicitudes pendientes.",
+      "chatsTitle": "Conversaciones con concesionarias",
+      "chatsEmpty": "No tienes mensajes aún.",
+      "visitsTitle": "Visitas agendadas",
+      "visitsEmpty": "No tienes visitas programadas.",
+      "compareTitle": "Comparador de vehículos",
+      "compareEmpty": "Añade vehículos para compararlos lado a lado.",
+      "browseVehicles": "Explorar vehículos"
+    }
+  },
+  "contact": {
+    "panel": {
+      "chatRsc": "Chatear en RSC",
+      "whatsapp": "WhatsApp",
+      "scheduleVisit": "Agendar visita",
+      "whatsappPrefill": "¡Hola! Me interesa este anuncio: {title}"
+    },
+    "schedule": {
+      "title": "Agendar visita",
+      "name": "Tu nombre",
+      "phone": "Teléfono",
+      "email": "Correo (opcional)",
+      "date": "Fecha preferida",
+      "time": "Horario",
+      "notes": "Observaciones",
+      "submit": "Confirmar cita",
+      "submitting": "Enviando...",
+      "successTitle": "¡Visita solicitada!",
+      "successBody": "Tu solicitud fue procesada. La inmobiliaria se pondrá en contacto lo antes posible.",
+      "close": "Cerrar",
+      "error": "No se pudo agendar. Intenta de nuevo."
+    },
+    "chat": {
+      "title": "Chat RSC",
+      "namePrompt": "¿Cómo debemos llamarte en esta conversación?",
+      "namePlaceholder": "Tu nombre",
+      "defaultBuyerName": "Visitante",
+      "continue": "Continuar",
+      "loading": "Abriendo conversación...",
+      "empty": "Envía el primer mensaje a la inmobiliaria.",
+      "placeholder": "Escribe tu mensaje...",
+      "refresh": "Actualizar",
+      "close": "Cerrar",
+      "errorOpen": "No se pudo abrir el chat.",
+      "errorSend": "No se pudo enviar el mensaje."
+    },
+    "buyer": {
+      "chats": {
+        "loading": "Cargando conversaciones...",
+        "emptyTitle": "Sin conversaciones aún",
+        "emptyBody": "Inicia un chat desde el anuncio de un inmueble o vehículo.",
+        "messages": "{count} mensajes",
+        "viewListing": "Ver anuncio"
+      },
+      "visits": {
+        "loading": "Cargando visitas...",
+        "emptyTitle": "Sin visitas agendadas",
+        "emptyBody": "Agenda una visita desde el anuncio de un inmueble.",
+        "scheduledFor": "Solicitado para {date} a las {time}",
+        "viewListing": "Ver anuncio",
+        "status": {
+          "pending": "Pendiente",
+          "confirmed": "Confirmada",
+          "cancelled": "Cancelada"
+        }
+      }
+    },
+    "company": {
+      "title": "Panel de leads",
+      "loading": "Cargando...",
+      "tabs": {
+        "visits": "Visitas agendadas",
+        "chats": "Chats RSC",
+        "config": "WhatsApp"
+      },
+      "visits": {
+        "emptyTitle": "Sin visitas agendadas",
+        "emptyBody": "Cuando los compradores agenden visitas en tus anuncios, aparecerán aquí.",
+        "scheduledFor": "Solicitado para {date} a las {time}",
+        "status": {
+          "pending": "Pendiente",
+          "confirmed": "Confirmada",
+          "cancelled": "Cancelada"
+        }
+      },
+      "chats": {
+        "emptyTitle": "Sin chats aún",
+        "emptyBody": "Las conversaciones iniciadas por compradores aparecerán aquí.",
+        "messages": "{count} mensajes",
+        "replyPlaceholder": "Responder al comprador...",
+        "reply": "Enviar"
+      },
+      "config": {
+        "title": "WhatsApp de la empresa",
+        "subtitle": "Este número se usará en el botón WhatsApp de tus anuncios.",
+        "whatsapp": "Número con código de país (solo dígitos)",
+        "hint": "Ejemplo: 5554999887766 para Brasil (+55 54 99988-7766)",
+        "save": "Guardar configuración",
+        "saved": "¡Guardado!"
+      }
+    }
+  }
+}

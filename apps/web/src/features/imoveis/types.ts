@@ -1,0 +1,107 @@
+import type { ListingItem, SearchFilters } from "@/features/search/types";
+
+export type ImoveisView = "list" | "gallery" | "map" | "satellite";
+
+export type MapNavLevel = "world" | "country" | "state" | "city" | "properties";
+
+export type MapNavigation = {
+  level: MapNavLevel;
+  country?: string;
+  countryCode?: string;
+  state?: string;
+  city?: string;
+  neighborhood?: string;
+};
+
+export type RegionItem = {
+  id: string;
+  name: string;
+  count: number;
+  lat: number;
+  lng: number;
+  flag?: string;
+};
+
+export type ImoveisFilters = SearchFilters & {
+  transaction: "buy" | "rent" | "";
+  condition: "new" | "used" | "";
+  pets: boolean;
+  rscCredit: boolean;
+  locationLabel: string;
+  lat: number | null;
+  lng: number | null;
+  radiusKm: number;
+};
+
+export type PremiumCompany = {
+  id: string;
+  name: string;
+  logo: string;
+  listings: number;
+};
+
+export type PropertyListing = ListingItem & {
+  verified?: boolean;
+  bathrooms?: number;
+  premium?: boolean;
+  launch?: boolean;
+};
+
+export type PropertyAgent = {
+  name: string;
+  role: string;
+  creci: string;
+  photo: string;
+};
+
+export type PropertyDetail = PropertyListing & {
+  companyId: string;
+  whatsappNumber: string;
+  images: string[];
+  featured?: boolean;
+  address: string;
+  condoFee: number;
+  iptu: number;
+  landArea: number;
+  suites: number;
+  livingRooms: number;
+  kitchen: number;
+  laundry: number;
+  heating: string;
+  yearBuilt: number;
+  description: string;
+  agent: PropertyAgent;
+  agencyRating: number;
+  agencyYears: number;
+  agencyActive: number;
+  agencySold: number;
+  agencyReviews: number;
+};
+
+export const defaultImoveisFilters: ImoveisFilters = {
+  category: "properties",
+  query: "",
+  country: "Brasil",
+  state: "",
+  city: "",
+  neighborhood: "",
+  priceMin: "",
+  priceMax: "",
+  type: "",
+  bedrooms: "",
+  garage: "",
+  pool: false,
+  areaMin: "",
+  areaMax: "",
+  date: "",
+  company: "",
+  financing: false,
+  transaction: "",
+  condition: "",
+  pets: false,
+  rscCredit: false,
+  locationLabel: "",
+  lat: null,
+  lng: null,
+  radiusKm: 40,
+};
