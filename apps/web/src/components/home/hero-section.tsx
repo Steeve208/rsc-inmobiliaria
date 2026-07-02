@@ -47,7 +47,7 @@ export function HeroSection() {
     t("search.filters.trucks"),
   ];
 
-  const locationPlaceholder = tMarkets(`searchLocation.${marketId}`);
+  const locationPlaceholder = tMarkets(`searchLocation.${market.defaultLocale}`);
 
   const goToSearch = (extra?: { type?: string }) => {
     const params = new URLSearchParams();

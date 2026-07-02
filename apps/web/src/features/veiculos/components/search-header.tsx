@@ -33,7 +33,7 @@ export function SearchHeader({
 }: Props) {
   const t = useTranslations("veiculos.search");
   const tMarkets = useTranslations("markets");
-  const { marketId } = useMarket();
+  const { market } = useMarket();
   const tf = useTranslations("veiculos.filters");
   const tc = useTranslations("veiculos.categories");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -130,7 +130,7 @@ export function SearchHeader({
             <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
               <LocationAutocomplete
                 value={locationText}
-                placeholder={tMarkets(`searchLocation.${marketId}`)}
+                placeholder={tMarkets(`searchLocation.${market.defaultLocale}`)}
                 onValueChange={setLocationText}
                 onPlaceResolved={handlePlaceResolved}
                 onLocationCleared={handleLocationCleared}

@@ -1,12 +1,12 @@
 import { brazilStates } from "@/features/imoveis/mock-data";
+import { markets } from "@/lib/markets/config";
 import type { ResolvedLocation } from "./types";
 
 function normalizeCountry(code: string, name: string): string {
-  const c = code.toLowerCase();
-  if (c === "br") return "Brasil";
-  if (c === "pt") return "Portugal";
-  if (c === "us") return "Estados Unidos";
-  if (c === "ar") return "Argentina";
+  const market = Object.values(markets).find(
+    (item) => item.countryCode === code.toLowerCase(),
+  );
+  if (market) return market.countryName;
   return name;
 }
 
@@ -38,72 +38,62 @@ type NominatimAddress = {
 };
 
 export function parseNominatimResult(data: {
+  address?: NominatimAddress;
   display_name?: string;
   lat?: string;
   lon?: string;
-  address?: NominatimAddress;
-}): ResolvedLocation | null {
-  if (!data.lat || !data.lon || !data.address) return null;
-
-  const addr = data.address;
+}): ResolvedLocation {
+  const addr = data.address ?? {};
   const city =
-    addr.city ||
-    addr.town ||
-    addr.village ||
-    addr.municipality ||
-    addr.county ||
+    addr.city ??
+    addr.town ??
+    addr.village ??
+    addr.municipality ??
+    addr.suburb ??
     "";
-  const neighborhood =
-    addr.suburb || addr.neighbourhood || addr.quarter || "";
   const state = normalizeState(addr.state ?? "");
-  const country = normalizeCountry(addr.country_code ?? "", addr.country ?? "");
+  const countryCode = (addr.country_code ?? "").toLowerCase();
+  const country = normalizeCountry(countryCode, addr.country ?? "");
 
   return {
-    label: data.display_name ?? city,
+    label: data.display_name ?? [city, state, country].filter(Boolean).join(", "),
     city,
     state,
-    neighborhood,
     country,
-    lat: Number(data.lat),
-    lng: Number(data.lon),
+    countryCode,
+    lat: Number(data.lat ?? 0),
+    lng: Number(data.lon ?? 0),
   };
 }
 
-type PhotonFeature = {
-  properties: {
+export function parsePhotonFeature(feature: {
+  properties?: {
     name?: string;
     city?: string;
     state?: string;
     country?: string;
     countrycode?: string;
-    district?: string;
-    locality?: string;
     street?: string;
+    district?: string;
   };
-  geometry: {
-    coordinates: [number, number];
-  };
-};
+  geometry?: { coordinates?: [number, number] };
+}): ResolvedLocation {
+  const props = feature.properties ?? {};
+  const coords = feature.geometry?.coordinates ?? [0, 0];
+  const countryCode = (props.countrycode ?? "").toLowerCase();
+  const country = normalizeCountry(countryCode, props.country ?? "");
+  const city = props.city ?? props.name ?? "";
+  const state = normalizeState(props.state ?? "");
 
-export function parsePhotonFeature(feature: PhotonFeature): ResolvedLocation {
-  const { properties: p, geometry } = feature;
-  const [lng, lat] = geometry.coordinates;
-
-  const city = p.city || p.locality || p.name || "";
-  const neighborhood = p.district || "";
-  const state = normalizeState(p.state ?? "");
-  const country = normalizeCountry(p.countrycode ?? "", p.country ?? "");
-
-  const parts = [p.name, city, state, country].filter(Boolean);
-  const label = [...new Set(parts)].join(", ");
+  const label = [props.name, city, state, country].filter(Boolean).join(", ");
 
   return {
-    label: label || city,
-    city: city || p.name || "",
+    label,
+    city,
     state,
-    neighborhood,
     country,
-    lat,
-    lng,
+    countryCode,
+    lat: coords[1],
+    lng: coords[0],
   };
 }

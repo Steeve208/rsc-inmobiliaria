@@ -2,6 +2,7 @@ import {
   defaultMarketId,
   getMarketOrDefault,
   isMarketId,
+  isoCountryToMarket,
   markets,
 } from "./config";
 import {
@@ -15,14 +16,7 @@ type CookieReader = {
   get: (name: string) => { value: string } | undefined;
 };
 
-const COUNTRY_TO_MARKET: Record<string, MarketId> = {
-  BR: "br",
-  PT: "pt",
-  US: "us",
-  ES: "es",
-  FR: "fr",
-  AR: "ar",
-};
+const COUNTRY_TO_MARKET = isoCountryToMarket;
 
 function detectFromAcceptLanguage(acceptLanguage: string | null): MarketId {
   const primary = acceptLanguage?.split(",")[0]?.trim().toLowerCase() ?? "";
