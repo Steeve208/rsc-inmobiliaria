@@ -36,8 +36,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "missing_fields" }, { status: 400 });
   }
 
-  const favorite = await addFavorite(userId, body.listingKind, body.listingId);
-  return NextResponse.json(favorite, { status: 201 });
+  try {
+    const favorite = await addFavorite(userId, body.listingKind, body.listingId);
+    return NextResponse.json(favorite, { status: 201 });
+  } catch (error) {
+    console.error("[favorites] POST failed:", error);
+    return NextResponse.json({ error: "server_error" }, { status: 500 });
+  }
 }
 
 export async function DELETE(request: Request) {

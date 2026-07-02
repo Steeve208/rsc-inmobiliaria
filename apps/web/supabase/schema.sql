@@ -389,7 +389,7 @@ CREATE INDEX IF NOT EXISTS "chat_message_thread_idx" ON "chat_message" ("thread_
 -- 9. Favoritos (wishlist) — listado guardado por usuario
 -- -----------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS "favorite" (
-  "id"           text PRIMARY KEY NOT NULL,
+  "id"           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   "user_id"      text NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
   "listing_kind" listing_kind NOT NULL,
   "listing_id"   text NOT NULL,

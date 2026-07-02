@@ -2,10 +2,6 @@ import { and, eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { favorite } from "@/lib/db/schema";
 
-function newId() {
-  return `fav_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
-}
-
 export type FavoriteItem = {
   id: string;
   listingKind: "property" | "vehicle";
@@ -32,10 +28,9 @@ export async function addFavorite(
   listingKind: "property" | "vehicle",
   listingId: string,
 ): Promise<FavoriteItem> {
-  const id = newId();
   const [row] = await db
     .insert(favorite)
-    .values({ id, userId, listingKind, listingId })
+    .values({ userId, listingKind, listingId })
     .onConflictDoNothing()
     .returning();
 
@@ -60,11 +55,15 @@ export async function addFavorite(
     )
     .limit(1);
 
+  if (!existing) {
+    throw new Error("favorite_insert_failed");
+  }
+
   return {
-    id: existing!.id,
-    listingKind: existing!.listingKind as FavoriteItem["listingKind"],
-    listingId: existing!.listingId,
-    createdAt: existing!.createdAt.toISOString(),
+    id: existing.id,
+    listingKind: existing.listingKind as FavoriteItem["listingKind"],
+    listingId: existing.listingId,
+    createdAt: existing.createdAt.toISOString(),
   };
 }
 
