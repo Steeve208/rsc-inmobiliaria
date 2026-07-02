@@ -38,62 +38,72 @@ type NominatimAddress = {
 };
 
 export function parseNominatimResult(data: {
-  address?: NominatimAddress;
   display_name?: string;
   lat?: string;
   lon?: string;
-}): ResolvedLocation {
-  const addr = data.address ?? {};
+  address?: NominatimAddress;
+}): ResolvedLocation | null {
+  if (!data.lat || !data.lon || !data.address) return null;
+
+  const addr = data.address;
   const city =
-    addr.city ??
-    addr.town ??
-    addr.village ??
-    addr.municipality ??
-    addr.suburb ??
+    addr.city ||
+    addr.town ||
+    addr.village ||
+    addr.municipality ||
+    addr.county ||
     "";
+  const neighborhood =
+    addr.suburb || addr.neighbourhood || addr.quarter || "";
   const state = normalizeState(addr.state ?? "");
-  const countryCode = (addr.country_code ?? "").toLowerCase();
-  const country = normalizeCountry(countryCode, addr.country ?? "");
+  const country = normalizeCountry(addr.country_code ?? "", addr.country ?? "");
 
   return {
-    label: data.display_name ?? [city, state, country].filter(Boolean).join(", "),
+    label: data.display_name ?? city,
     city,
     state,
+    neighborhood,
     country,
-    countryCode,
-    lat: Number(data.lat ?? 0),
-    lng: Number(data.lon ?? 0),
+    lat: Number(data.lat),
+    lng: Number(data.lon),
   };
 }
 
-export function parsePhotonFeature(feature: {
-  properties?: {
+type PhotonFeature = {
+  properties: {
     name?: string;
     city?: string;
     state?: string;
     country?: string;
     countrycode?: string;
-    street?: string;
     district?: string;
+    locality?: string;
+    street?: string;
   };
-  geometry?: { coordinates?: [number, number] };
-}): ResolvedLocation {
-  const props = feature.properties ?? {};
-  const coords = feature.geometry?.coordinates ?? [0, 0];
-  const countryCode = (props.countrycode ?? "").toLowerCase();
-  const country = normalizeCountry(countryCode, props.country ?? "");
-  const city = props.city ?? props.name ?? "";
-  const state = normalizeState(props.state ?? "");
+  geometry: {
+    coordinates: [number, number];
+  };
+};
 
-  const label = [props.name, city, state, country].filter(Boolean).join(", ");
+export function parsePhotonFeature(feature: PhotonFeature): ResolvedLocation {
+  const { properties: p, geometry } = feature;
+  const [lng, lat] = geometry.coordinates;
+
+  const city = p.city || p.locality || p.name || "";
+  const neighborhood = p.district || "";
+  const state = normalizeState(p.state ?? "");
+  const country = normalizeCountry(p.countrycode ?? "", p.country ?? "");
+
+  const parts = [p.name, city, state, country].filter(Boolean);
+  const label = [...new Set(parts)].join(", ");
 
   return {
-    label,
-    city,
+    label: label || city,
+    city: city || p.name || "",
     state,
+    neighborhood,
     country,
-    countryCode,
-    lat: coords[1],
-    lng: coords[0],
+    lat,
+    lng,
   };
 }
