@@ -45,7 +45,6 @@ export default async function middleware(request: NextRequest) {
   if (protectedPathPattern.test(pathname) && !sessionCookie) {
     const locale = pathname.split("/")[1] ?? routing.defaultLocale;
     const signInUrl = new URL(`/${locale}/entrar`, request.url);
-    signInUrl.searchParams.set("callbackUrl", pathname);
     return updateSession(request, NextResponse.redirect(signInUrl));
   }
 
@@ -53,7 +52,7 @@ export default async function middleware(request: NextRequest) {
     const locale = pathname.split("/")[1] ?? routing.defaultLocale;
     return updateSession(
       request,
-      NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url)),
+      NextResponse.redirect(new URL(`/${locale}`, request.url)),
     );
   }
 

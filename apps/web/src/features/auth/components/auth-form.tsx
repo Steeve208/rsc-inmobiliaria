@@ -11,13 +11,12 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   mode: "signIn" | "signUp";
-  callbackUrl?: string;
 };
 
-export function AuthForm({ mode, callbackUrl }: Props) {
+export function AuthForm({ mode }: Props) {
   const t = useTranslations("auth");
   const locale = useLocale();
-  const resolvedCallbackUrl = normalizeCallbackUrl(callbackUrl, locale);
+  const postAuthUrl = `/${locale}`;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,7 +37,7 @@ export function AuthForm({ mode, callbackUrl }: Props) {
           name,
           email,
           password,
-          callbackURL: resolvedCallbackUrl,
+          callbackURL: postAuthUrl,
         });
 
         if (result.error) {
@@ -49,7 +48,7 @@ export function AuthForm({ mode, callbackUrl }: Props) {
         const result = await authClient.signIn.email({
           email,
           password,
-          callbackURL: resolvedCallbackUrl,
+          callbackURL: postAuthUrl,
         });
 
         if (result.error) {
@@ -71,7 +70,7 @@ export function AuthForm({ mode, callbackUrl }: Props) {
     try {
       await authClient.signIn.social({
         provider: "google",
-        callbackURL: resolvedCallbackUrl,
+        callbackURL: postAuthUrl,
       });
     } catch {
       setError(t("errors.google"));
@@ -192,14 +191,6 @@ export function AuthForm({ mode, callbackUrl }: Props) {
       </p>
     </div>
   );
-}
-
-function normalizeCallbackUrl(callbackUrl: string | undefined, locale: string) {
-  if (!callbackUrl) return `/${locale}/dashboard`;
-  if (callbackUrl === "/dashboard" || callbackUrl.startsWith("/dashboard/")) {
-    return `/${locale}${callbackUrl}`;
-  }
-  return callbackUrl;
 }
 
 function GoogleIcon({ className }: { className?: string }) {

@@ -78,7 +78,7 @@ export function useFavoriteButton(
     event.preventDefault();
     event.stopPropagation();
     if (!isLoggedIn) {
-      router.push(`/entrar?callbackUrl=/dashboard`);
+      router.push("/entrar");
       return;
     }
     await toggle(listingKind, listingId);

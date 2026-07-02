@@ -4,12 +4,10 @@ import { Logo } from "@/components/layout/logo";
 
 type Props = {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ callbackUrl?: string }>;
 };
 
-export default async function SignInPage({ params, searchParams }: Props) {
+export default async function SignInPage({ params }: Props) {
   const { locale } = await params;
-  const { callbackUrl } = await searchParams;
   setRequestLocale(locale);
 
   return (
@@ -17,7 +15,7 @@ export default async function SignInPage({ params, searchParams }: Props) {
       <div className="mb-8">
         <Logo />
       </div>
-      <AuthForm mode="signIn" callbackUrl={callbackUrl} />
+      <AuthForm mode="signIn" />
     </div>
   );
 }

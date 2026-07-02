@@ -49,7 +49,7 @@ export function FavoritesPanel() {
     return (
       <p className="text-muted-foreground">
         {t("favoritesEmpty")}{" "}
-        <Link href="/entrar?callbackUrl=/dashboard" className="text-primary hover:underline">
+        <Link href="/entrar" className="text-primary hover:underline">
           Entrar
         </Link>
       </p>

@@ -93,7 +93,7 @@ export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
   const signInHref =
     variant === "desktop" ? "/entrar" : "/entrar";
   const signUpHref = "/cadastrar";
-  const wishlistHref = "/entrar?callbackUrl=/dashboard";
+  const wishlistHref = "/entrar";
 
   return (
     <div
