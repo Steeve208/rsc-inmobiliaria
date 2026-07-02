@@ -12,6 +12,20 @@ import { updateSession } from "./utils/supabase/middleware";
 
 const intlMiddleware = createMiddleware(routing);
 
+function getLocaleFromRequest(request: NextRequest) {
+  const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
+  if (cookieLocale && routing.locales.includes(cookieLocale as "en" | "es" | "pt")) {
+    return cookieLocale;
+  }
+
+  const acceptLanguage = request.headers.get("accept-language")?.toLowerCase() ?? "";
+  for (const locale of routing.locales) {
+    if (acceptLanguage.includes(locale)) return locale;
+  }
+
+  return routing.defaultLocale;
+}
+
 const protectedPathPattern =
   /^\/(en|es|pt)\/(dashboard|favoritos|empresa\/painel)(\/|$)/;
 const authPathPattern = /^\/(en|es|pt)\/(entrar|cadastrar)(\/|$)/;
@@ -19,6 +33,14 @@ const authPathPattern = /^\/(en|es|pt)\/(entrar|cadastrar)(\/|$)/;
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const sessionCookie = getSessionCookie(request);
+
+  if (pathname === "/dashboard" || pathname.startsWith("/dashboard/")) {
+    const locale = getLocaleFromRequest(request);
+    return updateSession(
+      request,
+      NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url)),
+    );
+  }
 
   if (protectedPathPattern.test(pathname) && !sessionCookie) {
     const locale = pathname.split("/")[1] ?? routing.defaultLocale;
@@ -47,5 +69,5 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/(en|es|pt)/:path*"],
+  matcher: ["/", "/dashboard", "/dashboard/:path*", "/(en|es|pt)/:path*"],
 };

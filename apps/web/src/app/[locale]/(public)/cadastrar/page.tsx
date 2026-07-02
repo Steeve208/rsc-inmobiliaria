@@ -17,7 +17,7 @@ export default async function SignUpPage({ params, searchParams }: Props) {
       <div className="mb-8">
         <Logo />
       </div>
-      <AuthForm mode="signUp" callbackUrl={callbackUrl ?? "/dashboard"} />
+      <AuthForm mode="signUp" callbackUrl={callbackUrl} />
     </div>
   );
 }

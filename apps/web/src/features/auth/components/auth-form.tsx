@@ -17,7 +17,7 @@ type Props = {
 export function AuthForm({ mode, callbackUrl }: Props) {
   const t = useTranslations("auth");
   const locale = useLocale();
-  const resolvedCallbackUrl = callbackUrl ?? `/${locale}/dashboard`;
+  const resolvedCallbackUrl = normalizeCallbackUrl(callbackUrl, locale);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -192,6 +192,14 @@ export function AuthForm({ mode, callbackUrl }: Props) {
       </p>
     </div>
   );
+}
+
+function normalizeCallbackUrl(callbackUrl: string | undefined, locale: string) {
+  if (!callbackUrl) return `/${locale}/dashboard`;
+  if (callbackUrl === "/dashboard" || callbackUrl.startsWith("/dashboard/")) {
+    return `/${locale}${callbackUrl}`;
+  }
+  return callbackUrl;
 }
 
 function GoogleIcon({ className }: { className?: string }) {
