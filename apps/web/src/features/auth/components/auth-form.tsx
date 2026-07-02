@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { Link } from "@/lib/i18n/routing";
 import { authClient } from "@/lib/auth-client";
@@ -14,8 +14,10 @@ type Props = {
   callbackUrl?: string;
 };
 
-export function AuthForm({ mode, callbackUrl = "/dashboard" }: Props) {
+export function AuthForm({ mode, callbackUrl }: Props) {
   const t = useTranslations("auth");
+  const locale = useLocale();
+  const resolvedCallbackUrl = callbackUrl ?? `/${locale}/dashboard`;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +38,7 @@ export function AuthForm({ mode, callbackUrl = "/dashboard" }: Props) {
           name,
           email,
           password,
-          callbackURL: callbackUrl,
+          callbackURL: resolvedCallbackUrl,
         });
 
         if (result.error) {
@@ -47,7 +49,7 @@ export function AuthForm({ mode, callbackUrl = "/dashboard" }: Props) {
         const result = await authClient.signIn.email({
           email,
           password,
-          callbackURL: callbackUrl,
+          callbackURL: resolvedCallbackUrl,
         });
 
         if (result.error) {
@@ -69,7 +71,7 @@ export function AuthForm({ mode, callbackUrl = "/dashboard" }: Props) {
     try {
       await authClient.signIn.social({
         provider: "google",
-        callbackURL: callbackUrl,
+        callbackURL: resolvedCallbackUrl,
       });
     } catch {
       setError(t("errors.google"));
