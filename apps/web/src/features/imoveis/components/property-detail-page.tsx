@@ -28,6 +28,7 @@ import { Link } from "@/lib/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ListingContactPanel } from "@/features/contact";
+import { useFavoriteButton } from "@/hooks/use-favorites";
 import { PropertyMap } from "./property-map";
 import { PropertyCard } from "./property-card";
 import type { PropertyDetail, PropertyListing } from "../types";
@@ -60,6 +61,10 @@ function typeBreadcrumb(type: string) {
 
 export function PropertyDetailPage({ property, similar }: Props) {
   const t = useTranslations("imoveis.detail");
+  const { active: isFavorite, handleClick: handleFavoriteClick } = useFavoriteButton(
+    "property",
+    property.id,
+  );
   const [activeImage, setActiveImage] = useState(0);
   const [mediaTab, setMediaTab] = useState<(typeof mediaTabs)[number]>("photos");
   const [expandedDesc, setExpandedDesc] = useState(false);
@@ -177,9 +182,15 @@ export function PropertyDetailPage({ property, similar }: Props) {
           </button>
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-lg bg-[#111d2f] px-4 py-2 text-sm text-white/80 transition-colors hover:bg-white/5"
+            onClick={handleFavoriteClick}
+            className={cn(
+              "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition-colors",
+              isFavorite
+                ? "bg-[#d4a017] text-[#000a1a]"
+                : "bg-[#111d2f] text-white/80 hover:bg-white/5",
+            )}
           >
-            <Heart className="size-4" />
+            <Heart className={cn("size-4", isFavorite && "fill-current")} />
             {t("save")}
           </button>
           <button

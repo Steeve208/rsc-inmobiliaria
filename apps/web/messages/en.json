@@ -28,6 +28,12 @@
       "submit": "Search"
     }
   },
+  "favorites": {
+    "title": "My favorites",
+    "subtitle": "Properties and vehicles you saved",
+    "empty": "You haven't saved any favorites yet.",
+    "signIn": "Sign in"
+  },
   "auth": {
     "continueWithGoogle": "Continue with Google",
     "orContinueWithEmail": "or continue with email",

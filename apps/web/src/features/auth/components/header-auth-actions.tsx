@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Heart, LogOut, User } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { authClient } from "@/lib/auth-client";
+import { useFavorites } from "@/hooks/use-favorites";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -14,6 +15,7 @@ type Props = {
 export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
   const t = useTranslations("nav");
   const { data: session, isPending } = authClient.useSession();
+  const { count } = useFavorites();
 
   if (isPending) {
     return (
@@ -40,14 +42,19 @@ export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
         )}
       >
         <Link
-          href="/dashboard"
+          href="/favoritos"
           className={cn(
-            "inline-flex rounded-md p-2 text-white/90 transition-colors hover:bg-white/5 hover:text-white",
+            "relative inline-flex rounded-md p-2 text-white/90 transition-colors hover:bg-white/5 hover:text-white",
             variant === "mobile" && "w-full justify-center border border-white/10 py-2.5",
           )}
           aria-label={t("wishlist")}
         >
           <Heart className="size-5" strokeWidth={1.5} />
+          {count > 0 && (
+            <span className="absolute -right-0.5 -top-0.5 flex size-4 items-center justify-center rounded-full bg-[#d4a017] text-[10px] font-bold text-[#000a1a]">
+              {count > 9 ? "9+" : count}
+            </span>
+          )}
           {variant === "mobile" && (
             <span className="ml-2 text-sm font-medium">{t("wishlist")}</span>
           )}

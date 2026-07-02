@@ -3,6 +3,7 @@
 import { QueryProvider } from "./query-provider";
 import { ThemeProvider } from "./theme-provider";
 import { MarketProvider } from "./market-provider";
+import { FavoritesProvider } from "./favorites-provider";
 import type { MarketId } from "@/lib/markets/types";
 
 type Props = {
@@ -23,7 +24,7 @@ export function Providers({
           initialMarketId={initialMarketId}
           initialConfirmed={initialMarketConfirmed}
         >
-          {children}
+          <FavoritesProvider>{children}</FavoritesProvider>
         </MarketProvider>
       </ThemeProvider>
     </QueryProvider>

@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
+import { useFavoriteButton } from "@/hooks/use-favorites";
 import { VehicleMap } from "./vehicle-map";
 import { VehicleCard } from "./vehicle-card";
 import { ListingContactPanel } from "@/features/contact";
@@ -46,6 +47,10 @@ function formatPrice(price: number, currency: string, fractionDigits = 0) {
 export function VehicleDetailPage({ vehicle, similar }: Props) {
   const t = useTranslations("veiculos.detail");
   const tc = useTranslations("veiculos.categories");
+  const { active: isFavorite, handleClick: handleFavoriteClick } = useFavoriteButton(
+    "vehicle",
+    vehicle.id,
+  );
   const [activeImage, setActiveImage] = useState(0);
   const [mediaTab, setMediaTab] = useState<(typeof mediaTabs)[number]>("photos");
   const [expandedDesc, setExpandedDesc] = useState(false);
@@ -116,9 +121,15 @@ export function VehicleDetailPage({ vehicle, similar }: Props) {
           </button>
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-lg bg-[#111d2f] px-4 py-2 text-sm text-white/80 transition-colors hover:bg-white/5"
+            onClick={handleFavoriteClick}
+            className={cn(
+              "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition-colors",
+              isFavorite
+                ? "bg-[#d4a017] text-[#000a1a]"
+                : "bg-[#111d2f] text-white/80 hover:bg-white/5",
+            )}
           >
-            <Heart className="size-4" />
+            <Heart className={cn("size-4", isFavorite && "fill-current")} />
             {t("save")}
           </button>
           <button

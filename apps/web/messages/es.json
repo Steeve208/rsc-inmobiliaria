@@ -28,6 +28,12 @@
       "submit": "Buscar"
     }
   },
+  "favorites": {
+    "title": "Mis favoritos",
+    "subtitle": "Inmuebles y vehículos que guardaste",
+    "empty": "Aún no has guardado ningún favorito.",
+    "signIn": "Iniciar sesión"
+  },
   "auth": {
     "continueWithGoogle": "Continuar con Google",
     "orContinueWithEmail": "o continúa con correo",

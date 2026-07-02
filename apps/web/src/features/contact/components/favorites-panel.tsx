@@ -10,7 +10,7 @@ import type { PropertyListing } from "@/features/imoveis/types";
 import type { VehicleListing } from "@/features/veiculos/types";
 
 export function FavoritesPanel() {
-  const t = useTranslations("veiculos.dashboard");
+  const t = useTranslations("favorites");
   const { favorites, loading, isLoggedIn } = useFavorites();
   const [properties, setProperties] = useState<PropertyListing[]>([]);
   const [vehicles, setVehicles] = useState<VehicleListing[]>([]);
@@ -48,9 +48,9 @@ export function FavoritesPanel() {
   if (!isLoggedIn) {
     return (
       <p className="text-muted-foreground">
-        {t("favoritesEmpty")}{" "}
+        {t("empty")}{" "}
         <Link href="/entrar" className="text-primary hover:underline">
-          Entrar
+          {t("signIn")}
         </Link>
       </p>
     );
@@ -62,7 +62,7 @@ export function FavoritesPanel() {
 
   const total = properties.length + vehicles.length;
   if (total === 0) {
-    return <p className="text-muted-foreground">{t("favoritesEmpty")}</p>;
+    return <p className="text-muted-foreground">{t("empty")}</p>;
   }
 
   return (
