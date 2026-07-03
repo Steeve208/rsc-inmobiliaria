@@ -20,8 +20,8 @@ node_modules
 # production
 /build
 
-# misc
-.DS_Store
+# local listing uploads (dev fallback when Supabase Storage is not configured)
+apps/web/public/uploads/
 *.pem
 
 # debug

@@ -634,7 +634,8 @@
         "photos": "Fotos",
         "video": "Vídeo",
         "tour": "Tour 360°",
-        "floorPlan": "Planta"
+        "floorPlan": "Planta",
+        "noVideo": "Este imóvel ainda não tem vídeo."
       },
       "featuresTitle": "Características",
       "builtArea": "Área construída",
@@ -970,6 +971,7 @@
       "tabs": {
         "visits": "Visitas agendadas",
         "chats": "Chats RSC",
+        "listings": "Anúncios",
         "config": "WhatsApp"
       },
       "visits": {
@@ -996,6 +998,51 @@
         "hint": "Exemplo: 5554999887766 para Brasil (+55 54 99988-7766)",
         "save": "Salvar configuração",
         "saved": "Salvo!"
+      },
+      "listings": {
+        "loading": "Carregando anúncios...",
+        "title": "Seus imóveis",
+        "new": "Novo",
+        "emptyTitle": "Nenhum anúncio ainda",
+        "emptyBody": "Crie um anúncio e envie fotos e vídeos para publicar.",
+        "selectPrompt": "Selecione um anúncio para gerenciar fotos e vídeos.",
+        "createTitle": "Novo anúncio",
+        "createSubmit": "Criar anúncio",
+        "createError": "Não foi possível criar o anúncio.",
+        "uploadError": "Falha ao enviar arquivo.",
+        "videoError": "Não foi possível salvar o vídeo.",
+        "saving": "Salvando...",
+        "back": "Voltar",
+        "viewPublic": "Ver anúncio",
+        "photosTitle": "Fotos",
+        "addPhotos": "Adicionar fotos",
+        "noPhotos": "Nenhuma foto enviada ainda.",
+        "removePhoto": "Remover foto",
+        "photoCount": "{count} fotos",
+        "hasVideo": "com vídeo",
+        "videoTitle": "Vídeo",
+        "uploadVideo": "Enviar arquivo de vídeo (MP4, WebM)",
+        "videoUrlPlaceholder": "Ou cole link do YouTube / Vimeo",
+        "saveVideoUrl": "Salvar link",
+        "videoSaved": "Vídeo configurado",
+        "fields": {
+          "title": "Título",
+          "type": "Tipo",
+          "transaction": "Transação",
+          "price": "Preço",
+          "city": "Cidade",
+          "description": "Descrição"
+        },
+        "types": {
+          "house": "Casa",
+          "apartment": "Apartamento",
+          "land": "Terreno",
+          "commercial": "Comercial"
+        },
+        "transactions": {
+          "buy": "Venda",
+          "rent": "Aluguel"
+        }
       }
     }
   }

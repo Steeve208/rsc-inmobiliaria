@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Calendar, MessageCircle, Save } from "lucide-react";
+import { Calendar, MessageCircle, Save, Building2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,7 @@ import {
 import type { ChatThread, CompanyLeadConfig, ScheduledVisit } from "@/lib/leads/types";
 import { mergeChatThread, useChatThreadPolling } from "@/hooks/use-chat-thread-polling";
 import { cn } from "@/lib/utils";
+import { CompanyListingsPanel } from "@/features/para-empresas/components/company-listings-panel";
 
 type Props = {
   companyId: string;
@@ -30,7 +31,7 @@ const statusStyles: Record<ScheduledVisit["status"], string> = {
 
 export function CompanyLeadsPanel({ companyId, companyName }: Props) {
   const t = useTranslations("contact.company");
-  const [tab, setTab] = useState<"visits" | "chats" | "config">("visits");
+  const [tab, setTab] = useState<"visits" | "chats" | "listings" | "config">("visits");
   const [visits, setVisits] = useState<ScheduledVisit[]>([]);
   const [threads, setThreads] = useState<ChatThread[]>([]);
   const [config, setConfig] = useState<CompanyLeadConfig>({
@@ -104,24 +105,27 @@ export function CompanyLeadsPanel({ companyId, companyName }: Props) {
       </div>
 
       <nav className="flex flex-wrap gap-2">
-        {(["visits", "chats", "config"] as const).map((item) => (
+        {(["visits", "chats", "listings", "config"] as const).map((item) => (
           <button
             key={item}
             type="button"
             onClick={() => setTab(item)}
             className={cn(
-              "rounded-lg px-4 py-2 text-sm font-medium transition-colors",
+              "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
               tab === item
                 ? "bg-[#d4a017] text-[#000a1a]"
                 : "bg-white/10 text-white/70 hover:bg-white/15",
             )}
           >
+            {item === "listings" ? <Building2 className="size-4" /> : null}
             {t(`tabs.${item}`)}
           </button>
         ))}
       </nav>
 
-      {loading ? <p className="text-white/50">{t("loading")}</p> : null}
+      {loading && tab !== "listings" ? <p className="text-white/50">{t("loading")}</p> : null}
+
+      {tab === "listings" ? <CompanyListingsPanel companyId={companyId} /> : null}
 
       {!loading && tab === "visits" ? (
         visits.length === 0 ? (

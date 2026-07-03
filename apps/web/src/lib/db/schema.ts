@@ -284,6 +284,7 @@ export const propertyListing = pgTable(
     launch: boolean("launch").default(false).notNull(),
     whatsappNumber: text("whatsapp_number"),
     coverImage: text("cover_image"),
+    videoUrl: text("video_url"),
     description: text("description"),
     publishedAt: timestamp("published_at"),
     createdAt: timestamp("created_at").defaultNow().notNull(),

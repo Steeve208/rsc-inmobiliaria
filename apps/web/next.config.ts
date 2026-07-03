@@ -12,6 +12,17 @@ const supabaseKey =
   process.env.SUPABASE_PUBLISHABLE_KEY ??
   process.env.SUPABASE_ANON_KEY;
 
+function supabaseStorageHostname() {
+  if (!supabaseUrl) return null;
+  try {
+    return new URL(supabaseUrl).hostname;
+  } catch {
+    return null;
+  }
+}
+
+const storageHost = supabaseStorageHostname();
+
 const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_SUPABASE_URL: supabaseUrl,
@@ -24,6 +35,9 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      ...(storageHost
+        ? [{ protocol: "https" as const, hostname: storageHost, pathname: "/storage/v1/object/public/**" }]
+        : []),
     ],
   },
 };

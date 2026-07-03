@@ -48,6 +48,7 @@ export type PropertyListing = ListingItem & {
   bathrooms?: number;
   premium?: boolean;
   launch?: boolean;
+  videoUrl?: string;
 };
 
 export type PropertyAgent = {

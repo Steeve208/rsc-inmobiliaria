@@ -29,6 +29,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ListingContactPanel } from "@/features/contact";
 import { useFavoriteButton } from "@/hooks/use-favorites";
+import { isDirectVideoUrl, toVideoEmbedUrl } from "@/lib/storage/listing-media";
 import { PropertyMap } from "./property-map";
 import { PropertyCard } from "./property-card";
 import type { PropertyDetail, PropertyListing } from "../types";
@@ -121,6 +122,7 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
   const thumbnails = property.images.slice(0, 4);
   const totalPhotos = property.images.length;
   const heroImage = property.images[activeImage] ?? property.images[0] ?? property.image;
+  const videoSrc = property.videoUrl ? toVideoEmbedUrl(property.videoUrl) : "";
 
   const prevImage = () =>
     setActiveImage((i) => (i === 0 ? property.images.length - 1 : i - 1));
@@ -208,8 +210,10 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
       <div className="grid gap-8 xl:grid-cols-[1fr_360px]">
         {/* Main column */}
         <div className="min-w-0 space-y-8">
-          {/* Gallery */}
+          {/* Gallery / video */}
           <section>
+            {mediaTab === "photos" && (
+              <>
             <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
               <Image
                 src={heroImage}
@@ -277,6 +281,34 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
                 </button>
               ) : null}
             </div>
+              </>
+            )}
+
+            {mediaTab === "video" && videoSrc && (
+              <div className="aspect-video overflow-hidden rounded-xl bg-black">
+                {isDirectVideoUrl(videoSrc) ? (
+                  <video
+                    src={videoSrc}
+                    controls
+                    className="size-full object-contain"
+                    playsInline
+                  />
+                ) : (
+                  <iframe
+                    src={videoSrc}
+                    title={property.title}
+                    className="size-full"
+                    allowFullScreen
+                  />
+                )}
+              </div>
+            )}
+
+            {mediaTab === "video" && !videoSrc && (
+              <div className="flex aspect-video items-center justify-center rounded-xl bg-[#111d2f]/60 text-sm text-white/50">
+                {t("media.noVideo")}
+              </div>
+            )}
 
             <div className="mt-4 flex flex-wrap gap-2">
               {mediaTabs.map((tab) => (

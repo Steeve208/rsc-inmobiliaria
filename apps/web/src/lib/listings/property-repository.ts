@@ -149,6 +149,7 @@ export async function getPropertyDetail(id: string): Promise<PropertyDetail | un
       heating: row.property.heating ?? "",
       yearBuilt: row.property.yearBuilt ?? 0,
       description: row.property.description?.trim() ?? "",
+      videoUrl: row.property.videoUrl ?? undefined,
       agent: ag
         ? {
             name: ag.name,

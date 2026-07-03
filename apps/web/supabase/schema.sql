@@ -239,6 +239,7 @@ CREATE TABLE IF NOT EXISTS "property_listing" (
   "launch"         boolean NOT NULL DEFAULT false,
   "whatsapp_number" text,
   "cover_image"    text,
+  "video_url"      text,
   "description"    text,
   "published_at"   timestamp,
   "created_at"     timestamp NOT NULL DEFAULT now(),

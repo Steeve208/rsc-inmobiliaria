@@ -634,7 +634,8 @@
         "photos": "Photos",
         "video": "Video",
         "tour": "360° Tour",
-        "floorPlan": "Floor plan"
+        "floorPlan": "Floor plan",
+        "noVideo": "This property has no video yet."
       },
       "featuresTitle": "Features",
       "builtArea": "Built area",
@@ -970,6 +971,7 @@
       "tabs": {
         "visits": "Scheduled visits",
         "chats": "RSC chats",
+        "listings": "Listings",
         "config": "WhatsApp"
       },
       "visits": {
@@ -996,6 +998,51 @@
         "hint": "Example: 5554999887766 for Brazil (+55 54 99988-7766)",
         "save": "Save settings",
         "saved": "Saved!"
+      },
+      "listings": {
+        "loading": "Loading listings...",
+        "title": "Your properties",
+        "new": "New",
+        "emptyTitle": "No listings yet",
+        "emptyBody": "Create a listing and upload photos and videos to publish.",
+        "selectPrompt": "Select a listing to manage photos and videos.",
+        "createTitle": "New listing",
+        "createSubmit": "Create listing",
+        "createError": "Could not create listing.",
+        "uploadError": "Upload failed.",
+        "videoError": "Could not save video.",
+        "saving": "Saving...",
+        "back": "Back",
+        "viewPublic": "View listing",
+        "photosTitle": "Photos",
+        "addPhotos": "Add photos",
+        "noPhotos": "No photos uploaded yet.",
+        "removePhoto": "Remove photo",
+        "photoCount": "{count} photos",
+        "hasVideo": "with video",
+        "videoTitle": "Video",
+        "uploadVideo": "Upload video file (MP4, WebM)",
+        "videoUrlPlaceholder": "Or paste YouTube / Vimeo link",
+        "saveVideoUrl": "Save link",
+        "videoSaved": "Video configured",
+        "fields": {
+          "title": "Title",
+          "type": "Type",
+          "transaction": "Transaction",
+          "price": "Price",
+          "city": "City",
+          "description": "Description"
+        },
+        "types": {
+          "house": "House",
+          "apartment": "Apartment",
+          "land": "Land",
+          "commercial": "Commercial"
+        },
+        "transactions": {
+          "buy": "Sale",
+          "rent": "Rent"
+        }
       }
     }
   }
