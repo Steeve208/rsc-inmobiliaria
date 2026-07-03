@@ -7,13 +7,7 @@ import {
   vehicleListing,
 } from "@/lib/db/schema";
 import type { VehicleDetail, VehicleListing } from "@/features/veiculos/types";
-import {
-  enrichVehicle,
-  getVehicleDetail as mockGetVehicleDetail,
-  getSimilarVehicles as mockGetSimilar,
-  vehicleListings as mockListings,
-  vehicleMakes as mockMakes,
-} from "@/features/veiculos/mock-data";
+import { enrichVehicle } from "@/features/veiculos/mock-data";
 import { slugifyCompanyId } from "@/lib/leads/utils";
 
 type VehicleRow = typeof vehicleListing.$inferSelect;
@@ -73,12 +67,11 @@ export async function listVehicles(): Promise<VehicleListing[]> {
       .where(eq(vehicleListing.status, "active"))
       .orderBy(desc(vehicleListing.publishedAt));
 
-    if (rows.length === 0) return mockListings;
     return rows.map(({ vehicle, company: co }) =>
       mapListing(vehicle, co?.name ?? vehicle.companyId ?? "Concessionária"),
     );
   } catch {
-    return mockListings;
+    return [];
   }
 }
 
@@ -91,10 +84,10 @@ export async function getVehicleById(id: string): Promise<VehicleListing | undef
       .where(eq(vehicleListing.id, id))
       .limit(1);
 
-    if (!row) return mockListings.find((v) => v.id === id);
+    if (!row) return undefined;
     return mapListing(row.vehicle, row.company?.name ?? "Concessionária");
   } catch {
-    return mockListings.find((v) => v.id === id);
+    return undefined;
   }
 }
 
@@ -108,7 +101,7 @@ export async function getVehicleDetail(id: string): Promise<VehicleDetail | unde
       .where(eq(vehicleListing.id, id))
       .limit(1);
 
-    if (!row) return mockGetVehicleDetail(id);
+    if (!row) return undefined;
 
     const base = mapListing(row.vehicle, row.company?.name ?? "Concessionária");
     const images = await fetchImages(id);
@@ -161,7 +154,7 @@ export async function getVehicleDetail(id: string): Promise<VehicleDetail | unde
       dealershipReviews: co?.reviewsCount ?? 124,
     };
   } catch {
-    return mockGetVehicleDetail(id);
+    return undefined;
   }
 }
 
@@ -172,12 +165,12 @@ export async function getSimilarVehicles(
   try {
     const all = await listVehicles();
     const base = all.find((v) => v.id === id);
-    if (!base) return mockGetSimilar(id, limit);
+    if (!base) return [];
     return all
       .filter((v) => v.id !== id && (v.type === base.type || v.make === base.make))
       .slice(0, limit);
   } catch {
-    return mockGetSimilar(id, limit);
+    return [];
   }
 }
 
@@ -202,10 +195,10 @@ export async function getVehicleMakes(): Promise<string[]> {
       .selectDistinct({ make: vehicleListing.make })
       .from(vehicleListing)
       .where(eq(vehicleListing.status, "active"));
-    if (rows.length === 0) return mockMakes;
+    if (rows.length === 0) return [];
     return rows.map((r) => r.make).sort();
   } catch {
-    return mockMakes;
+    return [];
   }
 }
 

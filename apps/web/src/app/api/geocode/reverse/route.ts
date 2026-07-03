@@ -1,4 +1,7 @@
+import { cookies } from "next/headers";
 import { parseNominatimResult } from "@/lib/geocoding/parse-osm";
+import { getMarketOrDefault, isMarketId } from "@/lib/markets/config";
+import { MARKET_COOKIE } from "@/lib/markets/constants";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -9,12 +12,16 @@ export async function GET(request: Request) {
     return Response.json({ error: "missing_coords" }, { status: 400 });
   }
 
+  const cookieStore = await cookies();
+  const marketCookie = cookieStore.get(MARKET_COOKIE)?.value;
+  const market = getMarketOrDefault(isMarketId(marketCookie) ? marketCookie : null);
+
   const params = new URLSearchParams({
     lat,
     lon: lng,
     format: "json",
     addressdetails: "1",
-    "accept-language": "pt",
+    "accept-language": market.geocodeLang,
   });
 
   try {

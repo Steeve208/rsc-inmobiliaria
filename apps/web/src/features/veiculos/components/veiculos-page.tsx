@@ -3,6 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import {
+  hasLocationSearchParams,
+  parseLocationSearchParams,
+} from "@/lib/geocoding/url-params";
 import { SearchHeader } from "./search-header";
 import { CategoriesBar } from "./categories-bar";
 import { FeaturedSection } from "./featured-section";
@@ -30,7 +34,6 @@ export function VeiculosPage() {
   } = useVeiculosState();
 
   const searchParams = useSearchParams();
-  const initialQuery = searchParams.get("q");
   const appliedFromUrl = useRef(false);
   const [premium, setPremium] = useState<VehicleListing[]>([]);
   const [recommended, setRecommended] = useState<VehicleListing[]>([]);
@@ -46,12 +49,21 @@ export function VeiculosPage() {
   }, []);
 
   useEffect(() => {
-    if (!initialQuery || appliedFromUrl.current) return;
+    if (appliedFromUrl.current || !hasLocationSearchParams(searchParams)) return;
     appliedFromUrl.current = true;
-    const next = { ...defaultVeiculosFilters, query: initialQuery };
-    updateFilters({ query: initialQuery });
-    applySearch(next);
-  }, [initialQuery, updateFilters, applySearch]);
+
+    const fromUrl = parseLocationSearchParams(searchParams);
+    applySearch({
+      ...defaultVeiculosFilters,
+      city: fromUrl.city,
+      state: fromUrl.state,
+      locationLabel: fromUrl.locationLabel,
+      lat: fromUrl.lat,
+      lng: fromUrl.lng,
+      query: fromUrl.query,
+      type: (fromUrl.type || "") as VehicleCategory | "",
+    });
+  }, [searchParams, applySearch]);
 
   return (
     <>

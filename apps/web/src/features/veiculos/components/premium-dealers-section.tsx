@@ -1,13 +1,33 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ShieldCheck, Star } from "lucide-react";
 import { marketplace } from "@/lib/layout/marketplace";
-import { premiumDealerships } from "../mock-data";
+
+type Dealer = {
+  id: string;
+  name: string;
+  logo: string;
+  listings: number;
+  verified: boolean;
+  rating: number;
+  city: string;
+};
 
 export function PremiumDealersSection() {
   const t = useTranslations("veiculos.dealers");
+  const [dealers, setDealers] = useState<Dealer[]>([]);
+
+  useEffect(() => {
+    fetch("/api/companies")
+      .then((r) => r.json())
+      .then((data: Dealer[]) => setDealers(data))
+      .catch(() => setDealers([]));
+  }, []);
+
+  if (dealers.length === 0) return null;
 
   return (
     <section className="market-section">
@@ -21,7 +41,7 @@ export function PremiumDealersSection() {
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-          {premiumDealerships.map((dealer) => (
+          {dealers.map((dealer) => (
             <article
               key={dealer.id}
               className="group overflow-hidden rounded-2xl bg-[#081128]/60 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#081128]/80 hover:shadow-xl hover:shadow-black/20"
@@ -51,7 +71,7 @@ export function PremiumDealersSection() {
                   </span>
                   <span className="inline-flex items-center gap-1 text-xs text-[#d4a017]">
                     <Star className="size-3 fill-current" />
-                    4.8
+                    {dealer.rating.toFixed(1)}
                   </span>
                 </div>
               </div>

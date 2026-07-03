@@ -3,6 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import {
+  hasLocationSearchParams,
+  parseLocationSearchParams,
+} from "@/lib/geocoding/url-params";
 import { SearchHeader } from "./search-header";
 import { CategoriesBar } from "./categories-bar";
 import { SplitMapList } from "./split-map-list";
@@ -28,7 +32,6 @@ export function ImoveisPage() {
   } = useImoveisState();
 
   const searchParams = useSearchParams();
-  const initialQuery = searchParams.get("q");
   const appliedFromUrl = useRef(false);
   const [premium, setPremium] = useState<PropertyListing[]>([]);
   const [recommended, setRecommended] = useState<PropertyListing[]>([]);
@@ -47,12 +50,23 @@ export function ImoveisPage() {
   }, []);
 
   useEffect(() => {
-    if (!initialQuery || appliedFromUrl.current) return;
+    if (appliedFromUrl.current || !hasLocationSearchParams(searchParams)) return;
     appliedFromUrl.current = true;
-    const next = { ...defaultImoveisFilters, query: initialQuery };
-    updateFilters({ query: initialQuery });
-    applySearch(next);
-  }, [initialQuery, updateFilters, applySearch]);
+
+    const fromUrl = parseLocationSearchParams(searchParams);
+    applySearch({
+      ...defaultImoveisFilters,
+      city: fromUrl.city,
+      state: fromUrl.state,
+      neighborhood: fromUrl.neighborhood,
+      country: fromUrl.country,
+      locationLabel: fromUrl.locationLabel,
+      lat: fromUrl.lat,
+      lng: fromUrl.lng,
+      query: fromUrl.query,
+      type: (fromUrl.type || "") as typeof defaultImoveisFilters.type,
+    });
+  }, [searchParams, applySearch]);
 
   return (
     <>

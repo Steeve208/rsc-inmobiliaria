@@ -13,6 +13,7 @@ import {
   setBuyerName,
 } from "@/lib/leads/client";
 import { useBuyerIdentity } from "@/hooks/use-buyer-identity";
+import { mergeChatThread, useChatThreadPolling } from "@/hooks/use-chat-thread-polling";
 import type { ChatThread, ListingContactContext } from "@/lib/leads/types";
 import { cn } from "@/lib/utils";
 
@@ -54,6 +55,10 @@ export function RscChatModal({ open, onClose, listing }: Props) {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [thread?.messages.length]);
+
+  useChatThreadPolling(thread?.id, open && !!thread?.id, (updated) => {
+    setThread((current) => mergeChatThread(current, updated));
+  });
 
   if (!open) return null;
 

@@ -14,6 +14,7 @@ import {
   sendChatMessage,
 } from "@/lib/leads/client";
 import type { ChatThread, CompanyLeadConfig, ScheduledVisit } from "@/lib/leads/types";
+import { mergeChatThread, useChatThreadPolling } from "@/hooks/use-chat-thread-polling";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -38,6 +39,7 @@ export function CompanyLeadsPanel({ companyId, companyName }: Props) {
     whatsappNumber: "",
   });
   const [replyDrafts, setReplyDrafts] = useState<Record<string, string>>({});
+  const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -64,6 +66,18 @@ export function CompanyLeadsPanel({ companyId, companyName }: Props) {
     loadData();
   }, [companyId]);
 
+  useChatThreadPolling(
+    activeThreadId,
+    tab === "chats" && !loading && !!activeThreadId,
+    (updated) => {
+      setThreads((current) =>
+        current.map((thread) =>
+          thread.id === updated.id ? mergeChatThread(thread, updated) : thread,
+        ),
+      );
+    },
+  );
+
   async function handleSaveConfig(event: React.FormEvent) {
     event.preventDefault();
     await saveCompanyConfig(config);
@@ -75,9 +89,11 @@ export function CompanyLeadsPanel({ companyId, companyName }: Props) {
     const text = replyDrafts[threadId]?.trim();
     if (!text) return;
 
-    await sendChatMessage({ threadId, sender: "company", text });
+    const updated = await sendChatMessage({ threadId, sender: "company", text });
     setReplyDrafts((current) => ({ ...current, [threadId]: "" }));
-    await loadData();
+    setThreads((current) =>
+      current.map((thread) => (thread.id === updated.id ? updated : thread)),
+    );
   }
 
   return (
@@ -159,7 +175,14 @@ export function CompanyLeadsPanel({ companyId, companyName }: Props) {
         ) : (
           <section className="space-y-4">
             {threads.map((thread) => (
-              <article key={thread.id} className="rounded-xl bg-white/5 p-4">
+              <article
+                key={thread.id}
+                className={cn(
+                  "rounded-xl bg-white/5 p-4",
+                  activeThreadId === thread.id && "ring-1 ring-[#d4a017]/40",
+                )}
+                onClick={() => setActiveThreadId(thread.id)}
+              >
                 <div className="mb-3">
                   <p className="font-medium text-white">{thread.listingTitle}</p>
                   <p className="text-sm text-white/50">
@@ -184,6 +207,7 @@ export function CompanyLeadsPanel({ companyId, companyName }: Props) {
                 <div className="flex gap-2">
                   <Input
                     value={replyDrafts[thread.id] ?? ""}
+                    onFocus={() => setActiveThreadId(thread.id)}
                     onChange={(e) =>
                       setReplyDrafts((current) => ({
                         ...current,

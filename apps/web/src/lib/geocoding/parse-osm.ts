@@ -1,4 +1,4 @@
-import { brazilStates } from "@/features/imoveis/mock-data";
+import { brazilStates } from "@/lib/listings/regions";
 import { markets } from "@/lib/markets/config";
 import type { ResolvedLocation } from "./types";
 

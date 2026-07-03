@@ -9,9 +9,6 @@ import {
 import type { PropertyDetail, PropertyListing } from "@/features/imoveis/types";
 import {
   enrichProperty,
-  getPropertyDetail as mockGetPropertyDetail,
-  getSimilarProperties as mockGetSimilar,
-  propertyListings as mockListings,
 } from "@/features/imoveis/mock-data";
 import { slugifyCompanyId } from "@/lib/leads/utils";
 
@@ -77,12 +74,11 @@ async function fetchActiveProperties() {
 export async function listProperties(): Promise<PropertyListing[]> {
   try {
     const rows = await fetchActiveProperties();
-    if (rows.length === 0) return mockListings;
     return rows.map(({ property, company: co }) =>
       mapListing(property, co?.name ?? property.companyId ?? "RSC"),
     );
   } catch {
-    return mockListings;
+    return [];
   }
 }
 
@@ -95,10 +91,10 @@ export async function getPropertyById(id: string): Promise<PropertyListing | und
       .where(eq(propertyListing.id, id))
       .limit(1);
 
-    if (!row) return mockListings.find((p) => p.id === id);
+    if (!row) return undefined;
     return mapListing(row.property, row.company?.name ?? "RSC");
   } catch {
-    return mockListings.find((p) => p.id === id);
+    return undefined;
   }
 }
 
@@ -112,7 +108,7 @@ export async function getPropertyDetail(id: string): Promise<PropertyDetail | un
       .where(eq(propertyListing.id, id))
       .limit(1);
 
-    if (!row) return mockGetPropertyDetail(id);
+    if (!row) return undefined;
 
     const base = mapListing(row.property, row.company?.name ?? "RSC");
     const images = await fetchImages(id);
@@ -158,7 +154,7 @@ export async function getPropertyDetail(id: string): Promise<PropertyDetail | un
       agencyReviews: co?.reviewsCount ?? 98,
     };
   } catch {
-    return mockGetPropertyDetail(id);
+    return undefined;
   }
 }
 
@@ -170,7 +166,7 @@ export async function getSimilarProperties(
     const all = await listProperties();
     return all.filter((p) => p.id !== id).slice(0, limit);
   } catch {
-    return mockGetSimilar(id, limit);
+    return [];
   }
 }
 

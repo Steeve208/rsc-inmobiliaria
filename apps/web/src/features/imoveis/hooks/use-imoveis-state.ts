@@ -8,7 +8,8 @@ import {
   type MapNavigation,
   type PropertyListing,
 } from "../types";
-import { parseAiQuery } from "../mock-data";
+import { parsePropertyAiQuery } from "@/lib/listings/parse-ai-query";
+import { resolveSearchLocationFromQuery } from "@/lib/geocoding/resolve-search-location";
 import { filterProperties } from "@/lib/listings/filters";
 import { brazilStates, worldRegions } from "@/lib/listings/regions";
 import { haversineKm } from "@/lib/geocoding/geo-utils";
@@ -138,28 +139,30 @@ export function useImoveisState() {
 
   const runAiSearch = useCallback(async (query: string) => {
     setAiLoading(true);
-    await new Promise((r) => setTimeout(r, 800));
-    const parsed = parseAiQuery(query);
-    const next: ImoveisFilters = {
-      ...defaultImoveisFilters,
-      ...parsed,
-      state: "RS",
-      city: "Bento Gonçalves",
-      locationLabel: "Bento Gonçalves, RS, Brasil",
-      lat: -29.1714,
-      lng: -51.5192,
-    };
-    setFilters(next);
-    setNav({
-      level: "properties",
-      country: "Brasil",
-      countryCode: "br",
-      state: "RS",
-      city: "Bento Gonçalves",
-    });
-    setHasSearched(true);
-    setAiLoading(false);
-  }, []);
+    try {
+      const [parsed, locationPatch] = await Promise.all([
+        Promise.resolve(parsePropertyAiQuery(query)),
+        resolveSearchLocationFromQuery(query),
+      ]);
+      const next: ImoveisFilters = {
+        ...createDefaultFilters(marketId),
+        ...parsed,
+        ...locationPatch,
+      };
+      setFilters(next);
+      setNav({
+        level: "properties",
+        country: next.country || market.countryName,
+        countryCode: market.countryCode,
+        state: next.state || undefined,
+        city: next.city || undefined,
+        neighborhood: next.neighborhood || undefined,
+      });
+      setHasSearched(true);
+    } finally {
+      setAiLoading(false);
+    }
+  }, [market.countryCode, market.countryName, marketId]);
 
   return {
     nav,

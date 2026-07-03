@@ -8,7 +8,8 @@ import {
   type VeiculosView,
   type VehicleListing,
 } from "../types";
-import { parseAiQuery } from "../mock-data";
+import { parseVehicleAiQuery } from "@/lib/listings/parse-ai-query";
+import { resolveSearchLocationFromQuery } from "@/lib/geocoding/resolve-search-location";
 import { filterVehicles } from "@/lib/listings/filters";
 import { brazilStates, worldRegions } from "@/lib/listings/regions";
 import { haversineKm } from "@/lib/geocoding/geo-utils";
@@ -72,20 +73,21 @@ export function useVeiculosState() {
 
   const runAiSearch = useCallback(async (query: string) => {
     setAiLoading(true);
-    await new Promise((r) => setTimeout(r, 800));
-    const parsed = parseAiQuery(query);
-    const next: VeiculosFilters = {
-      ...defaultVeiculosFilters,
-      ...parsed,
-      state: "RS",
-      city: "Porto Alegre",
-      locationLabel: "Porto Alegre, RS, Brasil",
-      lat: -30.0346,
-      lng: -51.2177,
-    };
-    setFilters(next);
-    setHasSearched(true);
-    setAiLoading(false);
+    try {
+      const [parsed, locationPatch] = await Promise.all([
+        Promise.resolve(parseVehicleAiQuery(query)),
+        resolveSearchLocationFromQuery(query),
+      ]);
+      const next: VeiculosFilters = {
+        ...defaultVeiculosFilters,
+        ...parsed,
+        ...locationPatch,
+      };
+      setFilters(next);
+      setHasSearched(true);
+    } finally {
+      setAiLoading(false);
+    }
   }, []);
 
   return {

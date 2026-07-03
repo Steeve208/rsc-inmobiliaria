@@ -9,10 +9,16 @@ import {
   Car,
   Check,
   ChevronDown,
-  MapPin,
   Rocket,
   Search,
 } from "lucide-react";
+import { LocationAutocomplete } from "@/components/search/location-autocomplete";
+import {
+  clearLocationFilters,
+  resolvedLocationToFilters,
+  type ResolvedLocation,
+} from "@/lib/geocoding/types";
+import { locationToSearchParams } from "@/lib/geocoding/url-params";
 import { useRouter } from "@/lib/i18n/routing";
 import { useMarket } from "@/lib/providers/market-provider";
 import { cn } from "@/lib/utils";
@@ -26,6 +32,9 @@ export function HeroSection() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<SearchTab>("properties");
   const [location, setLocation] = useState("");
+  const [resolvedLocation, setResolvedLocation] = useState<ResolvedLocation | null>(
+    null,
+  );
   const [query, setQuery] = useState("");
 
   const tabs: { id: SearchTab; label: string }[] = [
@@ -50,8 +59,11 @@ export function HeroSection() {
   const locationPlaceholder = tMarkets(`searchLocation.${market.defaultLocale}`);
 
   const goToSearch = (extra?: { type?: string }) => {
-    const params = new URLSearchParams();
-    if (location) params.set("city", location);
+    const params = locationToSearchParams(
+      resolvedLocation
+        ? resolvedLocationToFilters(resolvedLocation)
+        : { city: location, locationLabel: location },
+    );
     if (query) params.set("q", query);
     if (extra?.type) params.set("type", extra.type);
 
@@ -145,17 +157,18 @@ export function HeroSection() {
 
               <div className="rounded-b-xl rounded-tr-xl bg-white p-2 shadow-2xl sm:p-3">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                  <div className="flex flex-1 items-center gap-2 rounded-lg border border-gray-200 px-3 py-2.5">
-                    <MapPin className="size-4 shrink-0 text-gray-400" />
-                    <input
-                      type="text"
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                      placeholder={locationPlaceholder}
-                      className="w-full bg-transparent text-sm text-gray-800 outline-none placeholder:text-gray-400"
-                    />
-                    <ChevronDown className="size-4 shrink-0 text-gray-400" />
-                  </div>
+                  <LocationAutocomplete
+                    theme="light"
+                    value={location}
+                    placeholder={locationPlaceholder}
+                    onValueChange={setLocation}
+                    onPlaceResolved={(place) => {
+                      setResolvedLocation(place);
+                      setLocation(place.label);
+                    }}
+                    onLocationCleared={() => setResolvedLocation(null)}
+                    onEnter={() => goToSearch()}
+                  />
                   <div className="flex flex-1 items-center gap-2 rounded-lg border border-gray-200 px-3 py-2.5">
                     <Search className="size-4 shrink-0 text-gray-400" />
                     <input
