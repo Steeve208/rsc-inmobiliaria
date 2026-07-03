@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
@@ -25,13 +25,14 @@ import {
   ChevronRight as BreadcrumbChevron,
 } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ListingContactPanel } from "@/features/contact";
 import { useFavoriteButton } from "@/hooks/use-favorites";
 import { isDirectVideoUrl, toVideoEmbedUrl } from "@/lib/storage/listing-media";
+import { shareListing } from "@/lib/listings/share-listing";
 import { PropertyMap } from "./property-map";
 import { PropertyCard } from "./property-card";
+import { ReportListingModal } from "./report-listing-modal";
 import type { PropertyDetail, PropertyListing } from "../types";
 
 type Props = {
@@ -73,6 +74,11 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
   const [downPct, setDownPct] = useState(20);
   const [termMonths, setTermMonths] = useState(360);
   const [interestRate, setInterestRate] = useState(0.89);
+  const [shareMessage, setShareMessage] = useState("");
+  const [reportOpen, setReportOpen] = useState(false);
+  const locationRef = useRef<HTMLElement>(null);
+
+  const financingHref = `/financing?price=${property.price}&down=${downPct}&listingId=${property.id}&title=${encodeURIComponent(property.title)}`;
 
   const downPayment = Math.round(property.price * (downPct / 100));
   const monthlyRate = interestRate / 100;
@@ -124,6 +130,25 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
   const heroImage = property.images[activeImage] ?? property.images[0] ?? property.image;
   const videoSrc = property.videoUrl ? toVideoEmbedUrl(property.videoUrl) : "";
 
+  const availableMediaTabs = useMemo(() => {
+    const tabs: (typeof mediaTabs)[number][] = ["photos"];
+    if (videoSrc) tabs.push("video");
+    tabs.push("tour", "floorPlan");
+    return tabs;
+  }, [videoSrc]);
+
+  async function handleShare() {
+    const url = typeof window !== "undefined" ? window.location.href : "";
+    const result = await shareListing(url, property.title);
+    if (result === "copied") setShareMessage(t("shareCopied"));
+    else if (result === "shared") setShareMessage(t("shareDone"));
+    setTimeout(() => setShareMessage(""), 2500);
+  }
+
+  function scrollToMap() {
+    locationRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   const prevImage = () =>
     setActiveImage((i) => (i === 0 ? property.images.length - 1 : i - 1));
   const nextImage = () =>
@@ -170,15 +195,20 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
             {property.city} - {property.state}
             <button
               type="button"
+              onClick={scrollToMap}
               className="text-[#60a5fa] hover:underline"
             >
               {t("viewOnMap")}
             </button>
           </p>
+          {shareMessage ? (
+            <p className="mt-2 text-xs text-emerald-400">{shareMessage}</p>
+          ) : null}
         </div>
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
+            onClick={handleShare}
             className="inline-flex items-center gap-2 rounded-lg bg-[#111d2f] px-4 py-2 text-sm text-white/80 transition-colors hover:bg-white/5"
           >
             <Share2 className="size-4" />
@@ -199,6 +229,7 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
           </button>
           <button
             type="button"
+            onClick={() => setReportOpen(true)}
             className="inline-flex items-center gap-2 rounded-lg bg-[#111d2f] px-4 py-2 text-sm text-white/80 transition-colors hover:bg-white/5"
           >
             <Flag className="size-4" />
@@ -310,8 +341,20 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
               </div>
             )}
 
+            {mediaTab === "tour" && (
+              <div className="flex aspect-[16/9] flex-col items-center justify-center gap-4 rounded-xl bg-[#111d2f]/60">
+                <p className="text-sm text-white/60">{t("media.tourPlaceholder")}</p>
+              </div>
+            )}
+
+            {mediaTab === "floorPlan" && (
+              <div className="flex aspect-[16/9] flex-col items-center justify-center gap-4 rounded-xl bg-[#111d2f]/60">
+                <p className="text-sm text-white/60">{t("media.floorPlanPlaceholder")}</p>
+              </div>
+            )}
+
             <div className="mt-4 flex flex-wrap gap-2">
-              {mediaTabs.map((tab) => (
+              {availableMediaTabs.map((tab) => (
                 <button
                   key={tab}
                   type="button"
@@ -376,13 +419,14 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
           </section>
 
           {/* Location */}
-          <section className="rounded-xl bg-[#111d2f]/60 p-6">
+          <section ref={locationRef} className="rounded-xl bg-[#111d2f]/60 p-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-lg font-semibold text-white">
                 {t("locationTitle")}
               </h2>
               <button
                 type="button"
+                onClick={scrollToMap}
                 className="text-sm text-[#60a5fa] hover:underline"
               >
                 {t("viewOnMap")}
@@ -466,9 +510,12 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
                 {t("simulator.perMonth")}
               </span>
             </div>
-            <Button className="mt-4 w-full bg-[#d4a017] font-semibold text-[#0a111f] hover:bg-[#eebc49]">
+            <Link
+              href={financingHref}
+              className="mt-4 flex w-full items-center justify-center rounded-md bg-[#d4a017] px-4 py-2 text-sm font-semibold text-[#0a111f] transition-colors hover:bg-[#eebc49]"
+            >
               {t("simulateNow")}
-            </Button>
+            </Link>
           </section>
         </div>
 
@@ -513,9 +560,12 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
                 {t("simulator.perMonth")}
               </span>
             </p>
-            <Button className="mt-4 w-full bg-[#d4a017] font-semibold text-[#0a111f] hover:bg-[#eebc49]">
+            <Link
+              href={financingHref}
+              className="mt-4 flex w-full items-center justify-center rounded-md bg-[#d4a017] px-4 py-2 text-sm font-semibold text-[#0a111f] transition-colors hover:bg-[#eebc49]"
+            >
               {t("simulateFinancing")}
-            </Button>
+            </Link>
           </div>
 
           {/* Contact */}
@@ -655,6 +705,13 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
           </div>
         </section>
       )}
+
+      <ReportListingModal
+        open={reportOpen}
+        onClose={() => setReportOpen(false)}
+        listingId={property.id}
+        listingTitle={property.title}
+      />
     </div>
   );
 }

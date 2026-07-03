@@ -11,8 +11,8 @@ import {
 import { parsePropertyAiQuery } from "@/lib/listings/parse-ai-query";
 import { resolveSearchLocationFromQuery } from "@/lib/geocoding/resolve-search-location";
 import { filterProperties } from "@/lib/listings/filters";
+import { sortProperties } from "@/lib/listings/sort-properties";
 import { brazilStates, worldRegions } from "@/lib/listings/regions";
-import { haversineKm } from "@/lib/geocoding/geo-utils";
 import { getDefaultCountryFilters } from "@/lib/markets/config";
 import { useMarket } from "@/lib/providers/market-provider";
 import type { MarketId } from "@/lib/markets/types";
@@ -66,15 +66,8 @@ export function useImoveisState() {
 
   const results = useMemo(() => {
     if (!hasSearched) return [];
-    let list = filterProperties(catalog, filters, nav);
-    if (filters.lat != null && filters.lng != null) {
-      list = [...list].sort(
-        (a, b) =>
-          haversineKm(filters.lat!, filters.lng!, a.lat, a.lng) -
-          haversineKm(filters.lat!, filters.lng!, b.lat, b.lng),
-      );
-    }
-    return list;
+    const list = filterProperties(catalog, filters, nav);
+    return sortProperties(list, filters.sort, filters);
   }, [filters, nav, hasSearched, catalog]);
 
   const updateFilters = useCallback((next: Partial<ImoveisFilters>) => {

@@ -2,6 +2,13 @@ import type { ListingItem, SearchFilters } from "@/features/search/types";
 
 export type ImoveisView = "list" | "gallery" | "map" | "satellite";
 
+export type PropertySort =
+  | "relevance"
+  | "price_asc"
+  | "price_desc"
+  | "area_desc"
+  | "newest";
+
 export type MapNavLevel = "world" | "country" | "state" | "city" | "properties";
 
 export type MapNavigation = {
@@ -32,6 +39,7 @@ export type ImoveisFilters = SearchFilters & {
   lat: number | null;
   lng: number | null;
   radiusKm: number;
+  sort: PropertySort;
 };
 
 export type PremiumCompany = {
@@ -110,4 +118,5 @@ export const defaultImoveisFilters: ImoveisFilters = {
   lat: null,
   lng: null,
   radiusKm: 40,
+  sort: "relevance",
 };

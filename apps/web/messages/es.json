@@ -582,14 +582,29 @@
     "results": {
       "title": "Resultados",
       "count": "{count} inmuebles encontrados",
+      "showingCount": "Mostrando {visible} de {total} inmuebles",
       "searchPrompt": "Configura tu búsqueda y pulsa Buscar",
       "searchPromptHint": "Usa los filtros para refinar tipo, precio, habitaciones y más.",
       "empty": "No se encontraron inmuebles",
-      "emptyHint": "Intenta ajustar los filtros o explorar otra región."
+      "emptyHint": "Intenta ajustar los filtros o explorar otra región.",
+      "sortLabel": "Ordenar",
+      "saveSearch": "Guardar búsqueda",
+      "searchSaved": "¡Búsqueda guardada!",
+      "loadMore": "Cargar más ({remaining} restantes)",
+      "sort": {
+        "relevance": "Relevancia",
+        "price_asc": "Menor precio",
+        "price_desc": "Mayor precio",
+        "area_desc": "Mayor área",
+        "newest": "Más recientes"
+      }
     },
     "card": {
       "verified": "Verificada",
       "favorite": "Favorito",
+      "compare": "Comparar",
+      "buy": "Venta",
+      "rent": "Alquiler",
       "bedrooms": "habitaciones",
       "bathrooms": "baños",
       "simulateFinancing": "Simular financiación",
@@ -625,6 +640,8 @@
       "neighborhoodLabel": "Barrio {neighborhood}",
       "viewOnMap": "Ver en el mapa",
       "share": "Compartir",
+      "shareCopied": "¡Enlace copiado!",
+      "shareDone": "¡Compartido!",
       "save": "Guardar",
       "report": "Denunciar",
       "prevPhoto": "Foto anterior",
@@ -635,7 +652,9 @@
         "video": "Vídeo",
         "tour": "Tour 360°",
         "floorPlan": "Plano",
-        "noVideo": "Este inmueble aún no tiene video."
+        "noVideo": "Este inmueble aún no tiene video.",
+        "tourPlaceholder": "Tour virtual próximamente para este inmueble.",
+        "floorPlanPlaceholder": "Plano disponible próximamente."
       },
       "featuresTitle": "Características",
       "builtArea": "Área construida",
@@ -684,14 +703,13 @@
     },
     "sections": {
       "launches": "Lanzamientos",
+      "launchesSubtitle": "Emprendimientos nuevos seleccionados",
       "new": "Nuevo",
-      "projects": "Proyectos destacados",
-      "projectsSubtitle": "Emprendimientos de los mejores constructores",
       "premium": "Casas Premium",
       "premiumBadge": "Premium",
-      "recommended": "Recomendadas para ti",
-      "recommendedSubtitle": "Seleccionadas por IA según tu perfil",
-      "aiBadge": "IA"
+      "recommended": "Inmuebles verificados",
+      "recommendedSubtitle": "Anuncios de inmobiliarias socias verificadas",
+      "verifiedBadge": "Verificado"
     },
     "footer": {
       "tagline": "El mayor ecosistema inmobiliario y automotriz del mundo.",
@@ -704,6 +722,20 @@
       "rights": "Todos los derechos reservados.",
       "privacy": "Privacidad",
       "terms": "Términos de uso"
+    },
+    "city": {
+      "metaTitle": "Inmuebles en {city} | RSC Market",
+      "metaDescription": "Encuentra casas, apartamentos y terrenos en {city}, {state}."
+    },
+    "report": {
+      "title": "Denunciar anuncio",
+      "reason": "Motivo de la denuncia",
+      "email": "Tu correo (opcional)",
+      "submit": "Enviar denuncia",
+      "submitting": "Enviando...",
+      "success": "Denuncia recibida. Gracias por ayudar a mantener la plataforma segura.",
+      "error": "No se pudo enviar. Intenta de nuevo.",
+      "close": "Cerrar"
     }
   },
   "veiculos": {
@@ -1045,5 +1077,59 @@
         }
       }
     }
+  },
+  "dashboard": {
+    "title": "Mi cuenta",
+    "subtitle": "Favoritos, búsquedas guardadas, visitas y comparador de inmuebles",
+    "favorites": "Favoritos",
+    "searches": "Búsquedas guardadas",
+    "visits": "Visitas",
+    "chats": "Chats",
+    "compareTab": "Comparar",
+    "requests": "Financiación",
+    "favoritesTitle": "Mis favoritos",
+    "searchesTitle": "Búsquedas guardadas",
+    "visitsTitle": "Visitas agendadas",
+    "chatsTitle": "Conversaciones con inmobiliarias",
+    "requestsTitle": "Solicitudes de financiación",
+    "requestsEmpty": "Aún no iniciaste una simulación de crédito.",
+    "financingCta": "Simular financiación",
+    "comparePanel": {
+      "title": "Comparar inmuebles",
+      "loading": "Cargando...",
+      "emptyTitle": "Sin inmuebles para comparar",
+      "emptyBody": "Usa el icono de comparar en las tarjetas para agregar hasta 3 inmuebles.",
+      "browseProperties": "Explorar inmuebles",
+      "clear": "Limpiar todo",
+      "remove": "Eliminar",
+      "bedrooms": "Habitaciones",
+      "area": "Área",
+      "garage": "Garaje",
+      "type": "Tipo"
+    },
+    "savedSearches": {
+      "emptyTitle": "Sin búsquedas guardadas",
+      "emptyBody": "Guarda una búsqueda en los resultados para acceder rápido aquí.",
+      "browse": "Ir a inmuebles",
+      "open": "Abrir",
+      "remove": "Eliminar"
+    }
+  },
+  "financing": {
+    "title": "Simulador de financiación",
+    "subtitle": "Estima cuotas y conoce RSC Credit para tu inmueble.",
+    "forListing": "Simulación para",
+    "propertyValue": "Valor del inmueble",
+    "downPayment": "Entrada",
+    "term": "Plazo (meses)",
+    "rate": "Tasa mensual (%)",
+    "estimatedInstallment": "Cuota estimada",
+    "perMonth": "/mes",
+    "rscCreditTitle": "RSC Credit",
+    "rscCreditBody": "Crédito hipotecario con análisis rápido y tasas competitivas.",
+    "benefit1": "Análisis en hasta 24 horas",
+    "benefit2": "Socios verificados en todo el país",
+    "benefit3": "Proceso 100% digital",
+    "cta": "Volver al inmueble"
   }
 }

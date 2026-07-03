@@ -8,5 +8,5 @@ type Props = {
 export default async function Page({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <BuyerHub activeTab="compare" />;
+  return <BuyerHub activeTab="searches" />;
 }

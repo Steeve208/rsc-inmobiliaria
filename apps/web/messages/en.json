@@ -582,14 +582,29 @@
     "results": {
       "title": "Results",
       "count": "{count} properties found",
+      "showingCount": "Showing {visible} of {total} properties",
       "searchPrompt": "Set up your search and click Search",
       "searchPromptHint": "Use filters to refine type, price, bedrooms and more.",
       "empty": "No properties found",
-      "emptyHint": "Try adjusting filters or exploring another region."
+      "emptyHint": "Try adjusting filters or exploring another region.",
+      "sortLabel": "Sort",
+      "saveSearch": "Save search",
+      "searchSaved": "Search saved!",
+      "loadMore": "Load more ({remaining} remaining)",
+      "sort": {
+        "relevance": "Relevance",
+        "price_asc": "Lowest price",
+        "price_desc": "Highest price",
+        "area_desc": "Largest area",
+        "newest": "Newest"
+      }
     },
     "card": {
       "verified": "Verified",
       "favorite": "Favorite",
+      "compare": "Compare",
+      "buy": "Sale",
+      "rent": "Rent",
       "bedrooms": "bedrooms",
       "bathrooms": "bathrooms",
       "simulateFinancing": "Simulate financing",
@@ -625,6 +640,8 @@
       "neighborhoodLabel": "{neighborhood} neighborhood",
       "viewOnMap": "View on map",
       "share": "Share",
+      "shareCopied": "Link copied!",
+      "shareDone": "Shared!",
       "save": "Save",
       "report": "Report",
       "prevPhoto": "Previous photo",
@@ -635,7 +652,9 @@
         "video": "Video",
         "tour": "360° Tour",
         "floorPlan": "Floor plan",
-        "noVideo": "This property has no video yet."
+        "noVideo": "This property has no video yet.",
+        "tourPlaceholder": "Virtual tour coming soon for this property.",
+        "floorPlanPlaceholder": "Floor plan coming soon."
       },
       "featuresTitle": "Features",
       "builtArea": "Built area",
@@ -684,14 +703,13 @@
     },
     "sections": {
       "launches": "New Launches",
+      "launchesSubtitle": "Selected new developments",
       "new": "New",
-      "projects": "Featured Projects",
-      "projectsSubtitle": "Developments from top builders",
       "premium": "Premium Homes",
       "premiumBadge": "Premium",
-      "recommended": "Recommended for you",
-      "recommendedSubtitle": "AI-selected based on your profile",
-      "aiBadge": "AI"
+      "recommended": "Verified properties",
+      "recommendedSubtitle": "Listings from verified partner agencies",
+      "verifiedBadge": "Verified"
     },
     "footer": {
       "tagline": "The world's largest real estate and automotive ecosystem.",
@@ -704,6 +722,20 @@
       "rights": "All rights reserved.",
       "privacy": "Privacy",
       "terms": "Terms of use"
+    },
+    "city": {
+      "metaTitle": "Properties in {city} | RSC Market",
+      "metaDescription": "Find houses, apartments and land in {city}, {state}."
+    },
+    "report": {
+      "title": "Report listing",
+      "reason": "Reason for report",
+      "email": "Your email (optional)",
+      "submit": "Submit report",
+      "submitting": "Submitting...",
+      "success": "Report received. Thank you for helping keep the platform safe.",
+      "error": "Could not submit. Please try again.",
+      "close": "Close"
     }
   },
   "veiculos": {
@@ -1045,5 +1077,59 @@
         }
       }
     }
+  },
+  "dashboard": {
+    "title": "My account",
+    "subtitle": "Favorites, saved searches, visits and property compare",
+    "favorites": "Favorites",
+    "searches": "Saved searches",
+    "visits": "Visits",
+    "chats": "Chats",
+    "compareTab": "Compare",
+    "requests": "Financing",
+    "favoritesTitle": "My favorites",
+    "searchesTitle": "Saved searches",
+    "visitsTitle": "Scheduled visits",
+    "chatsTitle": "Agency conversations",
+    "requestsTitle": "Financing requests",
+    "requestsEmpty": "You have not started a credit simulation yet.",
+    "financingCta": "Simulate financing",
+    "comparePanel": {
+      "title": "Compare properties",
+      "loading": "Loading...",
+      "emptyTitle": "No properties to compare",
+      "emptyBody": "Use the compare icon on cards to add up to 3 properties.",
+      "browseProperties": "Browse properties",
+      "clear": "Clear all",
+      "remove": "Remove",
+      "bedrooms": "Bedrooms",
+      "area": "Area",
+      "garage": "Garage",
+      "type": "Type"
+    },
+    "savedSearches": {
+      "emptyTitle": "No saved searches",
+      "emptyBody": "Save a search from results to access it quickly here.",
+      "browse": "Go to properties",
+      "open": "Open",
+      "remove": "Remove"
+    }
+  },
+  "financing": {
+    "title": "Financing simulator",
+    "subtitle": "Estimate installments and learn about RSC Credit.",
+    "forListing": "Simulation for",
+    "propertyValue": "Property value",
+    "downPayment": "Down payment",
+    "term": "Term (months)",
+    "rate": "Monthly rate (%)",
+    "estimatedInstallment": "Estimated installment",
+    "perMonth": "/mo",
+    "rscCreditTitle": "RSC Credit",
+    "rscCreditBody": "Mortgage credit with fast analysis and competitive rates.",
+    "benefit1": "Analysis within 24 hours",
+    "benefit2": "Verified partners nationwide",
+    "benefit3": "100% digital process",
+    "cta": "Back to property"
   }
 }

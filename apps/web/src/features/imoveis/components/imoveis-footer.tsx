@@ -22,6 +22,7 @@ export function ImoveisFooter({ onSelectRegion }: Props) {
     { id: "apartment", label: tc("apartment") },
     { id: "land", label: tc("land") },
     { id: "commercial", label: tc("commercial") },
+    { id: "launches", label: tc("launches"), launch: true },
   ] as const;
 
   const serviceLinks = [
@@ -56,13 +57,17 @@ export function ImoveisFooter({ onSelectRegion }: Props) {
                 {t("properties")}
               </p>
               <ul className="space-y-2.5">
-                {propertyLinks.map(({ id, label }) => (
-                  <li key={id}>
+                {propertyLinks.map((link) => (
+                  <li key={link.id}>
                     <Link
-                      href="/imoveis"
+                      href={
+                        "launch" in link && link.launch
+                          ? "/imoveis?launch=1"
+                          : `/imoveis?type=${link.id}`
+                      }
                       className="text-sm text-white/50 transition-colors hover:text-[#60a5fa]"
                     >
-                      {label}
+                      {link.label}
                     </Link>
                   </li>
                 ))}

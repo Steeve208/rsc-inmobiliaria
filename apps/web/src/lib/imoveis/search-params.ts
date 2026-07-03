@@ -2,6 +2,7 @@ import {
   defaultImoveisFilters,
   type ImoveisFilters,
   type ImoveisView,
+  type PropertySort,
 } from "@/features/imoveis/types";
 
 const SEARCH_KEYS = [
@@ -27,6 +28,7 @@ const SEARCH_KEYS = [
   "pets",
   "financing",
   "rscCredit",
+  "sort",
 ] as const;
 
 export function hasImoveisSearchParams(params: URLSearchParams): boolean {
@@ -69,6 +71,7 @@ export function parseImoveisSearchParams(
     rscCredit: params.get("rscCredit") === "1",
     launchOnly: params.get("launch") === "1",
     radiusKm: params.get("radius") ? Number(params.get("radius")) : defaults.radiusKm,
+    sort: (params.get("sort") as PropertySort) || "relevance",
   };
 
   const view = (params.get("view") as ImoveisView) || "list";
@@ -110,6 +113,7 @@ export function imoveisFiltersToParams(
     ["rscCredit", filters.rscCredit ? "1" : ""],
     ["launch", filters.launchOnly ? "1" : ""],
     ["radius", filters.radiusKm !== defaultImoveisFilters.radiusKm ? String(filters.radiusKm) : ""],
+    ["sort", filters.sort !== "relevance" ? filters.sort : ""],
   ];
 
   for (const [key, value] of entries) {

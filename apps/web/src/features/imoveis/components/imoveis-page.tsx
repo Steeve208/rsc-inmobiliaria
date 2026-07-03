@@ -4,18 +4,20 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/lib/i18n/routing";
+import { useSavedPropertySearches } from "@/hooks/use-saved-property-searches";
 import {
   hasImoveisSearchParams,
   imoveisFiltersToParams,
   parseImoveisSearchParams,
 } from "@/lib/imoveis/search-params";
 import { SearchHeader } from "./search-header";
+import { SearchPromptSection } from "./search-prompt-section";
 import { CategoriesBar } from "./categories-bar";
 import { SplitMapList } from "./split-map-list";
 import { ListingCarousel } from "./listing-carousel";
 import { ImoveisFooter } from "./imoveis-footer";
 import { useImoveisState } from "../hooks/use-imoveis-state";
-import type { ImoveisFilters, PropertyListing } from "../types";
+import type { ImoveisFilters, PropertyListing, PropertySort } from "../types";
 
 export function ImoveisPage() {
   const t = useTranslations("imoveis");
@@ -23,6 +25,7 @@ export function ImoveisPage() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const appliedFromUrl = useRef(false);
+  const { saveSearch } = useSavedPropertySearches();
 
   const {
     filters,
@@ -99,6 +102,19 @@ export function ImoveisPage() {
     [filters, updateFilters, hasSearched, syncUrl],
   );
 
+  const handleSortChange = useCallback(
+    (sort: PropertySort) => {
+      const next = { ...filters, sort };
+      updateFilters({ sort });
+      if (hasSearched) syncUrl(next);
+    },
+    [filters, updateFilters, hasSearched, syncUrl],
+  );
+
+  const handleSaveSearch = useCallback(() => {
+    saveSearch(filters);
+  }, [saveSearch, filters]);
+
   const handleTransactionChange = useCallback(
     (transaction: ImoveisFilters["transaction"]) => {
       const next = { ...filters, transaction };
@@ -147,6 +163,8 @@ export function ImoveisPage() {
           onSelect={handleCategorySelect}
         />
 
+        {!hasSearched && <SearchPromptSection />}
+
         <ListingCarousel
           title={t("sections.premium")}
           items={premium}
@@ -157,7 +175,7 @@ export function ImoveisPage() {
           title={t("sections.recommended")}
           subtitle={t("sections.recommendedSubtitle")}
           items={recommended}
-          badge={t("sections.aiBadge")}
+          badge={t("sections.verifiedBadge")}
         />
 
         <SplitMapList
@@ -168,18 +186,15 @@ export function ImoveisPage() {
           hasSearched={hasSearched}
           onViewChange={handleViewChange}
           onHighlight={setHighlightedId}
+          onSortChange={handleSortChange}
+          onSaveSearch={hasSearched ? handleSaveSearch : undefined}
         />
 
         <ListingCarousel
           title={t("sections.launches")}
+          subtitle={t("sections.launchesSubtitle")}
           items={launches}
           badge={t("sections.new")}
-        />
-
-        <ListingCarousel
-          title={t("sections.projects")}
-          subtitle={t("sections.projectsSubtitle")}
-          items={launches}
         />
       </div>
 

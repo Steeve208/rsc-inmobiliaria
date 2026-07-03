@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Bath, BedDouble, Car, Heart, MapPin, ShieldCheck } from "lucide-react";
+import { Bath, BedDouble, Car, GitCompare, Heart, MapPin, ShieldCheck } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
 import { useFavoriteButton } from "@/hooks/use-favorites";
+import { usePropertyCompare } from "@/hooks/use-property-compare-state";
 import type { PropertyListing } from "../types";
 
 type Props = {
@@ -33,6 +34,14 @@ export function PropertyCard({
 }: Props) {
   const t = useTranslations("imoveis.card");
   const { active, handleClick } = useFavoriteButton("property", item.id);
+  const { isCompared, toggle } = usePropertyCompare();
+
+  const transactionLabel =
+    item.transaction === "rent"
+      ? t("rent")
+      : item.transaction === "buy"
+        ? t("buy")
+        : null;
 
   const imageBlock = (
     <div
@@ -49,9 +58,44 @@ export function PropertyCard({
         sizes={variant === "list" ? "224px" : "(max-width:768px) 100vw, 33vw"}
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
-      <button
-        type="button"
-        onClick={handleClick}
+      <div className="absolute left-3 top-3 flex flex-wrap gap-2">
+        {transactionLabel && (
+          <span className="rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-semibold text-white backdrop-blur-sm">
+            {transactionLabel}
+          </span>
+        )}
+        {item.verified && (
+          <span className="inline-flex items-center gap-1 rounded-full bg-[#1d4ed8] px-2.5 py-1 text-[10px] font-semibold text-white">
+            <ShieldCheck className="size-3" />
+            {t("verified")}
+          </span>
+        )}
+      </div>
+      <div className="absolute right-3 top-3 flex gap-2">
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggle(item.id);
+          }}
+          className={cn(
+            "flex size-8 items-center justify-center rounded-full backdrop-blur-sm transition-colors",
+            isCompared(item.id)
+              ? "bg-[#1d4ed8] text-white"
+              : "bg-black/40 text-white hover:bg-black/60",
+          )}
+          aria-label={t("compare")}
+        >
+          <GitCompare className="size-3.5" />
+        </button>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleClick(e);
+          }}
         className={cn(
           "absolute right-3 top-3 flex size-8 items-center justify-center rounded-full backdrop-blur-sm transition-colors",
           active
@@ -61,13 +105,8 @@ export function PropertyCard({
         aria-label={t("favorite")}
       >
         <Heart className={cn("size-4", active && "fill-current")} />
-      </button>
-      {item.verified && (
-        <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-[#1d4ed8] px-2.5 py-1 text-[10px] font-semibold text-white">
-          <ShieldCheck className="size-3" />
-          {t("verified")}
-        </span>
-      )}
+        </button>
+      </div>
     </div>
   );
 

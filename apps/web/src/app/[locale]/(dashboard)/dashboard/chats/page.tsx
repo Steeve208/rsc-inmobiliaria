@@ -1,5 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
-import { BuyerDashboard } from "@/features/veiculos/components/buyer-dashboard";
+import { BuyerHub } from "@/features/dashboard/components/buyer-hub";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -8,5 +8,5 @@ type Props = {
 export default async function Page({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <BuyerDashboard activeTab="chats" />;
+  return <BuyerHub activeTab="chats" />;
 }
