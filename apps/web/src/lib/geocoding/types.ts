@@ -8,6 +8,19 @@ export type ResolvedLocation = {
   lng: number;
 };
 
+export function buildLocationLabel(parts: {
+  neighborhood?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+}) {
+  const locality = [parts.neighborhood, parts.city].filter(Boolean).join(", ");
+  const region = [parts.state, parts.country].filter(Boolean).join(", ");
+
+  if (locality && region) return `${locality} · ${region}`;
+  return locality || region || "";
+}
+
 export function resolvedLocationToFilters(location: ResolvedLocation) {
   return {
     city: location.city,

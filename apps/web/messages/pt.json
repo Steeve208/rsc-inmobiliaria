@@ -492,6 +492,7 @@
       "useGps": "Usar minha localização",
       "gpsDenied": "Permita o acesso à localização no navegador.",
       "gpsFailed": "Não foi possível identificar sua região.",
+      "gpsLowAccuracy": "Localização aproximada. Para maior precisão, use o celular com GPS.",
       "gpsUnsupported": "Seu navegador não suporta geolocalização.",
       "osmAttribution": "Endereços via OpenStreetMap — gratuito, sem API key."
     },
@@ -543,7 +544,9 @@
     },
     "filters": {
       "title": "Filtros",
+      "subtitle": "Ajuste sua busca com as opções abaixo.",
       "reset": "Limpar",
+      "apply": "Aplicar filtros",
       "transaction": "Transação",
       "type": "Tipo",
       "house": "Casa",

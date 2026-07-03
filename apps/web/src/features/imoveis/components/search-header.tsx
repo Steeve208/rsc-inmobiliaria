@@ -159,7 +159,7 @@ export function SearchHeader({
             </div>
 
             {menuOpen && (
-              <div className="mt-2 rounded-xl bg-white/[0.97] p-4 shadow-xl shadow-black/20">
+              <div className="mt-2 rounded-2xl border border-white/10 bg-[#0a1428]/95 p-4 shadow-2xl shadow-black/30 backdrop-blur-xl sm:p-5">
                 <FilterMenuPanel
                   draft={draft}
                   onChange={updateDraft}
@@ -167,6 +167,7 @@ export function SearchHeader({
                     setLocationText("");
                     setDraft(defaultImoveisFilters);
                   }}
+                  onApply={handleSearch}
                 />
               </div>
             )}

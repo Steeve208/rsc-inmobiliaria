@@ -492,6 +492,7 @@
       "useGps": "Use my location",
       "gpsDenied": "Allow location access in your browser.",
       "gpsFailed": "Could not detect your area.",
+      "gpsLowAccuracy": "Approximate location. For better accuracy, use a phone with GPS.",
       "gpsUnsupported": "Your browser does not support geolocation.",
       "osmAttribution": "Addresses via OpenStreetMap — free, no API key."
     },
@@ -543,7 +544,9 @@
     },
     "filters": {
       "title": "Filters",
+      "subtitle": "Refine your search with the options below.",
       "reset": "Clear",
+      "apply": "Apply filters",
       "transaction": "Transaction",
       "type": "Type",
       "house": "House",

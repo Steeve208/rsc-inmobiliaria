@@ -1,5 +1,6 @@
 import { brazilStates } from "@/lib/listings/regions";
 import { markets } from "@/lib/markets/config";
+import { buildLocationLabel } from "./types";
 import type { ResolvedLocation } from "./types";
 
 function normalizeCountry(code: string, name: string): string {
@@ -37,13 +38,16 @@ type NominatimAddress = {
   road?: string;
 };
 
-export function parseNominatimResult(data: {
-  display_name?: string;
-  lat?: string;
-  lon?: string;
-  address?: NominatimAddress;
-}): ResolvedLocation | null {
-  if (!data.lat || !data.lon || !data.address) return null;
+export function parseNominatimResult(
+  data: {
+    display_name?: string;
+    lat?: string;
+    lon?: string;
+    address?: NominatimAddress;
+  },
+  coords?: { lat: number; lng: number },
+): ResolvedLocation | null {
+  if (!data.address) return null;
 
   const addr = data.address;
   const city =
@@ -51,21 +55,24 @@ export function parseNominatimResult(data: {
     addr.town ||
     addr.village ||
     addr.municipality ||
-    addr.county ||
     "";
   const neighborhood =
     addr.suburb || addr.neighbourhood || addr.quarter || "";
   const state = normalizeState(addr.state ?? "");
   const country = normalizeCountry(addr.country_code ?? "", addr.country ?? "");
+  const lat = coords?.lat ?? Number(data.lat ?? 0);
+  const lng = coords?.lng ?? Number(data.lon ?? 0);
+
+  if (!coords && (!data.lat || !data.lon)) return null;
 
   return {
-    label: data.display_name ?? city,
+    label: buildLocationLabel({ neighborhood, city, state, country }),
     city,
     state,
     neighborhood,
     country,
-    lat: Number(data.lat),
-    lng: Number(data.lon),
+    lat,
+    lng,
   };
 }
 
@@ -85,7 +92,10 @@ type PhotonFeature = {
   };
 };
 
-export function parsePhotonFeature(feature: PhotonFeature): ResolvedLocation {
+export function parsePhotonFeature(
+  feature: PhotonFeature,
+  coords?: { lat: number; lng: number },
+): ResolvedLocation {
   const { properties: p, geometry } = feature;
   const [lng, lat] = geometry.coordinates;
 
@@ -94,16 +104,13 @@ export function parsePhotonFeature(feature: PhotonFeature): ResolvedLocation {
   const state = normalizeState(p.state ?? "");
   const country = normalizeCountry(p.countrycode ?? "", p.country ?? "");
 
-  const parts = [p.name, city, state, country].filter(Boolean);
-  const label = [...new Set(parts)].join(", ");
-
   return {
-    label: label || city,
+    label: buildLocationLabel({ neighborhood, city, state, country }),
     city: city || p.name || "",
     state,
     neighborhood,
     country,
-    lat,
-    lng,
+    lat: coords?.lat ?? lat,
+    lng: coords?.lng ?? lng,
   };
 }

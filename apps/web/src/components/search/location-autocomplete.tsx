@@ -78,17 +78,6 @@ export function LocationAutocomplete({
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const watchIdRef = useRef<number | null>(null);
-  const lastGeocodeRef = useRef<{ lat: number; lng: number } | null>(null);
-
-  const stopWatching = useCallback(() => {
-    if (watchIdRef.current != null) {
-      navigator.geolocation.clearWatch(watchIdRef.current);
-      watchIdRef.current = null;
-    }
-  }, []);
-
-  useEffect(() => stopWatching, [stopWatching]);
 
   const fetchSuggestions = useCallback(async (query: string) => {
     if (query.length < 2) {
@@ -135,7 +124,6 @@ export function LocationAutocomplete({
     onValueChange(text);
     onLocationCleared();
     setGpsError(null);
-    stopWatching();
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => fetchSuggestions(text), 350);
@@ -143,7 +131,6 @@ export function LocationAutocomplete({
 
   const selectSuggestion = (location: ResolvedLocation) => {
     applyResolvedLocation(location);
-    stopWatching();
   };
 
   const handleGps = () => {
@@ -154,55 +141,37 @@ export function LocationAutocomplete({
 
     setGpsLoading(true);
     setGpsError(null);
-    stopWatching();
-    lastGeocodeRef.current = null;
-
-    const updateFromCoords = async (latitude: number, longitude: number) => {
-      const last = lastGeocodeRef.current;
-      if (
-        last &&
-        Math.abs(last.lat - latitude) < 0.001 &&
-        Math.abs(last.lng - longitude) < 0.001
-      ) {
-        return;
-      }
-
-      lastGeocodeRef.current = { lat: latitude, lng: longitude };
-
-      try {
-        const location = await reverseGeocode(latitude, longitude);
-        if (location) applyResolvedLocation(location);
-      } catch {
-        setGpsError(t("gpsFailed"));
-      }
-    };
 
     navigator.geolocation.getCurrentPosition(
       async (position) => {
+        const { latitude, longitude, accuracy } = position.coords;
+
+        if (accuracy > 5000) {
+          setGpsError(t("gpsLowAccuracy"));
+        }
+
         try {
-          await updateFromCoords(position.coords.latitude, position.coords.longitude);
+          const location = await reverseGeocode(latitude, longitude);
+          if (location) {
+            applyResolvedLocation({
+              ...location,
+              lat: latitude,
+              lng: longitude,
+            });
+          } else {
+            setGpsError(t("gpsFailed"));
+          }
+        } catch {
+          setGpsError(t("gpsFailed"));
         } finally {
           setGpsLoading(false);
         }
-
-        watchIdRef.current = navigator.geolocation.watchPosition(
-          (nextPosition) => {
-            void updateFromCoords(
-              nextPosition.coords.latitude,
-              nextPosition.coords.longitude,
-            );
-          },
-          () => {
-            stopWatching();
-          },
-          { enableHighAccuracy: true, maximumAge: 5000 },
-        );
       },
       () => {
         setGpsLoading(false);
         setGpsError(t("gpsDenied"));
       },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 },
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 },
     );
   };
 
