@@ -1,4 +1,4 @@
-import { asc, desc, eq, ne } from "drizzle-orm";
+import { and, asc, desc, eq, ne } from "drizzle-orm";
 import { db } from "@/lib/db";
 import {
   agent,
@@ -7,9 +7,7 @@ import {
   propertyListing,
 } from "@/lib/db/schema";
 import type { PropertyDetail, PropertyListing } from "@/features/imoveis/types";
-import {
-  enrichProperty,
-} from "@/features/imoveis/mock-data";
+import { listingImageUrl } from "@/lib/listings/constants";
 import { slugifyCompanyId } from "@/lib/leads/utils";
 
 type PropertyRow = typeof propertyListing.$inferSelect;
@@ -21,15 +19,25 @@ function num(value: string | number | null | undefined, fallback = 0) {
   return typeof value === "number" ? value : Number(value);
 }
 
-function mapListing(
-  row: PropertyRow,
-  companyName: string,
-): PropertyListing {
+function formatAddress(row: PropertyRow) {
+  if (row.address?.trim()) return row.address.trim();
+
+  const parts = [
+    row.neighborhood,
+    [row.city, row.state].filter(Boolean).join(" - "),
+  ].filter(Boolean);
+
+  return parts.join(", ");
+}
+
+function mapListing(row: PropertyRow, companyName: string): PropertyListing {
   return {
     id: row.id,
     category: "properties",
     title: row.title,
     type: row.type,
+    transaction: row.transaction,
+    condition: row.condition ?? "",
     price: num(row.price),
     currency: row.currency,
     country: row.country,
@@ -46,7 +54,7 @@ function mapListing(
     verified: row.verified || undefined,
     premium: row.premium || undefined,
     launch: row.launch || undefined,
-    image: row.coverImage ?? "",
+    image: listingImageUrl(row.coverImage),
     lat: num(row.lat),
     lng: num(row.lng),
     publishedAt: row.publishedAt?.toISOString().slice(0, 10) ?? "",
@@ -59,7 +67,8 @@ async function fetchImages(listingId: string): Promise<string[]> {
     .from(listingImage)
     .where(eq(listingImage.listingId, listingId))
     .orderBy(asc(listingImage.position));
-  return rows.map((r) => r.url);
+
+  return rows.map((r) => listingImageUrl(r.url));
 }
 
 async function fetchActiveProperties() {
@@ -75,7 +84,7 @@ export async function listProperties(): Promise<PropertyListing[]> {
   try {
     const rows = await fetchActiveProperties();
     return rows.map(({ property, company: co }) =>
-      mapListing(property, co?.name ?? property.companyId ?? "RSC"),
+      mapListing(property, co?.name ?? property.companyId ?? ""),
     );
   } catch {
     return [];
@@ -92,7 +101,7 @@ export async function getPropertyById(id: string): Promise<PropertyListing | und
       .limit(1);
 
     if (!row) return undefined;
-    return mapListing(row.property, row.company?.name ?? "RSC");
+    return mapListing(row.property, row.company?.name ?? "");
   } catch {
     return undefined;
   }
@@ -110,48 +119,49 @@ export async function getPropertyDetail(id: string): Promise<PropertyDetail | un
 
     if (!row) return undefined;
 
-    const base = mapListing(row.property, row.company?.name ?? "RSC");
+    const base = mapListing(row.property, row.company?.name ?? "");
     const images = await fetchImages(id);
+    const cover = row.property.coverImage?.trim();
+    const gallery =
+      images.length > 0 ? images : cover ? [listingImageUrl(cover)] : [];
     const co = row.company;
     const ag = row.agent;
 
     return {
       ...base,
       companyId: row.property.companyId ?? slugifyCompanyId(base.company),
+      companyLogoUrl: co?.logoUrl ?? undefined,
       whatsappNumber:
-        row.property.whatsappNumber ??
-        co?.whatsappNumber ??
-        "5554999887766",
-      images: images.length > 0 ? images : base.image ? [base.image] : [],
+        row.property.whatsappNumber?.trim() ||
+        co?.whatsappNumber?.trim() ||
+        co?.phone?.replace(/\D/g, "") ||
+        "",
+      images: gallery,
       featured: row.property.featured,
-      address:
-        row.property.address ??
-        `Rua das Hortênsias, 123 — ${base.neighborhood}, ${base.city} - ${base.state}`,
-      condoFee: num(row.property.condoFee, 350),
-      iptu: num(row.property.iptu, 120),
-      landArea: num(row.property.landArea, Math.round(base.area * 2)),
+      address: formatAddress(row.property),
+      condoFee: num(row.property.condoFee),
+      iptu: num(row.property.iptu),
+      landArea: num(row.property.landArea),
       suites: row.property.suites,
       livingRooms: row.property.livingRooms,
       kitchen: row.property.kitchen,
       laundry: row.property.laundry,
-      heating: row.property.heating ?? "Solar",
-      yearBuilt: row.property.yearBuilt ?? 2023,
-      description:
-        row.property.description ??
-        "Imóvel disponível na RSC Market com documentação verificada e opções de financiamento.",
-      agent: {
-        name: ag?.name ?? "Lucas Andrade",
-        role: ag?.role ?? "Corretor de Imóveis",
-        creci: ag?.creci ?? "12345-F",
-        photo:
-          ag?.photoUrl ??
-          "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
-      },
-      agencyRating: num(co?.rating, 4.9),
-      agencyYears: co?.yearsActive ?? 12,
-      agencyActive: co?.activeListings ?? 512,
-      agencySold: co?.soldCount ?? 1245,
-      agencyReviews: co?.reviewsCount ?? 98,
+      heating: row.property.heating ?? "",
+      yearBuilt: row.property.yearBuilt ?? 0,
+      description: row.property.description?.trim() ?? "",
+      agent: ag
+        ? {
+            name: ag.name,
+            role: ag.role ?? "",
+            creci: ag.creci ?? "",
+            photo: listingImageUrl(ag.photoUrl),
+          }
+        : null,
+      agencyRating: num(co?.rating),
+      agencyYears: co?.yearsActive ?? 0,
+      agencyActive: co?.activeListings ?? 0,
+      agencySold: co?.soldCount ?? 0,
+      agencyReviews: co?.reviewsCount ?? 0,
     };
   } catch {
     return undefined;
@@ -163,93 +173,113 @@ export async function getSimilarProperties(
   limit = 4,
 ): Promise<PropertyListing[]> {
   try {
+    const base = await getPropertyById(id);
+    if (!base) return [];
+
     const all = await listProperties();
-    return all.filter((p) => p.id !== id).slice(0, limit);
+    const others = all.filter((item) => item.id !== id);
+
+    const ranked = [
+      ...others.filter((item) => item.city === base.city && item.type === base.type),
+      ...others.filter((item) => item.city === base.city && item.type !== base.type),
+      ...others.filter((item) => item.state === base.state && item.city !== base.city),
+      ...others.filter((item) => item.country === base.country),
+    ];
+
+    const unique: PropertyListing[] = [];
+    const seen = new Set<string>();
+    for (const item of ranked) {
+      if (seen.has(item.id)) continue;
+      seen.add(item.id);
+      unique.push(item);
+      if (unique.length >= limit) break;
+    }
+
+    return unique;
+  } catch {
+    return [];
+  }
+}
+
+export async function getAgencyProperties(
+  companyId: string,
+  excludeId: string,
+  limit = 6,
+): Promise<PropertyListing[]> {
+  try {
+    const rows = await db
+      .select({ property: propertyListing, company })
+      .from(propertyListing)
+      .leftJoin(company, eq(propertyListing.companyId, company.id))
+      .where(
+        and(
+          eq(propertyListing.companyId, companyId),
+          eq(propertyListing.status, "active"),
+          ne(propertyListing.id, excludeId),
+        ),
+      )
+      .orderBy(desc(propertyListing.publishedAt))
+      .limit(limit);
+
+    return rows.map(({ property, company: co }) =>
+      mapListing(property, co?.name ?? ""),
+    );
   } catch {
     return [];
   }
 }
 
 export async function getPremiumProperties(): Promise<PropertyListing[]> {
-  const all = await listProperties();
-  return all.filter((p) => p.premium);
+  try {
+    const rows = await db
+      .select({ property: propertyListing, company })
+      .from(propertyListing)
+      .leftJoin(company, eq(propertyListing.companyId, company.id))
+      .where(and(eq(propertyListing.status, "active"), eq(propertyListing.premium, true)))
+      .orderBy(desc(propertyListing.publishedAt))
+      .limit(12);
+
+    return rows.map(({ property, company: co }) =>
+      mapListing(property, co?.name ?? ""),
+    );
+  } catch {
+    return [];
+  }
 }
 
 export async function getRecommendedProperties(): Promise<PropertyListing[]> {
-  const all = await listProperties();
-  return all.filter((p) => p.verified).slice(0, 6);
+  try {
+    const rows = await db
+      .select({ property: propertyListing, company })
+      .from(propertyListing)
+      .leftJoin(company, eq(propertyListing.companyId, company.id))
+      .where(and(eq(propertyListing.status, "active"), eq(propertyListing.verified, true)))
+      .orderBy(desc(propertyListing.publishedAt))
+      .limit(6);
+
+    return rows.map(({ property, company: co }) =>
+      mapListing(property, co?.name ?? ""),
+    );
+  } catch {
+    return [];
+  }
 }
 
 export async function getLaunchProperties(): Promise<PropertyListing[]> {
-  const all = await listProperties();
-  return all.filter((p) => p.launch);
-}
+  try {
+    const rows = await db
+      .select({ property: propertyListing, company })
+      .from(propertyListing)
+      .leftJoin(company, eq(propertyListing.companyId, company.id))
+      .where(and(eq(propertyListing.status, "active"), eq(propertyListing.launch, true)))
+      .orderBy(desc(propertyListing.publishedAt))
+      .limit(12);
 
-/** Used by seed — insert enriched property from mock */
-export async function seedPropertyFromMock(
-  listing: PropertyListing,
-  detail: ReturnType<typeof enrichProperty>,
-  companyId: string,
-  agentId?: string,
-  gallery?: string[],
-) {
-  await db
-    .insert(propertyListing)
-    .values({
-      id: listing.id,
-      companyId,
-      agentId,
-      title: listing.title,
-      type: listing.type,
-      status: "active",
-      price: String(listing.price),
-      currency: listing.currency,
-      country: listing.country,
-      state: listing.state,
-      city: listing.city,
-      neighborhood: listing.neighborhood,
-      address: detail.address,
-      lat: String(listing.lat),
-      lng: String(listing.lng),
-      bedrooms: listing.bedrooms,
-      bathrooms: listing.bathrooms ?? 0,
-      suites: detail.suites,
-      garage: listing.garage,
-      livingRooms: detail.livingRooms,
-      kitchen: detail.kitchen,
-      laundry: detail.laundry,
-      pool: listing.pool,
-      area: String(listing.area),
-      landArea: String(detail.landArea),
-      heating: detail.heating,
-      yearBuilt: detail.yearBuilt,
-      condoFee: String(detail.condoFee),
-      iptu: String(detail.iptu),
-      financing: listing.financing,
-      verified: listing.verified ?? false,
-      premium: listing.premium ?? false,
-      featured: detail.featured ?? false,
-      launch: listing.launch ?? false,
-      whatsappNumber: detail.whatsappNumber,
-      coverImage: listing.image,
-      description: detail.description,
-      publishedAt: listing.publishedAt ? new Date(listing.publishedAt) : new Date(),
-    })
-    .onConflictDoNothing();
-
-  if (gallery?.length) {
-    for (let i = 0; i < gallery.length; i++) {
-      await db
-        .insert(listingImage)
-        .values({
-          id: `img_${listing.id}_${i}`,
-          listingKind: "property",
-          listingId: listing.id,
-          url: gallery[i],
-          position: i,
-        })
-        .onConflictDoNothing();
-    }
+    return rows.map(({ property, company: co }) =>
+      mapListing(property, co?.name ?? ""),
+    );
+  } catch {
+    return [];
   }
 }
 

@@ -1,5 +1,5 @@
 import type { ImoveisFilters } from "../types";
-import { brazilStates } from "../mock-data";
+import { brazilStates } from "@/lib/listings/regions";
 import { clearLocationFilters } from "@/lib/geocoding/types";
 
 type Tag = {
@@ -16,6 +16,8 @@ type Labels = {
   house: string;
   apartment: string;
   land: string;
+  commercial: string;
+  launches: string;
   pool: string;
   pets: string;
   financing: string;
@@ -44,12 +46,16 @@ export function buildFilterTags(
     tags.push({ id: "cond-new", label: labels.new, clear: { condition: "" } });
   if (filters.condition === "used")
     tags.push({ id: "cond-used", label: labels.used, clear: { condition: "" } });
+  if (filters.launchOnly)
+    tags.push({ id: "launch", label: labels.launches, clear: { launchOnly: false } });
   if (filters.type === "house")
     tags.push({ id: "type-house", label: labels.house, clear: { type: "" } });
   if (filters.type === "apartment")
     tags.push({ id: "type-apartment", label: labels.apartment, clear: { type: "" } });
   if (filters.type === "land")
     tags.push({ id: "type-land", label: labels.land, clear: { type: "" } });
+  if (filters.type === "commercial")
+    tags.push({ id: "type-commercial", label: labels.commercial, clear: { type: "" } });
   if (filters.locationLabel) {
     tags.push({
       id: "location",
@@ -117,6 +123,8 @@ export function countActiveFilters(filters: ImoveisFilters): number {
     house: "",
     apartment: "",
     land: "",
+    commercial: "",
+    launches: "",
     pool: "",
     pets: "",
     financing: "",

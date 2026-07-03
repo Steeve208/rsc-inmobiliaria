@@ -15,6 +15,7 @@ import { LocationAutocomplete } from "./location-autocomplete";
 import { countActiveFilters } from "../utils/filter-tags";
 import { defaultImoveisFilters, type ImoveisFilters } from "../types";
 import { useMarket } from "@/lib/providers/market-provider";
+import { TransactionTabs } from "./transaction-tabs";
 
 type Props = {
   filters: ImoveisFilters;
@@ -22,6 +23,7 @@ type Props = {
   onChange: (next: Partial<ImoveisFilters>) => void;
   onSearch: (filters: ImoveisFilters) => void;
   onReset: () => void;
+  onTransactionChange?: (transaction: ImoveisFilters["transaction"]) => void;
 };
 
 export function SearchHeader({
@@ -30,8 +32,10 @@ export function SearchHeader({
   onChange,
   onSearch,
   onReset,
+  onTransactionChange,
 }: Props) {
   const t = useTranslations("imoveis.search");
+  const tCategories = useTranslations("imoveis.categories");
   const tMarkets = useTranslations("markets");
   const { market } = useMarket();
   const tf = useTranslations("imoveis.filters");
@@ -69,6 +73,8 @@ export function SearchHeader({
     house: tf("house"),
     apartment: tf("apartment"),
     land: tf("land"),
+    commercial: tf("commercial"),
+    launches: tCategories("launches"),
     pool: tf("pool"),
     pets: tf("pets"),
     financing: tf("financing"),
@@ -116,6 +122,12 @@ export function SearchHeader({
     <section className="market-section-compact">
       <div className="market-container">
         <div ref={panelRef} className="relative space-y-3">
+          {onTransactionChange && (
+            <TransactionTabs
+              transaction={filters.transaction}
+              onChange={onTransactionChange}
+            />
+          )}
           <div className="rounded-2xl bg-[#071022]/80 p-2 shadow-xl shadow-black/25 backdrop-blur-xl">
             <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
               <LocationAutocomplete

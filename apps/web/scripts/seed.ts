@@ -3,7 +3,7 @@
  * Uso: DATABASE_URL=... npm run db:seed
  */
 import { db } from "../src/lib/db";
-import { agent, company, companyLeadConfig } from "../src/lib/db/schema";
+import { agent, company, companyLeadConfig, listingImage, propertyListing } from "../src/lib/db/schema";
 import {
   enrichProperty,
   propertyListings,
@@ -13,8 +13,8 @@ import {
   vehicleListings,
 } from "../src/features/veiculos/mock-data";
 import { slugifyCompanyId, DEFAULT_COMPANY_CONFIGS } from "../src/lib/leads/utils";
-import { seedPropertyFromMock } from "../src/lib/listings/property-repository";
 import { seedVehicleFromMock } from "../src/lib/listings/vehicle-repository";
+import type { PropertyListing } from "../src/features/imoveis/types";
 
 const detailGalleryProperty = [
   "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80",
@@ -79,6 +79,73 @@ async function ensureAgent(
     })
     .onConflictDoNothing();
   return id;
+}
+
+async function seedPropertyFromMock(
+  listing: PropertyListing,
+  detail: ReturnType<typeof enrichProperty>,
+  companyId: string,
+  agentId?: string,
+  gallery?: string[],
+) {
+  await db
+    .insert(propertyListing)
+    .values({
+      id: listing.id,
+      companyId,
+      agentId,
+      title: listing.title,
+      type: listing.type,
+      status: "active",
+      price: String(listing.price),
+      currency: listing.currency,
+      country: listing.country,
+      state: listing.state,
+      city: listing.city,
+      neighborhood: listing.neighborhood,
+      address: detail.address,
+      lat: String(listing.lat),
+      lng: String(listing.lng),
+      bedrooms: listing.bedrooms,
+      bathrooms: listing.bathrooms ?? 0,
+      suites: detail.suites,
+      garage: listing.garage,
+      livingRooms: detail.livingRooms,
+      kitchen: detail.kitchen,
+      laundry: detail.laundry,
+      pool: listing.pool,
+      area: String(listing.area),
+      landArea: String(detail.landArea),
+      heating: detail.heating,
+      yearBuilt: detail.yearBuilt,
+      condoFee: String(detail.condoFee),
+      iptu: String(detail.iptu),
+      financing: listing.financing,
+      verified: listing.verified ?? false,
+      premium: listing.premium ?? false,
+      featured: detail.featured ?? false,
+      launch: listing.launch ?? false,
+      whatsappNumber: detail.whatsappNumber,
+      coverImage: listing.image,
+      description: detail.description,
+      publishedAt: listing.publishedAt ? new Date(listing.publishedAt) : new Date(),
+    })
+    .onConflictDoNothing();
+
+  if (gallery?.length) {
+    for (let i = 0; i < gallery.length; i++) {
+      await db
+        .insert(listingImage)
+        .values({
+          id: `img_${listing.id}_${i}`,
+          listingKind: "property",
+          listingId: listing.id,
+          url: gallery[i],
+          position: i,
+        })
+        .onConflictDoNothing();
+    }
+  }
 }
 
 async function main() {

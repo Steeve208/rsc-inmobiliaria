@@ -77,8 +77,8 @@ export function HeroSection() {
       return;
     }
 
-    params.set("category", activeTab);
-    router.push(`/search?${params.toString()}`);
+    params.set("launch", "1");
+    router.push(`/imoveis?${params.toString()}`);
   };
 
   return (

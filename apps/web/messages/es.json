@@ -552,6 +552,7 @@
       "house": "Casa",
       "apartment": "Apartamento",
       "land": "Terreno",
+      "commercial": "Comercial",
       "state": "Estado",
       "buy": "Comprar",
       "rent": "Alquilar",
@@ -610,6 +611,7 @@
       "descriptionText": "Excelente {type} ubicado en {neighborhood}, {city}. Inmueble verificado por RSC con documentación completa y opciones de financiación disponibles.",
       "readMore": "Leer más",
       "readLess": "Leer menos",
+      "noDescription": "Sin descripción disponible por el momento.",
       "listedBy": "Anunciado por",
       "published": "Publicado el {date}",
       "contact": "Contactar",
@@ -667,6 +669,7 @@
       "activeListings": "Activos",
       "sold": "Vendidos",
       "positiveReviews": "Reseñas positivas",
+      "reviews": "Reseñas",
       "agent": "Responsable",
       "viewProfile": "Ver perfil",
       "otherProperties": "Otros inmuebles",
@@ -914,6 +917,17 @@
       "successBody": "Tu solicitud fue procesada. La inmobiliaria se pondrá en contacto lo antes posible.",
       "close": "Cerrar",
       "error": "No se pudo agendar. Intenta de nuevo."
+    },
+    "visitConfirmed": {
+      "loading": "Cargando...",
+      "title": "¡Visita solicitada!",
+      "subtitle": "Tu solicitud fue registrada con éxito.",
+      "property": "Inmueble",
+      "agency": "Inmobiliaria",
+      "schedule": "Fecha y horario",
+      "nextSteps": "La inmobiliaria se pondrá en contacto para confirmar los detalles de la visita.",
+      "backToProperty": "Volver al inmueble",
+      "browseMore": "Ver más inmuebles"
     },
     "chat": {
       "title": "Chat RSC",

@@ -1,22 +1,29 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { usePathname, useRouter } from "@/lib/i18n/routing";
 import {
-  hasLocationSearchParams,
-  parseLocationSearchParams,
-} from "@/lib/geocoding/url-params";
+  hasImoveisSearchParams,
+  imoveisFiltersToParams,
+  parseImoveisSearchParams,
+} from "@/lib/imoveis/search-params";
 import { SearchHeader } from "./search-header";
 import { CategoriesBar } from "./categories-bar";
 import { SplitMapList } from "./split-map-list";
 import { ListingCarousel } from "./listing-carousel";
 import { ImoveisFooter } from "./imoveis-footer";
 import { useImoveisState } from "../hooks/use-imoveis-state";
-import { defaultImoveisFilters, type PropertyListing } from "../types";
+import type { ImoveisFilters, PropertyListing } from "../types";
 
 export function ImoveisPage() {
   const t = useTranslations("imoveis");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const appliedFromUrl = useRef(false);
+
   const {
     filters,
     view,
@@ -27,15 +34,31 @@ export function ImoveisPage() {
     setHighlightedId,
     updateFilters,
     resetFilters,
-    applySearch,
+    applySearch: applySearchState,
     selectRegionFromFooter,
+    initFromUrl,
   } = useImoveisState();
 
-  const searchParams = useSearchParams();
-  const appliedFromUrl = useRef(false);
   const [premium, setPremium] = useState<PropertyListing[]>([]);
   const [recommended, setRecommended] = useState<PropertyListing[]>([]);
   const [launches, setLaunches] = useState<PropertyListing[]>([]);
+
+  const syncUrl = useCallback(
+    (next: ImoveisFilters, nextView = view) => {
+      const params = imoveisFiltersToParams(next, nextView);
+      const qs = params.toString();
+      router.replace(qs ? `${pathname}?${qs}` : pathname);
+    },
+    [router, pathname, view],
+  );
+
+  const applySearch = useCallback(
+    (next: ImoveisFilters) => {
+      applySearchState(next);
+      syncUrl(next);
+    },
+    [applySearchState, syncUrl],
+  );
 
   useEffect(() => {
     Promise.all([
@@ -50,23 +73,58 @@ export function ImoveisPage() {
   }, []);
 
   useEffect(() => {
-    if (appliedFromUrl.current || !hasLocationSearchParams(searchParams)) return;
+    if (appliedFromUrl.current || !hasImoveisSearchParams(searchParams)) return;
     appliedFromUrl.current = true;
 
-    const fromUrl = parseLocationSearchParams(searchParams);
-    applySearch({
-      ...defaultImoveisFilters,
-      city: fromUrl.city,
-      state: fromUrl.state,
-      neighborhood: fromUrl.neighborhood,
-      country: fromUrl.country,
-      locationLabel: fromUrl.locationLabel,
-      lat: fromUrl.lat,
-      lng: fromUrl.lng,
-      query: fromUrl.query,
-      type: (fromUrl.type || "") as typeof defaultImoveisFilters.type,
-    });
-  }, [searchParams, applySearch]);
+    const { filters: fromUrl, view: urlView, searched } = parseImoveisSearchParams(
+      searchParams,
+    );
+    initFromUrl(fromUrl, urlView, searched);
+  }, [searchParams, initFromUrl]);
+
+  const handleViewChange = useCallback(
+    (nextView: typeof view) => {
+      setView(nextView);
+      if (hasSearched) syncUrl(filters, nextView);
+    },
+    [setView, hasSearched, syncUrl, filters],
+  );
+
+  const handleFilterChange = useCallback(
+    (patch: Partial<ImoveisFilters>) => {
+      const next = { ...filters, ...patch };
+      updateFilters(patch);
+      if (hasSearched) syncUrl(next);
+    },
+    [filters, updateFilters, hasSearched, syncUrl],
+  );
+
+  const handleTransactionChange = useCallback(
+    (transaction: ImoveisFilters["transaction"]) => {
+      const next = { ...filters, transaction };
+      updateFilters({ transaction });
+      applySearch(next);
+    },
+    [filters, updateFilters, applySearch],
+  );
+
+  const handleCategorySelect = useCallback(
+    (selection: { type: string; launchOnly: boolean }) => {
+      const next = {
+        ...filters,
+        type: selection.type,
+        launchOnly: selection.launchOnly,
+      };
+      updateFilters({ type: selection.type, launchOnly: selection.launchOnly });
+      applySearch(next);
+    },
+    [filters, updateFilters, applySearch],
+  );
+
+  const handleReset = useCallback(() => {
+    resetFilters();
+    router.replace(pathname);
+  }, [resetFilters, router, pathname]);
 
   return (
     <>
@@ -77,18 +135,16 @@ export function ImoveisPage() {
         <SearchHeader
           filters={filters}
           showTags={hasSearched}
-          onChange={updateFilters}
+          onChange={handleFilterChange}
           onSearch={applySearch}
-          onReset={resetFilters}
+          onReset={handleReset}
+          onTransactionChange={handleTransactionChange}
         />
 
         <CategoriesBar
           activeType={filters.type}
-          onSelect={(type) => {
-            const next = { ...filters, type };
-            updateFilters({ type });
-            applySearch(next);
-          }}
+          launchOnly={filters.launchOnly}
+          onSelect={handleCategorySelect}
         />
 
         <ListingCarousel
@@ -110,7 +166,7 @@ export function ImoveisPage() {
           view={view}
           highlightedId={highlightedId}
           hasSearched={hasSearched}
-          onViewChange={setView}
+          onViewChange={handleViewChange}
           onHighlight={setHighlightedId}
         />
 
@@ -127,7 +183,12 @@ export function ImoveisPage() {
         />
       </div>
 
-      <ImoveisFooter onSelectRegion={selectRegionFromFooter} />
+      <ImoveisFooter
+        onSelectRegion={(region) => {
+          const next = selectRegionFromFooter(region);
+          if (next) syncUrl(next);
+        }}
+      />
     </>
   );
 }

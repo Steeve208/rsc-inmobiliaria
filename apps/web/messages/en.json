@@ -552,6 +552,7 @@
       "house": "House",
       "apartment": "Apartment",
       "land": "Land",
+      "commercial": "Commercial",
       "state": "State",
       "buy": "Buy",
       "rent": "Rent",
@@ -610,6 +611,7 @@
       "descriptionText": "Excellent {type} located in {neighborhood}, {city}. RSC verified property with full documentation and financing options available.",
       "readMore": "Read more",
       "readLess": "Read less",
+      "noDescription": "No description available yet.",
       "listedBy": "Listed by",
       "published": "Published on {date}",
       "contact": "Contact seller",
@@ -667,6 +669,7 @@
       "activeListings": "Active",
       "sold": "Sold",
       "positiveReviews": "Positive reviews",
+      "reviews": "Reviews",
       "agent": "Agent",
       "viewProfile": "View profile",
       "otherProperties": "Other properties",
@@ -914,6 +917,17 @@
       "successBody": "Your request has been processed. The agency will contact you as soon as possible.",
       "close": "Close",
       "error": "Could not schedule. Please try again."
+    },
+    "visitConfirmed": {
+      "loading": "Loading...",
+      "title": "Visit requested!",
+      "subtitle": "Your request was submitted successfully.",
+      "property": "Property",
+      "agency": "Agency",
+      "schedule": "Date and time",
+      "nextSteps": "The agency will contact you to confirm the visit details.",
+      "backToProperty": "Back to property",
+      "browseMore": "Browse more properties"
     },
     "chat": {
       "title": "RSC Chat",

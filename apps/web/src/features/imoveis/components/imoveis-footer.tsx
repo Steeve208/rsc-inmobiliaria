@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
 import { marketplace } from "@/lib/layout/marketplace";
 import { cn } from "@/lib/utils";
-import { brazilStates, worldRegions } from "../mock-data";
+import { brazilStates, worldRegions } from "@/lib/listings/regions";
 import type { RegionItem } from "../types";
 
 type Props = {

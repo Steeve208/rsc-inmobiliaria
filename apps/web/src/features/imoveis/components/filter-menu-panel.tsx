@@ -128,6 +128,7 @@ export function FilterMenuPanel({ draft, onChange, onReset, onApply }: Props) {
               { value: "house", label: t("house") },
               { value: "apartment", label: t("apartment") },
               { value: "land", label: t("land") },
+              { value: "commercial", label: t("commercial") },
             ]}
           />
         </Section>

@@ -36,6 +36,7 @@ import type { PropertyDetail, PropertyListing } from "../types";
 type Props = {
   property: PropertyDetail;
   similar: PropertyListing[];
+  agencyListings?: PropertyListing[];
 };
 
 const mediaTabs = ["photos", "video", "tour", "floorPlan"] as const;
@@ -59,7 +60,7 @@ function typeBreadcrumb(type: string) {
   return map[type] ?? type;
 }
 
-export function PropertyDetailPage({ property, similar }: Props) {
+export function PropertyDetailPage({ property, similar, agencyListings = [] }: Props) {
   const t = useTranslations("imoveis.detail");
   const { active: isFavorite, handleClick: handleFavoriteClick } = useFavoriteButton(
     "property",
@@ -118,7 +119,8 @@ export function PropertyDetailPage({ property, similar }: Props) {
   ];
 
   const thumbnails = property.images.slice(0, 4);
-  const totalPhotos = 24;
+  const totalPhotos = property.images.length;
+  const heroImage = property.images[activeImage] ?? property.images[0] ?? property.image;
 
   const prevImage = () =>
     setActiveImage((i) => (i === 0 ? property.images.length - 1 : i - 1));
@@ -210,7 +212,7 @@ export function PropertyDetailPage({ property, similar }: Props) {
           <section>
             <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
               <Image
-                src={property.images[activeImage] ?? property.image}
+                src={heroImage}
                 alt={property.title}
                 fill
                 priority
@@ -257,21 +259,23 @@ export function PropertyDetailPage({ property, similar }: Props) {
                   />
                 </button>
               ))}
-              <button
-                type="button"
-                className="relative aspect-[4/3] overflow-hidden rounded-lg"
-              >
-                <Image
-                  src={property.images[4] ?? property.image}
-                  alt=""
-                  fill
-                  className="object-cover brightness-50"
-                  sizes="120px"
-                />
-                <span className="absolute inset-0 flex items-center justify-center text-center text-xs font-medium text-white">
-                  {t("viewAllPhotos", { count: totalPhotos })}
-                </span>
-              </button>
+              {property.images.length > 4 ? (
+                <button
+                  type="button"
+                  className="relative aspect-[4/3] overflow-hidden rounded-lg"
+                >
+                  <Image
+                    src={property.images[4] ?? heroImage}
+                    alt=""
+                    fill
+                    className="object-cover brightness-50"
+                    sizes="120px"
+                  />
+                  <span className="absolute inset-0 flex items-center justify-center text-center text-xs font-medium text-white">
+                    {t("viewAllPhotos", { count: totalPhotos })}
+                  </span>
+                </button>
+              ) : null}
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
@@ -298,21 +302,27 @@ export function PropertyDetailPage({ property, similar }: Props) {
             <h2 className="text-lg font-semibold text-white">
               {t("descriptionTitle")}
             </h2>
-            <p
-              className={cn(
-                "mt-3 text-sm leading-relaxed text-white/65",
-                !expandedDesc && "line-clamp-3",
-              )}
-            >
-              {property.description}
-            </p>
-            <button
-              type="button"
-              onClick={() => setExpandedDesc((v) => !v)}
-              className="mt-3 text-sm font-medium text-[#60a5fa] hover:underline"
-            >
-              {expandedDesc ? t("readLess") : t("readMore")}
-            </button>
+            {property.description ? (
+              <>
+                <p
+                  className={cn(
+                    "mt-3 text-sm leading-relaxed text-white/65",
+                    !expandedDesc && "line-clamp-3",
+                  )}
+                >
+                  {property.description}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setExpandedDesc((v) => !v)}
+                  className="mt-3 text-sm font-medium text-[#60a5fa] hover:underline"
+                >
+                  {expandedDesc ? t("readLess") : t("readMore")}
+                </button>
+              </>
+            ) : (
+              <p className="mt-3 text-sm text-white/45">{t("noDescription")}</p>
+            )}
           </section>
 
           {/* Characteristics */}
@@ -486,7 +496,7 @@ export function PropertyDetailPage({ property, similar }: Props) {
                 companyId: property.companyId,
                 companyName: property.company,
                 whatsappNumber: property.whatsappNumber,
-                agentName: property.agent.name,
+                agentName: property.agent?.name,
               }}
             />
           </div>
@@ -497,17 +507,31 @@ export function PropertyDetailPage({ property, similar }: Props) {
               {t("agency")}
             </p>
             <div className="mt-3 flex items-center gap-3">
-              <div className="flex size-12 items-center justify-center rounded-lg bg-[#1d4ed8] text-sm font-bold text-white">
-                RSC
-              </div>
+              {property.companyLogoUrl ? (
+                <div className="relative size-12 overflow-hidden rounded-lg">
+                  <Image
+                    src={property.companyLogoUrl}
+                    alt={property.company}
+                    fill
+                    className="object-cover"
+                    sizes="48px"
+                  />
+                </div>
+              ) : (
+                <div className="flex size-12 items-center justify-center rounded-lg bg-[#1d4ed8] text-sm font-bold text-white">
+                  {property.company.slice(0, 3).toUpperCase()}
+                </div>
+              )}
               <div>
                 <p className="font-semibold text-white">{property.company}</p>
                 <div className="flex items-center gap-1 text-sm text-[#eebc49]">
                   <Star className="size-3.5 fill-current" />
-                  {property.agencyRating}
-                  <span className="text-white/40">
-                    · {t("yearsInMarket", { years: property.agencyYears })}
-                  </span>
+                  {property.agencyRating > 0 ? property.agencyRating.toFixed(1) : "—"}
+                  {property.agencyYears > 0 ? (
+                    <span className="text-white/40">
+                      · {t("yearsInMarket", { years: property.agencyYears })}
+                    </span>
+                  ) : null}
                 </div>
               </div>
             </div>
@@ -521,77 +545,68 @@ export function PropertyDetailPage({ property, similar }: Props) {
                 <p className="text-white/40">{t("sold")}</p>
               </div>
               <div className="rounded-lg bg-[#0a111f] px-2 py-2">
-                <p className="font-bold text-white">{property.agencyReviews}%</p>
-                <p className="text-white/40">{t("positiveReviews")}</p>
+                <p className="font-bold text-white">{property.agencyReviews}</p>
+                <p className="text-white/40">{t("reviews")}</p>
               </div>
             </div>
           </div>
 
-          {/* Agent */}
-          <div className="rounded-xl bg-[#111d2f] p-5">
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/40">
-              {t("agent")}
-            </p>
-            <div className="mt-3 flex items-center gap-3">
-              <div className="relative size-12 overflow-hidden rounded-full">
-                <Image
-                  src={property.agent.photo}
-                  alt={property.agent.name}
-                  fill
-                  className="object-cover"
-                  sizes="48px"
-                />
-              </div>
-              <div>
-                <p className="font-semibold text-white">
-                  {property.agent.name}
-                </p>
-                <p className="text-xs text-white/45">{property.agent.role}</p>
-                <p className="text-xs text-white/35">
-                  CRECI {property.agent.creci}
-                </p>
+          {property.agent ? (
+            <div className="rounded-xl bg-[#111d2f] p-5">
+              <p className="text-xs font-semibold uppercase tracking-wider text-white/40">
+                {t("agent")}
+              </p>
+              <div className="mt-3 flex items-center gap-3">
+                <div className="relative size-12 overflow-hidden rounded-full">
+                  <Image
+                    src={property.agent.photo}
+                    alt={property.agent.name}
+                    fill
+                    className="object-cover"
+                    sizes="48px"
+                  />
+                </div>
+                <div>
+                  <p className="font-semibold text-white">{property.agent.name}</p>
+                  {property.agent.role ? (
+                    <p className="text-xs text-white/45">{property.agent.role}</p>
+                  ) : null}
+                  {property.agent.creci ? (
+                    <p className="text-xs text-white/35">CRECI {property.agent.creci}</p>
+                  ) : null}
+                </div>
               </div>
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-4 w-full border-0 bg-white/10 text-white/80 hover:bg-white/15"
-            >
-              {t("viewProfile")}
-            </Button>
-          </div>
+          ) : null}
 
-          {/* Other properties from agency */}
-          <div className="rounded-xl bg-[#111d2f] p-5">
-            <p className="text-sm font-semibold text-white">
-              {t("otherProperties")}
-            </p>
-            <div className="mt-3 flex gap-3 overflow-x-auto pb-1">
-              {similar.slice(0, 3).map((item) => (
-                <Link
-                  key={item.id}
-                  href={`/imoveis/${item.id}`}
-                  className="block w-[140px] shrink-0"
-                >
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover"
-                      sizes="140px"
-                    />
-                  </div>
-                  <p className="mt-1.5 truncate text-xs text-white/70">
-                    {item.title}
-                  </p>
-                  <p className="text-xs font-bold text-white">
-                    {formatPrice(item.price, item.currency)}
-                  </p>
-                </Link>
-              ))}
+          {agencyListings.length > 0 ? (
+            <div className="rounded-xl bg-[#111d2f] p-5">
+              <p className="text-sm font-semibold text-white">{t("otherProperties")}</p>
+              <div className="mt-3 flex gap-3 overflow-x-auto pb-1">
+                {agencyListings.map((item) => (
+                  <Link
+                    key={item.id}
+                    href={`/imoveis/${item.id}`}
+                    className="block w-[140px] shrink-0"
+                  >
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                        sizes="140px"
+                      />
+                    </div>
+                    <p className="mt-1.5 truncate text-xs text-white/70">{item.title}</p>
+                    <p className="text-xs font-bold text-white">
+                      {formatPrice(item.price, item.currency)}
+                    </p>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
+          ) : null}
         </aside>
       </div>
 

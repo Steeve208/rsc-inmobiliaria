@@ -101,8 +101,27 @@ export function useImoveisState() {
     [market.countryCode, market.countryName],
   );
 
+  const initFromUrl = useCallback(
+    (next: ImoveisFilters, nextView: ImoveisView, searched: boolean) => {
+      setFilters(next);
+      setView(nextView);
+      setHasSearched(searched);
+      if (searched) {
+        setNav({
+          level: "properties",
+          country: next.country || market.countryName,
+          countryCode: market.countryCode,
+          state: next.state || undefined,
+          city: next.city || undefined,
+          neighborhood: next.neighborhood || undefined,
+        });
+      }
+    },
+    [market.countryCode, market.countryName],
+  );
+
   const selectRegionFromFooter = useCallback(
-    (region: { id: string; name: string }) => {
+    (region: { id: string; name: string }): ImoveisFilters | null => {
       const isState = brazilStates.some((s) => s.id === region.id);
       const isCountry = worldRegions.some((r) => r.id === region.id);
 
@@ -119,7 +138,11 @@ export function useImoveisState() {
           state: region.id,
         });
         setHasSearched(true);
-      } else if (isCountry) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return next;
+      }
+
+      if (isCountry) {
         const next = {
           ...marketDefaults,
           country: region.name,
@@ -131,8 +154,11 @@ export function useImoveisState() {
           countryCode: region.id,
         });
         setHasSearched(true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return next;
       }
-      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      return null;
     },
     [market.countryCode, market.countryName, marketDefaults],
   );
@@ -177,6 +203,7 @@ export function useImoveisState() {
     updateFilters,
     resetFilters,
     applySearch,
+    initFromUrl,
     selectRegionFromFooter,
     runAiSearch,
   };

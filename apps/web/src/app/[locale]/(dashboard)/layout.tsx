@@ -10,13 +10,13 @@ export default function DashboardLayout({
     <div className="flex min-h-full flex-col">
       <header className="border-b border-border/60 bg-background">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-sm font-semibold">
-            RSC Market
+        <Link href="/" className="text-sm font-semibold">
+          RSC Market
+        </Link>
+        <nav className="flex items-center gap-4 text-sm text-muted-foreground">
+          <Link href="/dashboard" className="hover:text-foreground">
+            Overview
           </Link>
-          <nav className="flex items-center gap-4 text-sm text-muted-foreground">
-            <Link href="/dashboard" className="hover:text-foreground">
-              Overview
-            </Link>
             <Button size="sm" variant="outline">
               Account
             </Button>

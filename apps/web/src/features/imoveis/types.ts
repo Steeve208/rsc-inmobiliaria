@@ -27,6 +27,7 @@ export type ImoveisFilters = SearchFilters & {
   condition: "new" | "used" | "";
   pets: boolean;
   rscCredit: boolean;
+  launchOnly: boolean;
   locationLabel: string;
   lat: number | null;
   lng: number | null;
@@ -41,6 +42,8 @@ export type PremiumCompany = {
 };
 
 export type PropertyListing = ListingItem & {
+  transaction?: string;
+  condition?: string;
   verified?: boolean;
   bathrooms?: number;
   premium?: boolean;
@@ -56,6 +59,7 @@ export type PropertyAgent = {
 
 export type PropertyDetail = PropertyListing & {
   companyId: string;
+  companyLogoUrl?: string;
   whatsappNumber: string;
   images: string[];
   featured?: boolean;
@@ -70,7 +74,7 @@ export type PropertyDetail = PropertyListing & {
   heating: string;
   yearBuilt: number;
   description: string;
-  agent: PropertyAgent;
+  agent: PropertyAgent | null;
   agencyRating: number;
   agencyYears: number;
   agencyActive: number;
@@ -100,6 +104,7 @@ export const defaultImoveisFilters: ImoveisFilters = {
   condition: "",
   pets: false,
   rscCredit: false,
+  launchOnly: false,
   locationLabel: "",
   lat: null,
   lng: null,

@@ -1,48 +1,46 @@
 "use client";
 
-import {
-  Building2,
-  Home,
-  Landmark,
-  Mountain,
-  Palmtree,
-  Store,
-  Trees,
-  Warehouse,
-} from "lucide-react";
+import { Building2, Home, Rocket, Store, Trees } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
+type CategoryId = "house" | "apartment" | "land" | "commercial" | "launches";
+
 type Props = {
   activeType?: string;
-  onSelect: (type: string) => void;
+  launchOnly?: boolean;
+  onSelect: (selection: { type: string; launchOnly: boolean }) => void;
 };
 
-const categories = [
+const categories: { id: CategoryId; icon: typeof Home; isLaunch?: boolean }[] = [
   { id: "house", icon: Home },
   { id: "apartment", icon: Building2 },
   { id: "land", icon: Trees },
   { id: "commercial", icon: Store },
-  { id: "launches", icon: Warehouse },
-  { id: "condo", icon: Landmark },
-  { id: "beach", icon: Palmtree },
-  { id: "countryside", icon: Mountain },
-] as const;
+  { id: "launches", icon: Rocket, isLaunch: true },
+];
 
-export function CategoriesBar({ activeType, onSelect }: Props) {
+export function CategoriesBar({ activeType, launchOnly, onSelect }: Props) {
   const t = useTranslations("imoveis.categories");
 
   return (
     <section className="pb-4 lg:pb-5">
       <div className="market-container">
         <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none sm:gap-3">
-          {categories.map(({ id, icon: Icon }) => {
-            const active = activeType === id;
+          {categories.map(({ id, icon: Icon, isLaunch }) => {
+            const active = isLaunch ? launchOnly : !launchOnly && activeType === id;
             return (
               <button
                 key={id}
                 type="button"
-                onClick={() => onSelect(active ? "" : id)}
+                onClick={() => {
+                  if (isLaunch) {
+                    onSelect({ type: "", launchOnly: !launchOnly });
+                    return;
+                  }
+                  const nextActive = !launchOnly && activeType === id;
+                  onSelect({ type: nextActive ? "" : id, launchOnly: false });
+                }}
                 className={cn(
                   "group flex shrink-0 items-center gap-2.5 rounded-full px-4 py-2.5 transition-all sm:px-5 sm:py-3",
                   active

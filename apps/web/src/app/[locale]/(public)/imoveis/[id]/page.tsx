@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import {
+  getAgencyProperties,
   getPropertyDetail,
   getSimilarProperties,
 } from "@/lib/listings/property-repository";
@@ -17,7 +18,16 @@ export default async function Page({ params }: Props) {
   const property = await getPropertyDetail(id);
   if (!property) notFound();
 
-  const similar = await getSimilarProperties(id);
+  const [similar, agencyListings] = await Promise.all([
+    getSimilarProperties(id),
+    getAgencyProperties(property.companyId, id),
+  ]);
 
-  return <PropertyDetailPage property={property} similar={similar} />;
+  return (
+    <PropertyDetailPage
+      property={property}
+      similar={similar}
+      agencyListings={agencyListings}
+    />
+  );
 }

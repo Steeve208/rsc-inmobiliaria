@@ -50,7 +50,10 @@ export function filterProperties(
       )
         return false;
     }
+    if (filters.launchOnly && !item.launch) return false;
     if (filters.type && item.type !== filters.type) return false;
+    if (filters.transaction && item.transaction !== filters.transaction) return false;
+    if (filters.condition && item.condition !== filters.condition) return false;
     if (filters.priceMin && item.price < Number(filters.priceMin)) return false;
     if (filters.priceMax && item.price > Number(filters.priceMax)) return false;
     if (filters.bedrooms && item.bedrooms < Number(filters.bedrooms)) return false;
