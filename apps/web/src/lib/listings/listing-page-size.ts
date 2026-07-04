@@ -1,0 +1,6 @@
+export const LISTING_PAGE_SIZE = 12;
+
+/** @deprecated use LISTING_PAGE_SIZE */
+export const PROPERTY_PAGE_SIZE = LISTING_PAGE_SIZE;
+
+export const VEHICLE_PAGE_SIZE = LISTING_PAGE_SIZE;

@@ -13,11 +13,13 @@ import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
 import {
   BuyerChatsPanel,
+  BuyerChatThreadPanel,
   BuyerVisitsPanel,
-  FavoritesPanel,
 } from "@/features/contact";
-import { PropertyComparePanel } from "@/features/imoveis/components/property-compare-panel";
-import { SavedSearchesPanel } from "@/features/imoveis/components/saved-searches-panel";
+import { FavoritesPageSection } from "@/features/favorites";
+import { CompareHub } from "@/features/dashboard/components/compare-hub";
+import { SavedSearchesHub } from "@/features/imoveis/components/saved-searches-panel";
+import { BuyerFinancingRequestsPanel } from "@/features/financing/components/buyer-financing-requests-panel";
 
 const tabs = [
   { id: "favorites", icon: Heart, href: "/dashboard", labelKey: "favorites" },
@@ -30,9 +32,10 @@ const tabs = [
 
 type Props = {
   activeTab?: (typeof tabs)[number]["id"];
+  activeThreadId?: string;
 };
 
-export function BuyerHub({ activeTab = "favorites" }: Props) {
+export function BuyerHub({ activeTab = "favorites", activeThreadId }: Props) {
   const t = useTranslations("dashboard");
 
   return (
@@ -61,37 +64,40 @@ export function BuyerHub({ activeTab = "favorites" }: Props) {
       </nav>
 
       {activeTab === "favorites" && (
-        <section>
-          <h2 className="mb-4 text-lg font-semibold text-white">{t("favoritesTitle")}</h2>
-          <FavoritesPanel />
-        </section>
+        <FavoritesPageSection title={t("favoritesTitle")} titleAs="h2" />
       )}
 
       {activeTab === "searches" && (
         <section>
           <h2 className="mb-4 text-lg font-semibold text-white">{t("searchesTitle")}</h2>
-          <SavedSearchesPanel />
+          <SavedSearchesHub />
         </section>
       )}
 
       {activeTab === "requests" && (
-        <section className="rounded-xl bg-white/5 p-12 text-center">
-          <Send className="mx-auto size-10 text-white/35" />
-          <p className="mt-4 font-medium text-white">{t("requestsTitle")}</p>
-          <p className="mt-1 text-sm text-white/50">{t("requestsEmpty")}</p>
-          <Link
-            href="/financing"
-            className="mt-4 inline-block text-sm font-medium text-[#60a5fa] hover:underline"
-          >
-            {t("financingCta")}
-          </Link>
+        <section>
+          <h2 className="mb-4 text-lg font-semibold text-white">{t("requestsTitle")}</h2>
+          <BuyerFinancingRequestsPanel />
         </section>
       )}
 
       {activeTab === "chats" && (
         <section>
           <h2 className="mb-4 text-lg font-semibold text-white">{t("chatsTitle")}</h2>
-          <BuyerChatsPanel />
+          <div
+            className={
+              activeThreadId
+                ? "grid gap-6 lg:grid-cols-[minmax(280px,360px)_1fr]"
+                : undefined
+            }
+          >
+            <div className={activeThreadId ? "hidden lg:block" : undefined}>
+              <BuyerChatsPanel activeThreadId={activeThreadId} />
+            </div>
+            {activeThreadId ? (
+              <BuyerChatThreadPanel threadId={activeThreadId} />
+            ) : null}
+          </div>
         </section>
       )}
 
@@ -102,7 +108,7 @@ export function BuyerHub({ activeTab = "favorites" }: Props) {
         </section>
       )}
 
-      {activeTab === "compare" && <PropertyComparePanel />}
+      {activeTab === "compare" && <CompareHub />}
     </div>
   );
 }

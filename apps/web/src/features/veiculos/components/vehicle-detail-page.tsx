@@ -13,7 +13,6 @@ import {
   Heart,
   MapPin,
   MessageCircle,
-  RotateCw,
   Share2,
   ShieldCheck,
   Star,
@@ -23,14 +22,18 @@ import {
 import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
 import { useFavoriteButton } from "@/hooks/use-favorites";
+import { shareListing } from "@/lib/listings/share-listing";
+import { VirtualTourEmbed } from "@/features/listings/components/virtual-tour-embed";
 import { VehicleMap } from "./vehicle-map";
 import { VehicleCard } from "./vehicle-card";
 import { ListingContactPanel } from "@/features/contact";
+import { ReportListingModal } from "@/features/imoveis/components/report-listing-modal";
 import type { VehicleDetail, VehicleListing } from "../types";
 
 type Props = {
   vehicle: VehicleDetail;
   similar: VehicleListing[];
+  agencyListings?: VehicleListing[];
 };
 
 const mediaTabs = ["photos", "video", "tour360"] as const;
@@ -44,7 +47,11 @@ function formatPrice(price: number, currency: string, fractionDigits = 0) {
   }).format(price);
 }
 
-export function VehicleDetailPage({ vehicle, similar }: Props) {
+export function VehicleDetailPage({
+  vehicle,
+  similar,
+  agencyListings = [],
+}: Props) {
   const t = useTranslations("veiculos.detail");
   const tc = useTranslations("veiculos.categories");
   const { active: isFavorite, handleClick: handleFavoriteClick } = useFavoriteButton(
@@ -54,6 +61,8 @@ export function VehicleDetailPage({ vehicle, similar }: Props) {
   const [activeImage, setActiveImage] = useState(0);
   const [mediaTab, setMediaTab] = useState<(typeof mediaTabs)[number]>("photos");
   const [expandedDesc, setExpandedDesc] = useState(false);
+  const [reportOpen, setReportOpen] = useState(false);
+  const [shareMessage, setShareMessage] = useState("");
   const [downPct, setDownPct] = useState(20);
   const [termMonths, setTermMonths] = useState(48);
   const [interestRate, setInterestRate] = useState(1.49);
@@ -67,13 +76,28 @@ export function VehicleDetailPage({ vehicle, similar }: Props) {
     return (principal * monthlyRate * factor) / (factor - 1);
   }, [principal, monthlyRate, termMonths]);
 
+  const availableMediaTabs = useMemo(() => {
+    const tabs: (typeof mediaTabs)[number][] = ["photos"];
+    if (vehicle.videoUrl) tabs.push("video");
+    if (vehicle.tour360Url) tabs.push("tour360");
+    return tabs;
+  }, [vehicle.videoUrl, vehicle.tour360Url]);
   const sidebarInstallment = Math.round(vehicle.price * 0.005);
   const sidebarDown = Math.round(vehicle.price * 0.2);
+  const financingHref = `/financing?price=${vehicle.price}&down=20&listingId=${vehicle.id}&title=${encodeURIComponent(vehicle.title)}&category=vehicles&currency=${vehicle.currency}`;
 
   const prevImage = () =>
     setActiveImage((i) => (i === 0 ? vehicle.images.length - 1 : i - 1));
   const nextImage = () =>
     setActiveImage((i) => (i === vehicle.images.length - 1 ? 0 : i + 1));
+
+  async function handleShare() {
+    const url = typeof window !== "undefined" ? window.location.href : "";
+    const result = await shareListing(url, vehicle.title);
+    if (result === "copied") setShareMessage(t("shareCopied"));
+    else if (result === "shared") setShareMessage(t("shareDone"));
+    setTimeout(() => setShareMessage(""), 2500);
+  }
 
   return (
     <div className="mx-auto max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8">
@@ -114,10 +138,11 @@ export function VehicleDetailPage({ vehicle, similar }: Props) {
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
+            onClick={() => void handleShare()}
             className="inline-flex items-center gap-2 rounded-lg bg-[#111d2f] px-4 py-2 text-sm text-white/80 transition-colors hover:bg-white/5"
           >
             <Share2 className="size-4" />
-            {t("share")}
+            {shareMessage || t("share")}
           </button>
           <button
             type="button"
@@ -134,6 +159,7 @@ export function VehicleDetailPage({ vehicle, similar }: Props) {
           </button>
           <button
             type="button"
+            onClick={() => setReportOpen(true)}
             className="inline-flex items-center gap-2 rounded-lg bg-[#111d2f] px-4 py-2 text-sm text-white/80 transition-colors hover:bg-white/5"
           >
             <Flag className="size-4" />
@@ -203,15 +229,12 @@ export function VehicleDetailPage({ vehicle, similar }: Props) {
                 />
               </div>
             )}
-            {mediaTab === "tour360" && (
-              <div className="flex aspect-[16/9] flex-col items-center justify-center gap-4 rounded-xl bg-[#111d2f]/60">
-                <RotateCw className="size-12 text-[#86efac]" />
-                <p className="text-sm text-white/60">{t("tour360Placeholder")}</p>
-              </div>
-            )}
+            {mediaTab === "tour360" && vehicle.tour360Url ? (
+              <VirtualTourEmbed url={vehicle.tour360Url} title={vehicle.title} />
+            ) : null}
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {mediaTabs.map((tab) => (
+              {availableMediaTabs.map((tab) => (
                 <button
                   key={tab}
                   type="button"
@@ -410,13 +433,13 @@ export function VehicleDetailPage({ vehicle, similar }: Props) {
             <p className="mt-1 text-sm text-[#86efac]">
               {t("installmentsFrom")} {formatPrice(sidebarInstallment, vehicle.currency)}/mes
             </p>
-            <button
-              type="button"
+            <Link
+              href={financingHref}
               className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#22c55e] py-3 text-sm font-semibold text-white hover:bg-[#16a34a]"
             >
               <Zap className="size-4" />
               {t("simulateFinancing")}
-            </button>
+            </Link>
             <div className="mt-3">
               <ListingContactPanel
                 listing={{
@@ -468,8 +491,45 @@ export function VehicleDetailPage({ vehicle, similar }: Props) {
               </div>
             </div>
           </div>
+
+          {agencyListings.length > 0 ? (
+            <div className="rounded-xl bg-[#111d2f]/80 p-6">
+              <p className="text-sm font-semibold text-white">{t("otherVehicles")}</p>
+              <div className="mt-3 flex gap-3 overflow-x-auto pb-1">
+                {agencyListings.map((item) => (
+                  <Link
+                    key={item.id}
+                    href={`/veiculos/${item.id}`}
+                    className="block w-[140px] shrink-0"
+                  >
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                        sizes="140px"
+                      />
+                    </div>
+                    <p className="mt-1.5 truncate text-xs text-white/70">{item.title}</p>
+                    <p className="text-xs font-bold text-white">
+                      {formatPrice(item.price, item.currency)}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </aside>
       </div>
+
+      <ReportListingModal
+        open={reportOpen}
+        onClose={() => setReportOpen(false)}
+        listingId={vehicle.id}
+        listingTitle={vehicle.title}
+        listingKind="vehicle"
+      />
     </div>
   );
 }

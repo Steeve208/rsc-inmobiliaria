@@ -6,6 +6,7 @@ import { GitCompare, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
 import { usePropertyCompare } from "@/hooks/use-property-compare-state";
+import { fetchPropertiesByIds } from "@/lib/listings/properties-by-ids-client";
 import type { PropertyListing } from "@/features/imoveis/types";
 
 function formatPrice(price: number, currency: string) {
@@ -18,7 +19,8 @@ function formatPrice(price: number, currency: string) {
 
 export function PropertyComparePanel() {
   const t = useTranslations("dashboard.comparePanel");
-  const { ids, remove, clear } = usePropertyCompare();
+  const { ids, remove, clear, loading: compareLoading, isLoggedIn, isSynced } =
+    usePropertyCompare();
   const [properties, setProperties] = useState<PropertyListing[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -29,17 +31,26 @@ export function PropertyComparePanel() {
       return;
     }
 
+    let cancelled = false;
     setLoading(true);
-    fetch("/api/listings/properties")
-      .then((r) => r.json())
-      .then((data: PropertyListing[]) => {
-        setProperties(data.filter((p) => ids.includes(p.id)));
+
+    fetchPropertiesByIds(ids)
+      .then((data) => {
+        if (!cancelled) setProperties(data);
       })
-      .catch(() => setProperties([]))
-      .finally(() => setLoading(false));
+      .catch(() => {
+        if (!cancelled) setProperties([]);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [ids]);
 
-  if (loading) {
+  if (compareLoading || loading) {
     return <p className="text-muted-foreground">{t("loading")}</p>;
   }
 
@@ -49,6 +60,14 @@ export function PropertyComparePanel() {
         <GitCompare className="mx-auto size-10 text-muted-foreground" />
         <p className="mt-4 font-medium">{t("emptyTitle")}</p>
         <p className="mt-1 text-sm text-muted-foreground">{t("emptyBody")}</p>
+        {!isLoggedIn ? (
+          <p className="mt-3 text-sm text-muted-foreground">
+            {t("guestHint")}{" "}
+            <Link href="/entrar" className="text-primary hover:underline">
+              {t("signIn")}
+            </Link>
+          </p>
+        ) : null}
         <Link
           href="/imoveis"
           className="mt-4 inline-block text-sm font-medium text-primary hover:underline"
@@ -61,6 +80,18 @@ export function PropertyComparePanel() {
 
   return (
     <section className="space-y-4">
+      {!isLoggedIn ? (
+        <p className="rounded-lg border border-[#d4a017]/25 bg-[#d4a017]/10 px-4 py-3 text-sm text-white/75">
+          {t("guestSyncBanner")}{" "}
+          <Link href="/entrar" className="font-medium text-[#fbbf24] hover:underline">
+            {t("signIn")}
+          </Link>
+        </p>
+      ) : null}
+      {isLoggedIn && isSynced ? (
+        <p className="text-sm text-muted-foreground">{t("syncedHint")}</p>
+      ) : null}
+
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-lg font-semibold">{t("title")}</h2>
         <button

@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
+import { headers } from "next/headers";
 import { z } from "zod";
+import { auth } from "@/lib/auth";
+import { notifyAdminNewReport } from "@/lib/reports/notify-admin";
+import { createListingReport } from "@/lib/reports/store";
 
 const reportSchema = z.object({
   listingId: z.string().min(1),
@@ -22,8 +26,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "validation_failed" }, { status: 400 });
   }
 
-  // Queue for moderation — logged server-side until admin tooling exists.
-  console.info("[listing-report]", parsed.data);
+  const session = await auth.api.getSession({ headers: await headers() });
 
-  return NextResponse.json({ ok: true }, { status: 201 });
+  const report = await createListingReport({
+    listingId: parsed.data.listingId,
+    listingTitle: parsed.data.listingTitle,
+    listingKind: parsed.data.listingKind,
+    reason: parsed.data.reason,
+    reporterEmail: parsed.data.email,
+    reporterUserId: session?.user?.id,
+  });
+
+  void notifyAdminNewReport(report);
+
+  return NextResponse.json({ ok: true, id: report.id }, { status: 201 });
 }

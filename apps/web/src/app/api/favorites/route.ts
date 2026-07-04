@@ -5,6 +5,7 @@ import {
   addFavorite,
   listFavorites,
   removeFavorite,
+  syncFavorites,
 } from "@/lib/listings/favorites-repository";
 
 async function requireUserId() {
@@ -30,7 +31,13 @@ export async function POST(request: Request) {
   const body = (await request.json()) as {
     listingKind?: "property" | "vehicle";
     listingId?: string;
+    items?: { listingKind: "property" | "vehicle"; listingId: string }[];
   };
+
+  if (Array.isArray(body.items)) {
+    const favorites = await syncFavorites(userId, body.items);
+    return NextResponse.json(favorites);
+  }
 
   if (!body.listingKind || !body.listingId) {
     return NextResponse.json({ error: "missing_fields" }, { status: 400 });

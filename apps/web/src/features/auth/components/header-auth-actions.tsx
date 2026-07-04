@@ -42,7 +42,7 @@ export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
         )}
       >
         <Link
-          href="/favoritos"
+          href="/dashboard"
           className={cn(
             "relative inline-flex rounded-md p-2 text-white/90 transition-colors hover:bg-white/5 hover:text-white",
             variant === "mobile" && "w-full justify-center border border-white/10 py-2.5",
@@ -100,7 +100,7 @@ export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
   const signInHref =
     variant === "desktop" ? "/entrar" : "/entrar";
   const signUpHref = "/cadastrar";
-  const wishlistHref = "/entrar";
+  const wishlistHref = "/favoritos";
 
   return (
     <div
@@ -113,12 +113,17 @@ export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
       <Link
         href={wishlistHref}
         className={cn(
-          "inline-flex rounded-md p-2 text-white/90 transition-colors hover:bg-white/5 hover:text-white",
+          "relative inline-flex rounded-md p-2 text-white/90 transition-colors hover:bg-white/5 hover:text-white",
           variant === "mobile" && "hidden",
         )}
         aria-label={t("wishlist")}
       >
         <Heart className="size-5" strokeWidth={1.5} />
+        {count > 0 && (
+          <span className="absolute -right-0.5 -top-0.5 flex size-4 items-center justify-center rounded-full bg-[#d4a017] text-[10px] font-bold text-[#000a1a]">
+            {count > 9 ? "9+" : count}
+          </span>
+        )}
       </Link>
 
       <Link

@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, ne } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, ne } from "drizzle-orm";
 import { db } from "@/lib/db";
 import {
   agent,
@@ -80,12 +80,77 @@ async function fetchActiveProperties() {
     .orderBy(desc(propertyListing.publishedAt));
 }
 
+export async function listActivePropertiesForAlerts(): Promise<PropertyListing[]> {
+  try {
+    const rows = await fetchActiveProperties();
+    return rows.map(({ property, company: co }) =>
+      mapListing(property, co?.name ?? property.companyId ?? ""),
+    );
+  } catch {
+    return [];
+  }
+}
+
 export async function listProperties(): Promise<PropertyListing[]> {
   try {
     const rows = await fetchActiveProperties();
     return rows.map(({ property, company: co }) =>
       mapListing(property, co?.name ?? property.companyId ?? ""),
     );
+  } catch {
+    return [];
+  }
+}
+
+export async function listPropertiesByCity(
+  city: string,
+  state: string,
+  limit = 12,
+): Promise<PropertyListing[]> {
+  try {
+    const rows = await db
+      .select({ property: propertyListing, company })
+      .from(propertyListing)
+      .leftJoin(company, eq(propertyListing.companyId, company.id))
+      .where(
+        and(
+          eq(propertyListing.status, "active"),
+          eq(propertyListing.city, city),
+          eq(propertyListing.state, state),
+        ),
+      )
+      .orderBy(desc(propertyListing.publishedAt))
+      .limit(limit);
+
+    return rows.map(({ property, company: co }) =>
+      mapListing(property, co?.name ?? property.companyId ?? ""),
+    );
+  } catch {
+    return [];
+  }
+}
+
+export async function listPropertiesByIds(ids: string[]): Promise<PropertyListing[]> {
+  const uniqueIds = [...new Set(ids.filter(Boolean))];
+  if (uniqueIds.length === 0) return [];
+
+  try {
+    const rows = await db
+      .select({ property: propertyListing, company })
+      .from(propertyListing)
+      .leftJoin(company, eq(propertyListing.companyId, company.id))
+      .where(inArray(propertyListing.id, uniqueIds));
+
+    const byId = new Map(
+      rows.map(({ property, company: co }) => [
+        property.id,
+        mapListing(property, co?.name ?? property.companyId ?? ""),
+      ]),
+    );
+
+    return uniqueIds
+      .map((id) => byId.get(id))
+      .filter((item): item is PropertyListing => item !== undefined);
   } catch {
     return [];
   }
@@ -150,6 +215,8 @@ export async function getPropertyDetail(id: string): Promise<PropertyDetail | un
       yearBuilt: row.property.yearBuilt ?? 0,
       description: row.property.description?.trim() ?? "",
       videoUrl: row.property.videoUrl ?? undefined,
+      virtualTourUrl: row.property.virtualTourUrl ?? undefined,
+      floorPlanUrl: row.property.floorPlanUrl ?? undefined,
       agent: ag
         ? {
             name: ag.name,

@@ -83,6 +83,7 @@ export type VehicleDetail = VehicleListing & {
   images: string[];
   videoUrl?: string;
   has360: boolean;
+  tour360Url?: string;
   address: string;
   description: string;
   condition: VehicleCondition;

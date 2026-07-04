@@ -164,6 +164,8 @@ export async function listVisits(filters: {
   return rows.map(mapVisit);
 }
 
+export { reassignVisitsBuyerId } from "@/lib/buyer/sync-guest-activity";
+
 export async function openChatThread(
   input: OpenChatInput,
 ): Promise<ChatThread> {

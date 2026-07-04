@@ -1,6 +1,9 @@
+import { headers } from "next/headers";
 import { setRequestLocale } from "next-intl/server";
 import { getTranslations } from "next-intl/server";
-import { FavoritesPanel } from "@/features/contact";
+import { redirect } from "@/lib/i18n/routing";
+import { auth } from "@/lib/auth";
+import { FavoritesPageSection } from "@/features/favorites";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -9,15 +12,17 @@ type Props = {
 export default async function FavoritosPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (session?.user) {
+    redirect({ href: "/dashboard", locale });
+  }
+
   const t = await getTranslations({ locale, namespace: "favorites" });
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight text-white">{t("title")}</h1>
-        <p className="mt-1 text-white/60">{t("subtitle")}</p>
-      </div>
-      <FavoritesPanel />
+      <FavoritesPageSection title={t("title")} subtitle={t("subtitle")} />
     </div>
   );
 }

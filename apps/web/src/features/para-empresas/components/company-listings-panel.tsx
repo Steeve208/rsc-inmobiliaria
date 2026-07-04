@@ -10,6 +10,7 @@ import {
   Trash2,
   Video,
   ExternalLink,
+  FileImage,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
@@ -30,6 +31,8 @@ type CompanyProperty = {
   status: string;
   coverImage: string;
   videoUrl: string | null;
+  virtualTourUrl: string | null;
+  floorPlanUrl: string | null;
   imageCount: number;
 };
 
@@ -59,6 +62,7 @@ export function CompanyListingsPanel({ companyId }: Props) {
   const [detail, setDetail] = useState<PropertyDetail | null>(null);
   const [form, setForm] = useState(emptyForm);
   const [videoUrlInput, setVideoUrlInput] = useState("");
+  const [virtualTourUrlInput, setVirtualTourUrlInput] = useState("");
   const [mode, setMode] = useState<"list" | "create">("list");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -88,6 +92,7 @@ export function CompanyListingsPanel({ companyId }: Props) {
         const data = (await res.json()) as PropertyDetail;
         setDetail(data);
         setVideoUrlInput(data.videoUrl ?? "");
+        setVirtualTourUrlInput(data.virtualTourUrl ?? "");
       } catch {
         setDetail(null);
       }
@@ -135,7 +140,11 @@ export function CompanyListingsPanel({ companyId }: Props) {
     }
   }
 
-  async function uploadFile(propertyId: string, file: File, kind: "image" | "video") {
+  async function uploadFile(
+    propertyId: string,
+    file: File,
+    kind: "image" | "video" | "floorPlan",
+  ) {
     setUploading(true);
     setError("");
     try {
@@ -171,6 +180,43 @@ export function CompanyListingsPanel({ companyId }: Props) {
       await loadList();
     } catch {
       setError(t("videoError"));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function saveVirtualTourUrl(propertyId: string) {
+    if (!virtualTourUrlInput.trim()) return;
+    setSaving(true);
+    setError("");
+    try {
+      const res = await fetch(`${baseUrl}/${propertyId}/media`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ virtualTourUrl: virtualTourUrlInput.trim() }),
+      });
+      if (!res.ok) throw new Error("tour");
+      await loadDetail(propertyId);
+      await loadList();
+    } catch {
+      setError(t("tourError"));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function removeFloorPlan(propertyId: string) {
+    setSaving(true);
+    setError("");
+    try {
+      const res = await fetch(`${baseUrl}/${propertyId}/media?floorPlan=1`, {
+        method: "DELETE",
+      });
+      if (!res.ok) throw new Error("floorPlan");
+      await loadDetail(propertyId);
+      await loadList();
+    } catch {
+      setError(t("floorPlanError"));
     } finally {
       setSaving(false);
     }
@@ -351,6 +397,8 @@ export function CompanyListingsPanel({ companyId }: Props) {
                     <p className="text-[10px] text-white/35">
                       {t("photoCount", { count: item.imageCount })}
                       {item.videoUrl ? ` · ${t("hasVideo")}` : ""}
+                      {item.virtualTourUrl ? ` · ${t("hasTour")}` : ""}
+                      {item.floorPlanUrl ? ` · ${t("hasFloorPlan")}` : ""}
                     </p>
                   </div>
                 </button>
@@ -477,6 +525,69 @@ export function CompanyListingsPanel({ companyId }: Props) {
               </div>
               {detail.videoUrl ? (
                 <p className="mt-2 truncate text-xs text-emerald-400/80">{t("videoSaved")}</p>
+              ) : null}
+            </div>
+
+            <div>
+              <h4 className="mb-3 text-sm font-semibold text-white">{t("tourTitle")}</h4>
+              <div className="flex gap-2">
+                <Input
+                  value={virtualTourUrlInput}
+                  onChange={(e) => setVirtualTourUrlInput(e.target.value)}
+                  placeholder={t("tourUrlPlaceholder")}
+                  className="border-white/10 bg-[#0a111f] text-white"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="shrink-0 border-white/15 bg-white/5 text-white"
+                  disabled={saving || !virtualTourUrlInput.trim()}
+                  onClick={() => saveVirtualTourUrl(detail.id)}
+                >
+                  {t("saveTourUrl")}
+                </Button>
+              </div>
+              {detail.virtualTourUrl ? (
+                <p className="mt-2 truncate text-xs text-emerald-400/80">{t("tourSaved")}</p>
+              ) : null}
+            </div>
+
+            <div>
+              <h4 className="mb-3 text-sm font-semibold text-white">{t("floorPlanTitle")}</h4>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-white/20 px-4 py-3 text-sm text-white/70 hover:bg-white/5">
+                  {uploading ? (
+                    <Loader2 className="size-4 animate-spin" />
+                  ) : (
+                    <FileImage className="size-4" />
+                  )}
+                  {t("uploadFloorPlan")}
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,application/pdf"
+                    className="hidden"
+                    disabled={uploading}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) void uploadFile(detail.id, file, "floorPlan");
+                      e.target.value = "";
+                    }}
+                  />
+                </label>
+                {detail.floorPlanUrl ? (
+                  <button
+                    type="button"
+                    onClick={() => void removeFloorPlan(detail.id)}
+                    disabled={saving}
+                    className="inline-flex items-center gap-2 rounded-lg border border-white/15 px-4 py-3 text-sm text-white/70 transition-colors hover:bg-white/5"
+                  >
+                    <Trash2 className="size-4" />
+                    {t("removeFloorPlan")}
+                  </button>
+                ) : null}
+              </div>
+              {detail.floorPlanUrl ? (
+                <p className="mt-2 truncate text-xs text-emerald-400/80">{t("floorPlanSaved")}</p>
               ) : null}
             </div>
 

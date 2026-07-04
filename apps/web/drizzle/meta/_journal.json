@@ -36,6 +36,41 @@
       "when": 1782681560101,
       "tag": "0004_calm_sandman",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1782685000000,
+      "tag": "0006_financing_request",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1782686000000,
+      "tag": "0007_property_compare",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1782687000000,
+      "tag": "0008_saved_search",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1782688000000,
+      "tag": "0012_saved_search_alerts",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1782690000000,
+      "tag": "0014_vehicle_parity",
+      "breakpoints": true
     }
   ]
 }

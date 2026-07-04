@@ -473,6 +473,7 @@ export function enrichProperty(base: PropertyListing) {
     bathrooms: base.bathrooms ?? 4,
     description:
       "Casa moderna e sofisticada localizada em um dos bairros mais valorizados da cidade. Projeto arquitetônico contemporâneo com acabamentos premium, amplas janelas em vidro, integração total entre áreas internas e externas, piscina aquecida e vista privilegiada. Ideal para famílias que buscam conforto, segurança e qualidade de vida.",
+    virtualTourUrl: "https://my.matterport.com/show/?m=8Qy963ZYY7F",
     agent: {
       name: "Lucas Andrade",
       role: "Corretor de Imóveis",

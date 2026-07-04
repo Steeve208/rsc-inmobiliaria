@@ -1,2 +1,2 @@
 // Credit feature module — financing, scoring, applications
-export {};
+export { BuyerFinancingRequestsPanel } from "@/features/financing";

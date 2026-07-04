@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { usePathname, useRouter } from "@/lib/i18n/routing";
 import {
-  hasLocationSearchParams,
-  parseLocationSearchParams,
-} from "@/lib/geocoding/url-params";
+  hasVeiculosSearchParams,
+  parseVeiculosSearchParams,
+  veiculosFiltersToParams,
+} from "@/lib/veiculos/search-params";
 import { SearchHeader } from "./search-header";
 import { CategoriesBar } from "./categories-bar";
 import { FeaturedSection } from "./featured-section";
@@ -15,10 +17,14 @@ import { PremiumDealersSection } from "./premium-dealers-section";
 import { ListingCarousel } from "./listing-carousel";
 import { VeiculosFooter } from "./veiculos-footer";
 import { useVeiculosState } from "../hooks/use-veiculos-state";
-import { defaultVeiculosFilters, type VehicleCategory, type VehicleListing } from "../types";
+import { useSavedVehicleSearches } from "@/hooks/use-saved-vehicle-searches";
+import type { VehicleCategory, VehicleListing } from "../types";
 
 export function VeiculosPage() {
   const t = useTranslations("veiculos");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const {
     filters,
     view,
@@ -29,14 +35,31 @@ export function VeiculosPage() {
     setHighlightedId,
     updateFilters,
     resetFilters,
-    applySearch,
+    applySearch: applySearchState,
+    initFromUrl,
     selectRegionFromFooter,
   } = useVeiculosState();
+  const { saveSearch } = useSavedVehicleSearches();
 
-  const searchParams = useSearchParams();
-  const appliedFromUrl = useRef(false);
   const [premium, setPremium] = useState<VehicleListing[]>([]);
   const [recommended, setRecommended] = useState<VehicleListing[]>([]);
+
+  const syncUrl = useCallback(
+    (next: typeof filters, nextView = view) => {
+      const params = veiculosFiltersToParams(next, nextView);
+      const qs = params.toString();
+      router.replace(qs ? `${pathname}?${qs}` : pathname);
+    },
+    [router, pathname, view],
+  );
+
+  const applySearch = useCallback(
+    (next: typeof filters) => {
+      applySearchState(next);
+      syncUrl(next);
+    },
+    [applySearchState, syncUrl],
+  );
 
   useEffect(() => {
     Promise.all([
@@ -49,21 +72,29 @@ export function VeiculosPage() {
   }, []);
 
   useEffect(() => {
-    if (appliedFromUrl.current || !hasLocationSearchParams(searchParams)) return;
-    appliedFromUrl.current = true;
+    if (!hasVeiculosSearchParams(searchParams)) return;
 
-    const fromUrl = parseLocationSearchParams(searchParams);
-    applySearch({
-      ...defaultVeiculosFilters,
-      city: fromUrl.city,
-      state: fromUrl.state,
-      locationLabel: fromUrl.locationLabel,
-      lat: fromUrl.lat,
-      lng: fromUrl.lng,
-      query: fromUrl.query,
-      type: (fromUrl.type || "") as VehicleCategory | "",
-    });
-  }, [searchParams, applySearch]);
+    const { filters: fromUrl, searched } = parseVeiculosSearchParams(searchParams);
+    initFromUrl(fromUrl, searched);
+  }, [searchParams, initFromUrl]);
+
+  const handleReset = useCallback(() => {
+    resetFilters();
+    router.replace(pathname);
+  }, [resetFilters, router, pathname]);
+
+  const handleCategorySelect = useCallback(
+    (type: VehicleCategory | "") => {
+      const next = { ...filters, type };
+      updateFilters({ type });
+      applySearch(next);
+    },
+    [filters, updateFilters, applySearch],
+  );
+
+  const handleSaveSearch = useCallback(() => {
+    saveSearch(filters);
+  }, [saveSearch, filters]);
 
   return (
     <>
@@ -76,16 +107,12 @@ export function VeiculosPage() {
           showTags={hasSearched}
           onChange={updateFilters}
           onSearch={applySearch}
-          onReset={resetFilters}
+          onReset={handleReset}
         />
 
         <CategoriesBar
           activeType={filters.type}
-          onSelect={(type) => {
-            const next = { ...filters, type: type as VehicleCategory | "" };
-            updateFilters({ type: next.type });
-            applySearch(next);
-          }}
+          onSelect={handleCategorySelect}
         />
 
         <FeaturedSection />
@@ -98,6 +125,7 @@ export function VeiculosPage() {
           hasSearched={hasSearched}
           onViewChange={setView}
           onHighlight={setHighlightedId}
+          onSaveSearch={hasSearched ? handleSaveSearch : undefined}
         />
 
         <PremiumDealersSection />
@@ -116,7 +144,15 @@ export function VeiculosPage() {
         />
       </div>
 
-      <VeiculosFooter onSelectRegion={selectRegionFromFooter} />
+      <VeiculosFooter
+        onSelectRegion={(region) => {
+          const next = selectRegionFromFooter(region);
+          if (!next) return;
+          applySearch(next);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+        onCategorySelect={handleCategorySelect}
+      />
     </>
   );
 }

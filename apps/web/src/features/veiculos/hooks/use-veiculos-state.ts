@@ -55,20 +55,38 @@ export function useVeiculosState() {
     setHasSearched(true);
   }, []);
 
-  const selectRegionFromFooter = useCallback((region: RegionItem) => {
+  const initFromUrl = useCallback((next: VeiculosFilters, searched: boolean) => {
+    setFilters(next);
+    setHasSearched(searched);
+  }, []);
+
+  const selectRegionFromFooter = useCallback((region: RegionItem): VeiculosFilters | null => {
     const isState = brazilStates.some((s) => s.id === region.id);
     const isCountry = worldRegions.some((r) => r.id === region.id);
 
     if (isState) {
-      const next = { ...defaultVeiculosFilters, state: region.id };
-      setFilters(next);
-      setHasSearched(true);
-    } else if (isCountry) {
-      const next = { ...defaultVeiculosFilters };
-      setFilters(next);
-      setHasSearched(true);
+      return {
+        ...defaultVeiculosFilters,
+        state: region.id,
+        city: "",
+        locationLabel: `${region.name}, ${region.id}`,
+        lat: null,
+        lng: null,
+        query: "",
+      };
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    if (isCountry) {
+      return {
+        ...defaultVeiculosFilters,
+        locationLabel: region.name,
+        lat: null,
+        lng: null,
+        query: "",
+      };
+    }
+
+    return null;
   }, []);
 
   const runAiSearch = useCallback(async (query: string) => {
@@ -102,6 +120,7 @@ export function useVeiculosState() {
     updateFilters,
     resetFilters,
     applySearch,
+    initFromUrl,
     selectRegionFromFooter,
     runAiSearch,
   };

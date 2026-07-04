@@ -72,6 +72,8 @@ export type PropertyDetail = PropertyListing & {
   whatsappNumber: string;
   images: string[];
   featured?: boolean;
+  virtualTourUrl?: string;
+  floorPlanUrl?: string;
   address: string;
   condoFee: number;
   iptu: number;

@@ -32,7 +32,11 @@
     "title": "Meus favoritos",
     "subtitle": "Imóveis e veículos que você salvou",
     "empty": "Você ainda não salvou nenhum favorito.",
-    "signIn": "Entrar"
+    "signIn": "Entrar",
+    "loading": "Carregando favoritos...",
+    "guestHint": "Entre na sua conta para sincronizar favoritos em todos os dispositivos.",
+    "guestSyncBanner": "Estes favoritos ficam salvos apenas neste dispositivo.",
+    "syncedHint": "Sincronizado com sua conta — disponível em todos os seus dispositivos."
   },
   "auth": {
     "continueWithGoogle": "Continuar com Google",
@@ -654,7 +658,7 @@
         "floorPlan": "Planta",
         "noVideo": "Este imóvel ainda não tem vídeo.",
         "tourPlaceholder": "Tour virtual em breve para este imóvel.",
-        "floorPlanPlaceholder": "Planta baixa disponível em breve."
+        "downloadFloorPlan": "Baixar planta baixa"
       },
       "featuresTitle": "Características",
       "builtArea": "Área construída",
@@ -723,9 +727,77 @@
       "privacy": "Privacidade",
       "terms": "Termos de uso"
     },
-    "city": {
-      "metaTitle": "Imóveis em {city} | RSC Market",
-      "metaDescription": "Encontre casas, apartamentos e terrenos em {city}, {state}."
+    "cityLanding": {
+      "metaTitle": "Imóveis em {city}, {state} | RSC Market",
+      "metaDescription": "Explore casas, apartamentos, terrenos e imóveis comerciais em {city}, {state}. Compare preços, agende visitas e simule financiamento no RSC Market.",
+      "metaKeywords": "imóveis {city}, casas {city}, apartamentos {city}, terrenos {city}, imobiliária {city} {state}, comprar imóvel {city}, aluguel {city}",
+      "breadcrumbHome": "Início",
+      "breadcrumbProperties": "Imóveis",
+      "hero": {
+        "badge": "Guia por cidade",
+        "title": "Imóveis em {city}, {state}",
+        "subtitle": "Descubra anúncios verificados de imobiliárias e construtoras confiáveis. Busque por bairro, tipo de imóvel, faixa de preço e opções de financiamento.",
+        "cta": "Buscar imóveis em {city}",
+        "faqLink": "Perguntas frequentes"
+      },
+      "stats": {
+        "listings": "Anúncios ativos em {city}",
+        "region": "Região metropolitana · Brasil",
+        "financingTitle": "RSC Credit",
+        "financingBody": "Simule parcelas e envie solicitações de financiamento para imóveis em {city}."
+      },
+      "intro": {
+        "title": "Mercado imobiliário em {city}",
+        "p1": "{city} é um dos mercados imobiliários mais dinâmicos de {state}. No RSC Market você explora casas, apartamentos, terrenos e salas comerciais com preços transparentes e contato direto com vendedores verificados.",
+        "p2": "Seja para comprar a primeira casa, investir em locação ou se mudar a trabalho, filtre anúncios por tipo de negócio, quartos, metragem e bairro para encontrar opções dentro do seu orçamento em {city}.",
+        "p3": "Use o mapa interativo, salve favoritos, compare imóveis e agende visitas presenciais — tudo sem sair da plataforma."
+      },
+      "categories": {
+        "title": "Explorar por tipo de imóvel em {city}",
+        "subtitle": "Acesse diretamente a categoria desejada com filtros de cidade aplicados."
+      },
+      "featured": {
+        "title": "Imóveis em destaque em {city}",
+        "subtitle": "Uma seleção de anúncios disponíveis em {city}, {state}.",
+        "viewAll": "Ver todos em {city}"
+      },
+      "faq": {
+        "title": "FAQ — comprar imóvel em {city}",
+        "items": {
+          "0": {
+            "question": "Como busco imóveis em {city}?",
+            "answer": "Use o botão de busca acima ou navegue por tipo de imóvel. Filtros de preço, quartos, negócio (compra ou aluguel) e bairro são aplicados automaticamente para {city}, {state}."
+          },
+          "1": {
+            "question": "Os anúncios em {city} são verificados?",
+            "answer": "O RSC Market trabalha com imobiliárias e construtoras verificadas. Anúncios marcados como verificados passaram por revisão da nossa equipe. Você também pode denunciar anúncios suspeitos na página do imóvel."
+          },
+          "2": {
+            "question": "Posso financiar um imóvel em {city}?",
+            "answer": "Sim. Use o RSC Credit para simular entrada, prazo e parcelas mensais. Envie uma solicitação vinculada a um anúncio em {city} ou faça uma simulação geral."
+          },
+          "3": {
+            "question": "Como agendo uma visita em {city}?",
+            "answer": "Abra qualquer anúncio em {city} e clique em Agendar visita. Escolha data e horário; a imobiliária recebe sua solicitação e confirma a disponibilidade. Suas visitas ficam salvas no painel."
+          },
+          "4": {
+            "question": "O RSC Market cobre todos os bairros de {city}?",
+            "answer": "A cobertura cresce conforme novas imobiliárias entram na plataforma. Busque por bairro no mapa ou use a busca com IA para descrever o que precisa — por exemplo, um apartamento de três quartos perto do centro de {city}."
+          }
+        }
+      },
+      "links": {
+        "title": "Links úteis",
+        "buy": "Imóveis à venda em {city}",
+        "rent": "Imóveis para alugar em {city}",
+        "financing": "Simular financiamento",
+        "help": "Central de ajuda",
+        "services": "Catálogo de serviços"
+      },
+      "related": {
+        "title": "Explorar outras cidades",
+        "viewAll": "Todos os imóveis no Brasil"
+      }
     },
     "report": {
       "title": "Denunciar anúncio",
@@ -822,11 +894,16 @@
       "searchPrompt": "Configure sua busca e clique em Buscar",
       "searchPromptHint": "Use os filtros para refinar marca, preço, ano e mais.",
       "empty": "Nenhum veículo encontrado",
-      "emptyHint": "Tente ajustar os filtros ou explorar outra região."
+      "emptyHint": "Tente ajustar os filtros ou explorar outra região.",
+      "saveSearch": "Salvar busca",
+      "searchSaved": "Busca salva!",
+      "showingCount": "Mostrando {visible} de {total} veículos",
+      "loadMore": "Carregar mais ({remaining} restantes)"
     },
     "card": {
       "verified": "Verificado",
       "favorite": "Favorito",
+      "compare": "Comparar",
       "installmentFrom": "Parcela a partir de",
       "save": "Salvar",
       "simulate": "Simular"
@@ -848,11 +925,85 @@
       "verified": "Verificada",
       "listings": "{count} veículos"
     },
+    "cityLanding": {
+      "metaTitle": "Veículos em {city}, {state} | RSC Market",
+      "metaDescription": "Explore carros, SUVs, motos e veículos elétricos em {city}, {state}. Compare preços, simule financiamento e fale com concessionárias no RSC Market.",
+      "metaKeywords": "veículos {city}, carros {city}, SUVs {city}, concessionária {city} {state}, comprar carro {city}",
+      "breadcrumbHome": "Início",
+      "breadcrumbVehicles": "Veículos",
+      "hero": {
+        "badge": "Guia por cidade",
+        "title": "Veículos em {city}, {state}",
+        "subtitle": "Descubra anúncios de concessionárias verificadas. Busque por marca, ano, preço e tipo de veículo com filtros aplicados para {city}.",
+        "cta": "Buscar veículos em {city}",
+        "faqLink": "Perguntas frequentes"
+      },
+      "stats": {
+        "listings": "Anúncios ativos em {city}",
+        "region": "Região metropolitana · Brasil",
+        "financingTitle": "Financiamento",
+        "financingBody": "Simule parcelas e envie solicitações para veículos em {city}."
+      },
+      "intro": {
+        "title": "Mercado automotivo em {city}",
+        "p1": "{city} concentra uma oferta diversificada de carros, SUVs, motos e utilitários. No RSC Market você compara preços, quilometragem e condições de financiamento com transparência.",
+        "p2": "Filtre por marca, ano, combustível e faixa de preço para encontrar o veículo ideal em {city}, {state}. Salve buscas e receba alertas quando surgirem novos anúncios compatíveis.",
+        "p3": "Use o mapa, salve favoritos, compare até três veículos e converse com vendedores — tudo em um só lugar."
+      },
+      "categories": {
+        "title": "Explorar por tipo em {city}",
+        "subtitle": "Acesse a categoria desejada com filtros de cidade aplicados."
+      },
+      "featured": {
+        "title": "Veículos em destaque em {city}",
+        "subtitle": "Uma seleção de anúncios disponíveis em {city}, {state}.",
+        "viewAll": "Ver todos em {city}"
+      },
+      "faq": {
+        "title": "FAQ — comprar veículo em {city}",
+        "items": {
+          "0": {
+            "question": "Como busco veículos em {city}?",
+            "answer": "Use o botão de busca acima ou escolha um tipo de veículo. Filtros de preço, ano, marca e combustível são aplicados para {city}, {state}."
+          },
+          "1": {
+            "question": "Os anúncios em {city} são verificados?",
+            "answer": "Trabalhamos com concessionárias parceiras. Anúncios verificados passaram por revisão. Você pode denunciar anúncios suspeitos na página do veículo."
+          },
+          "2": {
+            "question": "Posso financiar um veículo em {city}?",
+            "answer": "Sim. Use o simulador de financiamento na página do veículo ou acesse Financiamento para estimar parcelas antes de enviar uma solicitação."
+          },
+          "3": {
+            "question": "Como comparo veículos?",
+            "answer": "Clique no ícone de comparar nos cards para adicionar até três veículos. A lista fica salva no seu painel em Comparar."
+          },
+          "4": {
+            "question": "A cobertura inclui toda a região de {city}?",
+            "answer": "A oferta cresce conforme novas concessionárias entram na plataforma. Use o mapa e os filtros de cidade para refinar resultados em {city} e arredores."
+          }
+        }
+      },
+      "links": {
+        "title": "Links úteis",
+        "cars": "Carros em {city}",
+        "suvs": "SUVs em {city}",
+        "financing": "Simular financiamento",
+        "help": "Central de ajuda",
+        "services": "Catálogo de serviços"
+      },
+      "related": {
+        "title": "Explorar outras cidades",
+        "viewAll": "Todos os veículos no Brasil"
+      }
+    },
     "detail": {
       "breadcrumbHome": "Início",
       "breadcrumbVehicles": "Veículos",
       "verifiedBadge": "Verificado",
       "share": "Compartilhar",
+      "shareCopied": "Link copiado!",
+      "shareDone": "Compartilhado!",
       "save": "Salvar",
       "report": "Denunciar",
       "prevPhoto": "Foto anterior",
@@ -887,6 +1038,7 @@
         "perMonth": "/mês"
       },
       "similarVehicles": "Veículos similares",
+      "otherVehicles": "Outros veículos da concessionária",
       "downFrom": "Entrada a partir de",
       "installmentsFrom": "Parcelas a partir de",
       "simulateFinancing": "Simular financiamento",
@@ -982,7 +1134,14 @@
         "emptyTitle": "Nenhuma conversa ainda",
         "emptyBody": "Inicie um chat pelo anúncio de um imóvel ou veículo.",
         "messages": "{count} mensagens",
-        "viewListing": "Ver anúncio"
+        "viewListing": "Ver anúncio",
+        "continueChat": "Continuar conversa",
+        "backToList": "Voltar às conversas",
+        "loadingThread": "Carregando conversa...",
+        "notFoundTitle": "Conversa não encontrada",
+        "notFoundBody": "Este chat pode ter sido removido ou o link é inválido.",
+        "forbiddenTitle": "Acesso negado",
+        "forbiddenBody": "Esta conversa pertence a outra conta."
       },
       "visits": {
         "loading": "Carregando visitas...",
@@ -1057,6 +1216,18 @@
         "videoUrlPlaceholder": "Ou cole link do YouTube / Vimeo",
         "saveVideoUrl": "Salvar link",
         "videoSaved": "Vídeo configurado",
+        "tourTitle": "Tour virtual",
+        "tourUrlPlaceholder": "Cole link do Matterport, Kuula ou similar",
+        "saveTourUrl": "Salvar tour",
+        "tourSaved": "Tour virtual configurado",
+        "hasTour": "com tour 360°",
+        "tourError": "Não foi possível salvar o tour virtual.",
+        "floorPlanTitle": "Planta baixa",
+        "uploadFloorPlan": "Enviar planta (JPG, PNG, WebP ou PDF)",
+        "removeFloorPlan": "Remover planta",
+        "floorPlanSaved": "Planta baixa configurada",
+        "hasFloorPlan": "com planta",
+        "floorPlanError": "Não foi possível salvar a planta baixa.",
         "fields": {
           "title": "Título",
           "type": "Tipo",
@@ -1089,6 +1260,9 @@
     "requests": "Financiamento",
     "favoritesTitle": "Meus favoritos",
     "searchesTitle": "Buscas salvas",
+    "propertySearchesTitle": "Imóveis",
+    "vehicleSearchesTitle": "Veículos",
+    "vehicleCompareTitle": "Veículos",
     "visitsTitle": "Visitas agendadas",
     "chatsTitle": "Conversas com imobiliárias",
     "requestsTitle": "Solicitações de financiamento",
@@ -1105,19 +1279,78 @@
       "bedrooms": "Quartos",
       "area": "Área",
       "garage": "Garagem",
-      "type": "Tipo"
+      "type": "Tipo",
+      "signIn": "Entrar",
+      "guestHint": "Entre na sua conta para sincronizar a lista de comparação em todos os dispositivos.",
+      "guestSyncBanner": "Esta lista de comparação fica salva apenas neste dispositivo.",
+      "syncedHint": "Sincronizado com sua conta — disponível em todos os seus dispositivos."
+    },
+    "vehicleComparePanel": {
+      "title": "Comparar veículos",
+      "loading": "Carregando...",
+      "emptyTitle": "Nenhum veículo para comparar",
+      "emptyBody": "Use o ícone de comparar nos cards para adicionar até 3 veículos.",
+      "browseVehicles": "Explorar veículos",
+      "clear": "Limpar tudo",
+      "remove": "Remover",
+      "year": "Ano",
+      "mileage": "Km",
+      "fuel": "Combustível",
+      "transmission": "Câmbio",
+      "signIn": "Entrar",
+      "guestHint": "Entre na sua conta para sincronizar a lista de comparação em todos os dispositivos.",
+      "guestSyncBanner": "Esta lista de comparação fica salva apenas neste dispositivo.",
+      "syncedHint": "Sincronizado com sua conta — disponível em todos os seus dispositivos."
     },
     "savedSearches": {
       "emptyTitle": "Nenhuma busca salva",
       "emptyBody": "Salve uma busca nos resultados para acessá-la rapidamente aqui.",
       "browse": "Ir para imóveis",
       "open": "Abrir",
-      "remove": "Remover"
+      "remove": "Remover",
+      "loading": "Carregando buscas salvas...",
+      "signIn": "Entrar",
+      "guestHint": "Entre na sua conta para sincronizar buscas em todos os dispositivos.",
+      "guestSyncBanner": "Estas buscas ficam salvas apenas neste dispositivo.",
+      "syncedHint": "Sincronizado com sua conta — disponível em todos os seus dispositivos.",
+      "alertsEnabled": "Alertas por e-mail ativados",
+      "alertsToggle": "Receber alertas por e-mail",
+      "alertsLoginRequired": "Entre na sua conta para ativar alertas por e-mail.",
+      "alertFrequencyLabel": "Frequência",
+      "alertFrequency": {
+        "instant": "Imediata",
+        "daily": "Diária",
+        "weekly": "Semanal"
+      },
+      "lastAlertAt": "Último alerta: {date}"
+    },
+    "savedVehicleSearches": {
+      "emptyTitle": "Nenhuma busca salva",
+      "emptyBody": "Salve uma busca nos resultados de veículos para acessá-la rapidamente aqui.",
+      "browse": "Ir para veículos",
+      "open": "Abrir",
+      "remove": "Remover",
+      "loading": "Carregando buscas salvas...",
+      "signIn": "Entrar",
+      "guestHint": "Entre na sua conta para sincronizar buscas em todos os dispositivos.",
+      "guestSyncBanner": "Estas buscas ficam salvas apenas neste dispositivo.",
+      "syncedHint": "Sincronizado com sua conta — disponível em todos os seus dispositivos.",
+      "alertsEnabled": "Alertas por e-mail ativados",
+      "alertsToggle": "Receber alertas por e-mail",
+      "alertsLoginRequired": "Entre na sua conta para ativar alertas por e-mail.",
+      "alertFrequencyLabel": "Frequência",
+      "alertFrequency": {
+        "instant": "Imediata",
+        "daily": "Diária",
+        "weekly": "Semanal"
+      },
+      "lastAlertAt": "Último alerta: {date}"
     }
   },
   "financing": {
     "title": "Simulador de financiamento",
     "subtitle": "Estime parcelas e conheça o RSC Credit para seu imóvel.",
+    "simulatorTitle": "Simule seu financiamento",
     "forListing": "Simulação para",
     "propertyValue": "Valor do imóvel",
     "downPayment": "Entrada",
@@ -1130,6 +1363,296 @@
     "benefit1": "Análise em até 24 horas",
     "benefit2": "Parceiros verificados em todo o Brasil",
     "benefit3": "Processo 100% digital",
-    "cta": "Voltar ao imóvel"
+    "applicantName": "Nome completo",
+    "applicantEmail": "E-mail",
+    "applicantPhone": "Telefone",
+    "notes": "Observações (opcional)",
+    "notesPlaceholder": "Informações adicionais para análise de crédito...",
+    "requestId": "Protocolo: {id}",
+    "cta": "Voltar ao imóvel",
+    "submitRequest": "Enviar solicitação de financiamento",
+    "submitting": "Enviando...",
+    "submitSuccess": "Sua simulação foi salva. Acompanhe o status no seu painel.",
+    "submitError": "Não foi possível salvar sua solicitação. Tente novamente.",
+    "viewRequests": "Ver minhas solicitações"
+  },
+  "financingRequests": {
+    "loading": "Carregando solicitações...",
+    "emptyTitle": "Nenhuma solicitação de financiamento",
+    "emptyBody": "Faça uma simulação e envie uma solicitação RSC Credit para vê-la aqui.",
+    "simulateCta": "Simular financiamento",
+    "generalSimulation": "Simulação geral",
+    "propertyValue": "Valor do imóvel",
+    "downPayment": "Entrada",
+    "term": "Prazo",
+    "months": "meses",
+    "installment": "Parcela estimada",
+    "perMonth": "/mês",
+    "viewListing": "Ver anúncio",
+    "phone": "Telefone",
+    "status": {
+      "pending": "Pendente",
+      "in_analysis": "Em análise",
+      "approved": "Aprovada",
+      "rejected": "Rejeitada"
+    }
+  },
+  "adminFinancing": {
+    "loading": "Carregando solicitações...",
+    "loadError": "Não foi possível carregar as solicitações.",
+    "saveError": "Não foi possível atualizar o status.",
+    "emptyTitle": "Nenhuma solicitação de financiamento",
+    "apiHint": "Dashboards externos usam GET /api/financing/requests e PATCH para atualizar status.",
+    "generalSimulation": "Simulação geral",
+    "anonymous": "Anônimo",
+    "noEmail": "Sem e-mail",
+    "propertyValue": "Valor",
+    "downPayment": "Entrada",
+    "term": "Prazo",
+    "months": "meses",
+    "installment": "Parcela estimada",
+    "phone": "Telefone",
+    "updateStatus": "Status",
+    "viewListing": "Ver anúncio",
+    "filters": {
+      "all": "Todas"
+    },
+    "status": {
+      "pending": "Pendente",
+      "in_analysis": "Em análise",
+      "approved": "Aprovada",
+      "rejected": "Rejeitada"
+    }
+  },
+  "adminReports": {
+    "loading": "Carregando denúncias...",
+    "emptyTitle": "Nenhuma denúncia",
+    "emptyBody": "Denúncias de anúncios enviadas por usuários aparecerão aqui.",
+    "notFound": "Denúncia não encontrada.",
+    "backToList": "Voltar às denúncias",
+    "reason": "Motivo da denúncia",
+    "reporterEmail": "E-mail do denunciante",
+    "anonymous": "Anônimo",
+    "listingId": "ID do anúncio",
+    "viewListing": "Ver anúncio",
+    "reviewTitle": "Revisão de moderação",
+    "statusLabel": "Status",
+    "adminNotes": "Notas do administrador",
+    "adminNotesPlaceholder": "Notas internas sobre esta denúncia...",
+    "lastReviewed": "Última revisão em {date}",
+    "saveReview": "Salvar revisão",
+    "saving": "Salvando...",
+    "saveError": "Não foi possível salvar. Tente novamente.",
+    "filters": {
+      "all": "Todas"
+    },
+    "listingKind": {
+      "property": "Imóvel",
+      "vehicle": "Veículo"
+    },
+    "status": {
+      "pending": "Pendente",
+      "reviewing": "Em revisão",
+      "resolved": "Resolvida",
+      "dismissed": "Descartada"
+    }
+  },
+  "helpPage": {
+    "hero": {
+      "badge": "Central de ajuda",
+      "title": "Como podemos ajudar?",
+      "subtitle": "Encontre respostas, fale com o suporte e consulte nossas políticas de privacidade e termos."
+    },
+    "quickLinks": {
+      "faq": "Perguntas frequentes",
+      "contact": "Falar com suporte",
+      "privacy": "Política de privacidade",
+      "terms": "Termos de uso"
+    },
+    "faq": {
+      "title": "Perguntas frequentes",
+      "subtitle": "Respostas rápidas às dúvidas mais comuns sobre o RSC Market.",
+      "categories": {
+        "account": {
+          "title": "Conta e acesso",
+          "items": {
+            "0": {
+              "question": "Como crio uma conta?",
+              "answer": "Clique em Cadastrar no cabeçalho ou acesse a página de login. Você pode se registrar com Google ou e-mail. Sua conta permite salvar favoritos, agendar visitas e conversar com vendedores."
+            },
+            "1": {
+              "question": "Como recupero minha senha?",
+              "answer": "Na página de login, use a opção de recuperação de senha vinculada ao seu e-mail. Se você se registrou com Google, continue usando o Google para acessar."
+            },
+            "2": {
+              "question": "Como gerencio meus favoritos?",
+              "answer": "Toque no ícone de coração em qualquer card de imóvel ou veículo estando logado. Acesse todos os salvos pelo link Favoritos no cabeçalho ou no seu painel."
+            }
+          }
+        },
+        "search": {
+          "title": "Busca e filtros",
+          "items": {
+            "0": {
+              "question": "Como busco imóveis ou veículos?",
+              "answer": "Use a busca global no cabeçalho ou explore as seções Imóveis e Veículos. Aplique filtros de tipo, preço, localização e mais, depois clique em Buscar."
+            },
+            "1": {
+              "question": "Posso salvar uma busca?",
+              "answer": "Sim. Após executar uma busca em imóveis, use Salvar busca no painel de resultados. As buscas salvas aparecem no seu painel."
+            },
+            "2": {
+              "question": "Como mudo minha região ou mercado?",
+              "answer": "Use o seletor de região no cabeçalho para escolher seu país ou mercado. Os anúncios, moeda e serviços disponíveis se adaptam à sua região."
+            }
+          }
+        },
+        "listings": {
+          "title": "Anúncios e visitas",
+          "items": {
+            "0": {
+              "question": "Como entro em contato com um vendedor?",
+              "answer": "Abra a página de detalhes do anúncio e use as opções de chat ou contato. Faça login para enviar mensagens e receber respostas na plataforma."
+            },
+            "1": {
+              "question": "Como agendo uma visita?",
+              "answer": "Na página de detalhes do imóvel, escolha Agendar visita, selecione um horário disponível e confirme. Você receberá uma confirmação e poderá acompanhar visitas no seu painel."
+            },
+            "2": {
+              "question": "Como funciona a comparação de imóveis?",
+              "answer": "Use o ícone de comparar em até três cards de imóveis. Abra Comparar no seu painel para revisar especificações lado a lado."
+            }
+          }
+        },
+        "business": {
+          "title": "Para empresas",
+          "items": {
+            "0": {
+              "question": "Como minha empresa pode entrar no RSC Market?",
+              "answer": "Visite Para Empresas e preencha o formulário de cadastro. Nossa equipe analisa sua solicitação e libera acesso ao painel empresarial após aprovação."
+            },
+            "1": {
+              "question": "O que posso fazer no painel empresarial?",
+              "answer": "Gerencie anúncios, responda leads, acompanhe analytics e converse com compradores — tudo em um painel empresarial verificado."
+            },
+            "2": {
+              "question": "Há custo para anunciar como empresa?",
+              "answer": "Os planos variam conforme porte e mercado. Veja preços em Para Empresas ou fale com nossa equipe para opções enterprise."
+            }
+          }
+        },
+        "security": {
+          "title": "Segurança e dados",
+          "items": {
+            "0": {
+              "question": "Meus dados pessoais estão protegidos?",
+              "answer": "Sim. Usamos criptografia padrão do setor e seguimos as regulamentações de privacidade aplicáveis. Leia nossa Política de Privacidade abaixo."
+            },
+            "1": {
+              "question": "Como os anúncios são verificados?",
+              "answer": "Agências parceiras e vendedores verificados passam por um processo de revisão. Procure o selo Verificado em anúncios e perfis empresariais."
+            },
+            "2": {
+              "question": "Como denuncio atividade suspeita?",
+              "answer": "Entre em contato com support@rscmarket.com com o link do anúncio e os detalhes. Nossa equipe de confiança e segurança analisa denúncias prontamente."
+            }
+          }
+        }
+      }
+    },
+    "contact": {
+      "title": "Falar com suporte",
+      "subtitle": "Nossa equipe está pronta para ajudar com contas, anúncios, visitas e solicitações empresariais.",
+      "emailLabel": "E-mail",
+      "hoursLabel": "Horário",
+      "hours": "Segunda a sexta, 9:00–18:00 (horário local)",
+      "ctaAccount": "Entrar na sua conta",
+      "ctaBrowse": "Explorar anúncios"
+    },
+    "privacy": {
+      "title": "Política de privacidade",
+      "updated": "Última atualização: julho de 2026",
+      "paragraphs": {
+        "0": "O RSC Market respeita sua privacidade. Coletamos apenas as informações necessárias para oferecer nossos serviços de marketplace, incluindo dados de conta, preferências de busca e comunicação com vendedores.",
+        "1": "Seus dados são armazenados com segurança e não são vendidos a terceiros. Compartilhamos informações apenas com parceiros verificados quando necessário para concluir uma transação ou serviço solicitado.",
+        "2": "Você pode solicitar acesso, correção ou exclusão dos seus dados pessoais entrando em contato com support@rscmarket.com. Respondemos a solicitações de privacidade dentro dos prazos legais aplicáveis.",
+        "3": "Usamos cookies e tecnologias similares para lembrar suas preferências, manter sua sessão e melhorar o desempenho da plataforma. Você pode gerenciar cookies no seu navegador."
+      }
+    },
+    "terms": {
+      "title": "Termos de uso",
+      "updated": "Última atualização: julho de 2026",
+      "paragraphs": {
+        "0": "Ao usar o RSC Market, você concorda com estes termos. A plataforma conecta compradores a vendedores verificados de imóveis e veículos. O RSC Market atua como intermediário e não garante o estado de anúncios de terceiros.",
+        "1": "Você deve fornecer informações verdadeiras ao se registrar e se comunicar com vendedores. Uso indevido da plataforma, anúncios fraudulentos ou assédio podem resultar em suspensão da conta.",
+        "2": "Conteúdo, preços e disponibilidade dos anúncios são fornecidos pelos vendedores. Confirme sempre os detalhes diretamente antes de concluir uma compra, financiamento ou visita.",
+        "3": "O RSC Market pode atualizar estes termos periodicamente. O uso continuado da plataforma após alterações implica aceitação dos termos atualizados."
+      }
+    }
+  },
+  "servicesPage": {
+    "hero": {
+      "badge": "Serviços RSC",
+      "titleStart": "Tudo o que você precisa em",
+      "titleHighlight": "um marketplace",
+      "subtitle": "Desde encontrar seu próximo imóvel ou veículo até financiamento, seguros e ferramentas empresariais — o RSC Market reúne tudo."
+    },
+    "catalog": {
+      "title": "Nossos serviços",
+      "subtitle": "Explore a gama completa de soluções disponíveis na plataforma."
+    },
+    "insurance": {
+      "title": "Seguros e proteção",
+      "subtitle": "Proteja o que mais importa com opções de cobertura pensadas para proprietários, motoristas e famílias em nossos mercados.",
+      "bullets": {
+        "0": "Seguradoras parceiras com tarifas competitivas",
+        "1": "Opções de cobertura para imóvel, veículo e vida",
+        "2": "Orientação de especialistas RSC"
+      },
+      "plansTitle": "Tipos de cobertura",
+      "plans": {
+        "home": {
+          "name": "Seguro residencial",
+          "description": "Proteja seu imóvel contra danos, roubo e responsabilidade civil."
+        },
+        "vehicle": {
+          "name": "Seguro veicular",
+          "description": "Cobertura compreensiva e de terceiros para carros e motos."
+        },
+        "life": {
+          "name": "Seguro de vida",
+          "description": "Segurança financeira para você e sua família."
+        }
+      },
+      "cta": "Falar com um especialista"
+    },
+    "benefits": {
+      "title": "Por que escolher o RSC Market",
+      "subtitle": "Uma plataforma confiável para compradores, vendedores e empresas na América Latina e além.",
+      "items": {
+        "verified": {
+          "title": "Parceiros verificados",
+          "description": "Imobiliárias e concessionárias revisadas pela nossa equipe."
+        },
+        "digital": {
+          "title": "Experiência digital",
+          "description": "Busque, simule, converse e agende visitas online."
+        },
+        "support": {
+          "title": "Suporte dedicado",
+          "description": "Central de ajuda e especialistas quando precisar."
+        },
+        "regional": {
+          "title": "Multi-mercado",
+          "description": "Anúncios e serviços adaptados à sua região."
+        }
+      }
+    },
+    "cta": {
+      "title": "Pronto para começar?",
+      "subtitle": "Explore milhares de anúncios ou cadastre sua empresa no RSC Market hoje.",
+      "primary": "Explorar imóveis",
+      "secondary": "Para empresas"
+    }
   }
 }

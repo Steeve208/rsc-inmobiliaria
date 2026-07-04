@@ -1,5 +1,7 @@
 /** Major cities for SEO landing pages → search filters */
-export const cityLandingPages: { slug: string; city: string; state: string }[] = [
+export type CityLandingEntry = { slug: string; city: string; state: string };
+
+export const cityLandingPages: CityLandingEntry[] = [
   { slug: "sao-paulo", city: "São Paulo", state: "SP" },
   { slug: "rio-de-janeiro", city: "Rio de Janeiro", state: "RJ" },
   { slug: "belo-horizonte", city: "Belo Horizonte", state: "MG" },

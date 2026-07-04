@@ -101,3 +101,23 @@ export async function isFavorite(
     .limit(1);
   return Boolean(row);
 }
+
+export async function syncFavorites(
+  userId: string,
+  items: { listingKind: "property" | "vehicle"; listingId: string }[],
+): Promise<FavoriteItem[]> {
+  if (items.length > 0) {
+    await db
+      .insert(favorite)
+      .values(
+        items.map((item) => ({
+          userId,
+          listingKind: item.listingKind,
+          listingId: item.listingId,
+        })),
+      )
+      .onConflictDoNothing();
+  }
+
+  return listFavorites(userId);
+}

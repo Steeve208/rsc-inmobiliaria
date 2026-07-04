@@ -12,9 +12,16 @@ type Props = {
   onClose: () => void;
   listingId: string;
   listingTitle: string;
+  listingKind?: "property" | "vehicle";
 };
 
-export function ReportListingModal({ open, onClose, listingId, listingTitle }: Props) {
+export function ReportListingModal({
+  open,
+  onClose,
+  listingId,
+  listingTitle,
+  listingKind = "property",
+}: Props) {
   const t = useTranslations("imoveis.report");
   const [email, setEmail] = useState("");
   const [reason, setReason] = useState("");
@@ -35,7 +42,7 @@ export function ReportListingModal({ open, onClose, listingId, listingTitle }: P
         body: JSON.stringify({
           listingId,
           listingTitle,
-          listingKind: "property",
+          listingKind,
           email: email.trim() || undefined,
           reason: reason.trim(),
         }),

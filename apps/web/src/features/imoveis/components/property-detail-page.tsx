@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
@@ -26,9 +26,11 @@ import {
 } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
+import { VirtualTourEmbed } from "@/features/listings/components/virtual-tour-embed";
+import { FloorPlanViewer } from "@/features/listings/components/floor-plan-viewer";
 import { ListingContactPanel } from "@/features/contact";
 import { useFavoriteButton } from "@/hooks/use-favorites";
-import { isDirectVideoUrl, toVideoEmbedUrl } from "@/lib/storage/listing-media";
+import { isDirectVideoUrl, toVideoEmbedUrl } from "@/lib/storage/listing-media-utils";
 import { shareListing } from "@/lib/listings/share-listing";
 import { PropertyMap } from "./property-map";
 import { PropertyCard } from "./property-card";
@@ -52,18 +54,9 @@ function formatPrice(price: number, currency: string, fractionDigits = 0) {
   }).format(price);
 }
 
-function typeBreadcrumb(type: string) {
-  const map: Record<string, string> = {
-    house: "Casas",
-    apartment: "Apartamentos",
-    land: "Terrenos",
-    commercial: "Comercial",
-  };
-  return map[type] ?? type;
-}
-
 export function PropertyDetailPage({ property, similar, agencyListings = [] }: Props) {
   const t = useTranslations("imoveis.detail");
+  const tc = useTranslations("imoveis.categories");
   const { active: isFavorite, handleClick: handleFavoriteClick } = useFavoriteButton(
     "property",
     property.id,
@@ -78,7 +71,7 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
   const [reportOpen, setReportOpen] = useState(false);
   const locationRef = useRef<HTMLElement>(null);
 
-  const financingHref = `/financing?price=${property.price}&down=${downPct}&listingId=${property.id}&title=${encodeURIComponent(property.title)}`;
+  const financingHref = `/financing?price=${property.price}&down=${downPct}&listingId=${property.id}&title=${encodeURIComponent(property.title)}&category=properties&currency=${property.currency}`;
 
   const downPayment = Math.round(property.price * (downPct / 100));
   const monthlyRate = interestRate / 100;
@@ -133,9 +126,16 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
   const availableMediaTabs = useMemo(() => {
     const tabs: (typeof mediaTabs)[number][] = ["photos"];
     if (videoSrc) tabs.push("video");
-    tabs.push("tour", "floorPlan");
+    if (property.virtualTourUrl) tabs.push("tour");
+    if (property.floorPlanUrl) tabs.push("floorPlan");
     return tabs;
-  }, [videoSrc]);
+  }, [videoSrc, property.virtualTourUrl, property.floorPlanUrl]);
+
+  useEffect(() => {
+    if (!availableMediaTabs.includes(mediaTab)) {
+      setMediaTab("photos");
+    }
+  }, [availableMediaTabs, mediaTab]);
 
   async function handleShare() {
     const url = typeof window !== "undefined" ? window.location.href : "";
@@ -166,7 +166,7 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
           {t("breadcrumbProperties")}
         </Link>
         <BreadcrumbChevron className="size-3" />
-        <span>{typeBreadcrumb(property.type)}</span>
+        <span>{tc(property.type)}</span>
         <BreadcrumbChevron className="size-3" />
         <span>{property.state}</span>
         <BreadcrumbChevron className="size-3" />
@@ -341,17 +341,13 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
               </div>
             )}
 
-            {mediaTab === "tour" && (
-              <div className="flex aspect-[16/9] flex-col items-center justify-center gap-4 rounded-xl bg-[#111d2f]/60">
-                <p className="text-sm text-white/60">{t("media.tourPlaceholder")}</p>
-              </div>
-            )}
+            {mediaTab === "tour" && property.virtualTourUrl ? (
+              <VirtualTourEmbed url={property.virtualTourUrl} title={property.title} />
+            ) : null}
 
-            {mediaTab === "floorPlan" && (
-              <div className="flex aspect-[16/9] flex-col items-center justify-center gap-4 rounded-xl bg-[#111d2f]/60">
-                <p className="text-sm text-white/60">{t("media.floorPlanPlaceholder")}</p>
-              </div>
-            )}
+            {mediaTab === "floorPlan" && property.floorPlanUrl ? (
+              <FloorPlanViewer url={property.floorPlanUrl} title={property.title} />
+            ) : null}
 
             <div className="mt-4 flex flex-wrap gap-2">
               {availableMediaTabs.map((tab) => (

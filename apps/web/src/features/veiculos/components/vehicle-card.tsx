@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Gauge, Heart, MapPin, ShieldCheck, Zap } from "lucide-react";
+import { Gauge, GitCompare, Heart, MapPin, ShieldCheck, Zap } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
 import { useFavoriteButton } from "@/hooks/use-favorites";
+import { useVehicleCompare } from "@/hooks/use-vehicle-compare-state";
 import type { VehicleListing } from "../types";
 
 type Props = {
@@ -37,6 +38,7 @@ export function VehicleCard({
 }: Props) {
   const t = useTranslations("veiculos.card");
   const { active, handleClick } = useFavoriteButton("vehicle", item.id);
+  const { isCompared, toggle } = useVehicleCompare();
   const installment = estimateInstallment(item.price);
 
   const cardContent = (
@@ -55,19 +57,42 @@ export function VehicleCard({
           sizes={variant === "list" ? "224px" : "(max-width:768px) 100vw, 33vw"}
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
-        <button
-          type="button"
-          onClick={handleClick}
-          className={cn(
-            "absolute right-3 top-3 flex size-8 items-center justify-center rounded-full backdrop-blur-sm transition-colors",
-            active
-              ? "bg-[#d4a017] text-[#000a1a]"
-              : "bg-black/40 text-white hover:bg-black/60",
-          )}
-          aria-label={t("favorite")}
-        >
-          <Heart className={cn("size-4", active && "fill-current")} />
-        </button>
+        <div className="absolute right-3 top-3 flex gap-2">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              toggle(item.id);
+            }}
+            className={cn(
+              "flex size-8 items-center justify-center rounded-full backdrop-blur-sm transition-colors",
+              isCompared(item.id)
+                ? "bg-[#22c55e] text-white"
+                : "bg-black/40 text-white hover:bg-black/60",
+            )}
+            aria-label={t("compare")}
+          >
+            <GitCompare className="size-3.5" />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleClick(e);
+            }}
+            className={cn(
+              "flex size-8 items-center justify-center rounded-full backdrop-blur-sm transition-colors",
+              active
+                ? "bg-[#d4a017] text-[#000a1a]"
+                : "bg-black/40 text-white hover:bg-black/60",
+            )}
+            aria-label={t("favorite")}
+          >
+            <Heart className={cn("size-4", active && "fill-current")} />
+          </button>
+        </div>
         {item.verified && (
           <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-[#22c55e] px-2.5 py-1 text-[10px] font-semibold text-white">
             <ShieldCheck className="size-3" />

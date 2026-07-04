@@ -240,6 +240,8 @@ CREATE TABLE IF NOT EXISTS "property_listing" (
   "whatsapp_number" text,
   "cover_image"    text,
   "video_url"      text,
+  "virtual_tour_url" text,
+  "floor_plan_url" text,
   "description"    text,
   "published_at"   timestamp,
   "created_at"     timestamp NOT NULL DEFAULT now(),
@@ -288,6 +290,7 @@ CREATE TABLE IF NOT EXISTS "vehicle_listing" (
   "cover_image"  text,
   "video_url"    text,
   "has_360"      boolean NOT NULL DEFAULT false,
+  "tour360_url"  text,
   "history"      text[] NOT NULL DEFAULT '{}',
   "equipment"    text[] NOT NULL DEFAULT '{}',
   "specs"        jsonb NOT NULL DEFAULT '{}'::jsonb,
@@ -401,6 +404,127 @@ CREATE TABLE IF NOT EXISTS "favorite" (
 CREATE INDEX IF NOT EXISTS "favorite_user_idx" ON "favorite" ("user_id");
 
 -- -----------------------------------------------------------------------------
+-- 9b. Solicitudes de financiación (RSC Credit)
+-- -----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS "financing_request" (
+  "id" text PRIMARY KEY NOT NULL,
+  "buyer_id" text NOT NULL,
+  "buyer_name" text,
+  "buyer_email" text,
+  "buyer_phone" text,
+  "listing_id" text,
+  "listing_title" text,
+  "listing_category" text,
+  "property_value" numeric(14, 2) NOT NULL,
+  "down_payment_pct" numeric(5, 2) NOT NULL,
+  "down_payment_amount" numeric(14, 2) NOT NULL,
+  "term_months" integer NOT NULL,
+  "interest_rate" numeric(6, 3) NOT NULL,
+  "estimated_installment" numeric(14, 2) NOT NULL,
+  "currency" text DEFAULT 'BRL' NOT NULL,
+  "status" text DEFAULT 'pending' NOT NULL,
+  "notes" text,
+  "created_at" timestamp DEFAULT now() NOT NULL,
+  "updated_at" timestamp DEFAULT now() NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS "financing_request_buyer_idx"
+  ON "financing_request" ("buyer_id");
+CREATE INDEX IF NOT EXISTS "financing_request_status_idx"
+  ON "financing_request" ("status");
+CREATE INDEX IF NOT EXISTS "financing_request_created_idx"
+  ON "financing_request" ("created_at");
+
+-- -----------------------------------------------------------------------------
+-- 9c. Comparador de imóveis por usuario
+-- -----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS "property_compare" (
+  "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  "user_id" text NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
+  "listing_id" text NOT NULL,
+  "position" integer NOT NULL,
+  "created_at" timestamp DEFAULT now() NOT NULL,
+  CONSTRAINT "property_compare_unique" UNIQUE ("user_id", "listing_id")
+);
+
+CREATE INDEX IF NOT EXISTS "property_compare_user_idx"
+  ON "property_compare" ("user_id");
+
+-- -----------------------------------------------------------------------------
+-- 9c2. Comparador de veículos por usuario
+-- -----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS "vehicle_compare" (
+  "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  "user_id" text NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
+  "listing_id" text NOT NULL,
+  "position" integer NOT NULL,
+  "created_at" timestamp DEFAULT now() NOT NULL,
+  CONSTRAINT "vehicle_compare_unique" UNIQUE ("user_id", "listing_id")
+);
+
+CREATE INDEX IF NOT EXISTS "vehicle_compare_user_idx"
+  ON "vehicle_compare" ("user_id");
+
+-- -----------------------------------------------------------------------------
+-- 9d. Búsquedas guardadas por usuario (alertas email futuras)
+-- -----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS "saved_search" (
+  "id" text PRIMARY KEY NOT NULL,
+  "user_id" text NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
+  "vertical" text DEFAULT 'property' NOT NULL,
+  "label" text NOT NULL,
+  "filters" jsonb NOT NULL,
+  "alerts_enabled" boolean DEFAULT false NOT NULL,
+  "alert_frequency" text DEFAULT 'daily' NOT NULL,
+  "alert_locale" text DEFAULT 'pt' NOT NULL,
+  "last_alert_at" timestamp,
+  "notified_listing_ids" jsonb DEFAULT '[]'::jsonb NOT NULL,
+  "created_at" timestamp DEFAULT now() NOT NULL,
+  "updated_at" timestamp DEFAULT now() NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "cron_job_run" (
+  "job_name" text PRIMARY KEY NOT NULL,
+  "last_run_at" timestamp NOT NULL,
+  "last_status" text NOT NULL,
+  "last_summary" jsonb,
+  "updated_at" timestamp DEFAULT now() NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS "saved_search_user_idx"
+  ON "saved_search" ("user_id");
+CREATE INDEX IF NOT EXISTS "saved_search_vertical_idx"
+  ON "saved_search" ("vertical", "user_id");
+CREATE INDEX IF NOT EXISTS "saved_search_alerts_idx"
+  ON "saved_search" ("alerts_enabled", "alert_frequency");
+
+-- -----------------------------------------------------------------------------
+-- 9e. Denuncias de anuncios (moderación)
+-- -----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS "listing_report" (
+  "id" text PRIMARY KEY NOT NULL,
+  "listing_id" text NOT NULL,
+  "listing_title" text NOT NULL,
+  "listing_kind" text NOT NULL,
+  "reason" text NOT NULL,
+  "reporter_email" text,
+  "reporter_user_id" text REFERENCES "user"("id") ON DELETE SET NULL,
+  "status" text DEFAULT 'pending' NOT NULL,
+  "admin_notes" text,
+  "reviewed_by" text REFERENCES "user"("id") ON DELETE SET NULL,
+  "reviewed_at" timestamp,
+  "created_at" timestamp DEFAULT now() NOT NULL,
+  "updated_at" timestamp DEFAULT now() NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS "listing_report_status_idx"
+  ON "listing_report" ("status");
+CREATE INDEX IF NOT EXISTS "listing_report_listing_idx"
+  ON "listing_report" ("listing_kind", "listing_id");
+CREATE INDEX IF NOT EXISTS "listing_report_created_idx"
+  ON "listing_report" ("created_at");
+
+-- -----------------------------------------------------------------------------
 -- 10. Trigger de updated_at para tablas del dominio
 -- -----------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION set_updated_at()
@@ -416,7 +540,8 @@ DECLARE t text;
 BEGIN
   FOREACH t IN ARRAY ARRAY[
     'company', 'property_listing', 'vehicle_listing',
-    'company_lead_config', 'chat_thread'
+    'company_lead_config', 'chat_thread', 'financing_request', 'saved_search',
+    'listing_report'
   ] LOOP
     EXECUTE format(
       'DROP TRIGGER IF EXISTS set_updated_at ON %I;
@@ -475,6 +600,7 @@ ALTER TABLE "scheduled_visit"     ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "chat_thread"         ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "chat_message"        ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "favorite"            ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "listing_report"      ENABLE ROW LEVEL SECURITY;
 
 -- =============================================================================
 -- FIN DEL ESQUEMA

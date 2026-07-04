@@ -119,41 +119,35 @@ export function useImoveisState() {
       const isCountry = worldRegions.some((r) => r.id === region.id);
 
       if (isState) {
-        const next = {
+        return {
           ...marketDefaults,
           state: region.id,
+          city: "",
+          neighborhood: "",
+          locationLabel: `${region.name}, ${region.id}`,
+          lat: null,
+          lng: null,
+          query: "",
         };
-        setFilters(next);
-        setNav({
-          level: "properties",
-          country: market.countryName,
-          countryCode: market.countryCode,
-          state: region.id,
-        });
-        setHasSearched(true);
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        return next;
       }
 
       if (isCountry) {
-        const next = {
+        return {
           ...marketDefaults,
           country: region.name,
+          state: "",
+          city: "",
+          neighborhood: "",
+          locationLabel: region.name,
+          lat: null,
+          lng: null,
+          query: "",
         };
-        setFilters(next);
-        setNav({
-          level: region.id === market.countryCode ? "properties" : "country",
-          country: region.name,
-          countryCode: region.id,
-        });
-        setHasSearched(true);
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        return next;
       }
 
       return null;
     },
-    [market.countryCode, market.countryName, marketDefaults],
+    [marketDefaults],
   );
 
   const runAiSearch = useCallback(async (query: string) => {

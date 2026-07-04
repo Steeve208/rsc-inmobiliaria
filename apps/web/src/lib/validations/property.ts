@@ -23,6 +23,8 @@ export const createPropertySchema = z.object({
 
 export const updatePropertySchema = createPropertySchema.partial().extend({
   videoUrl: z.string().max(2000).optional(),
+  virtualTourUrl: z.string().max(2000).optional(),
+  floorPlanUrl: z.string().max(2000).optional(),
   status: z.enum(["draft", "active", "archived"]).optional(),
 });
 

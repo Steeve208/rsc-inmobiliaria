@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/lib/i18n/routing";
@@ -24,7 +24,6 @@ export function ImoveisPage() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const appliedFromUrl = useRef(false);
   const { saveSearch } = useSavedPropertySearches();
 
   const {
@@ -76,8 +75,7 @@ export function ImoveisPage() {
   }, []);
 
   useEffect(() => {
-    if (appliedFromUrl.current || !hasImoveisSearchParams(searchParams)) return;
-    appliedFromUrl.current = true;
+    if (!hasImoveisSearchParams(searchParams)) return;
 
     const { filters: fromUrl, view: urlView, searched } = parseImoveisSearchParams(
       searchParams,
@@ -201,8 +199,11 @@ export function ImoveisPage() {
       <ImoveisFooter
         onSelectRegion={(region) => {
           const next = selectRegionFromFooter(region);
-          if (next) syncUrl(next);
+          if (!next) return;
+          applySearch(next);
+          window.scrollTo({ top: 0, behavior: "smooth" });
         }}
+        onCategorySelect={handleCategorySelect}
       />
     </>
   );

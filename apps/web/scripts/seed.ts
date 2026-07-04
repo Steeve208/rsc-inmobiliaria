@@ -128,6 +128,7 @@ async function seedPropertyFromMock(
       whatsappNumber: detail.whatsappNumber,
       coverImage: listing.image,
       description: detail.description,
+      virtualTourUrl: detail.virtualTourUrl,
       publishedAt: listing.publishedAt ? new Date(listing.publishedAt) : new Date(),
     })
     .onConflictDoNothing();

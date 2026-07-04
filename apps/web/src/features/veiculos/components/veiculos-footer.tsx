@@ -4,14 +4,15 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
 import { marketplace } from "@/lib/layout/marketplace";
 import { cn } from "@/lib/utils";
-import { brazilStates, worldRegions } from "../mock-data";
-import type { RegionItem } from "../types";
+import { brazilStates, worldRegions } from "@/lib/listings/regions";
+import type { RegionItem, VehicleCategory } from "../types";
 
 type Props = {
   onSelectRegion?: (region: RegionItem) => void;
+  onCategorySelect?: (type: VehicleCategory | "") => void;
 };
 
-export function VeiculosFooter({ onSelectRegion }: Props) {
+export function VeiculosFooter({ onSelectRegion, onCategorySelect }: Props) {
   const t = useTranslations("veiculos.footer");
   const tc = useTranslations("veiculos.categories");
   const tn = useTranslations("nav");
@@ -58,12 +59,22 @@ export function VeiculosFooter({ onSelectRegion }: Props) {
               <ul className="space-y-2.5">
                 {categoryLinks.map(({ id, label }) => (
                   <li key={id}>
-                    <Link
-                      href="/veiculos"
-                      className="text-sm text-white/50 transition-colors hover:text-[#86efac]"
-                    >
-                      {label}
-                    </Link>
+                    {onCategorySelect ? (
+                      <button
+                        type="button"
+                        onClick={() => onCategorySelect(id)}
+                        className="text-sm text-white/50 transition-colors hover:text-[#86efac]"
+                      >
+                        {label}
+                      </button>
+                    ) : (
+                      <Link
+                        href={`/veiculos?type=${id}`}
+                        className="text-sm text-white/50 transition-colors hover:text-[#86efac]"
+                      >
+                        {label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

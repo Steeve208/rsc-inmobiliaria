@@ -1,0 +1,68 @@
+import { NextResponse } from "next/server";
+import {
+  createFinancingRequest,
+  listFinancingRequests,
+  updateFinancingRequestStatus,
+} from "@/lib/financing/store";
+import {
+  createFinancingRequestSchema,
+  updateFinancingRequestStatusSchema,
+} from "@/lib/financing/validation";
+import type { FinancingRequestStatus } from "@/lib/financing/types";
+import { FINANCING_REQUEST_STATUSES } from "@/lib/financing/types";
+
+function isValidStatus(value: string): value is FinancingRequestStatus {
+  return FINANCING_REQUEST_STATUSES.includes(value as FinancingRequestStatus);
+}
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const buyerId = searchParams.get("buyerId") ?? undefined;
+  const statusParam = searchParams.get("status") ?? undefined;
+  const status =
+    statusParam && isValidStatus(statusParam) ? statusParam : undefined;
+
+  if (buyerId) {
+    return NextResponse.json(await listFinancingRequests({ buyerId, status }));
+  }
+
+  return NextResponse.json(await listFinancingRequests({ status }));
+}
+
+export async function POST(request: Request) {
+  let json: unknown;
+  try {
+    json = await request.json();
+  } catch {
+    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  }
+
+  const parsed = createFinancingRequestSchema.safeParse(json);
+  if (!parsed.success) {
+    return NextResponse.json({ error: "validation_failed" }, { status: 400 });
+  }
+
+  const requestRecord = await createFinancingRequest(parsed.data);
+  return NextResponse.json(requestRecord, { status: 201 });
+}
+
+export async function PATCH(request: Request) {
+  let json: unknown;
+  try {
+    json = await request.json();
+  } catch {
+    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  }
+
+  const parsed = updateFinancingRequestStatusSchema.safeParse(json);
+  if (!parsed.success) {
+    return NextResponse.json({ error: "invalid_payload" }, { status: 400 });
+  }
+
+  const updated = await updateFinancingRequestStatus(parsed.data);
+  if (!updated) {
+    return NextResponse.json({ error: "not_found" }, { status: 404 });
+  }
+
+  return NextResponse.json(updated);
+}

@@ -16,6 +16,8 @@ export type CompanyPropertyRow = {
   status: string;
   coverImage: string;
   videoUrl: string | null;
+  virtualTourUrl: string | null;
+  floorPlanUrl: string | null;
   imageCount: number;
   publishedAt: string | null;
 };
@@ -67,6 +69,8 @@ export async function listCompanyProperties(
       status: row.status,
       coverImage: listingImageUrl(row.coverImage),
       videoUrl: row.videoUrl,
+      virtualTourUrl: row.virtualTourUrl,
+      floorPlanUrl: row.floorPlanUrl,
       imageCount: images.length,
       publishedAt: row.publishedAt?.toISOString() ?? null,
     });
@@ -173,6 +177,12 @@ export async function updateCompanyProperty(
       ...(input.garage != null ? { garage: input.garage } : {}),
       ...(input.area != null ? { area: String(input.area) } : {}),
       ...(input.videoUrl !== undefined ? { videoUrl: input.videoUrl || null } : {}),
+      ...(input.virtualTourUrl !== undefined
+        ? { virtualTourUrl: input.virtualTourUrl || null }
+        : {}),
+      ...(input.floorPlanUrl !== undefined
+        ? { floorPlanUrl: input.floorPlanUrl || null }
+        : {}),
       ...(input.status != null ? { status: input.status } : {}),
     })
     .where(
@@ -246,4 +256,24 @@ export async function setPropertyVideo(
   videoUrl: string,
 ) {
   return updateCompanyProperty(companyId, propertyId, { videoUrl });
+}
+
+export async function setPropertyVirtualTour(
+  companyId: string,
+  propertyId: string,
+  virtualTourUrl: string,
+) {
+  return updateCompanyProperty(companyId, propertyId, { virtualTourUrl });
+}
+
+export async function setPropertyFloorPlan(
+  companyId: string,
+  propertyId: string,
+  floorPlanUrl: string,
+) {
+  return updateCompanyProperty(companyId, propertyId, { floorPlanUrl });
+}
+
+export async function clearPropertyFloorPlan(companyId: string, propertyId: string) {
+  return updateCompanyProperty(companyId, propertyId, { floorPlanUrl: "" });
 }

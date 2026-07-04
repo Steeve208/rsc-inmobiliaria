@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
 import { fetchBuyerVisits } from "@/lib/leads/client";
 import { useBuyerIdentity } from "@/hooks/use-buyer-identity";
+import { useBuyerActivitySync } from "@/lib/providers/buyer-activity-sync-provider";
 import type { ScheduledVisit } from "@/lib/leads/types";
 import { cn } from "@/lib/utils";
 
@@ -17,17 +18,33 @@ const statusStyles: Record<ScheduledVisit["status"], string> = {
 
 export function BuyerVisitsPanel() {
   const t = useTranslations("contact.buyer.visits");
-  const { buyerId } = useBuyerIdentity();
+  const { buyerId, isAuthenticated } = useBuyerIdentity();
+  const { syncVersion, isSynced } = useBuyerActivitySync();
   const [visits, setVisits] = useState<ScheduledVisit[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!buyerId) return;
+    if (isAuthenticated && !isSynced) return;
+
+    let cancelled = false;
+    setLoading(true);
+
     fetchBuyerVisits(buyerId)
-      .then(setVisits)
-      .catch(() => setVisits([]))
-      .finally(() => setLoading(false));
-  }, [buyerId]);
+      .then((next) => {
+        if (!cancelled) setVisits(next);
+      })
+      .catch(() => {
+        if (!cancelled) setVisits([]);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [buyerId, isAuthenticated, isSynced, syncVersion]);
 
   if (loading) {
     return <p className="text-muted-foreground">{t("loading")}</p>;

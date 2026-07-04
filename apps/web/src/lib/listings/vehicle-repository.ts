@@ -1,4 +1,4 @@
-import { asc, desc, eq } from "drizzle-orm";
+import { asc, desc, eq, inArray, and, ne } from "drizzle-orm";
 import { db } from "@/lib/db";
 import {
   agent,
@@ -75,6 +75,36 @@ export async function listVehicles(): Promise<VehicleListing[]> {
   }
 }
 
+export async function listActiveVehiclesForAlerts(): Promise<VehicleListing[]> {
+  return listVehicles();
+}
+
+export async function listVehiclesByIds(ids: string[]): Promise<VehicleListing[]> {
+  const uniqueIds = [...new Set(ids.filter(Boolean))];
+  if (uniqueIds.length === 0) return [];
+
+  try {
+    const rows = await db
+      .select({ vehicle: vehicleListing, company })
+      .from(vehicleListing)
+      .leftJoin(company, eq(vehicleListing.companyId, company.id))
+      .where(inArray(vehicleListing.id, uniqueIds));
+
+    const byId = new Map(
+      rows.map(({ vehicle, company: co }) => [
+        vehicle.id,
+        mapListing(vehicle, co?.name ?? vehicle.companyId ?? "Concessionária"),
+      ]),
+    );
+
+    return uniqueIds
+      .map((id) => byId.get(id))
+      .filter((item): item is VehicleListing => item !== undefined);
+  } catch {
+    return [];
+  }
+}
+
 export async function getVehicleById(id: string): Promise<VehicleListing | undefined> {
   try {
     const [row] = await db
@@ -117,6 +147,7 @@ export async function getVehicleDetail(id: string): Promise<VehicleDetail | unde
       images: images.length > 0 ? images : base.image ? [base.image] : [],
       videoUrl: row.vehicle.videoUrl ?? undefined,
       has360: row.vehicle.has360,
+      tour360Url: row.vehicle.tour360Url ?? undefined,
       address:
         row.vehicle.address ??
         `Av. das Indústrias, 450 — ${base.city} - ${base.state}`,
@@ -155,6 +186,62 @@ export async function getVehicleDetail(id: string): Promise<VehicleDetail | unde
     };
   } catch {
     return undefined;
+  }
+}
+
+export async function listVehiclesByCity(
+  city: string,
+  state: string,
+  limit = 12,
+): Promise<VehicleListing[]> {
+  try {
+    const rows = await db
+      .select({ vehicle: vehicleListing, company })
+      .from(vehicleListing)
+      .leftJoin(company, eq(vehicleListing.companyId, company.id))
+      .where(
+        and(
+          eq(vehicleListing.status, "active"),
+          eq(vehicleListing.city, city),
+          eq(vehicleListing.state, state),
+        ),
+      )
+      .orderBy(desc(vehicleListing.publishedAt))
+      .limit(limit);
+
+    return rows.map(({ vehicle, company: co }) =>
+      mapListing(vehicle, co?.name ?? vehicle.companyId ?? "Concessionária"),
+    );
+  } catch {
+    return [];
+  }
+}
+
+export async function getAgencyVehicles(
+  companyId: string,
+  excludeId: string,
+  limit = 6,
+): Promise<VehicleListing[]> {
+  try {
+    const rows = await db
+      .select({ vehicle: vehicleListing, company })
+      .from(vehicleListing)
+      .leftJoin(company, eq(vehicleListing.companyId, company.id))
+      .where(
+        and(
+          eq(vehicleListing.companyId, companyId),
+          eq(vehicleListing.status, "active"),
+          ne(vehicleListing.id, excludeId),
+        ),
+      )
+      .orderBy(desc(vehicleListing.publishedAt))
+      .limit(limit);
+
+    return rows.map(({ vehicle, company: co }) =>
+      mapListing(vehicle, co?.name ?? vehicle.companyId ?? "Concessionária"),
+    );
+  } catch {
+    return [];
   }
 }
 
@@ -242,6 +329,7 @@ export async function seedVehicleFromMock(
       coverImage: listing.image,
       videoUrl: detail.videoUrl,
       has360: detail.has360,
+      tour360Url: detail.tour360Url,
       history: detail.history,
       equipment: detail.equipment,
       specs: detail.specs,

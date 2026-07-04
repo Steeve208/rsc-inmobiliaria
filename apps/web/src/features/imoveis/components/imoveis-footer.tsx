@@ -9,9 +9,10 @@ import type { RegionItem } from "../types";
 
 type Props = {
   onSelectRegion?: (region: RegionItem) => void;
+  onCategorySelect?: (selection: { type: string; launchOnly: boolean }) => void;
 };
 
-export function ImoveisFooter({ onSelectRegion }: Props) {
+export function ImoveisFooter({ onSelectRegion, onCategorySelect }: Props) {
   const t = useTranslations("imoveis.footer");
   const tc = useTranslations("imoveis.categories");
   const tn = useTranslations("nav");
@@ -59,16 +60,31 @@ export function ImoveisFooter({ onSelectRegion }: Props) {
               <ul className="space-y-2.5">
                 {propertyLinks.map((link) => (
                   <li key={link.id}>
-                    <Link
-                      href={
-                        "launch" in link && link.launch
-                          ? "/imoveis?launch=1"
-                          : `/imoveis?type=${link.id}`
-                      }
-                      className="text-sm text-white/50 transition-colors hover:text-[#60a5fa]"
-                    >
-                      {link.label}
-                    </Link>
+                    {onCategorySelect ? (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          onCategorySelect({
+                            type: "launch" in link && link.launch ? "" : link.id,
+                            launchOnly: "launch" in link && link.launch,
+                          })
+                        }
+                        className="text-sm text-white/50 transition-colors hover:text-[#60a5fa]"
+                      >
+                        {link.label}
+                      </button>
+                    ) : (
+                      <Link
+                        href={
+                          "launch" in link && link.launch
+                            ? "/imoveis?launch=1"
+                            : `/imoveis?type=${link.id}`
+                        }
+                        className="text-sm text-white/50 transition-colors hover:text-[#60a5fa]"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

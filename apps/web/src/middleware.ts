@@ -27,7 +27,7 @@ function getLocaleFromRequest(request: NextRequest) {
 }
 
 const protectedPathPattern =
-  /^\/(en|es|pt)\/(dashboard|favoritos|empresa\/painel)(\/|$)/;
+  /^\/(en|es|pt)\/(dashboard|empresa\/painel)(\/|$)/;
 const authPathPattern = /^\/(en|es|pt)\/(entrar|cadastrar)(\/|$)/;
 
 export default async function middleware(request: NextRequest) {

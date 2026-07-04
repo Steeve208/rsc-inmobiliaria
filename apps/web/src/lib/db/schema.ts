@@ -285,6 +285,8 @@ export const propertyListing = pgTable(
     whatsappNumber: text("whatsapp_number"),
     coverImage: text("cover_image"),
     videoUrl: text("video_url"),
+    virtualTourUrl: text("virtual_tour_url"),
+    floorPlanUrl: text("floor_plan_url"),
     description: text("description"),
     publishedAt: timestamp("published_at"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -335,6 +337,7 @@ export const vehicleListing = pgTable(
     coverImage: text("cover_image"),
     videoUrl: text("video_url"),
     has360: boolean("has_360").default(false).notNull(),
+    tour360Url: text("tour360_url"),
     history: text("history").array().default([]).notNull(),
     equipment: text("equipment").array().default([]).notNull(),
     specs: jsonb("specs").$type<Record<string, string>>().default({}).notNull(),
@@ -387,3 +390,146 @@ export const favorite = pgTable(
     index("favorite_user_idx").on(table.userId),
   ],
 );
+
+export const propertyCompare = pgTable(
+  "property_compare",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    listingId: text("listing_id").notNull(),
+    position: integer("position").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    unique("property_compare_unique").on(table.userId, table.listingId),
+    index("property_compare_user_idx").on(table.userId),
+  ],
+);
+
+export const vehicleCompare = pgTable(
+  "vehicle_compare",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    listingId: text("listing_id").notNull(),
+    position: integer("position").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    unique("vehicle_compare_unique").on(table.userId, table.listingId),
+    index("vehicle_compare_user_idx").on(table.userId),
+  ],
+);
+
+export const savedSearch = pgTable(
+  "saved_search",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    vertical: text("vertical").default("property").notNull(),
+    label: text("label").notNull(),
+    filters: jsonb("filters").$type<Record<string, unknown>>().notNull(),
+    alertsEnabled: boolean("alerts_enabled").default(false).notNull(),
+    alertFrequency: text("alert_frequency").default("daily").notNull(),
+    alertLocale: text("alert_locale").default("pt").notNull(),
+    lastAlertAt: timestamp("last_alert_at"),
+    notifiedListingIds: jsonb("notified_listing_ids")
+      .$type<string[]>()
+      .default([])
+      .notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index("saved_search_user_idx").on(table.userId),
+    index("saved_search_alerts_idx").on(table.alertsEnabled, table.alertFrequency),
+    index("saved_search_vertical_idx").on(table.vertical, table.userId),
+  ],
+);
+
+export const financingRequest = pgTable(
+  "financing_request",
+  {
+    id: text("id").primaryKey(),
+    buyerId: text("buyer_id").notNull(),
+    buyerName: text("buyer_name"),
+    buyerEmail: text("buyer_email"),
+    buyerPhone: text("buyer_phone"),
+    listingId: text("listing_id"),
+    listingTitle: text("listing_title"),
+    listingCategory: text("listing_category"),
+    propertyValue: numeric("property_value", { precision: 14, scale: 2 }).notNull(),
+    downPaymentPct: numeric("down_payment_pct", { precision: 5, scale: 2 }).notNull(),
+    downPaymentAmount: numeric("down_payment_amount", { precision: 14, scale: 2 }).notNull(),
+    termMonths: integer("term_months").notNull(),
+    interestRate: numeric("interest_rate", { precision: 6, scale: 3 }).notNull(),
+    estimatedInstallment: numeric("estimated_installment", {
+      precision: 14,
+      scale: 2,
+    }).notNull(),
+    currency: text("currency").default("BRL").notNull(),
+    status: text("status").default("pending").notNull(),
+    notes: text("notes"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index("financing_request_buyer_idx").on(table.buyerId),
+    index("financing_request_status_idx").on(table.status),
+    index("financing_request_created_idx").on(table.createdAt),
+  ],
+);
+
+export const listingReport = pgTable(
+  "listing_report",
+  {
+    id: text("id").primaryKey(),
+    listingId: text("listing_id").notNull(),
+    listingTitle: text("listing_title").notNull(),
+    listingKind: text("listing_kind").notNull(),
+    reason: text("reason").notNull(),
+    reporterEmail: text("reporter_email"),
+    reporterUserId: text("reporter_user_id").references(() => user.id, {
+      onDelete: "set null",
+    }),
+    status: text("status").default("pending").notNull(),
+    adminNotes: text("admin_notes"),
+    reviewedBy: text("reviewed_by").references(() => user.id, {
+      onDelete: "set null",
+    }),
+    reviewedAt: timestamp("reviewed_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index("listing_report_status_idx").on(table.status),
+    index("listing_report_listing_idx").on(table.listingKind, table.listingId),
+    index("listing_report_created_idx").on(table.createdAt),
+  ],
+);
+
+export const cronJobRun = pgTable("cron_job_run", {
+  jobName: text("job_name").primaryKey(),
+  lastRunAt: timestamp("last_run_at").notNull(),
+  lastStatus: text("last_status").notNull(),
+  lastSummary: jsonb("last_summary").$type<Record<string, unknown>>(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+});

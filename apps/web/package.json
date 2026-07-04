@@ -12,7 +12,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
-    "db:seed": "npx tsx scripts/seed.ts"
+    "db:seed": "npx tsx scripts/seed.ts",
+    "env:check": "npx tsx scripts/check-production-env.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

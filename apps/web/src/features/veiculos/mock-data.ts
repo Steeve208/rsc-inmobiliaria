@@ -500,6 +500,7 @@ export function enrichVehicle(base: VehicleListing) {
     images: detailGallery,
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     has360: true,
+    tour360Url: "https://my.matterport.com/show/?m=8Qy963ZYY7F",
     address: `Av. das Indústrias, 450 — ${base.city} - ${base.state}, ${base.country}`,
     condition: base.year >= 2024 ? ("new" as const) : ("used" as const),
     doors: base.type === "motorcycle" ? 0 : 4,
