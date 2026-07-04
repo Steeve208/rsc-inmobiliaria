@@ -1,3 +1,4 @@
+import "server-only";
 import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 import { logMissingEnvOnce } from "@/lib/env/production-config";
@@ -139,5 +140,3 @@ export async function uploadListingMedia(input: {
   const remotePath = `listings/${companyId}/${listingId}/${filename}`;
   return uploadToSupabase(buffer, remotePath, file.type);
 }
-
-export { isDirectVideoUrl, isPdfFloorPlanUrl, toVideoEmbedUrl } from "./listing-media-utils";

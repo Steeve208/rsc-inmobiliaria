@@ -8,7 +8,8 @@ import {
   setPropertyVideo,
   setPropertyVirtualTour,
 } from "@/lib/listings/property-writes";
-import { uploadListingMedia, toVideoEmbedUrl } from "@/lib/storage/listing-media";
+import { uploadListingMedia } from "@/lib/storage/listing-media";
+import { toVideoEmbedUrl } from "@/lib/storage/listing-media-utils";
 
 type RouteParams = {
   params: Promise<{ companyId: string; propertyId: string }>;
