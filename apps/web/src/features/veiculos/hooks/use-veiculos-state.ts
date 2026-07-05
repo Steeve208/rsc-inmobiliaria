@@ -25,7 +25,12 @@ export function useVeiculosState() {
   useEffect(() => {
     fetch("/api/listings/vehicles")
       .then((r) => r.json())
-      .then((data: VehicleListing[]) => setCatalog(data))
+      .then((data: VehicleListing[]) => {
+        setCatalog(data);
+        if (data.length > 0) {
+          setHasSearched(true);
+        }
+      })
       .catch(() => setCatalog([]));
   }, []);
 

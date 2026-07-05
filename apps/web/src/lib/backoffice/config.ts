@@ -1,3 +1,5 @@
+const PRODUCTION_BACKOFFICE_URL = "https://reeskco.vercel.app";
+
 export function getBackofficeBaseUrl(): string | null {
   const configured =
     process.env.NEXT_PUBLIC_BACKOFFICE_URL?.trim() ||
@@ -8,6 +10,10 @@ export function getBackofficeBaseUrl(): string | null {
 
   if (process.env.NODE_ENV === "development") {
     return "http://localhost:3000";
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    return PRODUCTION_BACKOFFICE_URL;
   }
 
   return null;

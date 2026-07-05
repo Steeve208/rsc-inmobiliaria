@@ -49,7 +49,12 @@ export function useImoveisState() {
   useEffect(() => {
     fetch("/api/listings/properties")
       .then((r) => r.json())
-      .then((data: PropertyListing[]) => setCatalog(data))
+      .then((data: PropertyListing[]) => {
+        setCatalog(data);
+        if (data.length > 0) {
+          setHasSearched(true);
+        }
+      })
       .catch(() => setCatalog([]));
   }, []);
 
