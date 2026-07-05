@@ -1,10 +1,16 @@
 export function getBackofficeBaseUrl(): string | null {
-  const base =
+  const configured =
     process.env.NEXT_PUBLIC_BACKOFFICE_URL?.trim() ||
     process.env.NEXT_PUBLIC_API_URL?.trim() ||
     "";
 
-  return base ? base.replace(/\/$/, "") : null;
+  if (configured) return configured.replace(/\/$/, "");
+
+  if (process.env.NODE_ENV === "development") {
+    return "http://localhost:3000";
+  }
+
+  return null;
 }
 
 export function isBackofficeConfigured(): boolean {

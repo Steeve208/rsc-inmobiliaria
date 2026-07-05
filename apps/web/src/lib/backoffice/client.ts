@@ -22,10 +22,13 @@ async function backofficeFetch<T>(path: string, init?: RequestInit): Promise<T |
         "Content-Type": "application/json",
         ...init?.headers,
       },
-      next: { revalidate: 60 },
+      cache: "no-store",
     });
 
-    if (!response.ok) return null;
+    if (!response.ok) {
+      console.error(`[backoffice] ${path} failed: ${response.status}`);
+      return null;
+    }
     return (await response.json()) as T;
   } catch {
     return null;
