@@ -9,6 +9,17 @@ import {
 import type { PropertyDetail, PropertyListing } from "@/features/imoveis/types";
 import { listingImageUrl } from "@/lib/listings/constants";
 import { slugifyCompanyId } from "@/lib/leads/utils";
+import {
+  fetchAllBackofficeListings,
+  fetchBackofficeListingById,
+  incrementBackofficeListingViews,
+  isBackofficeConfigured,
+} from "@/lib/backoffice/client";
+import {
+  filterPropertySection,
+  mapBackofficeToPropertyDetail,
+  mapBackofficeToPropertyListing,
+} from "@/lib/backoffice/mappers";
 
 type PropertyRow = typeof propertyListing.$inferSelect;
 type CompanyRow = typeof company.$inferSelect;
@@ -80,7 +91,18 @@ async function fetchActiveProperties() {
     .orderBy(desc(propertyListing.publishedAt));
 }
 
+async function listBackofficeProperties(city?: string): Promise<PropertyListing[]> {
+  const listings = await fetchAllBackofficeListings({
+    category: "real_estate",
+    city,
+  });
+  return listings.map(mapBackofficeToPropertyListing);
+}
+
 export async function listActivePropertiesForAlerts(): Promise<PropertyListing[]> {
+  if (isBackofficeConfigured()) {
+    return listBackofficeProperties();
+  }
   try {
     const rows = await fetchActiveProperties();
     return rows.map(({ property, company: co }) =>
@@ -92,6 +114,9 @@ export async function listActivePropertiesForAlerts(): Promise<PropertyListing[]
 }
 
 export async function listProperties(): Promise<PropertyListing[]> {
+  if (isBackofficeConfigured()) {
+    return listBackofficeProperties();
+  }
   try {
     const rows = await fetchActiveProperties();
     return rows.map(({ property, company: co }) =>
@@ -107,6 +132,12 @@ export async function listPropertiesByCity(
   state: string,
   limit = 12,
 ): Promise<PropertyListing[]> {
+  if (isBackofficeConfigured()) {
+    const listings = await listBackofficeProperties(city);
+    return listings
+      .filter((item) => !state || item.state === state)
+      .slice(0, limit);
+  }
   try {
     const rows = await db
       .select({ property: propertyListing, company })
@@ -134,6 +165,14 @@ export async function listPropertiesByIds(ids: string[]): Promise<PropertyListin
   const uniqueIds = [...new Set(ids.filter(Boolean))];
   if (uniqueIds.length === 0) return [];
 
+  if (isBackofficeConfigured()) {
+    const listings = await Promise.all(uniqueIds.map((id) => fetchBackofficeListingById(id)));
+    return listings
+      .filter((item): item is NonNullable<typeof item> => item !== null)
+      .filter((item) => item.category === "real_estate")
+      .map(mapBackofficeToPropertyListing);
+  }
+
   try {
     const rows = await db
       .select({ property: propertyListing, company })
@@ -157,6 +196,11 @@ export async function listPropertiesByIds(ids: string[]): Promise<PropertyListin
 }
 
 export async function getPropertyById(id: string): Promise<PropertyListing | undefined> {
+  if (isBackofficeConfigured()) {
+    const listing = await fetchBackofficeListingById(id);
+    if (!listing || listing.category !== "real_estate") return undefined;
+    return mapBackofficeToPropertyListing(listing);
+  }
   try {
     const [row] = await db
       .select({ property: propertyListing, company })
@@ -173,6 +217,12 @@ export async function getPropertyById(id: string): Promise<PropertyListing | und
 }
 
 export async function getPropertyDetail(id: string): Promise<PropertyDetail | undefined> {
+  if (isBackofficeConfigured()) {
+    const listing = await fetchBackofficeListingById(id);
+    if (!listing || listing.category !== "real_estate") return undefined;
+    void incrementBackofficeListingViews(id);
+    return mapBackofficeToPropertyDetail(listing);
+  }
   try {
     const [row] = await db
       .select({ property: propertyListing, company, agent })
@@ -240,6 +290,15 @@ export async function getSimilarProperties(
   id: string,
   limit = 4,
 ): Promise<PropertyListing[]> {
+  if (isBackofficeConfigured()) {
+    const base = await getPropertyById(id);
+    if (!base) return [];
+    const all = await listBackofficeProperties();
+    return all
+      .filter((item) => item.id !== id)
+      .filter((item) => item.city === base.city || item.type === base.type)
+      .slice(0, limit);
+  }
   try {
     const base = await getPropertyById(id);
     if (!base) return [];
@@ -274,6 +333,16 @@ export async function getAgencyProperties(
   excludeId: string,
   limit = 6,
 ): Promise<PropertyListing[]> {
+  if (isBackofficeConfigured()) {
+    const listings = await fetchAllBackofficeListings({
+      category: "real_estate",
+      organization: companyId,
+    });
+    return listings
+      .filter((item) => item.id !== excludeId)
+      .map(mapBackofficeToPropertyListing)
+      .slice(0, limit);
+  }
   try {
     const rows = await db
       .select({ property: propertyListing, company })
@@ -298,6 +367,9 @@ export async function getAgencyProperties(
 }
 
 export async function getPremiumProperties(): Promise<PropertyListing[]> {
+  if (isBackofficeConfigured()) {
+    return filterPropertySection(await listBackofficeProperties(), "premium");
+  }
   try {
     const rows = await db
       .select({ property: propertyListing, company })
@@ -316,6 +388,9 @@ export async function getPremiumProperties(): Promise<PropertyListing[]> {
 }
 
 export async function getRecommendedProperties(): Promise<PropertyListing[]> {
+  if (isBackofficeConfigured()) {
+    return filterPropertySection(await listBackofficeProperties(), "recommended");
+  }
   try {
     const rows = await db
       .select({ property: propertyListing, company })
@@ -334,6 +409,9 @@ export async function getRecommendedProperties(): Promise<PropertyListing[]> {
 }
 
 export async function getLaunchProperties(): Promise<PropertyListing[]> {
+  if (isBackofficeConfigured()) {
+    return filterPropertySection(await listBackofficeProperties(), "launch");
+  }
   try {
     const rows = await db
       .select({ property: propertyListing, company })

@@ -25,10 +25,17 @@ export function EmpresaCadastroPage() {
     setStatus("loading");
 
     try {
-      const res = await fetch("/api/companies", {
+      const res = await fetch("/api/registration-requests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          companyName: values.company,
+          contactName: values.company,
+          contactEmail: values.email,
+          contactPhone: values.phone,
+          category: "real_estate",
+          cnpj: values.cnpj,
+        }),
       });
 
       if (!res.ok) {

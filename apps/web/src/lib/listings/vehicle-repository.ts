@@ -9,6 +9,17 @@ import {
 import type { VehicleDetail, VehicleListing } from "@/features/veiculos/types";
 import { enrichVehicle } from "@/features/veiculos/mock-data";
 import { slugifyCompanyId } from "@/lib/leads/utils";
+import {
+  fetchAllBackofficeListings,
+  fetchBackofficeListingById,
+  incrementBackofficeListingViews,
+  isBackofficeConfigured,
+} from "@/lib/backoffice/client";
+import {
+  filterVehicleSection,
+  mapBackofficeToVehicleDetail,
+  mapBackofficeToVehicleListing,
+} from "@/lib/backoffice/mappers";
 
 type VehicleRow = typeof vehicleListing.$inferSelect;
 
@@ -58,7 +69,18 @@ async function fetchImages(listingId: string): Promise<string[]> {
   return rows.map((r) => r.url);
 }
 
+async function listBackofficeVehicles(city?: string): Promise<VehicleListing[]> {
+  const listings = await fetchAllBackofficeListings({
+    category: "automotive",
+    city,
+  });
+  return listings.map(mapBackofficeToVehicleListing);
+}
+
 export async function listVehicles(): Promise<VehicleListing[]> {
+  if (isBackofficeConfigured()) {
+    return listBackofficeVehicles();
+  }
   try {
     const rows = await db
       .select({ vehicle: vehicleListing, company })
@@ -83,6 +105,14 @@ export async function listVehiclesByIds(ids: string[]): Promise<VehicleListing[]
   const uniqueIds = [...new Set(ids.filter(Boolean))];
   if (uniqueIds.length === 0) return [];
 
+  if (isBackofficeConfigured()) {
+    const listings = await Promise.all(uniqueIds.map((id) => fetchBackofficeListingById(id)));
+    return listings
+      .filter((item): item is NonNullable<typeof item> => item !== null)
+      .filter((item) => item.category === "automotive")
+      .map(mapBackofficeToVehicleListing);
+  }
+
   try {
     const rows = await db
       .select({ vehicle: vehicleListing, company })
@@ -106,6 +136,11 @@ export async function listVehiclesByIds(ids: string[]): Promise<VehicleListing[]
 }
 
 export async function getVehicleById(id: string): Promise<VehicleListing | undefined> {
+  if (isBackofficeConfigured()) {
+    const listing = await fetchBackofficeListingById(id);
+    if (!listing || listing.category !== "automotive") return undefined;
+    return mapBackofficeToVehicleListing(listing);
+  }
   try {
     const [row] = await db
       .select({ vehicle: vehicleListing, company })
@@ -122,6 +157,12 @@ export async function getVehicleById(id: string): Promise<VehicleListing | undef
 }
 
 export async function getVehicleDetail(id: string): Promise<VehicleDetail | undefined> {
+  if (isBackofficeConfigured()) {
+    const listing = await fetchBackofficeListingById(id);
+    if (!listing || listing.category !== "automotive") return undefined;
+    void incrementBackofficeListingViews(id);
+    return mapBackofficeToVehicleDetail(listing);
+  }
   try {
     const [row] = await db
       .select({ vehicle: vehicleListing, company, agent })
@@ -194,6 +235,12 @@ export async function listVehiclesByCity(
   state: string,
   limit = 12,
 ): Promise<VehicleListing[]> {
+  if (isBackofficeConfigured()) {
+    const listings = await listBackofficeVehicles(city);
+    return listings
+      .filter((item) => !state || item.state === state)
+      .slice(0, limit);
+  }
   try {
     const rows = await db
       .select({ vehicle: vehicleListing, company })
@@ -222,6 +269,16 @@ export async function getAgencyVehicles(
   excludeId: string,
   limit = 6,
 ): Promise<VehicleListing[]> {
+  if (isBackofficeConfigured()) {
+    const listings = await fetchAllBackofficeListings({
+      category: "automotive",
+      organization: companyId,
+    });
+    return listings
+      .filter((item) => item.id !== excludeId)
+      .map(mapBackofficeToVehicleListing)
+      .slice(0, limit);
+  }
   try {
     const rows = await db
       .select({ vehicle: vehicleListing, company })
@@ -249,6 +306,15 @@ export async function getSimilarVehicles(
   id: string,
   limit = 4,
 ): Promise<VehicleListing[]> {
+  if (isBackofficeConfigured()) {
+    const base = await getVehicleById(id);
+    if (!base) return [];
+    const all = await listBackofficeVehicles();
+    return all
+      .filter((item) => item.id !== id)
+      .filter((item) => item.type === base.type || item.make === base.make)
+      .slice(0, limit);
+  }
   try {
     const all = await listVehicles();
     const base = all.find((v) => v.id === id);
@@ -262,21 +328,34 @@ export async function getSimilarVehicles(
 }
 
 export async function getFeaturedVehicles(): Promise<VehicleListing[]> {
+  if (isBackofficeConfigured()) {
+    return filterVehicleSection(await listBackofficeVehicles(), "launch");
+  }
   const all = await listVehicles();
   return all.filter((v) => v.featured);
 }
 
 export async function getPremiumVehicles(): Promise<VehicleListing[]> {
+  if (isBackofficeConfigured()) {
+    return filterVehicleSection(await listBackofficeVehicles(), "premium");
+  }
   const all = await listVehicles();
   return all.filter((v) => v.premium);
 }
 
 export async function getRecommendedVehicles(): Promise<VehicleListing[]> {
+  if (isBackofficeConfigured()) {
+    return filterVehicleSection(await listBackofficeVehicles(), "recommended").slice(0, 6);
+  }
   const all = await listVehicles();
   return all.filter((v) => v.verified).slice(0, 6);
 }
 
 export async function getVehicleMakes(): Promise<string[]> {
+  if (isBackofficeConfigured()) {
+    const listings = await listBackofficeVehicles();
+    return [...new Set(listings.map((item) => item.make).filter(Boolean))].sort();
+  }
   try {
     const rows = await db
       .selectDistinct({ make: vehicleListing.make })

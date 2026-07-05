@@ -1,5 +1,6 @@
+import { redirect } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { EmpresaPainelPage } from "@/features/para-empresas";
+import { getBackofficeLoginUrl } from "@/lib/backoffice/config";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -9,5 +10,10 @@ export default async function Page({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <EmpresaPainelPage />;
+  const loginUrl = getBackofficeLoginUrl(locale);
+  if (loginUrl) {
+    redirect(loginUrl);
+  }
+
+  redirect(`/${locale}/para-empresas`);
 }

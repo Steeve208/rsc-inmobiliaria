@@ -1,0 +1,48 @@
+import { NextResponse } from "next/server";
+import { getBackofficeRegistrationUrl } from "@/lib/backoffice/config";
+
+export async function POST(request: Request) {
+  const target = getBackofficeRegistrationUrl();
+  if (!target) {
+    return NextResponse.json({ error: "BACKOFFICE_NOT_CONFIGURED" }, { status: 503 });
+  }
+
+  let body: Record<string, unknown>;
+
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "INVALID_JSON" }, { status: 400 });
+  }
+
+  const companyName = String(body.companyName ?? body.company ?? "").trim();
+  const contactName = String(body.contactName ?? body.company ?? "").trim();
+  const contactEmail = String(body.contactEmail ?? body.email ?? "").trim().toLowerCase();
+  const contactPhone = String(body.contactPhone ?? body.phone ?? "").trim();
+  const category = String(body.category ?? "real_estate").trim();
+  const message = String(body.message ?? body.cnpj ?? "").trim();
+
+  if (!companyName || !contactName || !contactEmail) {
+    return NextResponse.json({ error: "MISSING_FIELDS" }, { status: 400 });
+  }
+
+  try {
+    const response = await fetch(target, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        companyName,
+        contactName,
+        contactEmail,
+        contactPhone: contactPhone || undefined,
+        category,
+        message: message ? `CNPJ/documento: ${message}` : undefined,
+      }),
+    });
+
+    const payload = await response.json().catch(() => ({}));
+    return NextResponse.json(payload, { status: response.status });
+  } catch {
+    return NextResponse.json({ error: "BACKOFFICE_UNAVAILABLE" }, { status: 502 });
+  }
+}
