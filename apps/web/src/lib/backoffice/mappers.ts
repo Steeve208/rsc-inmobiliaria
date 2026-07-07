@@ -1,6 +1,7 @@
 import type { PropertyDetail, PropertyListing } from "@/features/imoveis/types";
 import type { VehicleDetail, VehicleListing } from "@/features/veiculos/types";
 import type { BackofficePublicListing } from "@/lib/backoffice/types";
+import { listingImageUrl } from "@/lib/listings/listing-image";
 
 function num(value: unknown, fallback = 0): number {
   if (typeof value === "number" && Number.isFinite(value)) return value;
@@ -24,12 +25,15 @@ function publishedDate(listing: BackofficePublicListing): string {
 }
 
 function coverImage(listing: BackofficePublicListing): string {
-  return listing.photos[0]?.url ?? "";
+  return listingImageUrl(listing.photos[0]?.url);
 }
 
 function gallery(listing: BackofficePublicListing): string[] {
-  const photos = listing.photos.map((photo) => photo.url).filter(Boolean);
-  return photos.length > 0 ? photos : coverImage(listing) ? [coverImage(listing)] : [];
+  const photos = listing.photos
+    .map((photo) => photo.url?.trim())
+    .filter((url): url is string => Boolean(url))
+    .map((url) => listingImageUrl(url));
+  return photos.length > 0 ? photos : [coverImage(listing)];
 }
 
 export function mapBackofficeToPropertyListing(

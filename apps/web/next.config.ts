@@ -36,7 +36,18 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
       },
       ...(storageHost
-        ? [{ protocol: "https" as const, hostname: storageHost, pathname: "/storage/v1/object/public/**" }]
+        ? [
+            {
+              protocol: "https" as const,
+              hostname: storageHost,
+              pathname: "/storage/v1/object/public/**",
+            },
+            {
+              protocol: "https" as const,
+              hostname: storageHost,
+              pathname: "/storage/v1/object/sign/**",
+            },
+          ]
         : []),
     ],
   },
