@@ -13,6 +13,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:seed": "npx tsx scripts/seed.ts",
+    "db:backfill-chats": "npx tsx scripts/backfill-chat-sync.ts",
     "env:check": "npx tsx scripts/check-production-env.ts"
   },
   "dependencies": {

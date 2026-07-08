@@ -6,6 +6,10 @@ import {
   companyLeadConfig,
   scheduledVisit,
 } from "@/lib/db/schema";
+import {
+  syncChatMessageToBackoffice,
+  syncThreadOpenToBackoffice,
+} from "./backoffice-sync";
 import type {
   ChatMessage,
   ChatThread,
@@ -70,6 +74,24 @@ function mapThread(row: ThreadRow, messages: MessageRow[]): ChatThread {
     messages: messages.map(mapMessage),
     createdAt: row.createdAt.toISOString(),
     updatedAt: row.updatedAt.toISOString(),
+  };
+}
+
+function threadContext(row: ThreadRow): {
+  threadId: string;
+  listingId: string;
+  listingTitle: string;
+  companyId: string;
+  buyerId: string;
+  buyerName: string;
+} {
+  return {
+    threadId: row.id,
+    listingId: row.listingId,
+    listingTitle: row.listingTitle,
+    companyId: row.companyId,
+    buyerId: row.buyerId,
+    buyerName: row.buyerName,
   };
 }
 
@@ -184,16 +206,28 @@ export async function openChatThread(
 
   if (existing) {
     if (initialText) {
+      const messageId = newId("msg");
+      const createdAt = new Date();
       await db.insert(chatMessage).values({
-        id: newId("msg"),
+        id: messageId,
         threadId: existing.id,
         sender: "buyer",
         text: initialText,
+        createdAt,
       });
       await db
         .update(chatThread)
         .set({ updatedAt: new Date() })
         .where(eq(chatThread.id, existing.id));
+      await syncChatMessageToBackoffice({
+        thread: threadContext(existing),
+        messageId,
+        sender: "buyer",
+        text: initialText,
+        createdAt,
+      });
+    } else {
+      await syncThreadOpenToBackoffice(threadContext(existing));
     }
     const messages = await loadMessages(existing.id);
     return mapThread(existing, messages);
@@ -214,12 +248,24 @@ export async function openChatThread(
     })
     .returning();
 
+  await syncThreadOpenToBackoffice(threadContext(created));
+
   if (initialText) {
+    const messageId = newId("msg");
+    const createdAt = new Date();
     await db.insert(chatMessage).values({
-      id: newId("msg"),
+      id: messageId,
       threadId,
       sender: "buyer",
       text: initialText,
+      createdAt,
+    });
+    await syncChatMessageToBackoffice({
+      thread: threadContext(created),
+      messageId,
+      sender: "buyer",
+      text: initialText,
+      createdAt,
     });
   }
 
@@ -238,16 +284,29 @@ export async function sendChatMessage(
 
   if (!thread) return undefined;
 
+  const messageId = newId("msg");
+  const createdAt = new Date();
+  const text = input.text.trim();
+
   await db.insert(chatMessage).values({
-    id: newId("msg"),
+    id: messageId,
     threadId: thread.id,
     sender: input.sender,
-    text: input.text.trim(),
+    text,
+    createdAt,
   });
   await db
     .update(chatThread)
     .set({ updatedAt: new Date() })
     .where(eq(chatThread.id, thread.id));
+
+  await syncChatMessageToBackoffice({
+    thread: threadContext(thread),
+    messageId,
+    sender: input.sender,
+    text,
+    createdAt,
+  });
 
   const messages = await loadMessages(thread.id);
   return mapThread(thread, messages);
