@@ -8,22 +8,27 @@ import {
 import type { CreateVisitInput, UpdateVisitInput } from "@/lib/leads/types";
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const buyerId = searchParams.get("buyerId") ?? undefined;
-  const companyId = searchParams.get("companyId") ?? undefined;
-  const listingId = searchParams.get("listingId") ?? undefined;
+  try {
+    const { searchParams } = new URL(request.url);
+    const buyerId = searchParams.get("buyerId") ?? undefined;
+    const companyId = searchParams.get("companyId") ?? undefined;
+    const listingId = searchParams.get("listingId") ?? undefined;
 
-  if (listingId && companyId) {
-    return NextResponse.json(
-      await getListingVisitAvailability(listingId, companyId),
-    );
+    if (listingId && companyId) {
+      return NextResponse.json(
+        await getListingVisitAvailability(listingId, companyId),
+      );
+    }
+
+    if (!buyerId && !companyId) {
+      return NextResponse.json({ error: "buyerId or companyId required" }, { status: 400 });
+    }
+
+    return NextResponse.json(await listVisits({ buyerId, companyId }));
+  } catch (error) {
+    console.error("[visits] list failed", error);
+    return NextResponse.json({ error: "VISITS_UNAVAILABLE" }, { status: 503 });
   }
-
-  if (!buyerId && !companyId) {
-    return NextResponse.json({ error: "buyerId or companyId required" }, { status: 400 });
-  }
-
-  return NextResponse.json(await listVisits({ buyerId, companyId }));
 }
 
 export async function POST(request: Request) {

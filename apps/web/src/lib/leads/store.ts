@@ -11,6 +11,7 @@ import {
   syncThreadOpenToBackoffice,
 } from "./backoffice-sync";
 import { syncVisitToBackoffice } from "./visit-sync";
+import { isListingUuid, runOptionalQuery } from "./visit-db";
 import {
   normalizeListingCategory,
   type ChatMessage,
@@ -171,21 +172,25 @@ async function hasVisitTimeConflict(
   time: string,
   excludeVisitId?: string,
 ): Promise<boolean> {
-  const localRows = await db
-    .select({
-      id: scheduledVisit.id,
-      preferredDate: scheduledVisit.preferredDate,
-      preferredTime: scheduledVisit.preferredTime,
-    })
-    .from(scheduledVisit)
-    .where(
-      and(
-        eq(scheduledVisit.companyId, companyId),
-        eq(scheduledVisit.preferredDate, date),
-        eq(scheduledVisit.preferredTime, time),
-        inArray(scheduledVisit.status, ["pending", "confirmed"]),
-      ),
-    );
+  const localRows = await runOptionalQuery(
+    () =>
+      db
+        .select({
+          id: scheduledVisit.id,
+          preferredDate: scheduledVisit.preferredDate,
+          preferredTime: scheduledVisit.preferredTime,
+        })
+        .from(scheduledVisit)
+        .where(
+          and(
+            eq(scheduledVisit.companyId, companyId),
+            eq(scheduledVisit.preferredDate, date),
+            eq(scheduledVisit.preferredTime, time),
+            inArray(scheduledVisit.status, ["pending", "confirmed"]),
+          ),
+        ),
+    [],
+  );
 
   const localConflict = localRows.some((row) => row.id !== excludeVisitId);
   if (localConflict) return true;
@@ -194,36 +199,41 @@ async function hasVisitTimeConflict(
   if (!organizationId) return false;
 
   const { starts, ends } = visitWindow(date, time);
-  const appointmentRows = await db.execute<{ id: string }>(sql`
-    select id::text as id
-    from public.appointments
-    where organization_id = ${organizationId}::uuid
-      and status = 'scheduled'
-      and starts_at < ${ends.toISOString()}::timestamptz
-      and ends_at > ${starts.toISOString()}::timestamptz
-      ${excludeVisitId ? sql`and (external_visit_id is null or external_visit_id <> ${excludeVisitId})` : sql``}
-    limit 1
-  `);
-
-  return appointmentRows.length > 0;
+  return runOptionalQuery(async () => {
+    const appointmentRows = await db.execute<{ id: string }>(sql`
+      select id::text as id
+      from public.appointments
+      where organization_id = ${organizationId}::uuid
+        and status = 'scheduled'
+        and starts_at < ${ends.toISOString()}::timestamptz
+        and ends_at > ${starts.toISOString()}::timestamptz
+        ${excludeVisitId ? sql`and (external_visit_id is null or external_visit_id <> ${excludeVisitId})` : sql``}
+      limit 1
+    `);
+    return appointmentRows.length > 0;
+  }, false);
 }
 
 export async function getListingVisitAvailability(
   listingId: string,
   companyId: string,
 ): Promise<ListingVisitAvailability> {
-  const bookedRows = await db
-    .select({
-      preferredDate: scheduledVisit.preferredDate,
-      preferredTime: scheduledVisit.preferredTime,
-    })
-    .from(scheduledVisit)
-    .where(
-      and(
-        eq(scheduledVisit.listingId, listingId),
-        inArray(scheduledVisit.status, ["pending", "confirmed"]),
-      ),
-    );
+  const bookedRows = await runOptionalQuery(
+    () =>
+      db
+        .select({
+          preferredDate: scheduledVisit.preferredDate,
+          preferredTime: scheduledVisit.preferredTime,
+        })
+        .from(scheduledVisit)
+        .where(
+          and(
+            eq(scheduledVisit.listingId, listingId),
+            inArray(scheduledVisit.status, ["pending", "confirmed"]),
+          ),
+        ),
+    [],
+  );
 
   const bookedDates = [...new Set(bookedRows.map((row) => row.preferredDate))];
   const bookedSlots = bookedRows.map((row) => ({
@@ -231,14 +241,27 @@ export async function getListingVisitAvailability(
     time: row.preferredTime,
   }));
 
-  const slotRows = await db.execute<{ visit_date: string }>(sql`
-    select s.visit_date::text as visit_date
-    from public.listing_visit_slots s
-    left join public.organizations o on o.id = s.organization_id
-    where s.listing_id = ${listingId}::uuid
-       or (s.listing_id is null and o.slug = ${companyId})
-    order by s.visit_date asc
-  `);
+  const slotRows = await runOptionalQuery(async () => {
+    if (isListingUuid(listingId)) {
+      return db.execute<{ visit_date: string }>(sql`
+        select s.visit_date::text as visit_date
+        from public.listing_visit_slots s
+        left join public.organizations o on o.id = s.organization_id
+        where s.listing_id = ${listingId}::uuid
+           or (s.listing_id is null and o.slug = ${companyId})
+        order by s.visit_date asc
+      `);
+    }
+
+    return db.execute<{ visit_date: string }>(sql`
+      select s.visit_date::text as visit_date
+      from public.listing_visit_slots s
+      left join public.organizations o on o.id = s.organization_id
+      where s.listing_id is null
+        and o.slug = ${companyId}
+      order by s.visit_date asc
+    `);
+  }, []);
 
   const availableDates = slotRows.map((row) => row.visit_date);
 
