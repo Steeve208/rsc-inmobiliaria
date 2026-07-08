@@ -60,6 +60,26 @@ export async function fetchCompanyVisits(companyId: string) {
   );
 }
 
+export async function fetchListingVisitAvailability(
+  listingId: string,
+  companyId: string,
+) {
+  const params = new URLSearchParams({ listingId, companyId });
+  return parseJson<import("./types").ListingVisitAvailability>(
+    await fetch(`/api/leads/visits?${params.toString()}`),
+  );
+}
+
+export async function updateScheduledVisit(input: import("./types").UpdateVisitInput) {
+  return parseJson<ScheduledVisit>(
+    await fetch("/api/leads/visits", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(input),
+    }),
+  );
+}
+
 export async function openChat(input: OpenChatInput) {
   return parseJson<ChatThread>(
     await fetch("/api/leads/chats", {

@@ -1101,7 +1101,11 @@
       "successTitle": "¡Visita solicitada!",
       "successBody": "Tu solicitud fue procesada. La inmobiliaria se pondrá en contacto lo antes posible.",
       "close": "Cerrar",
-      "error": "No se pudo agendar. Intenta de nuevo."
+      "error": "No se pudo agendar. Intenta de nuevo.",
+      "dateUnavailable": "Esa fecha no está disponible. Elige otra.",
+      "timeUnavailable": "Ese horario ya está ocupado. Elige otro.",
+      "companySlotsHint": "La empresa indicó fechas disponibles. Elige una de ellas.",
+      "freeDateHint": "Elige la fecha que prefieras. Las fechas ya reservadas no están disponibles."
     },
     "visitConfirmed": {
       "loading": "Cargando...",
@@ -1152,8 +1156,15 @@
         "status": {
           "pending": "Pendiente",
           "confirmed": "Confirmada",
-          "cancelled": "Cancelada"
-        }
+          "cancelled": "Cancelada",
+          "reschedule_proposed": "Nueva fecha propuesta"
+        },
+        "companyReply": "Respuesta de la empresa",
+        "proposedFor": "Nueva propuesta: {date} a las {time}",
+        "acceptReschedule": "Aceptar nueva fecha",
+        "keepOriginal": "Mantener fecha original",
+        "actionError": "No se pudo actualizar la visita.",
+        "timeUnavailable": "Ese horario ya no está disponible."
       }
     },
     "company": {
@@ -1172,7 +1183,8 @@
         "status": {
           "pending": "Pendiente",
           "confirmed": "Confirmada",
-          "cancelled": "Cancelada"
+          "cancelled": "Cancelada",
+          "reschedule_proposed": "Reagendamiento propuesto"
         }
       },
       "chats": {

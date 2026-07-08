@@ -27,6 +27,7 @@ const statusStyles: Record<ScheduledVisit["status"], string> = {
   pending: "bg-amber-500/15 text-amber-300",
   confirmed: "bg-emerald-500/15 text-emerald-300",
   cancelled: "bg-red-500/15 text-red-300",
+  reschedule_proposed: "bg-sky-500/15 text-sky-300",
 };
 
 export function CompanyLeadsPanel({ companyId, companyName }: Props) {

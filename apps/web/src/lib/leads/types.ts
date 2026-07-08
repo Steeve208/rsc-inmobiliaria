@@ -19,7 +19,7 @@ export type ListingContactContext = {
   agentName?: string;
 };
 
-export type VisitStatus = "pending" | "confirmed" | "cancelled";
+export type VisitStatus = "pending" | "confirmed" | "cancelled" | "reschedule_proposed";
 
 export type ScheduledVisit = {
   id: string;
@@ -36,6 +36,9 @@ export type ScheduledVisit = {
   preferredTime: string;
   notes?: string;
   status: VisitStatus;
+  companyMessage?: string;
+  proposedDate?: string;
+  proposedTime?: string;
   createdAt: string;
 };
 
@@ -102,4 +105,21 @@ export type SendChatMessageInput = {
   threadId: string;
   sender: "buyer" | "company";
   text: string;
+};
+
+export type UpdateVisitInput = {
+  visitId: string;
+  status?: VisitStatus;
+  companyMessage?: string;
+  proposedDate?: string;
+  proposedTime?: string;
+  preferredDate?: string;
+  preferredTime?: string;
+};
+
+export type ListingVisitAvailability = {
+  bookedDates: string[];
+  bookedSlots: Array<{ date: string; time: string }>;
+  availableDates: string[];
+  hasCompanySlots: boolean;
 };

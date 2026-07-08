@@ -163,6 +163,9 @@ export const scheduledVisit = pgTable(
     preferredTime: text("preferred_time").notNull(),
     notes: text("notes"),
     status: text("status").default("pending").notNull(),
+    companyMessage: text("company_message"),
+    proposedDate: text("proposed_date"),
+    proposedTime: text("proposed_time"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => [

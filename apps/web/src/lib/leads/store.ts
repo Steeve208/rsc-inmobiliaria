@@ -1,4 +1,4 @@
-import { and, asc, desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import {
   chatMessage,
@@ -10,6 +10,7 @@ import {
   syncChatMessageToBackoffice,
   syncThreadOpenToBackoffice,
 } from "./backoffice-sync";
+import { syncVisitToBackoffice } from "./visit-sync";
 import {
   normalizeListingCategory,
   type ChatMessage,
@@ -17,9 +18,11 @@ import {
   type CompanyLeadConfig,
   type CreateVisitInput,
   type ListingCategory,
+  type ListingVisitAvailability,
   type OpenChatInput,
   type ScheduledVisit,
   type SendChatMessageInput,
+  type UpdateVisitInput,
   type VisitStatus,
 } from "./types";
 
@@ -49,6 +52,9 @@ function mapVisit(row: VisitRow): ScheduledVisit {
     preferredTime: row.preferredTime,
     notes: row.notes ?? undefined,
     status: row.status as VisitStatus,
+    companyMessage: row.companyMessage ?? undefined,
+    proposedDate: row.proposedDate ?? undefined,
+    proposedTime: row.proposedTime ?? undefined,
     createdAt: row.createdAt.toISOString(),
   };
 }
@@ -143,10 +149,145 @@ export async function upsertCompanyConfig(
   return config;
 }
 
+function visitWindow(date: string, time: string) {
+  const starts = new Date(`${date}T${time}:00`);
+  const ends = new Date(starts.getTime() + 60 * 60 * 1000);
+  return { starts, ends };
+}
+
+async function resolveOrganizationId(companySlug: string): Promise<string | null> {
+  const rows = await db.execute<{ id: string }>(sql`
+    select id::text as id
+    from public.organizations
+    where slug = ${companySlug}
+    limit 1
+  `);
+  return rows[0]?.id ?? null;
+}
+
+async function hasVisitTimeConflict(
+  companyId: string,
+  date: string,
+  time: string,
+  excludeVisitId?: string,
+): Promise<boolean> {
+  const localRows = await db
+    .select({
+      id: scheduledVisit.id,
+      preferredDate: scheduledVisit.preferredDate,
+      preferredTime: scheduledVisit.preferredTime,
+    })
+    .from(scheduledVisit)
+    .where(
+      and(
+        eq(scheduledVisit.companyId, companyId),
+        eq(scheduledVisit.preferredDate, date),
+        eq(scheduledVisit.preferredTime, time),
+        inArray(scheduledVisit.status, ["pending", "confirmed"]),
+      ),
+    );
+
+  const localConflict = localRows.some((row) => row.id !== excludeVisitId);
+  if (localConflict) return true;
+
+  const organizationId = await resolveOrganizationId(companyId);
+  if (!organizationId) return false;
+
+  const { starts, ends } = visitWindow(date, time);
+  const appointmentRows = await db.execute<{ id: string }>(sql`
+    select id::text as id
+    from public.appointments
+    where organization_id = ${organizationId}::uuid
+      and status = 'scheduled'
+      and starts_at < ${ends.toISOString()}::timestamptz
+      and ends_at > ${starts.toISOString()}::timestamptz
+      ${excludeVisitId ? sql`and (external_visit_id is null or external_visit_id <> ${excludeVisitId})` : sql``}
+    limit 1
+  `);
+
+  return appointmentRows.length > 0;
+}
+
+export async function getListingVisitAvailability(
+  listingId: string,
+  companyId: string,
+): Promise<ListingVisitAvailability> {
+  const bookedRows = await db
+    .select({
+      preferredDate: scheduledVisit.preferredDate,
+      preferredTime: scheduledVisit.preferredTime,
+    })
+    .from(scheduledVisit)
+    .where(
+      and(
+        eq(scheduledVisit.listingId, listingId),
+        inArray(scheduledVisit.status, ["pending", "confirmed"]),
+      ),
+    );
+
+  const bookedDates = [...new Set(bookedRows.map((row) => row.preferredDate))];
+  const bookedSlots = bookedRows.map((row) => ({
+    date: row.preferredDate,
+    time: row.preferredTime,
+  }));
+
+  const slotRows = await db.execute<{ visit_date: string }>(sql`
+    select s.visit_date::text as visit_date
+    from public.listing_visit_slots s
+    left join public.organizations o on o.id = s.organization_id
+    where s.listing_id = ${listingId}::uuid
+       or (s.listing_id is null and o.slug = ${companyId})
+    order by s.visit_date asc
+  `);
+
+  const availableDates = slotRows.map((row) => row.visit_date);
+
+  return {
+    bookedDates,
+    bookedSlots,
+    availableDates,
+    hasCompanySlots: availableDates.length > 0,
+  };
+}
+
 export async function createVisit(
   input: CreateVisitInput,
 ): Promise<ScheduledVisit> {
   const listingCategory = normalizeListingCategory(input.listingCategory);
+  const availability = await getListingVisitAvailability(
+    input.listingId,
+    input.companyId,
+  );
+
+  if (availability.bookedDates.includes(input.preferredDate)) {
+    throw new Error("DATE_NOT_AVAILABLE");
+  }
+
+  if (
+    availability.bookedSlots.some(
+      (slot) =>
+        slot.date === input.preferredDate && slot.time === input.preferredTime,
+    )
+  ) {
+    throw new Error("TIME_NOT_AVAILABLE");
+  }
+
+  if (
+    await hasVisitTimeConflict(
+      input.companyId,
+      input.preferredDate,
+      input.preferredTime,
+    )
+  ) {
+    throw new Error("TIME_NOT_AVAILABLE");
+  }
+
+  if (
+    availability.hasCompanySlots &&
+    !availability.availableDates.includes(input.preferredDate)
+  ) {
+    throw new Error("DATE_NOT_AVAILABLE");
+  }
 
   const [row] = await db
     .insert(scheduledVisit)
@@ -168,7 +309,70 @@ export async function createVisit(
     })
     .returning();
 
-  return mapVisit(row);
+  const visit = mapVisit(row);
+  await syncVisitToBackoffice(visit);
+  return visit;
+}
+
+export async function updateVisit(
+  input: UpdateVisitInput,
+): Promise<ScheduledVisit | undefined> {
+  const [existing] = await db
+    .select()
+    .from(scheduledVisit)
+    .where(eq(scheduledVisit.id, input.visitId))
+    .limit(1);
+
+  if (!existing) return undefined;
+
+  const nextStatus = input.status ?? (existing.status as VisitStatus);
+  const nextDate = input.preferredDate ?? existing.preferredDate;
+  const nextTime = input.preferredTime ?? existing.preferredTime;
+
+  if (
+    nextStatus !== "cancelled" &&
+    (nextDate !== existing.preferredDate || nextTime !== existing.preferredTime) &&
+    (await hasVisitTimeConflict(existing.companyId, nextDate, nextTime, existing.id))
+  ) {
+    throw new Error("TIME_NOT_AVAILABLE");
+  }
+
+  const [row] = await db
+    .update(scheduledVisit)
+    .set({
+      status: nextStatus,
+      preferredDate: nextDate,
+      preferredTime: nextTime,
+      companyMessage: input.companyMessage ?? existing.companyMessage,
+      proposedDate:
+        nextStatus === "confirmed"
+          ? null
+          : input.proposedDate === ""
+            ? null
+            : input.proposedDate ?? existing.proposedDate,
+      proposedTime:
+        nextStatus === "confirmed"
+          ? null
+          : input.proposedTime === ""
+            ? null
+            : input.proposedTime ?? existing.proposedTime,
+    })
+    .where(eq(scheduledVisit.id, input.visitId))
+    .returning();
+
+  const visit = mapVisit(row);
+  await syncVisitToBackoffice(visit);
+  return visit;
+}
+
+export async function getVisitById(visitId: string): Promise<ScheduledVisit | undefined> {
+  const [row] = await db
+    .select()
+    .from(scheduledVisit)
+    .where(eq(scheduledVisit.id, visitId))
+    .limit(1);
+
+  return row ? mapVisit(row) : undefined;
 }
 
 export async function listVisits(filters: {
