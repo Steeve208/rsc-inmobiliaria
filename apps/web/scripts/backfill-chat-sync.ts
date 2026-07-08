@@ -1,6 +1,6 @@
 /**
  * Backfill market chat threads into backoffice conversations/messages.
- * Usage: cd rsc-market/apps/web && npm run db:backfill-chats
+ * Usage: cd apps/web && npm run db:backfill-chats
  */
 import { asc, eq } from "drizzle-orm";
 import { db } from "../src/lib/db";
