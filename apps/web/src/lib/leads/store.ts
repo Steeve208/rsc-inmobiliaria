@@ -13,6 +13,11 @@ import {
 import { syncVisitToBackoffice } from "./visit-sync";
 import { isListingUuid, runOptionalQuery } from "./visit-db";
 import {
+  formatVisitBuyerAcceptedRescheduleMessage,
+  formatVisitBuyerDeclinedRescheduleMessage,
+  formatVisitRequestChatMessage,
+} from "./visit-chat-messages";
+import {
   normalizeListingCategory,
   type ChatMessage,
   type ChatThread,
@@ -339,20 +344,16 @@ export async function createVisit(
 }
 
 function formatVisitRequestMessage(visit: ScheduledVisit): string {
-  const parts = [
-    `Visita solicitada: ${visit.preferredDate} ${visit.preferredTime}`,
-    visit.buyerPhone,
-    visit.notes,
-  ].filter(Boolean);
-  return parts.join(" · ");
+  return formatVisitRequestChatMessage(visit);
 }
 
-async function appendVisitRequestToChat(
+async function appendVisitStatusToChat(
   visit: ScheduledVisit,
   listingCategory: ListingCategory,
+  message: string,
+  sender: "buyer" | "company" = "buyer",
 ): Promise<void> {
   try {
-    const message = formatVisitRequestMessage(visit);
     const [existing] = await db
       .select({ id: chatThread.id })
       .from(chatThread)
@@ -367,7 +368,7 @@ async function appendVisitRequestToChat(
     if (existing) {
       await sendChatMessage({
         threadId: existing.id,
-        sender: "buyer",
+        sender,
         text: message,
       });
       return;
@@ -384,8 +385,20 @@ async function appendVisitRequestToChat(
       initialMessage: message,
     });
   } catch (error) {
-    console.error("[visits] failed to mirror visit request to chat", error);
+    console.error("[visits] failed to mirror visit update to chat", error);
   }
+}
+
+async function appendVisitRequestToChat(
+  visit: ScheduledVisit,
+  listingCategory: ListingCategory,
+): Promise<void> {
+  await appendVisitStatusToChat(
+    visit,
+    listingCategory,
+    formatVisitRequestMessage(visit),
+    "buyer",
+  );
 }
 
 export async function updateVisit(
@@ -436,6 +449,31 @@ export async function updateVisit(
 
   const visit = mapVisit(row);
   await syncVisitToBackoffice(visit);
+
+  const listingCategory = normalizeListingCategory(existing.listingCategory);
+  const wasRescheduleProposed = existing.status === "reschedule_proposed";
+
+  if (wasRescheduleProposed && nextStatus === "confirmed") {
+    await appendVisitStatusToChat(
+      visit,
+      listingCategory,
+      formatVisitBuyerAcceptedRescheduleMessage(visit),
+      "buyer",
+    );
+  } else if (
+    wasRescheduleProposed &&
+    nextStatus === "pending" &&
+    !visit.proposedDate &&
+    !visit.proposedTime
+  ) {
+    await appendVisitStatusToChat(
+      visit,
+      listingCategory,
+      formatVisitBuyerDeclinedRescheduleMessage(visit),
+      "buyer",
+    );
+  }
+
   return visit;
 }
 
