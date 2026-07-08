@@ -334,7 +334,58 @@ export async function createVisit(
 
   const visit = mapVisit(row);
   await syncVisitToBackoffice(visit);
+  await appendVisitRequestToChat(visit, listingCategory);
   return visit;
+}
+
+function formatVisitRequestMessage(visit: ScheduledVisit): string {
+  const parts = [
+    `Visita solicitada: ${visit.preferredDate} ${visit.preferredTime}`,
+    visit.buyerPhone,
+    visit.notes,
+  ].filter(Boolean);
+  return parts.join(" · ");
+}
+
+async function appendVisitRequestToChat(
+  visit: ScheduledVisit,
+  listingCategory: ListingCategory,
+): Promise<void> {
+  try {
+    const message = formatVisitRequestMessage(visit);
+    const [existing] = await db
+      .select({ id: chatThread.id })
+      .from(chatThread)
+      .where(
+        and(
+          eq(chatThread.listingId, visit.listingId),
+          eq(chatThread.buyerId, visit.buyerId),
+        ),
+      )
+      .limit(1);
+
+    if (existing) {
+      await sendChatMessage({
+        threadId: existing.id,
+        sender: "buyer",
+        text: message,
+      });
+      return;
+    }
+
+    await openChatThread({
+      listingId: visit.listingId,
+      listingTitle: visit.listingTitle,
+      listingCategory,
+      companyId: visit.companyId,
+      companyName: visit.companyName,
+      buyerId: visit.buyerId,
+      buyerName: visit.buyerName,
+      initialMessage: message,
+    });
+  } catch (error) {
+    console.error("[visits] failed to mirror visit request to chat", error);
+  }
 }
 
 export async function updateVisit(

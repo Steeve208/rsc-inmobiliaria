@@ -39,13 +39,13 @@ async function resolveListingUuid(listingId: string): Promise<string | null> {
 }
 
 async function ensureConversation(thread: ThreadContext): Promise<string | null> {
-  const existing = await db.execute<{ id: string }>(sql`
+  const existingByThread = await db.execute<{ id: string }>(sql`
     select id::text as id
     from public.conversations
     where external_thread_id = ${thread.threadId}
     limit 1
   `);
-  if (existing[0]?.id) return existing[0].id;
+  if (existingByThread[0]?.id) return existingByThread[0].id;
 
   const organizationId = await resolveOrganizationId(thread.companyId);
   if (!organizationId) {
@@ -54,6 +54,31 @@ async function ensureConversation(thread: ThreadContext): Promise<string | null>
   }
 
   const listingId = await resolveListingUuid(thread.listingId);
+
+  const existingByBuyer = await db.execute<{ id: string }>(sql`
+    select id::text as id
+    from public.conversations
+    where organization_id = ${organizationId}::uuid
+      and buyer_id = ${thread.buyerId}
+      and (
+        listing_id = ${listingId ? sql`${listingId}::uuid` : sql`null`}
+        or (${listingId ? sql`${listingId}::uuid` : sql`null`} is null and listing_id is null)
+      )
+    order by last_message_at desc nulls last
+    limit 1
+  `);
+
+  if (existingByBuyer[0]?.id) {
+    await db.execute(sql`
+      update public.conversations
+      set
+        external_thread_id = coalesce(external_thread_id, ${thread.threadId}),
+        buyer_name = coalesce(buyer_name, ${thread.buyerName}),
+        updated_at = now()
+      where id = ${existingByBuyer[0].id}::uuid
+    `);
+    return existingByBuyer[0].id;
+  }
   const subject = `Chat — ${thread.buyerName}`;
 
   const inserted = await db.execute<{ id: string }>(sql`
