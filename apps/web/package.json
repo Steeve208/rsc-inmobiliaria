@@ -14,6 +14,7 @@
     "db:push": "drizzle-kit push",
     "db:seed": "npx tsx scripts/seed.ts",
     "db:backfill-chats": "npx tsx scripts/backfill-chat-sync.ts",
+    "db:fix-chat-schema": "node scripts/fix-chat-schema.mjs",
     "env:check": "npx tsx scripts/check-production-env.ts"
   },
   "dependencies": {

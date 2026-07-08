@@ -1,5 +1,14 @@
 export type ListingCategory = "properties" | "vehicles";
 
+export function normalizeListingCategory(
+  category: ListingCategory | string,
+): ListingCategory {
+  if (category === "properties" || category === "vehicles") return category;
+  if (category === "property") return "properties";
+  if (category === "vehicle") return "vehicles";
+  return "properties";
+}
+
 export type ListingContactContext = {
   listingId: string;
   listingTitle: string;

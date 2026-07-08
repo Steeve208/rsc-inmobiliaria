@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RSC Market — Web pública
 
-## Getting Started
+Web pública del marketplace RSC (compradores, empresas, chat, anuncios). **Proyecto separado** del backoffice.
 
-First, run the development server:
+| | |
+|---|---|
+| **Repo** | `Steeve208/rsc-inmobiliaria` |
+| **Backoffice** | `Steeve208/reeskco` (API + dashboard empresas) |
+| **Puerto dev** | `3001` |
+
+## Inicio rápido
 
 ```bash
+cd apps/web
+cp .env.example .env.local
+# DATABASE_URL, NEXT_PUBLIC_BACKOFFICE_URL=http://localhost:3000, etc.
+
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3001](http://localhost:3001).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Integración con backoffice
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Listados públicos: consume `GET {BACKOFFICE}/api/marketplace/v1/listings`
+- Chat comprador ↔ empresa: `chat_thread` / `chat_message` (Drizzle) + sync a `conversations` / `messages` en Supabase
+- Empresas gestionan anuncios en el backoffice; responden chats en backoffice o en `/empresa/painel/dashboard`
 
-## Learn More
+## Estructura
 
-To learn more about Next.js, take a look at the following resources:
+```
+apps/web/          # Next.js (App Router)
+  src/features/    # imóveis, veículos, contact/chat, auth…
+  src/lib/leads/   # chat, visitas, sync backoffice
+  src/lib/backoffice/  # cliente API marketplace
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts útiles
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+cd apps/web
+npm run dev          # desarrollo
+npm run db:backfill-chats   # sincronizar chats existentes al backoffice
+npm run env:check    # validar variables de producción
+```
 
-## Deploy on Vercel
+## Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Proyecto independiente en Vercel (u otro host). Variables críticas: `DATABASE_URL`, `BETTER_AUTH_SECRET`, `NEXT_PUBLIC_BACKOFFICE_URL`, `NEXT_PUBLIC_APP_URL`.

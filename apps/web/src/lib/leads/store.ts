@@ -10,16 +10,17 @@ import {
   syncChatMessageToBackoffice,
   syncThreadOpenToBackoffice,
 } from "./backoffice-sync";
-import type {
-  ChatMessage,
-  ChatThread,
-  CompanyLeadConfig,
-  CreateVisitInput,
-  ListingCategory,
-  OpenChatInput,
-  ScheduledVisit,
-  SendChatMessageInput,
-  VisitStatus,
+import {
+  normalizeListingCategory,
+  type ChatMessage,
+  type ChatThread,
+  type CompanyLeadConfig,
+  type CreateVisitInput,
+  type ListingCategory,
+  type OpenChatInput,
+  type ScheduledVisit,
+  type SendChatMessageInput,
+  type VisitStatus,
 } from "./types";
 
 export { slugifyCompanyId } from "./utils";
@@ -145,13 +146,15 @@ export async function upsertCompanyConfig(
 export async function createVisit(
   input: CreateVisitInput,
 ): Promise<ScheduledVisit> {
+  const listingCategory = normalizeListingCategory(input.listingCategory);
+
   const [row] = await db
     .insert(scheduledVisit)
     .values({
       id: newId("visit"),
       listingId: input.listingId,
       listingTitle: input.listingTitle,
-      listingCategory: input.listingCategory,
+      listingCategory,
       companyId: input.companyId,
       companyName: input.companyName,
       buyerId: input.buyerId,
@@ -191,6 +194,8 @@ export { reassignVisitsBuyerId } from "@/lib/buyer/sync-guest-activity";
 export async function openChatThread(
   input: OpenChatInput,
 ): Promise<ChatThread> {
+  const listingCategory = normalizeListingCategory(input.listingCategory);
+
   const [existing] = await db
     .select()
     .from(chatThread)
@@ -240,7 +245,7 @@ export async function openChatThread(
       id: threadId,
       listingId: input.listingId,
       listingTitle: input.listingTitle,
-      listingCategory: input.listingCategory,
+      listingCategory,
       companyId: input.companyId,
       companyName: input.companyName,
       buyerId: input.buyerId,

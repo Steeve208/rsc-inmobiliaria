@@ -29,20 +29,25 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const body = (await request.json()) as OpenChatInput;
+  try {
+    const body = (await request.json()) as OpenChatInput;
 
-  if (
-    !body.listingId ||
-    !body.listingTitle ||
-    !body.companyId ||
-    !body.buyerId ||
-    !body.buyerName
-  ) {
-    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    if (
+      !body.listingId ||
+      !body.listingTitle ||
+      !body.companyId ||
+      !body.buyerId ||
+      !body.buyerName
+    ) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
+    const thread = await openChatThread(body);
+    return NextResponse.json(thread, { status: 201 });
+  } catch (error) {
+    console.error("[chat] open thread failed", error);
+    return NextResponse.json({ error: "CHAT_OPEN_FAILED" }, { status: 500 });
   }
-
-  const thread = await openChatThread(body);
-  return NextResponse.json(thread, { status: 201 });
 }
 
 export async function PATCH(request: Request) {
