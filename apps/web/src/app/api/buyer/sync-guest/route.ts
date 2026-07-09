@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import { syncGuestBuyerActivity } from "@/lib/buyer/sync-guest-activity";
+import { syncAllLeadsForBuyer } from "@/lib/leads/lead-sync";
 import { isGuestBuyerId } from "@/lib/leads/guest-buyer-id";
 
 export async function POST(request: Request) {
@@ -22,5 +23,12 @@ export async function POST(request: Request) {
   }
 
   const result = await syncGuestBuyerActivity(guestBuyerId, userId);
-  return NextResponse.json(result);
+  const user = session.user as typeof session.user & { phone?: string | null };
+  const leadsSynced = await syncAllLeadsForBuyer(userId, {
+    name: user.name,
+    email: user.email,
+    phone: user.phone ?? null,
+  });
+
+  return NextResponse.json({ ...result, leadsSynced });
 }

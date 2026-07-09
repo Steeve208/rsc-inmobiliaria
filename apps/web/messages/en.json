@@ -48,7 +48,9 @@
       "email": "Email",
       "emailPlaceholder": "you@email.com",
       "password": "Password",
-      "passwordPlaceholder": "Minimum 8 characters"
+      "passwordPlaceholder": "Minimum 8 characters",
+      "phone": "Phone number",
+      "phonePlaceholder": "15551234567"
     },
     "signIn": {
       "title": "Sign in to your account",

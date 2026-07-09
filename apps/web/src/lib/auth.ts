@@ -65,6 +65,25 @@ export const auth = betterAuth({
         defaultValue: "user",
         input: false,
       },
+      phone: {
+        type: "string",
+        required: false,
+        input: true,
+      },
+    },
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (createdUser) => {
+          const { syncAllLeadsForBuyer } = await import("@/lib/leads/lead-sync");
+          await syncAllLeadsForBuyer(createdUser.id, {
+            name: createdUser.name,
+            email: createdUser.email,
+            phone: (createdUser as { phone?: string | null }).phone ?? null,
+          });
+        },
+      },
     },
   },
   account: {

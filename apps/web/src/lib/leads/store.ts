@@ -11,6 +11,7 @@ import {
   syncThreadOpenToBackoffice,
 } from "./backoffice-sync";
 import { syncVisitToBackoffice } from "./visit-sync";
+import { syncLeadFromChatThread, syncLeadFromVisit } from "./lead-sync";
 import { isListingUuid, runOptionalQuery } from "./visit-db";
 import {
   formatVisitBuyerAcceptedRescheduleMessage,
@@ -339,6 +340,7 @@ export async function createVisit(
 
   const visit = mapVisit(row);
   await syncVisitToBackoffice(visit);
+  await syncLeadFromVisit(visit);
   await appendVisitRequestToChat(visit, listingCategory);
   return visit;
 }
@@ -550,6 +552,12 @@ export async function openChatThread(
     } else {
       await syncThreadOpenToBackoffice(threadContext(existing));
     }
+    await syncLeadFromChatThread({
+      companyId: input.companyId,
+      buyerId: input.buyerId,
+      buyerName: input.buyerName,
+      listingId: input.listingId,
+    });
     const messages = await loadMessages(existing.id);
     return mapThread(existing, messages);
   }
@@ -589,6 +597,13 @@ export async function openChatThread(
       createdAt,
     });
   }
+
+  await syncLeadFromChatThread({
+    companyId: input.companyId,
+    buyerId: input.buyerId,
+    buyerName: input.buyerName,
+    listingId: input.listingId,
+  });
 
   const messages = await loadMessages(threadId);
   return mapThread(created, messages);

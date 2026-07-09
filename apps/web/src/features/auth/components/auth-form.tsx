@@ -18,6 +18,7 @@ export function AuthForm({ mode }: Props) {
   const locale = useLocale();
   const postAuthUrl = `/${locale}`;
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -37,8 +38,9 @@ export function AuthForm({ mode }: Props) {
           name,
           email,
           password,
+          phone: phone.trim(),
           callbackURL: postAuthUrl,
-        });
+        } as Parameters<typeof authClient.signUp.email>[0]);
 
         if (result.error) {
           setError(result.error.message ?? t("errors.generic"));
@@ -122,6 +124,25 @@ export function AuthForm({ mode }: Props) {
               onChange={(event) => setName(event.target.value)}
               className="h-11 border-white/15 bg-white/5 text-white placeholder:text-white/40"
               placeholder={t("fields.namePlaceholder")}
+            />
+          </div>
+        )}
+
+        {isSignUp && (
+          <div className="space-y-2">
+            <Label htmlFor="phone" className="text-white/80">
+              {t("fields.phone")}
+            </Label>
+            <Input
+              id="phone"
+              name="phone"
+              type="tel"
+              autoComplete="tel"
+              required
+              value={phone}
+              onChange={(event) => setPhone(event.target.value)}
+              className="h-11 border-white/15 bg-white/5 text-white placeholder:text-white/40"
+              placeholder={t("fields.phonePlaceholder")}
             />
           </div>
         )}

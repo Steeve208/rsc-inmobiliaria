@@ -48,7 +48,9 @@
       "email": "E-mail",
       "emailPlaceholder": "voce@email.com",
       "password": "Senha",
-      "passwordPlaceholder": "Mínimo de 8 caracteres"
+      "passwordPlaceholder": "Mínimo de 8 caracteres",
+      "phone": "Telefone",
+      "phonePlaceholder": "5511999887766"
     },
     "signIn": {
       "title": "Entre na sua conta",

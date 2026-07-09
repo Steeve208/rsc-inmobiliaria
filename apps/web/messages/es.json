@@ -48,7 +48,9 @@
       "email": "Correo electrónico",
       "emailPlaceholder": "tu@email.com",
       "password": "Contraseña",
-      "passwordPlaceholder": "Mínimo 8 caracteres"
+      "passwordPlaceholder": "Mínimo 8 caracteres",
+      "phone": "Teléfono",
+      "phonePlaceholder": "5491123456789"
     },
     "signIn": {
       "title": "Inicia sesión en tu cuenta",
