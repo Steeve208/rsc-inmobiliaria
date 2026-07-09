@@ -16,6 +16,7 @@ import {
   toggleGuestFavorite,
   type GuestFavorite,
 } from "@/lib/favorites/guest-storage";
+import { trackListingEvent } from "@/lib/listings/analytics-client";
 
 type FavoriteEntry = GuestFavorite;
 
@@ -124,6 +125,9 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
       if (!session?.user) {
         const next = toggleGuestFavorite(listingKind, listingId);
         setFavorites(next);
+        if (!active) {
+          void trackListingEvent(listingId, "favorite");
+        }
         return true;
       }
 

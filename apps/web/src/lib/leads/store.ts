@@ -12,6 +12,7 @@ import {
 } from "./backoffice-sync";
 import { syncVisitToBackoffice } from "./visit-sync";
 import { syncLeadFromChatThread, syncLeadFromVisit } from "./lead-sync";
+import { recordBackofficeListingEvent } from "@/lib/backoffice/client";
 import { isListingUuid, runOptionalQuery } from "./visit-db";
 import {
   formatVisitBuyerAcceptedRescheduleMessage,
@@ -341,6 +342,7 @@ export async function createVisit(
   const visit = mapVisit(row);
   await syncVisitToBackoffice(visit);
   await syncLeadFromVisit(visit);
+  void recordBackofficeListingEvent(input.listingId, "contact");
   await appendVisitRequestToChat(visit, listingCategory);
   return visit;
 }
@@ -529,6 +531,7 @@ export async function openChatThread(
 
   if (existing) {
     if (initialText) {
+      void recordBackofficeListingEvent(input.listingId, "contact");
       const messageId = newId("msg");
       const createdAt = new Date();
       await db.insert(chatMessage).values({
@@ -577,6 +580,7 @@ export async function openChatThread(
     })
     .returning();
 
+  void recordBackofficeListingEvent(input.listingId, "contact");
   await syncThreadOpenToBackoffice(threadContext(created));
 
   if (initialText) {
@@ -619,6 +623,11 @@ export async function sendChatMessage(
     .limit(1);
 
   if (!thread) return undefined;
+
+  const existingMessages = await loadMessages(thread.id);
+  if (input.sender === "buyer" && existingMessages.length === 0) {
+    void recordBackofficeListingEvent(thread.listingId, "contact");
+  }
 
   const messageId = newId("msg");
   const createdAt = new Date();

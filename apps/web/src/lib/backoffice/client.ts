@@ -75,12 +75,21 @@ export async function fetchBackofficeListingById(
 }
 
 export async function incrementBackofficeListingViews(id: string): Promise<void> {
+  await recordBackofficeListingEvent(id, "view");
+}
+
+export async function recordBackofficeListingEvent(
+  id: string,
+  event: "view" | "contact" | "click" | "favorite",
+): Promise<void> {
   const base = getBackofficeBaseUrl();
   if (!base) return;
 
   try {
     await fetch(`${base}/api/marketplace/v1/listings/${id}`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event }),
     });
   } catch {
     // non-blocking

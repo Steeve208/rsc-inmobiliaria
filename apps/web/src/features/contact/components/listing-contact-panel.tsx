@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import type { ListingContactContext } from "@/lib/leads/types";
 import { buildWhatsAppUrl } from "@/lib/leads/whatsapp";
+import { trackListingEvent } from "@/lib/listings/analytics-client";
 import { RscChatModal } from "./rsc-chat-modal";
 import { ScheduleVisitModal } from "./schedule-visit-modal";
 
@@ -35,6 +36,7 @@ export function ListingContactPanel({ listing, className }: Props) {
   }, [listing.companyId, listing.companyName, listing.whatsappNumber]);
 
   function handleWhatsApp() {
+    void trackListingEvent(listing.listingId, "contact");
     const url = buildWhatsAppUrl(
       whatsappNumber,
       t("whatsappPrefill", { title: listing.listingTitle }),
@@ -56,7 +58,10 @@ export function ListingContactPanel({ listing, className }: Props) {
         <Button
           type="button"
           className="w-full bg-[#1d4ed8] hover:bg-[#1e40af]"
-          onClick={() => setChatOpen(true)}
+          onClick={() => {
+            void trackListingEvent(listing.listingId, "click");
+            setChatOpen(true);
+          }}
         >
           <MessageCircle className="mr-2 size-4" />
           {t("chatRsc")}
@@ -74,7 +79,10 @@ export function ListingContactPanel({ listing, className }: Props) {
             type="button"
             variant="outline"
             className="border-0 bg-white/10 text-white/80 hover:bg-white/15"
-            onClick={() => setVisitOpen(true)}
+            onClick={() => {
+              void trackListingEvent(listing.listingId, "click");
+              setVisitOpen(true);
+            }}
           >
             {t("scheduleVisit")}
           </Button>

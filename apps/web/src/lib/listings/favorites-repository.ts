@@ -1,6 +1,7 @@
 import { and, eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { favorite } from "@/lib/db/schema";
+import { recordBackofficeListingEvent } from "@/lib/backoffice/client";
 
 export type FavoriteItem = {
   id: string;
@@ -35,6 +36,7 @@ export async function addFavorite(
     .returning();
 
   if (row) {
+    void recordBackofficeListingEvent(listingId, "favorite");
     return {
       id: row.id,
       listingKind: row.listingKind as FavoriteItem["listingKind"],
