@@ -15,7 +15,7 @@ import {
   MessageSquare,
   Send,
   Shield,
-  Sparkles,
+  Cpu,
   Users,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -37,7 +37,7 @@ const features = [
   { key: "chat", icon: MessageSquare },
   { key: "analytics", icon: BarChart3 },
   { key: "trust", icon: Shield },
-  { key: "ai", icon: Sparkles },
+  { key: "ai", icon: Cpu },
 ] as const;
 
 const howItWorks = [

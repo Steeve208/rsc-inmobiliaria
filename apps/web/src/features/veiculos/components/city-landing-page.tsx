@@ -4,7 +4,6 @@ import {
   Car,
   ChevronRight,
   MapPin,
-  Sparkles,
   Truck,
   Zap,
 } from "lucide-react";
@@ -114,7 +113,7 @@ export async function VehicleCityLandingPage({ entry, listings, relatedCities }:
 
           <div className="max-w-3xl">
             <span className="inline-flex items-center gap-2 rounded-full bg-[#22c55e]/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#86efac]">
-              <Sparkles className="size-3.5" />
+              <Car className="size-3.5" />
               {t("hero.badge")}
             </span>
             <h1 className="mt-5 text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">

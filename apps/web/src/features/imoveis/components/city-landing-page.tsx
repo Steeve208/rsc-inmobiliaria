@@ -4,7 +4,6 @@ import {
   ChevronRight,
   Home,
   MapPin,
-  Sparkles,
   Store,
   Trees,
 } from "lucide-react";
@@ -110,7 +109,7 @@ export async function CityLandingPage({ entry, listings, relatedCities }: Props)
 
           <div className="max-w-3xl">
             <span className="inline-flex items-center gap-2 rounded-full bg-[#d4a017]/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#fbbf24]">
-              <Sparkles className="size-3.5" />
+              <Building2 className="size-3.5" />
               {t("hero.badge")}
             </span>
             <h1 className="mt-5 text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">

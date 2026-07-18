@@ -4,12 +4,12 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import {
+  Briefcase,
   Building2,
   Car,
   CreditCard,
   HardHat,
   Home,
-  Sparkles,
 } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 
@@ -51,7 +51,7 @@ const categories = [
   },
   {
     key: "services",
-    icon: Sparkles,
+    icon: Briefcase,
     href: "/services",
     image:
       "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80",

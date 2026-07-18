@@ -8,7 +8,7 @@ import {
   Check,
   Home,
   Shield,
-  Sparkles,
+  Layers,
   TrendingUp,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -83,7 +83,7 @@ export function ServicesPage() {
             transition={{ duration: 0.45 }}
           >
             <span className="inline-flex items-center gap-2 rounded-full bg-[#d4a017]/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#fbbf24]">
-              <Sparkles className="size-3.5" />
+              <Layers className="size-3.5" />
               {t("hero.badge")}
             </span>
             <h1 className="mt-6 text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
