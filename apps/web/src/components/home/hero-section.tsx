@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import { Building2, Home, MapPin, Sparkles, Users } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { HeroSearchBar } from "@/components/home/hero-search-bar";
 
@@ -26,13 +26,6 @@ const floatingCards = [
     top: "48%",
     right: "12%",
   },
-] as const;
-
-const heroStats = [
-  { key: "properties", icon: Home },
-  { key: "companies", icon: Building2 },
-  { key: "services", icon: Sparkles },
-  { key: "users", icon: Users },
 ] as const;
 
 export function HeroSection() {
@@ -120,36 +113,14 @@ export function HeroSection() {
             </motion.p>
 
             <motion.div
-              className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+              className="mt-5"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.1 }}
             >
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                {heroStats.map((stat) => {
-                  const Icon = stat.icon;
-                  return (
-                    <div
-                      key={stat.key}
-                      className="inline-flex items-center gap-1.5 text-xs text-[#C8D0DD] sm:text-[13px]"
-                    >
-                      <Icon
-                        className="size-3.5 text-[#D4A62A]"
-                        strokeWidth={1.75}
-                      />
-                      <span className="font-semibold text-white">
-                        {t(`hero.stats.${stat.key}.value`)}
-                      </span>
-                      <span className="text-[#8C97A8]">
-                        {t(`hero.stats.${stat.key}.label`)}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
               <Link
                 href="/imoveis"
-                className="rk-btn-gold inline-flex h-9 shrink-0 items-center justify-center px-4 text-xs"
+                className="rk-btn-gold inline-flex h-10 items-center justify-center px-5 text-sm"
               >
                 {t("hero.ctaExplore")}
               </Link>
