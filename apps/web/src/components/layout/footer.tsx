@@ -97,7 +97,7 @@ export function Footer() {
       <div className="rk-container py-14">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_2.4fr]">
           <div>
-            <Logo showPoweredBy />
+            <Logo showPoweredBy showTagline />
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#8C97A8]">
               {t("tagline")}
             </p>

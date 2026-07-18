@@ -202,6 +202,19 @@
       "ctaBuy": "I want to buy",
       "ctaRent": "I want to rent"
     },
+    "ecosystem": {
+      "title": "Everything you need to buy a property.",
+      "subtitle": "A complete ecosystem around your next decision.",
+      "items": {
+        "properties": "Properties",
+        "vehicles": "Vehicles",
+        "financing": "Financing",
+        "insurance": "Insurance",
+        "solar": "Solar energy",
+        "moving": "Moving",
+        "furniture": "Furniture"
+      }
+    },
     "search": {
       "locationPlaceholder": "City, neighborhood or country",
       "propertyType": "Property type",

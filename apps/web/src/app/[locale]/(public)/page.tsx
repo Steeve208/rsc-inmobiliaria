@@ -1,5 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import { HeroSection } from "@/components/home/hero-section";
+import { EcosystemStrip } from "@/components/home/ecosystem-strip";
 import { StatsBar } from "@/components/home/stats-bar";
 import { FeaturedProperties } from "@/components/home/featured-properties";
 import { ServiceCards } from "@/components/home/service-cards";
@@ -48,6 +49,7 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <HeroSection />
+      <EcosystemStrip />
       <StatsBar />
       <FeaturedProperties items={featured} />
       <ServiceCards />

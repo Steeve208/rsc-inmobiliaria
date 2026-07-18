@@ -1,35 +1,22 @@
 import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
 
-/** Brand monogram: geometric R with skyline bars. */
-function ReeskovaMark({ className }: { className?: string }) {
+/**
+ * Minimal geometric R isotipo — works alone as favicon/app icon.
+ * Clean letterform, no skyline / agency-cliché details.
+ */
+export function ReeskovaMark({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 64 64"
+      viewBox="0 0 40 40"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden
       className={cn("shrink-0", className)}
     >
-      <g fill="#D4A62A">
-        <rect x="12" y="32" width="3.6" height="20" rx="0.8" />
-        <rect x="17" y="23" width="3.6" height="29" rx="0.8" />
-        <rect x="22" y="28" width="3.6" height="24" rx="0.8" />
-        <rect x="27" y="18" width="3.6" height="34" rx="0.8" />
-      </g>
       <path
-        stroke="#D4A62A"
-        strokeWidth="3.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M30.8 18H40c7 0 11.6 4 11.6 10.2S47 38.4 40 38.4H30.8"
-      />
-      <path
-        stroke="#D4A62A"
-        strokeWidth="3.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M39 38.4L51.5 54"
+        fill="#D4A62A"
+        d="M10 6h12.4c5.7 0 9.6 3.4 9.6 8.5 0 3.7-2 6.5-5.3 7.7L33.2 34h-6.8l-5.8-10.2H16.4V34H10V6Zm6.4 5.2v7.8h5.6c2.5 0 4-1.3 4-3.9s-1.5-3.9-4-3.9h-5.6Z"
       />
     </svg>
   );
@@ -37,23 +24,33 @@ function ReeskovaMark({ className }: { className?: string }) {
 
 type LogoProps = {
   className?: string;
-  /** Footer only — never in the header */
+  /** Footer only */
   showPoweredBy?: boolean;
+  /** Header: compact mark + wordmark. Footer can show tagline. */
+  showTagline?: boolean;
 };
 
-export function Logo({ className, showPoweredBy = false }: LogoProps) {
+export function Logo({
+  className,
+  showPoweredBy = false,
+  showTagline = false,
+}: LogoProps) {
   return (
-    <Link href="/" className={cn("flex items-center gap-3.5", className)}>
-      <ReeskovaMark className="size-12" />
+    <Link href="/" className={cn("flex items-center gap-3", className)}>
+      <span className="flex size-10 items-center justify-center rounded-[12px] bg-[#D4A62A]/10 ring-1 ring-[#D4A62A]/25">
+        <ReeskovaMark className="size-6" />
+      </span>
       <div className="flex flex-col leading-none">
-        <span className="text-[20px] font-bold tracking-[0.08em] text-white uppercase">
+        <span className="text-[18px] font-bold tracking-[0.1em] text-white uppercase">
           REESKOVA
         </span>
-        <span className="mt-1.5 text-[10px] font-medium tracking-[0.14em] text-[#D4A62A] uppercase">
-          Real Estate Marketplace
-        </span>
+        {showTagline || showPoweredBy ? (
+          <span className="mt-1.5 text-[9px] font-medium tracking-[0.16em] text-[#D4A62A] uppercase">
+            Marketplace
+          </span>
+        ) : null}
         {showPoweredBy ? (
-          <span className="mt-2.5 flex items-center gap-2 text-[9px] text-[#AEB7C5]">
+          <span className="mt-2 flex items-center gap-2 text-[9px] text-[#AEB7C5]">
             <span className="h-px w-4 bg-[#D4A62A]/50" aria-hidden />
             Powered by <span className="text-[#D4A62A]">RSC Group</span>
             <span className="h-px w-4 bg-[#D4A62A]/50" aria-hidden />

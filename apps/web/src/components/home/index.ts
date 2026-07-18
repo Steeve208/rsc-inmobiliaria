@@ -1,5 +1,6 @@
 export { HeroSection } from "./hero-section";
 export { HeroSearchBar } from "./hero-search-bar";
+export { EcosystemStrip } from "./ecosystem-strip";
 export { StatsBar } from "./stats-bar";
 export { FeaturedProperties } from "./featured-properties";
 export { ServiceCards } from "./service-cards";

@@ -202,6 +202,19 @@
       "ctaBuy": "Quero comprar",
       "ctaRent": "Quero alugar"
     },
+    "ecosystem": {
+      "title": "Tudo o que você precisa para comprar um imóvel.",
+      "subtitle": "Um ecossistema completo ao redor da sua próxima decisão.",
+      "items": {
+        "properties": "Imóveis",
+        "vehicles": "Veículos",
+        "financing": "Financiamento",
+        "insurance": "Seguros",
+        "solar": "Energia solar",
+        "moving": "Mudanças",
+        "furniture": "Mobiliário"
+      }
+    },
     "search": {
       "locationPlaceholder": "Cidade, bairro ou país",
       "propertyType": "Tipo de imóvel",
