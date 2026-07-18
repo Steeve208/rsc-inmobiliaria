@@ -277,26 +277,26 @@ export async function getListingVisitAvailability(
   }));
 
   const slotRows = await runOptionalQuery(async () => {
-    if (isListingUuid(listingId)) {
-      return db.execute<{ visit_date: string }>(sql`
-        select s.visit_date::text as visit_date
-        from public.listing_visit_slots s
-        left join public.organizations o on o.id = s.organization_id
-        where s.listing_id = ${listingId}::uuid
-           or (s.listing_id is null and o.slug = ${companyId})
-        order by s.visit_date asc
-      `);
-    }
+    const rows = isListingUuid(listingId)
+      ? await db.execute<{ visit_date: string }>(sql`
+          select s.visit_date::text as visit_date
+          from public.listing_visit_slots s
+          left join public.organizations o on o.id = s.organization_id
+          where s.listing_id = ${listingId}::uuid
+             or (s.listing_id is null and o.slug = ${companyId})
+          order by s.visit_date asc
+        `)
+      : await db.execute<{ visit_date: string }>(sql`
+          select s.visit_date::text as visit_date
+          from public.listing_visit_slots s
+          left join public.organizations o on o.id = s.organization_id
+          where s.listing_id is null
+            and o.slug = ${companyId}
+          order by s.visit_date asc
+        `);
 
-    return db.execute<{ visit_date: string }>(sql`
-      select s.visit_date::text as visit_date
-      from public.listing_visit_slots s
-      left join public.organizations o on o.id = s.organization_id
-      where s.listing_id is null
-        and o.slug = ${companyId}
-      order by s.visit_date asc
-    `);
-  }, []);
+    return [...rows] as Array<{ visit_date: string }>;
+  }, [] as Array<{ visit_date: string }>);
 
   const availableDates = slotRows.map((row) => row.visit_date);
 
