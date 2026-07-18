@@ -125,19 +125,19 @@ async function submitViaSupabase(input: {
       .single());
   }
 
-  if (error) {
-    if (error.code === "23505") {
+  if (error || !data) {
+    if (error?.code === "23505") {
       return { ok: false as const, error: "DUPLICATE_PENDING" as const };
     }
     console.error(
       "[registration-requests] supabase insert failed:",
-      error.message,
-      error.code,
+      error?.message,
+      error?.code,
     );
     return {
       ok: false as const,
       error: "SUBMIT_FAILED" as const,
-      detail: `${error.code ?? "UNKNOWN"}: ${error.message}`,
+      detail: `${error?.code ?? "UNKNOWN"}: ${error?.message ?? "NO_DATA"}`,
     };
   }
 
