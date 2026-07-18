@@ -44,21 +44,11 @@ export function Header() {
           <Logo />
 
           <nav className="ml-4 hidden items-center gap-10 xl:flex">
-            {landingNav.map((link) =>
-              link.href === "invest" ? (
-                <a
-                  key={link.labelKey}
-                  href={`/${locale}#inversion`}
-                  className={navLinkClass}
-                >
-                  {t(link.labelKey)}
-                </a>
-              ) : (
-                <Link key={link.labelKey} href={link.href} className={navLinkClass}>
-                  {t(link.labelKey)}
-                </Link>
-              ),
-            )}
+            {landingNav.map((link) => (
+              <Link key={link.labelKey} href={link.href} className={navLinkClass}>
+                {t(link.labelKey)}
+              </Link>
+            ))}
             <div className="group relative">
               <button type="button" className={cn(navLinkClass, "inline-flex items-center gap-1")}>
                 {t("more")}
@@ -124,27 +114,16 @@ export function Header() {
         {isMobileMenuOpen && (
           <div className="border-t border-[rgba(255,255,255,.05)] px-5 py-4 md:px-8 xl:hidden">
             <nav className="flex flex-col gap-1">
-              {landingNav.map((link) =>
-                link.href === "invest" ? (
-                  <a
-                    key={link.labelKey}
-                    href={`/${locale}#inversion`}
-                    className="rounded-[14px] px-2 py-2.5 text-sm font-medium text-[#C8D0DD] hover:bg-[#161F31] hover:text-[#D6A62E]"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {t(link.labelKey)}
-                  </a>
-                ) : (
-                  <Link
-                    key={link.labelKey}
-                    href={link.href}
-                    className="rounded-[14px] px-2 py-2.5 text-sm font-medium text-[#C8D0DD] hover:bg-[#161F31] hover:text-[#D6A62E]"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {t(link.labelKey)}
-                  </Link>
-                ),
-              )}
+              {landingNav.map((link) => (
+                <Link
+                  key={link.labelKey}
+                  href={link.href}
+                  className="rounded-[14px] px-2 py-2.5 text-sm font-medium text-[#C8D0DD] hover:bg-[#161F31] hover:text-[#D6A62E]"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t(link.labelKey)}
+                </Link>
+              ))}
               {moreLinks.map((link) =>
                 link.href === "invest" ? (
                   <a
