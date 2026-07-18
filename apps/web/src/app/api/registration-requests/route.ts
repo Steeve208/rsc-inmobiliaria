@@ -115,7 +115,8 @@ async function submitViaSupabase(input: {
   if (
     error &&
     (error.code === "PGRST204" ||
-      /cnpj/i.test(error.message) && /column|schema cache/i.test(error.message))
+      (/cnpj/i.test(error.message) &&
+        /column|schema cache/i.test(error.message)))
   ) {
     ({ data, error } = await admin
       .from("registration_requests")
