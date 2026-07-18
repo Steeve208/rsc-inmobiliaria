@@ -3,27 +3,24 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import { Bath, BedDouble, MapPin, Maximize2 } from "lucide-react";
+import { Gauge } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 
-export type FeaturedPropertyCard = {
+export type FeaturedVehicleCard = {
   id: string;
   title: string;
-  place: string;
+  year: number;
+  mileageLabel: string;
   priceLabel: string;
-  beds: number;
-  baths: number;
-  area: number;
-  badge: "premium" | "new" | null;
   image: string;
 };
 
 type Props = {
-  items: FeaturedPropertyCard[];
+  items: FeaturedVehicleCard[];
 };
 
-export function FeaturedProperties({ items }: Props) {
-  const t = useTranslations("landing.featured");
+export function FeaturedVehicles({ items }: Props) {
+  const t = useTranslations("landing.featuredVehicles");
 
   if (items.length === 0) return null;
 
@@ -36,7 +33,7 @@ export function FeaturedProperties({ items }: Props) {
             <h2 className="rk-section-title text-3xl lg:text-4xl">{t("title")}</h2>
           </div>
           <Link
-            href="/imoveis?featured=1"
+            href="/veiculos"
             className="text-sm font-semibold text-[#D4A62A] transition-colors duration-300 hover:text-[#E7BA4A]"
           >
             {t("viewAll")}
@@ -53,7 +50,7 @@ export function FeaturedProperties({ items }: Props) {
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: index * 0.08 }}
             >
-              <Link href={`/imoveis/${item.id}`}>
+              <Link href={`/veiculos/${item.id}`}>
                 <div className="relative aspect-[16/10] overflow-hidden rounded-t-[20px]">
                   <Image
                     src={item.image}
@@ -62,29 +59,13 @@ export function FeaturedProperties({ items }: Props) {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     sizes="(max-width:768px) 100vw, 25vw"
                   />
-                  {item.badge ? (
-                    <span className="absolute left-3 top-3 rounded-full bg-[#D4A62A] px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-[#070B14]">
-                      {t(`badges.${item.badge}`)}
-                    </span>
-                  ) : null}
                 </div>
                 <div className="p-5">
                   <h3 className="font-semibold text-white">{item.title}</h3>
-                  <p className="mt-1.5 flex items-center gap-1 text-sm text-[#8C97A8]">
-                    <MapPin className="size-4 text-[#C8D0DD]" strokeWidth={1.75} />
-                    {item.place}
+                  <p className="mt-1.5 flex items-center gap-1.5 text-sm text-[#8C97A8]">
+                    <Gauge className="size-4 text-[#C8D0DD]" strokeWidth={1.75} />
+                    {item.year} · {item.mileageLabel}
                   </p>
-                  <div className="mt-4 flex items-center gap-4 text-sm text-[#C8D0DD]">
-                    <span className="inline-flex items-center gap-1.5">
-                      <BedDouble className="size-4" strokeWidth={1.75} /> {item.beds}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5">
-                      <Bath className="size-4" strokeWidth={1.75} /> {item.baths}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5">
-                      <Maximize2 className="size-4" strokeWidth={1.75} /> {item.area} m²
-                    </span>
-                  </div>
                   <p className="mt-5 text-right text-lg font-bold text-[#D4A62A]">
                     {item.priceLabel}
                   </p>

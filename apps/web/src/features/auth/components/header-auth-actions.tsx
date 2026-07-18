@@ -169,10 +169,11 @@ export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
       <Link
         href="/entrar"
         className={cn(
-          "hidden h-10 items-center justify-center rounded-full border border-white/10 px-4 text-sm font-medium text-[#AEB7C5] transition-colors duration-300 hover:border-white/20 hover:text-white sm:inline-flex",
+          "hidden h-10 items-center justify-center gap-2 rounded-full border border-white/10 px-4 text-sm font-medium text-[#AEB7C5] transition-colors duration-300 hover:border-white/20 hover:text-white sm:inline-flex",
           variant === "mobile" && "flex h-12 w-full rounded-2xl",
         )}
       >
+        <User className="size-4" strokeWidth={1.75} />
         {t("clientArea")}
       </Link>
     </div>

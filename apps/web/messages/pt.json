@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "REESKOVA — Marketplace imobiliário",
-    "description": "Publique e encontre ofertas de imóveis e produtos. A RSC conecta clientes e empresas; a negociação e a papelada ficam entre as partes."
+    "title": "REESKOVA — Marketplace de imóveis, veículos e serviços",
+    "description": "Explore imóveis, veículos, empresas e serviços em um marketplace premium."
   },
   "nav": {
     "home": "Início",
@@ -45,6 +45,17 @@
       "launches": "Lançamentos",
       "commercial": "Comercial",
       "luxury": "Luxo"
+    },
+    "exploreNav": "Explorar",
+    "categories": "Categorias",
+    "howItWorks": "Como funciona",
+    "cat": {
+      "properties": "Imóveis",
+      "vehicles": "Veículos",
+      "launches": "Novos projetos",
+      "companies": "Empresas",
+      "financing": "Financiamento",
+      "services": "Serviços"
     }
   },
   "favorites": {
@@ -192,15 +203,34 @@
   },
   "landing": {
     "hero": {
-      "titleStart": "Encontre o próximo capítulo da sua",
-      "titleHighlight": "história.",
+      "title": "Descubra um mundo de possibilidades",
+      "titleStart": "Descubra um mundo de",
+      "titleHighlight": "possibilidades",
       "titleEnd": "",
-      "subtitle": "Imóveis, veículos e investimentos em um só lugar.",
-      "ctaExplore": "Explorar ofertas",
+      "subtitle": "Imóveis, veículos e serviços conectados para tornar seus planos realidade.",
+      "ctaExplore": "Explorar marketplace",
       "ctaPublish": "Portal Empresas",
       "ctaCompanies": "Portal Empresas",
-      "ctaBuy": "Quero comprar",
-      "ctaRent": "Quero alugar"
+      "ctaBuy": "Explorar",
+      "ctaRent": "Ver veículos",
+      "stats": {
+        "properties": {
+          "value": "+10k",
+          "label": "Imóveis"
+        },
+        "companies": {
+          "value": "+2k",
+          "label": "Empresas"
+        },
+        "services": {
+          "value": "+5k",
+          "label": "Serviços"
+        },
+        "users": {
+          "value": "+100k",
+          "label": "Usuários"
+        }
+      }
     },
     "ecosystem": {
       "title": "Tudo o que você precisa para comprar um imóvel.",
@@ -339,7 +369,7 @@
     },
     "featured": {
       "title": "Imóveis em destaque",
-      "viewAll": "Ver todos",
+      "viewAll": "Ver todos →",
       "badges": {
         "premium": "Premium",
         "new": "Novo"
@@ -476,66 +506,51 @@
       "title": "O que dizem nossos usuários"
     },
     "partners": {
-      "title": "Parceiros de confiança"
+      "title": "Nossos partners"
     },
     "footer": {
-      "tagline": "Marketplace para empresas imobiliárias, construtoras, concessionárias e instituições financeiras.",
+      "tagline": "O marketplace onde milhares de empresas oferecem imóveis, veículos e serviços.",
       "rights": "Todos os direitos reservados.",
       "columns": {
-        "buy": {
-          "title": "Comprar",
+        "product": {
+          "title": "Produto",
           "links": {
-            "houses": "Casas",
-            "apartments": "Apartamentos",
-            "land": "Terrenos",
-            "commercial": "Comerciais",
-            "launches": "Novos projetos"
+            "explore": "Explorar",
+            "categories": "Categorias",
+            "companies": "Empresas",
+            "services": "Serviços",
+            "vehicles": "Veículos",
+            "financing": "Financiamento"
           }
         },
-        "sell": {
-          "title": "Vender",
+        "company": {
+          "title": "Empresa",
           "links": {
-            "publish": "Solicitar incorporação",
-            "plans": "Planos para vender",
-            "guide": "Guia de venda",
-            "valuation": "Avaliação gratuita"
-          }
-        },
-        "rent": {
-          "title": "Alugar",
-          "links": {
-            "residential": "Aluguel residencial",
-            "commercial": "Aluguel comercial",
-            "seasonal": "Temporada",
-            "students": "Estudantes"
-          }
-        },
-        "companies": {
-          "title": "Empresas",
-          "links": {
-            "portal": "Portal Empresas",
-            "agencies": "Para imobiliárias",
-            "builders": "Para construtoras",
-            "api": "API",
-            "advertise": "Anunciar empresa"
-          }
-        },
-        "brand": {
-          "title": "Reeskova",
-          "links": {
-            "about": "Sobre nós",
+            "about": "Sobre o RSC Group",
+            "howItWorks": "Como funciona",
+            "partners": "Partners",
             "careers": "Carreiras",
-            "press": "Imprensa",
-            "blog": "Blog"
+            "portal": "Portal Empresas",
+            "join": "Solicitar adesão"
           }
         },
         "help": {
           "title": "Ajuda",
           "links": {
             "center": "Central de ajuda",
+            "faq": "FAQ",
+            "guides": "Guias",
             "contact": "Contato",
-            "terms": "Termos",
-            "privacy": "Privacidade"
+            "security": "Segurança"
+          }
+        },
+        "legal": {
+          "title": "Legal",
+          "links": {
+            "terms": "Termos de uso",
+            "privacy": "Privacidade",
+            "cookies": "Cookies",
+            "compliance": "Conformidade"
           }
         }
       }
@@ -570,6 +585,81 @@
           "description": "Explore projetos publicados e fale direto com quem anuncia. A RSC não intermedia contratos nem pagamentos."
         }
       }
+    },
+    "categories": {
+      "title": "Explore por categorias",
+      "viewAll": "Ver todas as categorias →",
+      "items": {
+        "properties": {
+          "title": "Imóveis",
+          "description": "Casas, apartamentos e mais"
+        },
+        "vehicles": {
+          "title": "Veículos",
+          "description": "Carros, SUVs e motos"
+        },
+        "launches": {
+          "title": "Novos Projetos",
+          "description": "Lançamentos e pré-vendas"
+        },
+        "companies": {
+          "title": "Empresas",
+          "description": "Imobiliárias e concessionárias"
+        },
+        "financing": {
+          "title": "Financiamento",
+          "description": "Crédito para seus planos"
+        },
+        "services": {
+          "title": "Serviços",
+          "description": "Tudo para sua nova vida"
+        }
+      }
+    },
+    "featuredVehicles": {
+      "title": "Veículos em destaque",
+      "viewAll": "Ver todos →"
+    },
+    "verifiedCompanies": {
+      "title": "Empresas verificadas",
+      "viewAll": "Ver todas →"
+    },
+    "marketplaceServices": {
+      "title": "Serviços para sua nova vida",
+      "viewAll": "Ver todos →",
+      "items": {
+        "financing": {
+          "title": "Financiamento",
+          "description": "Simule e compare opções"
+        },
+        "insurance": {
+          "title": "Seguros",
+          "description": "Proteja o que importa"
+        },
+        "moving": {
+          "title": "Mudanças",
+          "description": "Mude com facilidade"
+        },
+        "decor": {
+          "title": "Decoração",
+          "description": "Design para o seu espaço"
+        },
+        "solar": {
+          "title": "Energia Solar",
+          "description": "Eficiência para o lar"
+        },
+        "internet": {
+          "title": "Internet",
+          "description": "Conectividade premium"
+        }
+      }
+    },
+    "newsletter": {
+      "title": "Seja o primeiro a descobrir novas oportunidades",
+      "subtitle": "Receba lançamentos, veículos premium e ofertas exclusivas.",
+      "placeholder": "Seu e-mail",
+      "cta": "Inscrever-me",
+      "success": "Pronto! Avisaremos sobre novas oportunidades."
     }
   },
   "search": {
@@ -1995,6 +2085,97 @@
       "subtitle": "Explore milhares de anúncios ou cadastre sua empresa no RSC Market hoje.",
       "primary": "Explorar imóveis",
       "secondary": "Para empresas"
+    }
+  },
+  "comoFunciona": {
+    "hero": {
+      "badge": "Guia do marketplace",
+      "title": "Como funciona a REESKOVA",
+      "subtitle": "Saiba como explorar o marketplace, contactar empresas e avançar na sua compra. A RSC conecta; a negociação e a papelada ficam entre as partes.",
+      "ctaExplore": "Explorar marketplace",
+      "ctaHelp": "Central de ajuda"
+    },
+    "sections": {
+      "whatIs": {
+        "title": "O que é a Reeskova",
+        "body": "A Reeskova é o marketplace tecnológico onde empresas publicam imóveis, veículos e serviços para milhões de pessoas descobrirem e explorarem."
+      },
+      "marketplace": {
+        "title": "Como funciona o Marketplace",
+        "body": "Você busca, filtra e compara anúncios. Quando algo chama atenção, contacta diretamente a empresa anunciante pela plataforma."
+      },
+      "whoPublishes": {
+        "title": "Quem publica os anúncios",
+        "body": "Somente empresas verificadas — imobiliárias, construtoras, concessionárias, bancos e partners — gerenciam anúncios pelo Backoffice. Consumidores não publicam."
+      },
+      "purchase": {
+        "title": "Processo de compra",
+        "body": "Explore, contacte, visite e negocie diretamente com a empresa. Contratos, pagamentos e documentação ficam entre cliente e empresa."
+      },
+      "financing": {
+        "title": "Processo de financiamento",
+        "body": "Alguns anúncios mostram opções de crédito oferecidas por empresas parceiras. A aprovação e o acordo são entre você e a instituição financeira."
+      },
+      "legal": {
+        "title": "Informação legal",
+        "body": "RSC / Reeskova é uma plataforma de publicação e conexão. Não intermediamos contratos, não custodiamos fundos nem fazemos trâmites legais."
+      }
+    },
+    "flow": {
+      "title": "A jornada em 6 passos",
+      "subtitle": "A RSC só publica ofertas e conecta. Todo o resto você resolve diretamente com a empresa.",
+      "disclaimer": "Importante: a RSC não faz papelada, não assina contratos, não custodia dinheiro nem fecha operações. Negociação, visita, documentação e entrega são exclusivamente entre cliente e empresa.",
+      "steps": {
+        "search": {
+          "title": "Busque",
+          "description": "Explore imóveis e veículos publicados por empresas no marketplace."
+        },
+        "contact": {
+          "title": "Contacte",
+          "description": "Escreva ou solicite contato com a empresa anunciante pela plataforma."
+        },
+        "visit": {
+          "title": "Visite",
+          "description": "Combine a visita diretamente com a empresa. A RSC não organiza trâmites."
+        },
+        "negotiate": {
+          "title": "Negocie",
+          "description": "Combine preço e condições entre você e a empresa, sem intermediação da RSC."
+        },
+        "close": {
+          "title": "Feche",
+          "description": "Contratos, pagamentos e papelada ficam a cargo do cliente e da empresa."
+        },
+        "publish": {
+          "title": "Empresas publicam",
+          "description": "As empresas gerenciam seus anúncios pelo Portal Empresas / Backoffice."
+        }
+      }
+    },
+    "faq": {
+      "title": "Perguntas frequentes",
+      "items": {
+        "0": {
+          "q": "Posso publicar um anúncio como particular?",
+          "a": "Não. Os anúncios só são gerenciados por empresas associadas no Backoffice."
+        },
+        "1": {
+          "q": "A RSC intermedia a compra?",
+          "a": "Não. A Reeskova conecta compradores e empresas. Negociação e fechamento ficam entre as partes."
+        },
+        "2": {
+          "q": "Como contacto uma empresa?",
+          "a": "Em qualquer anúncio você pode solicitar contato, chat ou visita diretamente com o anunciante."
+        },
+        "3": {
+          "q": "Há financiamento integrado?",
+          "a": "Algumas empresas publicam opções de crédito. O acordo financeiro é entre você e essa instituição."
+        },
+        "4": {
+          "q": "Onde vejo informação institucional?",
+          "a": "Em Ajuda, Sobre o RSC Group e nas páginas legais acessíveis pelo rodapé."
+        }
+      }
     }
   }
 }

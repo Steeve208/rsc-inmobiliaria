@@ -16,22 +16,32 @@ const navLinkClass =
   "text-sm font-medium text-[#AEB7C5] transition-colors duration-300 hover:text-[#D4A62A] whitespace-nowrap";
 
 const productNav = [
-  { href: "/imoveis?transaction=buy", labelKey: "buy" as const },
-  { href: "/imoveis?transaction=rent", labelKey: "rent" as const },
-  { href: "/veiculos", labelKey: "vehicles" as const },
-  { href: "/financing", labelKey: "investments" as const },
+  { href: "/imoveis", labelKey: "exploreNav" as const },
+  { href: "/#categorias", labelKey: "categories" as const },
   { href: "/para-empresas", labelKey: "companies" as const },
+  { href: "/services", labelKey: "services" as const },
 ] as const;
 
-const exploreLinks = [
+const moreLinks = [
   { href: "/imoveis?type=house", labelKey: "explore.houses" as const },
   { href: "/imoveis?type=apartment", labelKey: "explore.apartments" as const },
   { href: "/imoveis?type=land", labelKey: "explore.land" as const },
   { href: "/imoveis?launch=1", labelKey: "explore.launches" as const },
   { href: "/imoveis?type=commercial", labelKey: "explore.commercial" as const },
   { href: "/imoveis?featured=1", labelKey: "explore.luxury" as const },
-  { href: "/services", labelKey: "services" as const },
+  { href: "/veiculos", labelKey: "vehicles" as const },
+  { href: "/financing", labelKey: "financing" as const },
+  { href: "/como-funciona", labelKey: "howItWorks" as const },
   { href: "/help", labelKey: "help" as const },
+] as const;
+
+const categoryLinks = [
+  { href: "/imoveis", labelKey: "cat.properties" as const },
+  { href: "/veiculos", labelKey: "cat.vehicles" as const },
+  { href: "/imoveis?launch=1", labelKey: "cat.launches" as const },
+  { href: "/para-empresas", labelKey: "cat.companies" as const },
+  { href: "/financing", labelKey: "cat.financing" as const },
+  { href: "/services", labelKey: "cat.services" as const },
 ] as const;
 
 export function Header() {
@@ -40,6 +50,7 @@ export function Header() {
   const { isMobileMenuOpen, setMobileMenuOpen, toggleMobileMenu } =
     useUiStore();
   const [moreOpen, setMoreOpen] = useState(false);
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
 
   return (
     <>
@@ -49,11 +60,51 @@ export function Header() {
           <Logo />
 
           <nav className="ml-2 hidden items-center gap-8 xl:flex">
-            {productNav.map((link) => (
-              <Link key={link.labelKey} href={link.href} className={navLinkClass}>
-                {t(link.labelKey)}
-              </Link>
-            ))}
+            {productNav.map((link) =>
+              link.labelKey === "categories" ? (
+                <div
+                  key={link.labelKey}
+                  className="relative"
+                  onMouseEnter={() => setCategoriesOpen(true)}
+                  onMouseLeave={() => setCategoriesOpen(false)}
+                >
+                  <button
+                    type="button"
+                    className={cn(navLinkClass, "inline-flex items-center gap-1")}
+                    aria-expanded={categoriesOpen}
+                    onClick={() => setCategoriesOpen((open) => !open)}
+                  >
+                    {t(link.labelKey)}
+                    <ChevronDown
+                      className={cn(
+                        "size-3.5 transition-transform duration-200",
+                        categoriesOpen && "rotate-180",
+                      )}
+                    />
+                  </button>
+                  {categoriesOpen ? (
+                    <div className="absolute left-0 top-full z-50 pt-3">
+                      <div className="min-w-[220px] rounded-2xl border border-white/10 bg-[#0E1422]/98 p-2 shadow-[0_24px_60px_rgba(0,0,0,.45)] backdrop-blur-xl">
+                        {categoryLinks.map((item) => (
+                          <Link
+                            key={item.labelKey}
+                            href={item.href}
+                            className="block rounded-xl px-3 py-2.5 text-sm text-[#AEB7C5] transition-colors hover:bg-white/5 hover:text-[#D4A62A]"
+                            onClick={() => setCategoriesOpen(false)}
+                          >
+                            {t(item.labelKey)}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              ) : (
+                <Link key={link.labelKey} href={link.href} className={navLinkClass}>
+                  {t(link.labelKey)}
+                </Link>
+              ),
+            )}
 
             <div
               className="relative"
@@ -80,7 +131,7 @@ export function Header() {
                     <p className="px-3 pb-1.5 pt-2 text-[10px] font-semibold tracking-[0.14em] text-[#AEB7C5] uppercase">
                       {t("explore.title")}
                     </p>
-                    {exploreLinks.map((link) => (
+                    {moreLinks.map((link) => (
                       <Link
                         key={link.labelKey}
                         href={link.href}
@@ -96,8 +147,8 @@ export function Header() {
             </div>
           </nav>
 
-          <div className="ml-auto flex shrink-0 items-center gap-2.5 sm:gap-3">
-            <div className="hidden sm:block">
+          <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
+            <div className="hidden lg:block">
               <RegionSwitcher />
             </div>
 
@@ -115,6 +166,13 @@ export function Header() {
             </Link>
 
             <HeaderAuthActions />
+
+            <Link
+              href="/empresa/painel"
+              className="rk-btn-gold hidden h-11 items-center justify-center px-5 text-sm xl:inline-flex"
+            >
+              {t("companyPortal")}
+            </Link>
 
             <button
               type="button"
@@ -141,9 +199,22 @@ export function Header() {
                 </Link>
               ))}
               <p className="mt-2 px-2 pt-2 text-[10px] font-semibold tracking-[0.14em] text-[#AEB7C5]/70 uppercase">
-                {t("explore.title")}
+                {t("categories")}
               </p>
-              {exploreLinks.map((link) => (
+              {categoryLinks.map((link) => (
+                <Link
+                  key={link.labelKey}
+                  href={link.href}
+                  className="rounded-2xl px-2 py-2.5 text-sm font-medium text-[#AEB7C5] hover:bg-[#161F31] hover:text-[#D4A62A]"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t(link.labelKey)}
+                </Link>
+              ))}
+              <p className="mt-2 px-2 pt-2 text-[10px] font-semibold tracking-[0.14em] text-[#AEB7C5]/70 uppercase">
+                {t("more")}
+              </p>
+              {moreLinks.map((link) => (
                 <Link
                   key={link.labelKey}
                   href={link.href}
@@ -157,6 +228,13 @@ export function Header() {
             <div className="mt-4 flex flex-col gap-3 border-t border-[rgba(255,255,255,.05)] pt-4">
               <RegionSwitcher />
               <HeaderAuthActions variant="mobile" />
+              <Link
+                href="/empresa/painel"
+                className="rk-btn-gold inline-flex h-12 items-center justify-center px-5 text-sm"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {t("companyPortal")}
+              </Link>
             </div>
           </div>
         )}

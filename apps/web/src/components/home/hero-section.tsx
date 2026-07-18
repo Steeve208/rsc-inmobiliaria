@@ -3,13 +3,13 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import { MapPin } from "lucide-react";
+import { Building2, Home, MapPin, Sparkles, Users } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { HeroSearchBar } from "@/components/home/hero-search-bar";
 
 const floatingCards = [
   {
-    title: "Casa moderna",
+    title: "Casa Moderna en Miami",
     place: "Miami, Florida",
     price: "USD 850,000",
     image:
@@ -28,12 +28,19 @@ const floatingCards = [
   },
 ] as const;
 
+const heroStats = [
+  { key: "properties", icon: Home },
+  { key: "companies", icon: Building2 },
+  { key: "services", icon: Sparkles },
+  { key: "users", icon: Users },
+] as const;
+
 export function HeroSection() {
   const t = useTranslations("landing");
 
   return (
     <section className="relative">
-      <div className="relative h-[420px] overflow-hidden sm:h-[460px] lg:h-[520px]">
+      <div className="relative h-[480px] overflow-hidden sm:h-[520px] lg:h-[580px]">
         <Image
           src="/hero-bg.png"
           alt=""
@@ -88,16 +95,15 @@ export function HeroSection() {
           </motion.div>
         ))}
 
-        <div className="rk-container relative z-20 flex h-full flex-col justify-center pb-20 pt-8">
-          <div className="w-full max-w-xl lg:max-w-[48%]">
+        <div className="rk-container relative z-20 flex h-full flex-col justify-center pb-24 pt-8">
+          <div className="w-full max-w-xl lg:max-w-[52%]">
             <motion.h1
               className="rk-display max-w-xl text-[2rem] font-bold leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-[48px] lg:leading-[1.1]"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45 }}
             >
-              {t("hero.titleStart")}{" "}
-              <span className="text-[#D4A62A]">{t("hero.titleHighlight")}</span>
+              {t("hero.title")}
             </motion.h1>
 
             <motion.p
@@ -110,22 +116,43 @@ export function HeroSection() {
             </motion.p>
 
             <motion.div
-              className="mt-7 flex flex-wrap gap-3"
+              className="mt-6 flex flex-wrap gap-x-5 gap-y-3"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.16 }}
+              transition={{ duration: 0.45, delay: 0.14 }}
+            >
+              {heroStats.map((stat) => {
+                const Icon = stat.icon;
+                return (
+                  <div
+                    key={stat.key}
+                    className="inline-flex items-center gap-2 text-sm text-[#C8D0DD]"
+                  >
+                    <span className="flex size-7 items-center justify-center rounded-lg bg-[#D4A62A]/15 text-[#D4A62A]">
+                      <Icon className="size-3.5" strokeWidth={1.75} />
+                    </span>
+                    <span className="font-medium text-white">
+                      {t(`hero.stats.${stat.key}.value`)}
+                    </span>
+                    <span className="text-[#8C97A8]">
+                      {t(`hero.stats.${stat.key}.label`)}
+                    </span>
+                  </div>
+                );
+              })}
+            </motion.div>
+
+            <motion.div
+              className="mt-7"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.2 }}
             >
               <Link
-                href="/imoveis?transaction=buy"
+                href="/imoveis"
                 className="rk-btn-gold inline-flex h-12 items-center justify-center px-7 text-sm"
               >
-                {t("hero.ctaBuy")}
-              </Link>
-              <Link
-                href="/imoveis?transaction=rent"
-                className="rk-btn-ghost inline-flex h-12 items-center justify-center px-7 text-sm"
-              >
-                {t("hero.ctaRent")}
+                {t("hero.ctaExplore")}
               </Link>
             </motion.div>
           </div>

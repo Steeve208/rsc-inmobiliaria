@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "REESKOVA — Real estate marketplace",
-    "description": "Publish and discover property and product listings. RSC connects buyers and companies; negotiation and paperwork stay between the parties."
+    "title": "REESKOVA — Marketplace for properties, vehicles, and services",
+    "description": "Explore properties, vehicles, companies, and services in a premium marketplace."
   },
   "nav": {
     "home": "Home",
@@ -45,6 +45,17 @@
       "launches": "Launches",
       "commercial": "Commercial",
       "luxury": "Luxury"
+    },
+    "exploreNav": "Explore",
+    "categories": "Categories",
+    "howItWorks": "How it works",
+    "cat": {
+      "properties": "Properties",
+      "vehicles": "Vehicles",
+      "launches": "New projects",
+      "companies": "Companies",
+      "financing": "Financing",
+      "services": "Services"
     }
   },
   "favorites": {
@@ -192,15 +203,34 @@
   },
   "landing": {
     "hero": {
-      "titleStart": "Find the next chapter of your",
-      "titleHighlight": "story.",
+      "title": "Discover a world of possibilities",
+      "titleStart": "Discover a world of",
+      "titleHighlight": "possibilities",
       "titleEnd": "",
-      "subtitle": "Properties, vehicles, and investments in one place.",
-      "ctaExplore": "Explore listings",
+      "subtitle": "Properties, vehicles, and services connected to make your plans real.",
+      "ctaExplore": "Explore marketplace",
       "ctaPublish": "Business Portal",
       "ctaCompanies": "Business Portal",
-      "ctaBuy": "I want to buy",
-      "ctaRent": "I want to rent"
+      "ctaBuy": "Explore",
+      "ctaRent": "Browse vehicles",
+      "stats": {
+        "properties": {
+          "value": "+10k",
+          "label": "Properties"
+        },
+        "companies": {
+          "value": "+2k",
+          "label": "Companies"
+        },
+        "services": {
+          "value": "+5k",
+          "label": "Services"
+        },
+        "users": {
+          "value": "+100k",
+          "label": "Users"
+        }
+      }
     },
     "ecosystem": {
       "title": "Everything you need to buy a property.",
@@ -339,7 +369,7 @@
     },
     "featured": {
       "title": "Featured properties",
-      "viewAll": "View all",
+      "viewAll": "See all →",
       "badges": {
         "premium": "Premium",
         "new": "New"
@@ -476,66 +506,51 @@
       "title": "What our users say"
     },
     "partners": {
-      "title": "Trusted partners"
+      "title": "Our partners"
     },
     "footer": {
-      "tagline": "Marketplace for real-estate firms, developers, dealerships, and financial institutions.",
+      "tagline": "The marketplace where thousands of companies offer properties, vehicles, and services.",
       "rights": "All rights reserved.",
       "columns": {
-        "buy": {
-          "title": "Buy",
+        "product": {
+          "title": "Product",
           "links": {
-            "houses": "Houses",
-            "apartments": "Apartments",
-            "land": "Land",
-            "commercial": "Commercial",
-            "launches": "New projects"
+            "explore": "Explore",
+            "categories": "Categories",
+            "companies": "Companies",
+            "services": "Services",
+            "vehicles": "Vehicles",
+            "financing": "Financing"
           }
         },
-        "sell": {
-          "title": "Sell",
+        "company": {
+          "title": "Company",
           "links": {
-            "publish": "Request onboarding",
-            "plans": "Selling plans",
-            "guide": "Selling guide",
-            "valuation": "Free valuation"
-          }
-        },
-        "rent": {
-          "title": "Rent",
-          "links": {
-            "residential": "Residential rentals",
-            "commercial": "Commercial rentals",
-            "seasonal": "Seasonal",
-            "students": "Students"
-          }
-        },
-        "companies": {
-          "title": "Companies",
-          "links": {
-            "portal": "Business Portal",
-            "agencies": "For agencies",
-            "builders": "For developers",
-            "api": "API",
-            "advertise": "List your company"
-          }
-        },
-        "brand": {
-          "title": "Reeskova",
-          "links": {
-            "about": "About us",
+            "about": "About RSC Group",
+            "howItWorks": "How it works",
+            "partners": "Partners",
             "careers": "Careers",
-            "press": "Press",
-            "blog": "Blog"
+            "portal": "Business Portal",
+            "join": "Request onboarding"
           }
         },
         "help": {
           "title": "Help",
           "links": {
             "center": "Help center",
+            "faq": "FAQ",
+            "guides": "Guides",
             "contact": "Contact",
-            "terms": "Terms",
-            "privacy": "Privacy"
+            "security": "Security"
+          }
+        },
+        "legal": {
+          "title": "Legal",
+          "links": {
+            "terms": "Terms of use",
+            "privacy": "Privacy",
+            "cookies": "Cookies",
+            "compliance": "Compliance"
           }
         }
       }
@@ -570,6 +585,81 @@
           "description": "Explore published projects and talk directly with the advertiser. RSC does not intermediate contracts or payments."
         }
       }
+    },
+    "categories": {
+      "title": "Browse by category",
+      "viewAll": "See all categories →",
+      "items": {
+        "properties": {
+          "title": "Properties",
+          "description": "Homes, apartments, and more"
+        },
+        "vehicles": {
+          "title": "Vehicles",
+          "description": "Cars, SUVs, and bikes"
+        },
+        "launches": {
+          "title": "New Projects",
+          "description": "Launches and pre-sales"
+        },
+        "companies": {
+          "title": "Companies",
+          "description": "Agencies and dealerships"
+        },
+        "financing": {
+          "title": "Financing",
+          "description": "Credit for your plans"
+        },
+        "services": {
+          "title": "Services",
+          "description": "Everything for your next move"
+        }
+      }
+    },
+    "featuredVehicles": {
+      "title": "Featured vehicles",
+      "viewAll": "See all →"
+    },
+    "verifiedCompanies": {
+      "title": "Verified companies",
+      "viewAll": "See all →"
+    },
+    "marketplaceServices": {
+      "title": "Services for your new life",
+      "viewAll": "See all →",
+      "items": {
+        "financing": {
+          "title": "Financing",
+          "description": "Simulate and compare options"
+        },
+        "insurance": {
+          "title": "Insurance",
+          "description": "Protect what matters"
+        },
+        "moving": {
+          "title": "Moving",
+          "description": "Relocate with ease"
+        },
+        "decor": {
+          "title": "Decoration",
+          "description": "Design for your space"
+        },
+        "solar": {
+          "title": "Solar Energy",
+          "description": "Efficiency for your home"
+        },
+        "internet": {
+          "title": "Internet",
+          "description": "Premium connectivity"
+        }
+      }
+    },
+    "newsletter": {
+      "title": "Be the first to discover new opportunities",
+      "subtitle": "Get launches, premium vehicles, and exclusive offers.",
+      "placeholder": "Your email address",
+      "cta": "Subscribe",
+      "success": "You're in! We'll notify you about new opportunities."
     }
   },
   "search": {
@@ -1995,6 +2085,97 @@
       "subtitle": "Browse thousands of listings or register your business on RSC Market today.",
       "primary": "Browse properties",
       "secondary": "For business"
+    }
+  },
+  "comoFunciona": {
+    "hero": {
+      "badge": "Marketplace guide",
+      "title": "How REESKOVA works",
+      "subtitle": "Learn how to explore the marketplace, contact companies, and move forward with a purchase. RSC connects; negotiation and paperwork stay between the parties.",
+      "ctaExplore": "Explore marketplace",
+      "ctaHelp": "Help center"
+    },
+    "sections": {
+      "whatIs": {
+        "title": "What is Reeskova",
+        "body": "Reeskova is the technology marketplace where companies publish properties, vehicles, and services for millions of people to discover and explore."
+      },
+      "marketplace": {
+        "title": "How the Marketplace works",
+        "body": "Search, filter, and compare listings. When something stands out, contact the listing company directly from the platform."
+      },
+      "whoPublishes": {
+        "title": "Who publishes listings",
+        "body": "Only verified companies — agencies, builders, dealerships, banks, and partners — manage listings from the Backoffice. Consumers do not publish."
+      },
+      "purchase": {
+        "title": "Purchase process",
+        "body": "Explore, contact, visit, and negotiate directly with the company. Contracts, payments, and paperwork are handled by buyer and company."
+      },
+      "financing": {
+        "title": "Financing process",
+        "body": "Some listings show credit options offered by partner companies. Approval and agreements are between you and the financial institution."
+      },
+      "legal": {
+        "title": "Legal information",
+        "body": "RSC / Reeskova is a publishing and connection platform. We do not intermediate contracts, custody funds, or handle legal paperwork."
+      }
+    },
+    "flow": {
+      "title": "The journey in 6 steps",
+      "subtitle": "RSC only publishes offers and connects. Everything else you resolve directly with the company.",
+      "disclaimer": "Important: RSC does not handle paperwork, sign contracts, custody money, or close deals. Negotiation, visits, documentation, and delivery are exclusively between client and company.",
+      "steps": {
+        "search": {
+          "title": "Search",
+          "description": "Explore properties and vehicles published by companies in the marketplace."
+        },
+        "contact": {
+          "title": "Contact",
+          "description": "Message or request contact with the listing company from the platform."
+        },
+        "visit": {
+          "title": "Visit",
+          "description": "Coordinate the visit directly with the company. RSC does not organize paperwork."
+        },
+        "negotiate": {
+          "title": "Negotiate",
+          "description": "Agree on price and terms between you and the company, without RSC intermediating."
+        },
+        "close": {
+          "title": "Close",
+          "description": "Contracts, payments, and paperwork are managed by client and company."
+        },
+        "publish": {
+          "title": "Companies publish",
+          "description": "Companies manage their listings from the Business Portal / Backoffice."
+        }
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": {
+        "0": {
+          "q": "Can I publish a listing as an individual?",
+          "a": "No. Listings are managed only by partner companies from the Backoffice."
+        },
+        "1": {
+          "q": "Does RSC intermediate the purchase?",
+          "a": "No. Reeskova connects buyers with companies. Negotiation and closing stay between the parties."
+        },
+        "2": {
+          "q": "How do I contact a company?",
+          "a": "From any listing you can request contact, chat, or a visit directly with the advertiser."
+        },
+        "3": {
+          "q": "Is financing integrated?",
+          "a": "Some companies publish credit options. The financial agreement is between you and that institution."
+        },
+        "4": {
+          "q": "Where can I find institutional information?",
+          "a": "In Help, About RSC Group, and the legal pages linked from the footer."
+        }
+      }
     }
   }
 }

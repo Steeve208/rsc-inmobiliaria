@@ -351,6 +351,31 @@ export async function getFeaturedVehicles(): Promise<VehicleListing[]> {
   return all.filter((v) => v.featured);
 }
 
+/** Home featured strip: premium → featured → recommended → newest. */
+export async function listHomeFeaturedVehicles(
+  limit = 4,
+): Promise<VehicleListing[]> {
+  const all = await listVehicles();
+  const ordered = [
+    ...all.filter((v) => v.premium),
+    ...all.filter((v) => v.featured),
+    ...all.filter((v) => v.verified),
+    ...all,
+  ];
+
+  const seen = new Set<string>();
+  const unique: VehicleListing[] = [];
+
+  for (const item of ordered) {
+    if (seen.has(item.id)) continue;
+    seen.add(item.id);
+    unique.push(item);
+    if (unique.length >= limit) break;
+  }
+
+  return unique;
+}
+
 export async function getPremiumVehicles(): Promise<VehicleListing[]> {
   if (isBackofficeConfigured()) {
     return filterVehicleSection(await listBackofficeVehicles(), "premium");
