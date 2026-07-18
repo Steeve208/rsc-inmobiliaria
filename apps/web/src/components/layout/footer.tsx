@@ -19,7 +19,7 @@ const columns = [
   {
     key: "sell",
     links: [
-      { href: "/cadastrar", labelKey: "publish" },
+      { href: "/empresa/cadastro", labelKey: "publish" },
       { href: "/para-empresas", labelKey: "plans" },
       { href: "/help", labelKey: "guide" },
       { href: "/services", labelKey: "valuation" },

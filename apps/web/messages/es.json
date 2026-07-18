@@ -34,7 +34,18 @@
     "sell": "Vender",
     "invest": "Invertir",
     "more": "Más",
-    "publishListing": "Publicar anuncio"
+    "publishListing": "Publicar anuncio",
+    "clientArea": "Área Cliente",
+    "companyPortal": "Portal Empresas",
+    "explore": {
+      "title": "Explorar",
+      "houses": "Casas",
+      "apartments": "Apartamentos",
+      "land": "Terrenos",
+      "launches": "Lanzamientos",
+      "commercial": "Comercial",
+      "luxury": "Lujo"
+    }
   },
   "favorites": {
     "title": "Mis favoritos",
@@ -184,9 +195,10 @@
       "titleStart": "Encuentra el próximo capítulo de tu",
       "titleHighlight": "historia.",
       "titleEnd": "",
-      "subtitle": "Marketplace para inmobiliarias y concesionarias. RSC publica ofertas y conecta: la negociación y el papeleo son entre cliente y empresa.",
+      "subtitle": "Encuentra propiedades, vehículos y oportunidades de inversión en un solo lugar.",
       "ctaExplore": "Explorar ofertas",
-      "ctaPublish": "Publicar anuncio"
+      "ctaPublish": "Portal Empresas",
+      "ctaCompanies": "Portal Empresas"
     },
     "search": {
       "locationPlaceholder": "Ciudad, barrio o país",
@@ -452,7 +464,7 @@
       "title": "Aliados de confianza"
     },
     "footer": {
-      "tagline": "Marketplace para publicar ofertas de inmuebles y productos. RSC conecta clientes y empresas; no gestiona papeleo ni transacciones.",
+      "tagline": "Marketplace para empresas inmobiliarias, constructoras, concesionarias y entidades financieras.",
       "rights": "Todos los derechos reservados.",
       "columns": {
         "buy": {
@@ -468,7 +480,7 @@
         "sell": {
           "title": "Vender",
           "links": {
-            "publish": "Publicar inmueble",
+            "publish": "Solicitar incorporación",
             "plans": "Planes para vender",
             "guide": "Guía de venta",
             "valuation": "Valoración gratuita"

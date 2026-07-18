@@ -316,7 +316,7 @@ export function HeroSearchBar() {
   };
 
   const fieldClass =
-    "group relative flex min-h-[72px] flex-1 flex-col justify-center gap-1 px-4 py-3 transition-colors duration-300 hover:bg-[#F7F4EC]/70 lg:min-h-[86px] lg:border-r lg:border-[#E8E4D9]";
+    "group relative flex min-h-[80px] flex-1 flex-col justify-center gap-1 px-5 py-3.5 transition-colors duration-300 hover:bg-[#F7F4EC]/70 lg:min-h-[96px] lg:border-r lg:border-[#E8E4D9]";
 
   const selectClass =
     "w-full appearance-none bg-transparent pr-7 text-[15px] font-medium text-[#1A1F2B] outline-none";
@@ -525,7 +525,7 @@ export function HeroSearchBar() {
             <button
               type="submit"
               disabled={isPending}
-              className="rk-btn-gold inline-flex h-[58px] w-full items-center justify-center gap-2 px-7 text-sm disabled:opacity-70 lg:min-w-[210px]"
+              className="rk-btn-gold inline-flex h-[64px] w-full items-center justify-center gap-2 px-8 text-[15px] disabled:opacity-70 lg:min-w-[220px]"
             >
               {isPending ? (
                 <Loader2 className="size-5 animate-spin" />

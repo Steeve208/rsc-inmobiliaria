@@ -34,7 +34,18 @@
     "sell": "Sell",
     "invest": "Invest",
     "more": "More",
-    "publishListing": "Post a listing"
+    "publishListing": "Post a listing",
+    "clientArea": "Client Area",
+    "companyPortal": "Business Portal",
+    "explore": {
+      "title": "Explore",
+      "houses": "Houses",
+      "apartments": "Apartments",
+      "land": "Land",
+      "launches": "Launches",
+      "commercial": "Commercial",
+      "luxury": "Luxury"
+    }
   },
   "favorites": {
     "title": "My favorites",
@@ -184,9 +195,10 @@
       "titleStart": "Find the next chapter of your",
       "titleHighlight": "story.",
       "titleEnd": "",
-      "subtitle": "Marketplace for real-estate agencies and dealerships. RSC publishes offers and connects: negotiation and paperwork stay between client and company.",
+      "subtitle": "Find properties, vehicles, and investment opportunities in one place.",
       "ctaExplore": "Explore listings",
-      "ctaPublish": "Post a listing"
+      "ctaPublish": "Business Portal",
+      "ctaCompanies": "Business Portal"
     },
     "search": {
       "locationPlaceholder": "City, neighborhood or country",
@@ -452,7 +464,7 @@
       "title": "Trusted partners"
     },
     "footer": {
-      "tagline": "A marketplace to publish property and product listings. RSC connects clients and companies; it does not handle paperwork or transactions.",
+      "tagline": "Marketplace for real-estate firms, developers, dealerships, and financial institutions.",
       "rights": "All rights reserved.",
       "columns": {
         "buy": {
@@ -468,7 +480,7 @@
         "sell": {
           "title": "Sell",
           "links": {
-            "publish": "List a property",
+            "publish": "Request onboarding",
             "plans": "Selling plans",
             "guide": "Selling guide",
             "valuation": "Free valuation"

@@ -14,7 +14,7 @@ const floatingCards = [
     price: "USD 850,000",
     image:
       "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400&q=80",
-    top: "20%",
+    top: "18%",
     right: "7%",
   },
   {
@@ -23,7 +23,7 @@ const floatingCards = [
     price: "USD 420,000",
     image:
       "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&q=80",
-    top: "54%",
+    top: "52%",
     right: "16%",
   },
 ] as const;
@@ -33,7 +33,7 @@ export function HeroSection() {
 
   return (
     <section className="relative">
-      <div className="relative h-[640px] overflow-hidden lg:h-[760px]">
+      <div className="relative h-[640px] overflow-hidden lg:h-[780px]">
         <Image
           src="/hero-bg.png"
           alt=""
@@ -54,14 +54,28 @@ export function HeroSection() {
         {floatingCards.map((card, i) => (
           <motion.div
             key={card.title}
-            className="pointer-events-none absolute z-10 hidden w-[230px] overflow-hidden rounded-[20px] border border-white/15 bg-[#070B14]/70 shadow-[0_20px_60px_rgba(0,0,0,.35)] backdrop-blur-md lg:block"
+            className="pointer-events-none absolute z-10 hidden w-[230px] overflow-hidden rounded-[24px] border border-white/15 bg-[#070B14]/70 shadow-[0_20px_60px_rgba(0,0,0,.35)] backdrop-blur-md lg:block"
             style={{ top: card.top, right: card.right }}
             initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
+            animate={{ opacity: 1, y: [0, -8, 0] }}
+            transition={{
+              opacity: { duration: 0.6, delay: 0.3 + i * 0.12 },
+              y: {
+                duration: 5.5 + i * 0.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.8 + i * 0.35,
+              },
+            }}
           >
             <div className="relative h-28">
-              <Image src={card.image} alt={card.title} fill className="object-cover" sizes="230px" />
+              <Image
+                src={card.image}
+                alt={card.title}
+                fill
+                className="object-cover"
+                sizes="230px"
+              />
               <div className="absolute -left-1 top-3 flex size-7 items-center justify-center rounded-full bg-[#D4A62A] text-[#070B14] shadow-lg">
                 <MapPin className="size-3.5" fill="currentColor" />
               </div>
@@ -74,10 +88,10 @@ export function HeroSection() {
           </motion.div>
         ))}
 
-        <div className="rk-container relative z-20 flex h-full flex-col justify-center pb-28 pt-10">
-          <div className="w-full max-w-xl lg:max-w-[40%]">
+        <div className="rk-container relative z-20 flex h-full flex-col justify-center pb-32 pt-12">
+          <div className="w-full max-w-xl lg:max-w-[42%]">
             <motion.h1
-              className="rk-display max-w-xl text-[2.5rem] font-bold leading-[1.15] tracking-tight text-white sm:text-5xl lg:text-[72px] lg:leading-[82px]"
+              className="rk-display max-w-xl text-[2.5rem] font-bold leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-[68px] lg:leading-[1.08]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -87,7 +101,7 @@ export function HeroSection() {
             </motion.h1>
 
             <motion.p
-              className="mt-6 max-w-lg text-base leading-relaxed text-[#C8D0DD] sm:text-xl lg:text-2xl"
+              className="mt-7 max-w-md text-lg leading-relaxed text-[#AEB7C5] sm:text-xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
@@ -96,22 +110,22 @@ export function HeroSection() {
             </motion.p>
 
             <motion.div
-              className="mt-9 flex flex-wrap gap-4"
+              className="mt-10 flex flex-wrap gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <Link
                 href="/imoveis"
-                className="rk-btn-gold inline-flex h-[58px] items-center justify-center px-8 text-sm"
+                className="rk-btn-gold inline-flex h-[62px] items-center justify-center px-10 text-[15px]"
               >
                 {t("hero.ctaExplore")}
               </Link>
               <Link
-                href="/cadastrar"
-                className="rk-btn-ghost inline-flex h-[58px] items-center justify-center px-8 text-sm"
+                href="/empresa/painel"
+                className="rk-btn-ghost inline-flex h-[62px] items-center justify-center px-10 text-[15px]"
               >
-                {t("hero.ctaPublish")}
+                {t("hero.ctaCompanies")}
               </Link>
             </motion.div>
           </div>
