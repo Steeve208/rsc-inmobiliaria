@@ -28,7 +28,7 @@ export function HowItWorks() {
       <div className="rk-container">
         <div className="mb-4 flex flex-col items-center gap-3 text-center">
           <div className="flex items-center gap-3">
-            <span className="h-8 w-1 rounded-full bg-[#D6A62E]" />
+            <span className="h-8 w-1 rounded-full bg-[#D4A62A]" />
             <h2 className="rk-section-title text-3xl lg:text-4xl">{t("title")}</h2>
           </div>
           <p className="max-w-2xl text-sm leading-relaxed text-[#8C97A8] sm:text-base">
@@ -50,14 +50,14 @@ export function HowItWorks() {
               >
                 {index < steps.length - 1 && (
                   <div
-                    className="pointer-events-none absolute left-[calc(50%+30px)] top-7 hidden h-px w-[calc(100%-30px)] border-t border-dashed border-[#D6A62E]/35 xl:block"
+                    className="pointer-events-none absolute left-[calc(50%+30px)] top-7 hidden h-px w-[calc(100%-30px)] border-t border-dashed border-[#D4A62A]/35 xl:block"
                     aria-hidden
                   />
                 )}
-                <div className="relative z-10 flex size-14 items-center justify-center rounded-full border border-[#D6A62E]/45 bg-[#111827] text-[#D6A62E]">
+                <div className="relative z-10 flex size-14 items-center justify-center rounded-full border border-[#D4A62A]/45 bg-[#111827] text-[#D4A62A]">
                   <Icon className="size-5" strokeWidth={1.75} />
                 </div>
-                <p className="mt-3 text-xs font-semibold text-[#D6A62E]">{index + 1}</p>
+                <p className="mt-3 text-xs font-semibold text-[#D4A62A]">{index + 1}</p>
                 <h3 className="mt-1 text-base font-semibold text-white">
                   {t(`steps.${step.key}.title`)}
                 </h3>

@@ -4,9 +4,11 @@
     "description": "Publique e encontre ofertas de imóveis e produtos. A RSC conecta clientes e empresas; a negociação e a papelada ficam entre as partes."
   },
   "nav": {
+    "home": "Início",
     "properties": "Imóveis",
     "vehicles": "Veículos",
     "financing": "Financiamento",
+    "investments": "Investimentos",
     "credit": "Crédito",
     "services": "Serviços",
     "companies": "Empresas",

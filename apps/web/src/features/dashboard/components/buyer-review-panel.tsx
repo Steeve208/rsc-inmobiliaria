@@ -96,7 +96,7 @@ export function BuyerReviewPanel() {
                   className={cn(
                     "size-7",
                     value <= rating
-                      ? "fill-[#D6A62E] text-[#D6A62E]"
+                      ? "fill-[#D4A62A] text-[#D4A62A]"
                       : "text-white/25",
                   )}
                 />
@@ -116,7 +116,7 @@ export function BuyerReviewPanel() {
           maxLength={600}
           rows={4}
           placeholder={t("commentPlaceholder")}
-          className="w-full rounded-xl border border-white/10 bg-[#070B14] px-4 py-3 text-sm text-white outline-none placeholder:text-white/35 focus:border-[#D6A62E]/50"
+          className="w-full rounded-xl border border-white/10 bg-[#070B14] px-4 py-3 text-sm text-white outline-none placeholder:text-white/35 focus:border-[#D4A62A]/50"
         />
       </label>
 
@@ -128,7 +128,7 @@ export function BuyerReviewPanel() {
           onChange={(e) => setLocationLabel(e.target.value)}
           maxLength={120}
           placeholder={t("locationPlaceholder")}
-          className="w-full rounded-xl border border-white/10 bg-[#070B14] px-4 py-3 text-sm text-white outline-none placeholder:text-white/35 focus:border-[#D6A62E]/50"
+          className="w-full rounded-xl border border-white/10 bg-[#070B14] px-4 py-3 text-sm text-white outline-none placeholder:text-white/35 focus:border-[#D4A62A]/50"
         />
       </label>
 

@@ -14,8 +14,13 @@ import {
   clearGuestFavorites,
   readGuestFavorites,
   toggleGuestFavorite,
+  writeGuestFavorites,
   type GuestFavorite,
 } from "@/lib/favorites/guest-storage";
+import {
+  deleteServerFavorites,
+  findResolvableFavorites,
+} from "@/lib/favorites/reconcile";
 import { trackListingEvent } from "@/lib/listings/analytics-client";
 
 type FavoriteEntry = GuestFavorite;
@@ -32,6 +37,10 @@ type FavoritesContextValue = {
 };
 
 const FavoritesContext = createContext<FavoritesContextValue | null>(null);
+
+function favoriteKey(item: FavoriteEntry) {
+  return `${item.listingKind}:${item.listingId}`;
+}
 
 async function fetchServerFavorites() {
   const res = await fetch("/api/favorites", { credentials: "include" });
@@ -56,23 +65,58 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(false);
   const [isSynced, setIsSynced] = useState(false);
   const syncedForUserRef = useRef<string | null>(null);
+  const reconcileGenRef = useRef(0);
 
   const isLoggedIn = Boolean(session?.user);
 
-  const refreshGuest = useCallback(() => {
-    setFavorites(readGuestFavorites());
-    setIsSynced(false);
+  const applyRemovedFavorites = useCallback((removed: FavoriteEntry[]) => {
+    if (removed.length === 0) return;
+    const removedKeys = new Set(removed.map(favoriteKey));
+    setFavorites((current) =>
+      current.filter((item) => !removedKeys.has(favoriteKey(item))),
+    );
   }, []);
+
+  const reconcileFavorites = useCallback(
+    async (
+      items: FavoriteEntry[],
+      mode: "guest" | "server",
+    ) => {
+      const gen = ++reconcileGenRef.current;
+      const { kept, removed } = await findResolvableFavorites(items);
+      if (gen !== reconcileGenRef.current) return;
+
+      if (removed.length === 0) return;
+
+      if (mode === "guest") {
+        writeGuestFavorites(kept);
+      } else {
+        void deleteServerFavorites(removed);
+      }
+
+      applyRemovedFavorites(removed);
+    },
+    [applyRemovedFavorites],
+  );
+
+  const refreshGuest = useCallback(() => {
+    const guestItems = readGuestFavorites();
+    setFavorites(guestItems);
+    setIsSynced(false);
+    void reconcileFavorites(guestItems, "guest");
+  }, [reconcileFavorites]);
 
   const refreshServer = useCallback(async () => {
     setLoading(true);
     try {
-      setFavorites(await fetchServerFavorites());
+      const items = await fetchServerFavorites();
+      setFavorites(items);
       setIsSynced(true);
+      void reconcileFavorites(items, "server");
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [reconcileFavorites]);
 
   const mergeGuestIntoAccount = useCallback(async (userId: string) => {
     if (syncedForUserRef.current === userId) {
@@ -91,12 +135,13 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
       setFavorites(merged);
       setIsSynced(true);
       syncedForUserRef.current = userId;
+      void reconcileFavorites(merged, "server");
     } catch {
       await refreshServer();
     } finally {
       setLoading(false);
     }
-  }, [refreshServer]);
+  }, [refreshServer, reconcileFavorites]);
 
   useEffect(() => {
     if (!session?.user) {

@@ -71,9 +71,9 @@ export function PartnerSpotlight() {
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          <div className="pointer-events-none absolute -right-8 top-1/2 hidden h-72 w-72 -translate-y-1/2 rounded-full bg-[#D6A62E]/20 blur-3xl lg:block" />
+          <div className="pointer-events-none absolute -right-8 top-1/2 hidden h-72 w-72 -translate-y-1/2 rounded-full bg-[#D4A62A]/20 blur-3xl lg:block" />
           <div className="pointer-events-none absolute right-8 top-1/2 hidden -translate-y-1/2 lg:block" aria-hidden>
-            <div className="relative flex size-48 items-center justify-center rounded-full border border-[#D6A62E]/35 bg-[#D6A62E]/10 shadow-[0_0_80px_rgba(214,166,46,0.28)]">
+            <div className="relative flex size-48 items-center justify-center rounded-full border border-[#D4A62A]/35 bg-[#D4A62A]/10 shadow-[0_0_80px_rgba(214,166,46,0.28)]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={slide.id}
@@ -83,7 +83,7 @@ export function PartnerSpotlight() {
                   exit={{ opacity: 0, scale: 0.92 }}
                   transition={{ duration: 0.35 }}
                 >
-                  <div className="flex size-20 items-center justify-center rounded-2xl bg-[#070B14]/70 text-[#D6A62E] ring-1 ring-[#D6A62E]/40">
+                  <div className="flex size-20 items-center justify-center rounded-2xl bg-[#070B14]/70 text-[#D4A62A] ring-1 ring-[#D4A62A]/40">
                     <Icon className="size-10" strokeWidth={1.5} />
                   </div>
                   <span className="rk-display text-xl font-bold tracking-wide text-white">
@@ -91,14 +91,14 @@ export function PartnerSpotlight() {
                   </span>
                 </motion.div>
               </AnimatePresence>
-              <span className="absolute -bottom-3 rounded-full bg-[#D6A62E] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#070B14]">
+              <span className="absolute -bottom-3 rounded-full bg-[#D4A62A] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#070B14]">
                 {t("badge")}
               </span>
             </div>
           </div>
 
           <div className="relative flex h-full min-h-[260px] max-w-2xl flex-col justify-center lg:min-h-[280px]">
-            <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#D6A62E]">
+            <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#D4A62A]">
               <Award className="size-4" strokeWidth={1.75} />
               {t("eyebrow")}
             </p>
@@ -159,7 +159,7 @@ export function PartnerSpotlight() {
                   className={cn(
                     "size-2.5 rounded-full transition-all duration-300",
                     index === active
-                      ? "w-6 bg-[#D6A62E]"
+                      ? "w-6 bg-[#D4A62A]"
                       : "bg-white/25 hover:bg-white/45",
                   )}
                 />

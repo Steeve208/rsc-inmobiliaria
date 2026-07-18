@@ -9,13 +9,14 @@ export type FavoriteListingItem = {
 export type FavoriteListingsResponse = {
   properties: PropertyListing[];
   vehicles: VehicleListing[];
+  missing: FavoriteListingItem[];
 };
 
 export async function fetchFavoriteListings(
   items: FavoriteListingItem[],
 ): Promise<FavoriteListingsResponse> {
   if (items.length === 0) {
-    return { properties: [], vehicles: [] };
+    return { properties: [], vehicles: [], missing: [] };
   }
 
   const res = await fetch("/api/favorites/listings", {
@@ -28,5 +29,10 @@ export async function fetchFavoriteListings(
     throw new Error("favorite_listings_failed");
   }
 
-  return (await res.json()) as FavoriteListingsResponse;
+  const data = (await res.json()) as Partial<FavoriteListingsResponse>;
+  return {
+    properties: data.properties ?? [],
+    vehicles: data.vehicles ?? [],
+    missing: Array.isArray(data.missing) ? data.missing : [],
+  };
 }

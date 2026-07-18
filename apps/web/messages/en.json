@@ -4,9 +4,11 @@
     "description": "Publish and discover property and product listings. RSC connects buyers and companies; negotiation and paperwork stay between the parties."
   },
   "nav": {
-    "properties": "Real Estate",
+    "home": "Home",
+    "properties": "Properties",
     "vehicles": "Vehicles",
     "financing": "Financing",
+    "investments": "Investments",
     "credit": "Credit",
     "services": "Services",
     "companies": "Companies",

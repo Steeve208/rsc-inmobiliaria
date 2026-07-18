@@ -29,7 +29,7 @@ export function RegionSwitcher() {
         render={
           <button
             type="button"
-            className="inline-flex h-9 items-center gap-1.5 rounded-[14px] px-2 text-sm font-medium text-[#C8D0DD] transition-colors duration-300 hover:bg-white/5 hover:text-[#D6A62E]"
+            className="inline-flex h-9 items-center gap-1.5 rounded-[14px] px-2 text-sm font-medium text-[#C8D0DD] transition-colors duration-300 hover:bg-white/5 hover:text-[#D4A62A]"
             aria-label={tNav("changeRegion")}
           >
             <Globe className="size-4" strokeWidth={1.75} />

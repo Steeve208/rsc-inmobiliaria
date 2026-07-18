@@ -62,14 +62,14 @@ export function HeroSection() {
           >
             <div className="relative h-28">
               <Image src={card.image} alt={card.title} fill className="object-cover" sizes="230px" />
-              <div className="absolute -left-1 top-3 flex size-7 items-center justify-center rounded-full bg-[#D6A62E] text-[#070B14] shadow-lg">
+              <div className="absolute -left-1 top-3 flex size-7 items-center justify-center rounded-full bg-[#D4A62A] text-[#070B14] shadow-lg">
                 <MapPin className="size-3.5" fill="currentColor" />
               </div>
             </div>
             <div className="p-3.5">
               <p className="text-sm font-semibold text-white">{card.title}</p>
               <p className="mt-0.5 text-xs text-[#8C97A8]">{card.place}</p>
-              <p className="mt-1.5 text-sm font-bold text-[#D6A62E]">{card.price}</p>
+              <p className="mt-1.5 text-sm font-bold text-[#D4A62A]">{card.price}</p>
             </div>
           </motion.div>
         ))}
@@ -83,7 +83,7 @@ export function HeroSection() {
               transition={{ duration: 0.5 }}
             >
               {t("hero.titleStart")}{" "}
-              <span className="text-[#D6A62E]">{t("hero.titleHighlight")}</span>
+              <span className="text-[#D4A62A]">{t("hero.titleHighlight")}</span>
             </motion.h1>
 
             <motion.p

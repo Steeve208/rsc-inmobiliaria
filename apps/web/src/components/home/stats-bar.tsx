@@ -42,7 +42,7 @@ export function StatsBar() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
               >
-                <div className="flex size-11 shrink-0 items-center justify-center rounded-[14px] bg-[#D6A62E]/12 text-[#D6A62E]">
+                <div className="flex size-11 shrink-0 items-center justify-center rounded-[14px] bg-[#D4A62A]/12 text-[#D4A62A]">
                   <Icon className="size-5" strokeWidth={1.75} />
                 </div>
                 <div className="min-w-0">

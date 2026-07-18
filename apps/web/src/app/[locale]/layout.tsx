@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Manrope, Playfair_Display } from "next/font/google";
+import { Geist_Mono, Manrope } from "next/font/google";
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -8,12 +8,6 @@ import { Providers } from "@/lib/providers";
 import { routing } from "@/lib/i18n/routing";
 import { readMarketFromCookies } from "@/lib/markets/server";
 import "@/styles/globals.css";
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["600", "700"],
-});
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -42,6 +36,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t("title"),
     description: t("description"),
+    icons: {
+      icon: [
+        { url: "/brand/reeskova-icon.svg", type: "image/svg+xml" },
+        { url: "/favicon.ico", sizes: "any" },
+      ],
+      apple: [{ url: "/brand/reeskova-icon.png" }],
+    },
   };
 }
 
@@ -66,8 +67,14 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html
       lang={locale}
       suppressHydrationWarning
-      className={`${playfair.variable} ${manrope.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <link
+          href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="rk-body flex min-h-full flex-col">
         <NextIntlClientProvider messages={messages}>
           <Providers

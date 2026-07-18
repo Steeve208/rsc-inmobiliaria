@@ -32,12 +32,12 @@ export function FeaturedProperties({ items }: Props) {
       <div className="rk-container">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="h-8 w-1 rounded-full bg-[#D6A62E]" />
+            <span className="h-8 w-1 rounded-full bg-[#D4A62A]" />
             <h2 className="rk-section-title text-3xl lg:text-4xl">{t("title")}</h2>
           </div>
           <Link
             href="/imoveis"
-            className="text-sm font-semibold text-[#D6A62E] transition-colors duration-300 hover:text-[#E7BA4A]"
+            className="text-sm font-semibold text-[#D4A62A] transition-colors duration-300 hover:text-[#E7BA4A]"
           >
             {t("viewAll")}
           </Link>
@@ -63,7 +63,7 @@ export function FeaturedProperties({ items }: Props) {
                     sizes="(max-width:768px) 100vw, 25vw"
                   />
                   {item.badge ? (
-                    <span className="absolute left-3 top-3 rounded-full bg-[#D6A62E] px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-[#070B14]">
+                    <span className="absolute left-3 top-3 rounded-full bg-[#D4A62A] px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-[#070B14]">
                       {t(`badges.${item.badge}`)}
                     </span>
                   ) : null}
@@ -85,7 +85,7 @@ export function FeaturedProperties({ items }: Props) {
                       <Maximize2 className="size-4" strokeWidth={1.75} /> {item.area} m²
                     </span>
                   </div>
-                  <p className="mt-5 text-right text-lg font-bold text-[#D6A62E]">
+                  <p className="mt-5 text-right text-lg font-bold text-[#D4A62A]">
                     {item.priceLabel}
                   </p>
                 </div>

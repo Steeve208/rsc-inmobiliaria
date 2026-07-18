@@ -19,7 +19,7 @@ export function Testimonials({ reviews }: Props) {
     <section className="pt-[80px]">
       <div className="rk-container">
         <div className="mb-10 flex items-center gap-3">
-          <span className="h-8 w-1 rounded-full bg-[#D6A62E]" />
+          <span className="h-8 w-1 rounded-full bg-[#D4A62A]" />
           <h2 className="rk-section-title text-3xl lg:text-4xl">{t("title")}</h2>
         </div>
 
@@ -33,7 +33,7 @@ export function Testimonials({ reviews }: Props) {
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.08 }}
             >
-              <div className="relative mx-auto flex size-20 items-center justify-center overflow-hidden rounded-full bg-[#0E1422] ring-2 ring-[#D6A62E]/40">
+              <div className="relative mx-auto flex size-20 items-center justify-center overflow-hidden rounded-full bg-[#0E1422] ring-2 ring-[#D4A62A]/40">
                 {review.avatarUrl ? (
                   <Image
                     src={review.avatarUrl}
@@ -53,7 +53,7 @@ export function Testimonials({ reviews }: Props) {
               <p className="mt-4 text-base leading-relaxed text-[#C8D0DD]">
                 “{review.comment}”
               </p>
-              <div className="mt-4 flex justify-center gap-1 text-[#D6A62E]">
+              <div className="mt-4 flex justify-center gap-1 text-[#D4A62A]">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
                     key={i}

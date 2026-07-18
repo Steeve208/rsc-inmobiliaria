@@ -1,6 +1,13 @@
 import { NextResponse } from "next/server";
+import { probeBackofficeListingById, isBackofficeConfigured } from "@/lib/backoffice/client";
+import {
+  mapBackofficeToPropertyListing,
+  mapBackofficeToVehicleListing,
+} from "@/lib/backoffice/mappers";
 import { listPropertiesByIds } from "@/lib/listings/property-repository";
 import { listVehiclesByIds } from "@/lib/listings/vehicle-repository";
+import type { PropertyListing } from "@/features/imoveis/types";
+import type { VehicleListing } from "@/features/veiculos/types";
 
 type FavoriteListingItem = {
   listingKind: "property" | "vehicle";
@@ -30,7 +37,46 @@ function parseItems(body: unknown): FavoriteListingItem[] {
   });
 }
 
-async function resolveListings(items: FavoriteListingItem[]) {
+async function resolveWithBackoffice(items: FavoriteListingItem[]) {
+  const properties: PropertyListing[] = [];
+  const vehicles: VehicleListing[] = [];
+  const missing: FavoriteListingItem[] = [];
+
+  await Promise.all(
+    items.map(async (item) => {
+      const probed = await probeBackofficeListingById(item.listingId);
+
+      if (probed.status === "error") {
+        return;
+      }
+
+      if (probed.status === "not_found") {
+        missing.push(item);
+        return;
+      }
+
+      const { listing } = probed;
+      if (item.listingKind === "property") {
+        if (listing.category === "real_estate") {
+          properties.push(mapBackofficeToPropertyListing(listing));
+        } else {
+          missing.push(item);
+        }
+        return;
+      }
+
+      if (listing.category === "automotive") {
+        vehicles.push(mapBackofficeToVehicleListing(listing));
+      } else {
+        missing.push(item);
+      }
+    }),
+  );
+
+  return { properties, vehicles, missing };
+}
+
+async function resolveLocal(items: FavoriteListingItem[]) {
   const propertyIds = items
     .filter((item) => item.listingKind === "property")
     .map((item) => item.listingId);
@@ -43,7 +89,23 @@ async function resolveListings(items: FavoriteListingItem[]) {
     listVehiclesByIds(vehicleIds),
   ]);
 
-  return { properties, vehicles };
+  const found = new Set([
+    ...properties.map((item) => `property:${item.id}`),
+    ...vehicles.map((item) => `vehicle:${item.id}`),
+  ]);
+
+  const missing = items.filter(
+    (item) => !found.has(`${item.listingKind}:${item.listingId}`),
+  );
+
+  return { properties, vehicles, missing };
+}
+
+async function resolveListings(items: FavoriteListingItem[]) {
+  if (isBackofficeConfigured()) {
+    return resolveWithBackoffice(items);
+  }
+  return resolveLocal(items);
 }
 
 export async function GET(request: Request) {
@@ -56,16 +118,22 @@ export async function GET(request: Request) {
     searchParams.get("vehicles") ?? searchParams.get("vehicleIds"),
   );
 
-  if (propertyIds.length === 0 && vehicleIds.length === 0) {
-    return NextResponse.json({ properties: [], vehicles: [] });
+  const items: FavoriteListingItem[] = [
+    ...propertyIds.map((listingId) => ({
+      listingKind: "property" as const,
+      listingId,
+    })),
+    ...vehicleIds.map((listingId) => ({
+      listingKind: "vehicle" as const,
+      listingId,
+    })),
+  ];
+
+  if (items.length === 0) {
+    return NextResponse.json({ properties: [], vehicles: [], missing: [] });
   }
 
-  const [properties, vehicles] = await Promise.all([
-    listPropertiesByIds(propertyIds),
-    listVehiclesByIds(vehicleIds),
-  ]);
-
-  return NextResponse.json({ properties, vehicles });
+  return NextResponse.json(await resolveListings(items));
 }
 
 export async function POST(request: Request) {
@@ -73,7 +141,7 @@ export async function POST(request: Request) {
   const items = parseItems(body);
 
   if (items.length === 0) {
-    return NextResponse.json({ properties: [], vehicles: [] });
+    return NextResponse.json({ properties: [], vehicles: [], missing: [] });
   }
 
   return NextResponse.json(await resolveListings(items));

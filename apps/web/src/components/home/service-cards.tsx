@@ -22,7 +22,7 @@ const cards = [
 ] as const;
 
 const cardClassName =
-  "group flex h-full items-start gap-4 rounded-[18px] border border-[rgba(255,255,255,.08)] bg-[#111827] p-[30px] transition-all duration-300 hover:-translate-y-1 hover:border-[#D6A62E] hover:bg-[#161F31] hover:shadow-[0_25px_60px_rgba(0,0,0,.35)]";
+  "group flex h-full items-start gap-4 rounded-[18px] border border-[rgba(255,255,255,.08)] bg-[#111827] p-[30px] transition-all duration-300 hover:-translate-y-1 hover:border-[#D4A62A] hover:bg-[#161F31] hover:shadow-[0_25px_60px_rgba(0,0,0,.35)]";
 
 export function ServiceCards() {
   const t = useTranslations("landing.services");
@@ -34,7 +34,7 @@ export function ServiceCards() {
           const Icon = card.icon;
           const body = (
             <>
-              <div className="flex size-[50px] shrink-0 items-center justify-center rounded-[14px] bg-[#D6A62E]/12 text-[#D6A62E] transition-colors duration-300 group-hover:bg-[#D6A62E]/20">
+              <div className="flex size-[50px] shrink-0 items-center justify-center rounded-[14px] bg-[#D4A62A]/12 text-[#D4A62A] transition-colors duration-300 group-hover:bg-[#D4A62A]/20">
                 <Icon className="size-6" strokeWidth={1.75} />
               </div>
               <div>

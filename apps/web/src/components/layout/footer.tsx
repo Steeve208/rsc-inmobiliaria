@@ -95,7 +95,7 @@ export function Footer() {
       <div className="rk-container py-14">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_2.4fr]">
           <div>
-            <Logo />
+            <Logo showPoweredBy />
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#8C97A8]">
               {t("tagline")}
             </p>
@@ -107,7 +107,7 @@ export function Footer() {
                   target={social.href.startsWith("http") ? "_blank" : undefined}
                   rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={social.label}
-                  className="inline-flex size-10 items-center justify-center rounded-full border border-[rgba(255,255,255,.08)] text-[#C8D0DD] transition-all duration-300 hover:border-[#D6A62E]/50 hover:text-[#D6A62E]"
+                  className="inline-flex size-10 items-center justify-center rounded-full border border-[rgba(255,255,255,.08)] text-[#C8D0DD] transition-all duration-300 hover:border-[#D4A62A]/50 hover:text-[#D4A62A]"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="size-4" aria-hidden>
                     <path d={social.path} />
@@ -128,7 +128,7 @@ export function Footer() {
                     <li key={`${column.key}-${link.labelKey}`}>
                       <Link
                         href={link.href}
-                        className="text-sm text-[#C8D0DD] transition-colors duration-300 hover:text-[#D6A62E]"
+                        className="text-sm text-[#C8D0DD] transition-colors duration-300 hover:text-[#D4A62A]"
                       >
                         {t(`columns.${column.key}.links.${link.labelKey}`)}
                       </Link>

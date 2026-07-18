@@ -16,7 +16,7 @@ const partners = [
 
 function PartnerLogo({ name }: { name: string }) {
   return (
-    <span className="rk-partners-logo rk-display inline-flex shrink-0 items-center px-8 text-xl font-bold tracking-[0.04em] text-[#8C97A8]/40 transition-colors duration-300 hover:text-[#D6A62E] sm:px-12 sm:text-2xl">
+    <span className="rk-partners-logo rk-display inline-flex shrink-0 items-center px-8 text-xl font-bold tracking-[0.04em] text-[#8C97A8]/40 transition-colors duration-300 hover:text-[#D4A62A] sm:px-12 sm:text-2xl">
       {name}
     </span>
   );

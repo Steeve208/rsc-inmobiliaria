@@ -347,7 +347,7 @@ export function HeroSearchBar() {
             className={cn(
               "rounded-full px-5 py-2 text-sm font-medium transition-colors duration-300",
               category === tab.id
-                ? "bg-[#D6A62E] text-[#0B1220]"
+                ? "bg-[#D4A62A] text-[#0B1220]"
                 : "bg-white/10 text-white/80 hover:bg-white/15 hover:text-white",
             )}
           >
@@ -395,7 +395,7 @@ export function HeroSearchBar() {
             </span>
             <div className="relative flex items-center gap-2">
               <TypeIcon
-                className="size-4 shrink-0 text-[#D6A62E]"
+                className="size-4 shrink-0 text-[#D4A62A]"
                 strokeWidth={1.75}
               />
               {category === "properties" ? (

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+  <rect width="64" height="64" rx="14" fill="#070B14"/>
+  <!-- Solid gold R -->
+  <path
+    fill="#D4A62A"
+    d="M15 12h22.2c8.1 0 13.6 4.8 13.6 12.2 0 5.4-3.1 9.5-8.2 11.2L53 52H40.4L32.4 36.4H25.2V52H15V12Z"
+  />
+  <!-- Counter (bowl hole) -->
+  <path fill="#070B14" d="M25.2 20.2h6.8c3 0 4.8 1.55 4.8 4s-1.8 4-4.8 4h-6.8v-8Z"/>
+  <!-- Skyline windows in stem -->
+  <rect x="18.2" y="30.5" width="2.4" height="9.5" rx="0.4" fill="#070B14"/>
+  <rect x="21.6" y="26.5" width="2.4" height="13.5" rx="0.4" fill="#070B14"/>
+  <rect x="25" y="28.5" width="2.4" height="11.5" rx="0.4" fill="#070B14"/>
+  <rect x="28.4" y="24.5" width="2.4" height="15.5" rx="0.4" fill="#070B14"/>
+</svg>

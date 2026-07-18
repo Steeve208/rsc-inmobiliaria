@@ -119,10 +119,49 @@ export async function fetchAllBackofficeListings(
 export async function fetchBackofficeListingById(
   id: string,
 ): Promise<BackofficePublicListing | null> {
-  const payload = await backofficeFetch<BackofficeListingResponse>(
-    `/api/marketplace/v1/listings/${id}`,
-  );
-  return payload?.data ?? null;
+  const probed = await probeBackofficeListingById(id);
+  return probed.status === "ok" ? probed.listing : null;
+}
+
+/** Distinguishes missing listings from transport/backoffice failures. */
+export async function probeBackofficeListingById(
+  id: string,
+): Promise<
+  | { status: "ok"; listing: BackofficePublicListing }
+  | { status: "not_found" }
+  | { status: "error" }
+> {
+  const base = getBackofficeBaseUrl();
+  if (!base) return { status: "error" };
+
+  try {
+    const response = await fetch(`${base}/api/marketplace/v1/listings/${id}`, {
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+      signal: AbortSignal.timeout(15000),
+    });
+
+    if (response.status === 404) {
+      return { status: "not_found" };
+    }
+
+    if (!response.ok) {
+      console.error(
+        `[backoffice] /api/marketplace/v1/listings/${id} failed: ${response.status}`,
+      );
+      return { status: "error" };
+    }
+
+    const payload = (await response.json()) as BackofficeListingResponse;
+    if (!payload?.data) return { status: "not_found" };
+    return { status: "ok", listing: payload.data };
+  } catch (error) {
+    console.error(
+      `[backoffice] /api/marketplace/v1/listings/${id} unreachable:`,
+      error instanceof Error ? error.message : error,
+    );
+    return { status: "error" };
+  }
 }
 
 export async function incrementBackofficeListingViews(id: string): Promise<void> {

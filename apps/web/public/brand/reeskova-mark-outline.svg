@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+  <!-- Outline gold R for dark UI surfaces -->
+  <path
+    stroke="#D4A62A"
+    stroke-width="3.8"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+    fill="none"
+    d="M16 13h20.5c7.4 0 12.4 4.4 12.4 11.2 0 5-2.9 8.8-7.6 10.4L50.5 51H39.2L31.6 36.2H26.2V51H16V13Z"
+  />
+  <path
+    stroke="#D4A62A"
+    stroke-width="3.8"
+    stroke-linejoin="round"
+    fill="none"
+    d="M26.2 13V36.2h7.6c3.2 0 5.2-1.8 5.2-5s-2-5-5.2-5H26.2"
+  />
+  <!-- Skyline -->
+  <g stroke="#D4A62A" stroke-width="2.4" stroke-linecap="round">
+    <path d="M20.2 39.5V31.5"/>
+    <path d="M23.8 39.5V27.5"/>
+    <path d="M27.4 39.5V29.5"/>
+    <path d="M31 39.5V25.5"/>
+  </g>
+</svg>
