@@ -1,5 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { HeroSection } from "@/components/home/hero-section";
 import { MarketplaceCategories } from "@/components/home/marketplace-categories";
 import { FeaturedProperties } from "@/components/home/featured-properties";
@@ -39,15 +39,14 @@ async function listHomeCompanies(limit = 6) {
         logoUrl: company.logoUrl,
       })
       .from(company)
-      .orderBy(desc(company.verified), desc(company.activeListings))
+      .where(eq(company.verified, true))
+      .orderBy(desc(company.activeListings))
       .limit(limit);
 
     return rows.map((row) => ({
       id: row.id,
       name: row.name,
-      logo:
-        row.logoUrl ??
-        "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&q=80",
+      logo: row.logoUrl?.trim() || null,
     }));
   } catch {
     return [];

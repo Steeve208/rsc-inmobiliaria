@@ -30,7 +30,14 @@ export function SearchMapView({ items }: Props) {
           {t("results.mapHint", { count: items.length })}
         </p>
       </div>
-      <MapboxMap className="min-h-[480px]" />
+      <MapboxMap
+        className="min-h-[480px]"
+        markers={items.map((item) => ({
+          id: item.id,
+          lat: item.lat,
+          lng: item.lng,
+        }))}
+      />
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {items.slice(0, 6).map((item) => (
           <div

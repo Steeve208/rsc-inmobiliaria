@@ -10,7 +10,7 @@ import { isGuestBuyerId } from "@/lib/leads/guest-buyer-id";
 import { enforceRateLimit } from "@/lib/security/rate-limit";
 
 export async function POST(request: Request) {
-  const limited = enforceRateLimit(request, "visits-sync", 20, 60_000);
+  const limited = await enforceRateLimit(request, "visits-sync", 20, 60_000);
   if (limited) return limited;
 
   const session = await auth.api.getSession({ headers: await headers() });

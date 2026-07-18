@@ -66,7 +66,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const limited = enforceRateLimit(request, "chats-open", 30, 60_000);
+    const limited = await enforceRateLimit(request, "chats-open", 30, 60_000);
     if (limited) return limited;
 
     const body = (await request.json()) as OpenChatInput;
@@ -93,7 +93,7 @@ export async function POST(request: Request) {
 }
 
 export async function PATCH(request: Request) {
-  const limited = enforceRateLimit(request, "chats-message", 60, 60_000);
+  const limited = await enforceRateLimit(request, "chats-message", 60, 60_000);
   if (limited) return limited;
 
   const body = (await request.json()) as SendChatMessageInput;

@@ -1,20 +1,12 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
+import { Link } from "@/lib/i18n/routing";
 
+/** Marketing CTA only — no fake subscribe success until a real backend exists. */
 export function NewsletterCta() {
   const t = useTranslations("landing.newsletter");
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  const onSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    if (!email.trim()) return;
-    setSubmitted(true);
-    setEmail("");
-  };
 
   return (
     <section className="pt-[70px]">
@@ -43,31 +35,17 @@ export function NewsletterCta() {
               <p className="mt-2 text-sm text-[#AEB7C5] sm:text-base">
                 {t("subtitle")}
               </p>
+              <p className="mt-3 text-xs text-[#8C97A8] sm:text-sm">
+                {t("unavailable")}
+              </p>
             </div>
 
-            {submitted ? (
-              <p className="text-sm font-medium text-[#D4A62A]">{t("success")}</p>
-            ) : (
-              <form
-                onSubmit={onSubmit}
-                className="flex w-full max-w-md flex-col gap-3 sm:flex-row"
-              >
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder={t("placeholder")}
-                  className="h-12 flex-1 rounded-2xl border border-white/10 bg-white px-4 text-sm text-[#1A1F2B] outline-none ring-0 placeholder:text-[#8C97A8]"
-                />
-                <button
-                  type="submit"
-                  className="rk-btn-gold inline-flex h-12 items-center justify-center px-6 text-sm"
-                >
-                  {t("cta")}
-                </button>
-              </form>
-            )}
+            <Link
+              href="/help#contact"
+              className="rk-btn-gold inline-flex h-12 shrink-0 items-center justify-center px-6 text-sm"
+            >
+              {t("contactCta")}
+            </Link>
           </div>
         </motion.div>
       </div>

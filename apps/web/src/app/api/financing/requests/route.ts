@@ -40,7 +40,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const limited = enforceRateLimit(request, "financing-create", 10, 60_000);
+  const limited = await enforceRateLimit(request, "financing-create", 10, 60_000);
   if (limited) return limited;
 
   let json: unknown;

@@ -8,7 +8,7 @@ import { enforceRateLimit } from "@/lib/security/rate-limit";
 
 export async function POST(request: Request) {
   try {
-    const limited = enforceRateLimit(request, "listing-events", 120, 60_000);
+    const limited = await enforceRateLimit(request, "listing-events", 120, 60_000);
     if (limited) return limited;
 
     const body = (await request.json()) as {

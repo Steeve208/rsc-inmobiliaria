@@ -32,10 +32,31 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata" });
+  const appUrl =
+    process.env.NEXT_PUBLIC_APP_URL ??
+    process.env.BETTER_AUTH_URL ??
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined) ??
+    "http://localhost:3001";
 
   return {
-    title: t("title"),
+    metadataBase: new URL(appUrl),
+    title: {
+      default: t("title"),
+      template: "%s | REESKOVA",
+    },
     description: t("description"),
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      siteName: "REESKOVA",
+      locale,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+    },
     icons: {
       icon: [
         { url: "/brand/reeskova-icon.svg", type: "image/svg+xml" },

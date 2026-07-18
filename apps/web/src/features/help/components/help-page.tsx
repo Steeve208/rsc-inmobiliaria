@@ -25,10 +25,10 @@ const faqCategories = [
 ] as const;
 
 const quickLinks = [
-  { key: "faq", href: "#faq", icon: HelpCircle },
-  { key: "contact", href: "#contact", icon: MessageCircle },
-  { key: "privacy", href: "#privacy", icon: Shield },
-  { key: "terms", href: "#terms", icon: FileText },
+  { key: "faq", href: "#faq", icon: HelpCircle, external: false },
+  { key: "contact", href: "#contact", icon: MessageCircle, external: false },
+  { key: "privacy", href: "/privacy", icon: Shield, external: true },
+  { key: "terms", href: "/terms", icon: FileText, external: true },
 ] as const;
 
 function FaqItem({
@@ -94,16 +94,27 @@ export function HelpPage() {
           </motion.div>
 
           <div className="mx-auto mt-10 grid max-w-3xl gap-3 sm:grid-cols-2">
-            {quickLinks.map(({ key, href, icon: Icon }) => (
-              <a
-                key={key}
-                href={href}
-                className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.02] px-4 py-3.5 text-sm text-white/70 transition-colors hover:border-[#d4a017]/30 hover:bg-[#d4a017]/5 hover:text-white"
-              >
-                <Icon className="size-4 shrink-0 text-[#d4a017]" />
-                {t(`quickLinks.${key}`)}
-              </a>
-            ))}
+            {quickLinks.map(({ key, href, icon: Icon, external }) =>
+              external ? (
+                <Link
+                  key={key}
+                  href={href}
+                  className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.02] px-4 py-3.5 text-sm text-white/70 transition-colors hover:border-[#d4a017]/30 hover:bg-[#d4a017]/5 hover:text-white"
+                >
+                  <Icon className="size-4 shrink-0 text-[#d4a017]" />
+                  {t(`quickLinks.${key}`)}
+                </Link>
+              ) : (
+                <a
+                  key={key}
+                  href={href}
+                  className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.02] px-4 py-3.5 text-sm text-white/70 transition-colors hover:border-[#d4a017]/30 hover:bg-[#d4a017]/5 hover:text-white"
+                >
+                  <Icon className="size-4 shrink-0 text-[#d4a017]" />
+                  {t(`quickLinks.${key}`)}
+                </a>
+              ),
+            )}
           </div>
         </div>
       </section>
@@ -186,31 +197,40 @@ export function HelpPage() {
         </div>
       </section>
 
-      <section id="privacy" className="market-section scroll-mt-24">
+      <section className="market-section scroll-mt-24 bg-[#000810]/60 pb-12 lg:pb-16">
         <div className={marketplace.container}>
-          <article className="mx-auto max-w-3xl">
-            <h2 className={marketplace.titleLg}>{t("privacy.title")}</h2>
-            <p className="mt-2 text-xs text-white/35">{t("privacy.updated")}</p>
-            <div className="mt-6 space-y-4 text-sm leading-relaxed text-white/55">
-              {[0, 1, 2, 3].map((i) => (
-                <p key={i}>{t(`privacy.paragraphs.${i}`)}</p>
-              ))}
+          <div className="mx-auto max-w-3xl rounded-2xl border border-white/8 bg-white/[0.02] p-8 sm:p-10">
+            <h2 className={marketplace.titleLg}>{t("legalLinks.title")}</h2>
+            <p className="mt-3 text-sm leading-relaxed text-white/55 sm:text-base">
+              {t("legalLinks.subtitle")}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/privacy"
+                className="inline-flex h-11 items-center justify-center rounded-lg bg-[#d4a017] px-5 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
+              >
+                {t("quickLinks.privacy")}
+              </Link>
+              <Link
+                href="/terms"
+                className="inline-flex h-11 items-center justify-center rounded-lg bg-white/10 px-5 text-sm font-semibold text-white transition-colors hover:bg-white/15"
+              >
+                {t("quickLinks.terms")}
+              </Link>
+              <Link
+                href="/cookies"
+                className="inline-flex h-11 items-center justify-center rounded-lg bg-white/10 px-5 text-sm font-semibold text-white transition-colors hover:bg-white/15"
+              >
+                {t("legalLinks.cookies")}
+              </Link>
+              <Link
+                href="/compliance"
+                className="inline-flex h-11 items-center justify-center rounded-lg bg-white/10 px-5 text-sm font-semibold text-white transition-colors hover:bg-white/15"
+              >
+                {t("legalLinks.compliance")}
+              </Link>
             </div>
-          </article>
-        </div>
-      </section>
-
-      <section id="terms" className="market-section scroll-mt-24 bg-[#000810]/60 pb-12 lg:pb-16">
-        <div className={marketplace.container}>
-          <article className="mx-auto max-w-3xl">
-            <h2 className={marketplace.titleLg}>{t("terms.title")}</h2>
-            <p className="mt-2 text-xs text-white/35">{t("terms.updated")}</p>
-            <div className="mt-6 space-y-4 text-sm leading-relaxed text-white/55">
-              {[0, 1, 2, 3].map((i) => (
-                <p key={i}>{t(`terms.paragraphs.${i}`)}</p>
-              ))}
-            </div>
-          </article>
+          </div>
         </div>
       </section>
     </div>

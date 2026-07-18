@@ -8,7 +8,7 @@ async function withAuthRateLimit(
   request: Request,
   method: "GET" | "POST",
 ) {
-  const limited = enforceRateLimit(request, "auth", 40, 60_000);
+  const limited = await enforceRateLimit(request, "auth", 40, 60_000);
   if (limited) return limited;
   return handler[method](request);
 }

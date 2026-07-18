@@ -538,6 +538,17 @@ export const cronJobRun = pgTable("cron_job_run", {
     .notNull(),
 });
 
+/** Fixed-window API rate limits (one row per bucket:ip). */
+export const apiRateLimit = pgTable(
+  "api_rate_limit",
+  {
+    key: text("key").primaryKey(),
+    count: integer("count").default(1).notNull(),
+    resetAt: timestamp("reset_at", { withTimezone: true }).notNull(),
+  },
+  (table) => [index("api_rate_limit_reset_idx").on(table.resetAt)],
+);
+
 export const platformReview = pgTable(
   "platform_review",
   {

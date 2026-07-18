@@ -28,7 +28,9 @@ function getLocaleFromRequest(request: NextRequest) {
 
 const protectedPathPattern =
   /^\/(en|es|pt)\/(dashboard|empresa\/painel)(\/|$)/;
-const authPathPattern = /^\/(en|es|pt)\/(entrar|cadastrar)(\/|$)/;
+/** Pages signed-in users should leave (not reset-password: email links may arrive with a session). */
+const authPathPattern =
+  /^\/(en|es|pt)\/(entrar|cadastrar|recuperar-senha)(\/|$)/;
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

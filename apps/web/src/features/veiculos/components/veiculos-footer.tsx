@@ -158,10 +158,10 @@ export function VeiculosFooter({ onSelectRegion, onCategorySelect }: Props) {
             © {year} Reeskova. {t("rights")}
           </p>
           <div className="flex gap-5">
-            <Link href="/help" className="transition-colors hover:text-white/60">
+            <Link href="/privacy" className="transition-colors hover:text-white/60">
               {t("privacy")}
             </Link>
-            <Link href="/help" className="transition-colors hover:text-white/60">
+            <Link href="/terms" className="transition-colors hover:text-white/60">
               {t("terms")}
             </Link>
           </div>

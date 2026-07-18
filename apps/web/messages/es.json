@@ -100,7 +100,9 @@
       "password": "Contraseña",
       "passwordPlaceholder": "Mínimo 8 caracteres",
       "phone": "Teléfono",
-      "phonePlaceholder": "5491123456789"
+      "phonePlaceholder": "5491123456789",
+      "newPassword": "Nueva contraseña",
+      "confirmPassword": "Confirmar contraseña"
     },
     "signIn": {
       "title": "Inicia sesión en tu cuenta",
@@ -119,6 +121,24 @@
     "errors": {
       "generic": "Algo salió mal. Inténtalo de nuevo.",
       "google": "No se pudo iniciar sesión con Google. Inténtalo de nuevo."
+    },
+    "forgotPassword": {
+      "link": "¿Olvidaste tu contraseña?",
+      "title": "Restablecer contraseña",
+      "subtitle": "Escribe tu correo y te enviaremos un enlace para restablecerla.",
+      "submit": "Enviar enlace",
+      "success": "Si existe una cuenta con ese correo, enviamos un enlace de restablecimiento. Revisa tu bandeja y spam.",
+      "backToSignIn": "Volver a iniciar sesión"
+    },
+    "resetPassword": {
+      "title": "Elige una nueva contraseña",
+      "subtitle": "Introduce una nueva contraseña para tu cuenta.",
+      "submit": "Actualizar contraseña",
+      "success": "Tu contraseña se actualizó. Ya puedes iniciar sesión con la nueva.",
+      "goToSignIn": "Ir a iniciar sesión",
+      "invalidToken": "Este enlace de restablecimiento no es válido o expiró.",
+      "requestNew": "Solicitar un nuevo enlace",
+      "mismatch": "Las contraseñas no coinciden."
     }
   },
   "markets": {
@@ -669,9 +689,8 @@
     "newsletter": {
       "title": "Sé el primero en descubrir nuevas oportunidades",
       "subtitle": "Recibe lanzamientos, vehículos premium y ofertas exclusivas.",
-      "placeholder": "Tu correo electrónico",
-      "cta": "Suscribirme",
-      "success": "¡Listo! Te avisaremos de nuevas oportunidades."
+      "unavailable": "Los avisos por correo aún no están disponibles. Contáctanos para lanzamientos y ofertas.",
+      "contactCta": "Contactar soporte"
     }
   },
   "search": {
@@ -738,7 +757,8 @@
   },
   "map": {
     "noToken": "Configura NEXT_PUBLIC_MAPBOX_TOKEN para ver el mapa interactivo.",
-    "fallbackListings": "inmuebles en esta zona"
+    "fallbackListings": "inmuebles en esta zona",
+    "noMarkers": "No hay anuncios con coordenadas en estos resultados."
   },
   "paraEmpresas": {
     "hero": {
@@ -1905,7 +1925,7 @@
     "hero": {
       "badge": "Centro de ayuda",
       "title": "¿Cómo podemos ayudarte?",
-      "subtitle": "Encuentra respuestas, contacta con soporte y consulta nuestras políticas de privacidad y términos."
+      "subtitle": "Encuentra respuestas, contacta soporte y abre nuestras políticas completas de privacidad y términos."
     },
     "quickLinks": {
       "faq": "Preguntas frecuentes",
@@ -1926,7 +1946,7 @@
             },
             "1": {
               "question": "¿Cómo recupero mi contraseña?",
-              "answer": "En la página de inicio de sesión, usa la opción de recuperación de contraseña vinculada a tu email. Si te registraste con Google, continúa usando Google para acceder."
+              "answer": "En la página de inicio de sesión, usa ¿Olvidaste tu contraseña? Introduce tu correo y abre el enlace que te enviamos. Si te registraste con Google, sigue usando Google para acceder."
             },
             "2": {
               "question": "¿Cómo gestiono mis favoritos?",
@@ -1990,7 +2010,7 @@
           "items": {
             "0": {
               "question": "¿Están protegidos mis datos personales?",
-              "answer": "Sí. Usamos cifrado estándar de la industria y cumplimos las regulaciones de privacidad aplicables. Lee nuestra Política de Privacidad abajo."
+              "answer": "Sí. Usamos cifrado estándar de la industria y cumplimos las normas de privacidad aplicables. Consulta nuestra Política de privacidad para el detalle completo."
             },
             "1": {
               "question": "¿Cómo se verifican los anuncios?",
@@ -2013,25 +2033,11 @@
       "ctaAccount": "Iniciar sesión",
       "ctaBrowse": "Explorar anuncios"
     },
-    "privacy": {
-      "title": "Política de privacidad",
-      "updated": "Última actualización: julio 2026",
-      "paragraphs": {
-        "0": "RSC Market respeta tu privacidad. Recopilamos solo la información necesaria para ofrecer nuestros servicios de marketplace, incluyendo datos de cuenta, preferencias de búsqueda y comunicación con vendedores.",
-        "1": "Tus datos se almacenan de forma segura y no se venden a terceros. Compartimos información solo con socios verificados cuando es necesario para completar una transacción o servicio solicitado.",
-        "2": "Puedes solicitar acceso, corrección o eliminación de tus datos personales contactando support@rscmarket.com. Respondemos a solicitudes de privacidad dentro de los plazos legales aplicables.",
-        "3": "Usamos cookies y tecnologías similares para recordar tus preferencias, mantener tu sesión y mejorar el rendimiento de la plataforma. Puedes gestionar las cookies en tu navegador."
-      }
-    },
-    "terms": {
-      "title": "Términos de uso",
-      "updated": "Última actualización: julio 2026",
-      "paragraphs": {
-        "0": "Al usar RSC Market, aceptas estos términos. La plataforma conecta compradores con vendedores verificados de inmuebles y vehículos. RSC Market actúa como intermediario y no garantiza el estado de anuncios de terceros.",
-        "1": "Debes proporcionar información veraz al registrarte y comunicarte con vendedores. El uso indebido de la plataforma, anuncios fraudulentos o acoso pueden resultar en suspensión de cuenta.",
-        "2": "El contenido, precios y disponibilidad de los anuncios son proporcionados por los vendedores. Confirma siempre los detalles directamente antes de completar una compra, financiación o visita.",
-        "3": "RSC Market puede actualizar estos términos periódicamente. El uso continuado de la plataforma después de los cambios implica aceptación de los términos actualizados."
-      }
+    "legalLinks": {
+      "title": "Documentos legales",
+      "subtitle": "Consulta las políticas completas de privacidad, uso de la plataforma, cookies y cumplimiento en REESKOVA / RSC Market.",
+      "cookies": "Cookies",
+      "compliance": "Cumplimiento"
     }
   },
   "servicesPage": {
@@ -2194,5 +2200,351 @@
     "tagline": "Marketplace premium",
     "poweredBy": "Impulsado por",
     "poweredByBrand": "RSC Group"
+  },
+  "legalPages": {
+    "common": {
+      "badge": "Legal y empresa",
+      "contactTitle": "¿Dudas sobre esta página?",
+      "contactBody": "Escríbenos a nuestro equipo de soporte en",
+      "contactCta": "Contactar soporte",
+      "helpCta": "Centro de ayuda",
+      "relatedLabel": "Páginas relacionadas",
+      "links": {
+        "privacy": "Privacidad",
+        "terms": "Términos de uso",
+        "cookies": "Cookies",
+        "compliance": "Cumplimiento",
+        "about": "Sobre RSC Group",
+        "careers": "Carreras",
+        "guides": "Guías",
+        "security": "Seguridad"
+      }
+    },
+    "privacy": {
+      "title": "Política de privacidad",
+      "updated": "Última actualización: 18 de julio de 2026",
+      "intro": "Esta política explica cómo REESKOVA (RSC Market), operada en el ecosistema RSC Group, recopila, usa y protege datos personales cuando utilizas nuestro marketplace de inmuebles, vehículos y servicios.",
+      "sections": {
+        "0": {
+          "title": "1. Quién es el responsable",
+          "paragraphs": {
+            "0": "REESKOVA / RSC Market actúa como responsable del tratamiento de los datos personales procesados en la plataforma para cuentas, publicación, descubrimiento, mensajería, visitas y funciones relacionadas del marketplace.",
+            "1": "Para solicitudes de privacidad, escribe a support@rscmarket.com. Respondemos en los plazos exigidos por la ley aplicable (incluida la LGPD en Brasil y el RGPD cuando corresponda)."
+          }
+        },
+        "1": {
+          "title": "2. Datos que recopilamos",
+          "paragraphs": {
+            "0": "Recopilamos solo lo necesario para operar el marketplace y las funciones que eliges usar."
+          },
+          "bullets": {
+            "0": "Datos de cuenta: nombre, correo, identificadores de autenticación y preferencias de perfil.",
+            "1": "Datos de uso: búsquedas, favoritos, región/mercado, dispositivo e información de registro.",
+            "2": "Comunicaciones: mensajes con vendedores, solicitudes de visita y tickets de soporte.",
+            "3": "Datos empresariales: razón social, identificación fiscal cuando corresponda, contactos y contenido de anuncios."
+          }
+        },
+        "2": {
+          "title": "3. Cómo usamos los datos",
+          "paragraphs": {
+            "0": "Tratamos datos personales para prestar y mejorar la plataforma, proteger cuentas, habilitar el contacto entre compradores y anunciantes verificados, personalizar región/moneda y cumplir obligaciones legales.",
+            "1": "No vendemos datos personales. Compartimos información con partners o proveedores solo cuando es necesario para una función que solicitaste o cuando la ley lo exige."
+          }
+        },
+        "3": {
+          "title": "4. Rol de la plataforma y terceros",
+          "paragraphs": {
+            "0": "REESKOVA es una plataforma de publicación y conexión. Contratos, pagos, financiamiento y trámites legales se gestionan directamente entre tú y la empresa o institución involucrada—RSC no intermedia.",
+            "1": "Los anunciantes e instituciones partner son responsables independientes de los datos que reciban fuera de nuestros sistemas. Revisa sus avisos de privacidad cuando compartas información directamente con ellos."
+          }
+        },
+        "4": {
+          "title": "5. Cookies y tecnologías similares",
+          "paragraphs": {
+            "0": "Usamos cookies y tecnologías similares para autenticación, preferencias (como la región), seguridad y rendimiento. El detalle está en nuestra Política de cookies."
+          }
+        },
+        "5": {
+          "title": "6. Conservación y seguridad",
+          "paragraphs": {
+            "0": "Conservamos los datos solo el tiempo necesario para las finalidades anteriores, necesidades legítimas del negocio u obligaciones legales. Aplicamos medidas técnicas y organizativas estándar de la industria, incluida cifrado en tránsito y controles de acceso."
+          }
+        },
+        "6": {
+          "title": "7. Tus derechos",
+          "paragraphs": {
+            "0": "Según la ley aplicable, puedes solicitar acceso, rectificación, eliminación, portabilidad, limitación u oposición a ciertos tratamientos, y retirar el consentimiento cuando el tratamiento se base en él.",
+            "1": "Para ejercer estos derechos, escribe a support@rscmarket.com con detalle suficiente para verificar tu solicitud. También puedes acudir a tu autoridad de protección de datos."
+          }
+        },
+        "7": {
+          "title": "8. Transferencias internacionales y actualizaciones",
+          "paragraphs": {
+            "0": "Al servir mercados LATAM+, los datos pueden tratarse en países distintos al tuyo. Cuando corresponda, usamos salvaguardas adecuadas para transferencias internacionales.",
+            "1": "Podemos actualizar esta política por cambios de producto o legales. La fecha de “Última actualización” cambiará cuando lo hagamos. Los cambios materiales pueden comunicarse en el producto o por correo cuando sea apropiado."
+          }
+        }
+      }
+    },
+    "terms": {
+      "title": "Términos de uso",
+      "updated": "Última actualización: 18 de julio de 2026",
+      "intro": "Estos términos regulan el acceso y uso de REESKOVA / RSC Market. Al crear una cuenta o usar la plataforma, aceptas este acuerdo.",
+      "sections": {
+        "0": {
+          "title": "1. Qué es la plataforma",
+          "paragraphs": {
+            "0": "REESKOVA es un marketplace premium donde empresas verificadas publican inmuebles, vehículos y servicios, y los compradores descubren, contactan y avanzan en su compra.",
+            "1": "RSC / REESKOVA es una plataforma de publicación y conexión. No intermediamos contratos, no custodiamos fondos ni gestionamos trámites legales entre las partes."
+          }
+        },
+        "1": {
+          "title": "2. Elegibilidad y cuentas",
+          "paragraphs": {
+            "0": "Debes proporcionar información veraz y proteger tus credenciales. Las empresas deben completar el onboarding y mantener datos de compañía y anuncios correctos. Podemos suspender o cerrar cuentas que violen estos términos o la ley."
+          }
+        },
+        "2": {
+          "title": "3. Anuncios y contenido",
+          "paragraphs": {
+            "0": "El contenido, precios, disponibilidad, fotos y descripciones son aportados por los anunciantes. Confirma siempre los detalles materiales directamente con la empresa antes de comprar, alquilar, financiar o visitar.",
+            "1": "No puedes publicar contenido ilícito, engañoso, infractor o abusivo. Podemos retirar contenido o restringir el acceso para proteger a los usuarios y la integridad de la plataforma."
+          }
+        },
+        "3": {
+          "title": "4. Transacciones y servicios de terceros",
+          "paragraphs": {
+            "0": "Cualquier compraventa, alquiler, financiamiento, seguro o servicio es exclusivamente entre tú y la empresa o institución correspondiente. RSC no es parte de esos acuerdos ni garantiza el desempeño de terceros ni el estado de los anuncios.",
+            "1": "Herramientas opcionales (por ejemplo simulaciones de crédito o servicios partner) pueden redirigirte a proveedores independientes con sus propios términos."
+          }
+        },
+        "4": {
+          "title": "5. Uso aceptable",
+          "bullets": {
+            "0": "No hagas scraping, ataques ni sobrecargues el servicio más allá del uso normal.",
+            "1": "No acoses usuarios, suplantes identidad ni intentes accesos no autorizados.",
+            "2": "No uses la plataforma para fraude, lavado de dinero u otras actividades ilegales."
+          }
+        },
+        "5": {
+          "title": "6. Propiedad intelectual",
+          "paragraphs": {
+            "0": "La marca REESKOVA / RSC Market, la interfaz y el software pertenecen a RSC Group o sus licenciantes. Los anunciantes conservan derechos sobre su contenido y nos otorgan licencia para alojarlo y mostrarlo en la plataforma."
+          }
+        },
+        "6": {
+          "title": "7. Exenciones y responsabilidad",
+          "paragraphs": {
+            "0": "La plataforma se ofrece “según disponibilidad”. En la máxima medida permitida por la ley, RSC no responde por daños indirectos, incidentales o consecuentes derivados del uso del marketplace o de tratos con terceros.",
+            "1": "Nada en estos términos limita derechos irrenunciables de consumo o protección de datos en tu jurisdicción."
+          }
+        },
+        "7": {
+          "title": "8. Cambios y contacto",
+          "paragraphs": {
+            "0": "Podemos actualizar estos términos periódicamente. El uso continuado tras la entrada en vigor implica aceptación. Consultas: support@rscmarket.com."
+          }
+        }
+      }
+    },
+    "cookies": {
+      "title": "Política de cookies",
+      "updated": "Última actualización: 18 de julio de 2026",
+      "intro": "Esta política describe cómo REESKOVA / RSC Market usa cookies y tecnologías similares en el sitio y aplicaciones relacionadas.",
+      "sections": {
+        "0": {
+          "title": "1. Qué son las cookies",
+          "paragraphs": {
+            "0": "Las cookies son pequeños archivos almacenados en tu dispositivo. Ayudan a recordar preferencias, mantener sesiones seguras y entender el uso del producto."
+          }
+        },
+        "1": {
+          "title": "2. Cookies que usamos",
+          "bullets": {
+            "0": "Esenciales: autenticación y continuidad de sesión.",
+            "1": "Preferencias: selección de región/mercado y ajustes similares de UX.",
+            "2": "Seguridad e integridad: prevención de fraude y señales de abuso.",
+            "3": "Rendimiento (cuando esté habilitado): métricas agregadas para mejorar confiabilidad y velocidad."
+          }
+        },
+        "2": {
+          "title": "3. Cómo gestionarlas",
+          "paragraphs": {
+            "0": "Puedes controlar las cookies desde la configuración del navegador. Bloquear cookies esenciales puede impedir el inicio de sesión u otras funciones centrales.",
+            "1": "Cuando la ley lo exija, presentaremos opciones de consentimiento adicionales antes de cookies no esenciales."
+          }
+        },
+        "3": {
+          "title": "4. Más información",
+          "paragraphs": {
+            "0": "Para el tratamiento de datos personales en general, consulta la Política de privacidad. Consultas: support@rscmarket.com."
+          }
+        }
+      }
+    },
+    "compliance": {
+      "title": "Cumplimiento",
+      "updated": "Última actualización: 18 de julio de 2026",
+      "intro": "REESKOVA opera un marketplace que prioriza la participación de empresas verificadas, la publicación transparente y el uso responsable en mercados LATAM+.",
+      "sections": {
+        "0": {
+          "title": "1. Verificación de empresas",
+          "paragraphs": {
+            "0": "Las empresas que solicitan acceso pasan por revisión de onboarding. Podemos pedir identificación corporativa (por ejemplo ID fiscal), validación de contactos y controles de calidad de anuncios."
+          }
+        },
+        "1": {
+          "title": "2. Integridad de la plataforma",
+          "paragraphs": {
+            "0": "Trabajamos para detectar anuncios fraudulentos, abuso de mensajería e infracciones de política. Puedes reportar actividad sospechosa a support@rscmarket.com con enlaces y detalles."
+          }
+        },
+        "2": {
+          "title": "3. Alineación regulatoria",
+          "paragraphs": {
+            "0": "Diseñamos prácticas de producto alineadas con normas de privacidad, consumo y comercio electrónico aplicables. Como RSC no intermedia contratos ni pagos, los actos financieros o notariales regulados permanecen en terceros licenciados."
+          }
+        },
+        "3": {
+          "title": "4. Ecosistema de partners",
+          "paragraphs": {
+            "0": "REESKOVA forma parte del ecosistema RSC Group. Las conexiones opcionales a financiamiento u otros servicios partner se presentan con claridad; esos partners responden por sus propias actividades licenciadas."
+          }
+        }
+      }
+    },
+    "about": {
+      "title": "Sobre RSC Group y REESKOVA",
+      "updated": "Última actualización: 18 de julio de 2026",
+      "intro": "REESKOVA es la marca de marketplace premium de inmuebles, vehículos y servicios—impulsada por RSC Group.",
+      "sections": {
+        "0": {
+          "title": "Qué construimos",
+          "paragraphs": {
+            "0": "Conectamos empresas verificadas con compradores en LATAM+ en un solo marketplace digital. Combinamos herramientas SaaS B2B para anunciantes con una experiencia B2B2C de descubrimiento para compradores.",
+            "1": "Monetizamos software y distribución—no comisiones por cierre. Publicar y conectar es nuestro trabajo central."
+          }
+        },
+        "1": {
+          "title": "Qué no somos",
+          "paragraphs": {
+            "0": "No somos una inmobiliaria intermediaria, un escrow ni un bufete. No intermediamos contratos, no custodiamos fondos ni sustituimos el proceso legal entre comprador y vendedor."
+          }
+        },
+        "2": {
+          "title": "Ecosistema",
+          "paragraphs": {
+            "0": "RSC Group reúne tecnología y servicios complementarios para que las empresas publiquen inventario, gestionen leads y ofrezcan experiencias relacionadas (como opciones de financiamiento cuando existan) sin fragmentar el recorrido del comprador."
+          }
+        },
+        "3": {
+          "title": "Contacto",
+          "paragraphs": {
+            "0": "Soporte general: support@rscmarket.com. Las empresas pueden solicitar onboarding desde Para empresas o el Portal empresarial."
+          }
+        }
+      }
+    },
+    "careers": {
+      "title": "Carreras",
+      "updated": "Última actualización: 18 de julio de 2026",
+      "intro": "Construimos infraestructura de marketplace para activos de la economía real. Si te importa el producto, la confianza y la escala LATAM+, queremos conocerte.",
+      "sections": {
+        "0": {
+          "title": "Cómo trabajamos",
+          "paragraphs": {
+            "0": "Equipos pequeños y senior. Ownership claro. Decisiones de producto ancladas en cómo operan agencias, concesionarios y compradores—no solo en métricas de vanidad."
+          }
+        },
+        "1": {
+          "title": "Áreas en las que contratamos",
+          "bullets": {
+            "0": "Ingeniería de producto (plataformas web, sistemas de marketplace).",
+            "1": "Diseño y experiencias de marca.",
+            "2": "Go-to-market, éxito de partners y operaciones de trust & safety."
+          }
+        },
+        "2": {
+          "title": "Cómo postular",
+          "paragraphs": {
+            "0": "Escribe a careers@rscmarket.com (o a support@rscmarket.com con asunto “Careers”) con CV/portafolio, rol deseado y ubicación/zona horaria. Revisamos candidaturas de forma continua.",
+            "1": "No cobramos tarifas a candidatos ni pedimos pagos durante el reclutamiento."
+          }
+        }
+      }
+    },
+    "guides": {
+      "title": "Guías",
+      "updated": "Última actualización: 18 de julio de 2026",
+      "intro": "Puntos de partida prácticos para usar RSC Market como comprador o como empresa.",
+      "sections": {
+        "0": {
+          "title": "Para compradores",
+          "bullets": {
+            "0": "Explora inmuebles y vehículos, aplica filtros y guarda favoritos con sesión iniciada.",
+            "1": "Abre un anuncio para chatear con el anunciante o solicitar una visita.",
+            "2": "Confirma precio, documentos y condiciones directamente con la empresa antes de comprometerte."
+          }
+        },
+        "1": {
+          "title": "Para empresas",
+          "bullets": {
+            "0": "Solicita onboarding en Para empresas y gestiona anuncios y leads en el Portal empresarial.",
+            "1": "Mantén el inventario preciso—fotos, precio y disponibilidad impulsan la conversión.",
+            "2": "Responde rápido a chats y visitas para proteger tu reputación en el marketplace."
+          }
+        },
+        "2": {
+          "title": "Recursos adicionales",
+          "paragraphs": {
+            "0": "Lee Cómo funciona para el recorrido completo, visita el FAQ del Centro de ayuda y revisa Privacidad y Términos para el detalle legal."
+          }
+        }
+      }
+    },
+    "security": {
+      "title": "Seguridad",
+      "updated": "Última actualización: 18 de julio de 2026",
+      "intro": "Proteger cuentas, integridad de anuncios y datos personales es fundamental para REESKOVA.",
+      "sections": {
+        "0": {
+          "title": "Cómo protegemos la plataforma",
+          "bullets": {
+            "0": "Cifrado en tránsito y acceso controlado a sistemas de producción.",
+            "1": "Sesiones autenticadas y prácticas seguras de cookies para el inicio de sesión.",
+            "2": "Monitoreo de abuso, spam y patrones sospechosos en anuncios."
+          }
+        },
+        "1": {
+          "title": "Cómo puedes protegerte",
+          "bullets": {
+            "0": "Usa una contraseña única y mantén seguro tu correo.",
+            "1": "Nunca envíes pagos a personas que digan “custodiar fondos para RSC”—no custodiamos fondos de compradores.",
+            "2": "Confirma la identidad en perfiles verificados y reporta anomalías al soporte."
+          }
+        },
+        "2": {
+          "title": "Reportar un problema de seguridad",
+          "paragraphs": {
+            "0": "Escribe a support@rscmarket.com con “Security” en el asunto. Incluye pasos para reproducir, URLs afectadas y si pueden estar involucrados datos personales. No divulgues vulnerabilidades públicamente antes de que podamos evaluarlas y corregirlas."
+          }
+        }
+      }
+    }
+  },
+  "errors": {
+    "notFound": {
+      "title": "Página no encontrada",
+      "description": "La página que buscas no existe o fue movida.",
+      "home": "Ir al inicio",
+      "help": "Centro de ayuda"
+    },
+    "error": {
+      "badge": "Error",
+      "title": "Algo salió mal",
+      "description": "Ocurrió un error inesperado. Inténtalo de nuevo o vuelve al inicio.",
+      "retry": "Reintentar",
+      "home": "Ir al inicio"
+    }
   }
 }

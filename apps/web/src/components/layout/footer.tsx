@@ -20,10 +20,10 @@ const columns = [
   {
     key: "company",
     links: [
-      { href: "/help#about", labelKey: "about" },
+      { href: "/about", labelKey: "about" },
       { href: "/como-funciona", labelKey: "howItWorks" },
       { href: "/#partners", labelKey: "partners" },
-      { href: "/help#careers", labelKey: "careers" },
+      { href: "/careers", labelKey: "careers" },
       { href: "/empresa/painel", labelKey: "portal" },
       { href: "/empresa/cadastro", labelKey: "join" },
     ],
@@ -33,18 +33,18 @@ const columns = [
     links: [
       { href: "/help", labelKey: "center" },
       { href: "/help#faq", labelKey: "faq" },
-      { href: "/help#guides", labelKey: "guides" },
+      { href: "/guides", labelKey: "guides" },
       { href: "/help#contact", labelKey: "contact" },
-      { href: "/help#security", labelKey: "security" },
+      { href: "/security", labelKey: "security" },
     ],
   },
   {
     key: "legal",
     links: [
-      { href: "/help#terms", labelKey: "terms" },
-      { href: "/help#privacy", labelKey: "privacy" },
-      { href: "/help#cookies", labelKey: "cookies" },
-      { href: "/help#compliance", labelKey: "compliance" },
+      { href: "/terms", labelKey: "terms" },
+      { href: "/privacy", labelKey: "privacy" },
+      { href: "/cookies", labelKey: "cookies" },
+      { href: "/compliance", labelKey: "compliance" },
     ],
   },
 ] as const;

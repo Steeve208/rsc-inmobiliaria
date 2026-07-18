@@ -629,6 +629,15 @@ ALTER TABLE "listing_report"      ENABLE ROW LEVEL SECURITY;
 -- =============================================================================
 
 
+-- API rate limits (shared across serverless; one UPSERT per check)
+CREATE TABLE IF NOT EXISTS "api_rate_limit" (
+  "key" text PRIMARY KEY NOT NULL,
+  "count" integer DEFAULT 1 NOT NULL,
+  "reset_at" timestamptz NOT NULL
+);
+CREATE INDEX IF NOT EXISTS "api_rate_limit_reset_idx" ON "api_rate_limit" ("reset_at");
+ALTER TABLE "api_rate_limit" ENABLE ROW LEVEL SECURITY;
+
 -- Platform reviews shown on landing testimonials
 CREATE TABLE IF NOT EXISTS "platform_review" (
   "id" text PRIMARY KEY NOT NULL,

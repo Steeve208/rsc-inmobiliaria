@@ -49,7 +49,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const limited = enforceRateLimit(request, "visits-create", 20, 60_000);
+    const limited = await enforceRateLimit(request, "visits-create", 20, 60_000);
     if (limited) return limited;
 
     const body = (await request.json()) as CreateVisitInput;

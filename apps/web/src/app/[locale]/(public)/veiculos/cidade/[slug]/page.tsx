@@ -20,7 +20,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!entry) return {};
 
   const t = await getTranslations({ locale, namespace: "veiculos.cityLanding" });
-  const labels = { city: entry.city, state: entry.state, count: 0 };
+  const listings = await listVehiclesByCity(entry.city, entry.state, 12);
+  const labels = {
+    city: entry.city,
+    state: entry.state,
+    count: listings.length,
+  };
 
   return {
     title: t("metaTitle", labels),

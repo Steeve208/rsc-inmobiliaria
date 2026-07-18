@@ -56,7 +56,7 @@ async function reverseWithNominatim(
 }
 
 export async function GET(request: Request) {
-  const limited = enforceRateLimit(request, "geocode-reverse", 60, 60_000);
+  const limited = await enforceRateLimit(request, "geocode-reverse", 60, 60_000);
   if (limited) return limited;
 
   const { searchParams } = new URL(request.url);

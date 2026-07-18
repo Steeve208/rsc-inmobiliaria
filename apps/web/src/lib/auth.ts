@@ -4,6 +4,7 @@ import { nextCookies } from "better-auth/next-js";
 import { db } from "@/lib/db";
 import * as schema from "@/lib/db/schema";
 import { sendResendEmail } from "@/lib/email/send-resend";
+import { isResendConfigured } from "@/lib/env/production-config";
 
 function getFallbackAppUrl() {
   if (process.env.BETTER_AUTH_URL) return process.env.BETTER_AUTH_URL;
@@ -43,12 +44,20 @@ function getBaseURLConfig():
   };
 }
 
-/** Opt out with AUTH_REQUIRE_EMAIL_VERIFICATION=false. Default: on in production. */
+/**
+ * Email verification only blocks sign-in when outbound mail can actually deliver.
+ * Without RESEND_API_KEY, requiring verification bricks email/password registration.
+ * Opt out: AUTH_REQUIRE_EMAIL_VERIFICATION=false
+ * Default when Resend is set: on in production.
+ */
 function isEmailVerificationRequired() {
   if (process.env.AUTH_REQUIRE_EMAIL_VERIFICATION === "false") return false;
+  if (!isResendConfigured()) return false;
   if (process.env.AUTH_REQUIRE_EMAIL_VERIFICATION === "true") return true;
   return process.env.NODE_ENV === "production";
 }
+
+const emailVerificationRequired = isEmailVerificationRequired();
 
 const googleClientId = process.env.GOOGLE_CLIENT_ID;
 const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
@@ -61,8 +70,8 @@ export const auth = betterAuth({
   baseURL: getBaseURLConfig(),
   secret: process.env.BETTER_AUTH_SECRET,
   emailVerification: {
-    sendOnSignUp: true,
-    sendOnSignIn: true,
+    sendOnSignUp: isResendConfigured(),
+    sendOnSignIn: emailVerificationRequired,
     sendVerificationEmail: async ({ user, url }) => {
       void sendResendEmail({
         to: user.email,
@@ -79,7 +88,20 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     minPasswordLength: 8,
-    requireEmailVerification: isEmailVerificationRequired(),
+    requireEmailVerification: emailVerificationRequired,
+    revokeSessionsOnPasswordReset: true,
+    sendResetPassword: async ({ user, url }) => {
+      void sendResendEmail({
+        to: user.email,
+        subject: "Restablecer contraseña — RSC Market",
+        text: `Abre este enlace para restablecer tu contraseña: ${url}`,
+        html: `<p>Hola${user.name ? ` ${user.name}` : ""},</p>
+<p>Recibimos una solicitud para restablecer tu contraseña en RSC Market.</p>
+<p><a href="${url}">Restablecer contraseña</a></p>
+<p>Si no solicitaste este cambio, ignora este mensaje.</p>`,
+        logContext: "auth-reset-password",
+      });
+    },
   },
   user: {
     additionalFields: {
@@ -113,7 +135,7 @@ export const auth = betterAuth({
   account: {
     accountLinking: {
       enabled: true,
-      requireLocalEmailVerified: true,
+      requireLocalEmailVerified: emailVerificationRequired,
       trustedProviders: ["google"],
     },
   },

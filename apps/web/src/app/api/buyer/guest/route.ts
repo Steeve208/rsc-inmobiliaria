@@ -15,7 +15,7 @@ import { enforceRateLimit } from "@/lib/security/rate-limit";
  * Never accepts a client-supplied ID — prevents IDOR claim attacks.
  */
 export async function POST(request: Request) {
-  const limited = enforceRateLimit(request, "buyer-guest", 30, 60_000);
+  const limited = await enforceRateLimit(request, "buyer-guest", 30, 60_000);
   if (limited) return limited;
 
   const cookieStore = await cookies();

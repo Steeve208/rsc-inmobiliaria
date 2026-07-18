@@ -15,7 +15,7 @@ const reportSchema = z.object({
 });
 
 export async function POST(request: Request) {
-  const limited = enforceRateLimit(request, "listing-report", 8, 60_000);
+  const limited = await enforceRateLimit(request, "listing-report", 8, 60_000);
   if (limited) return limited;
 
   let json: unknown;

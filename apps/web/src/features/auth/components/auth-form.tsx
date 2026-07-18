@@ -165,9 +165,19 @@ export function AuthForm({ mode }: Props) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="password" className="text-white/80">
-            {t("fields.password")}
-          </Label>
+          <div className="flex items-center justify-between gap-3">
+            <Label htmlFor="password" className="text-white/80">
+              {t("fields.password")}
+            </Label>
+            {!isSignUp ? (
+              <Link
+                href="/recuperar-senha"
+                className="text-xs font-medium text-[#fbbf24] hover:text-[#fcd34d]"
+              >
+                {t("forgotPassword.link")}
+              </Link>
+            ) : null}
+          </div>
           <Input
             id="password"
             name="password"
