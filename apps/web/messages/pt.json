@@ -764,6 +764,7 @@
       "successTitle": "Solicitação enviada!",
       "successMessage": "Recebemos os dados da sua empresa. Nossa equipe analisará a solicitação e enviará as credenciais de acesso ao painel em até 24 horas.",
       "error": "Não foi possível enviar a solicitação. Tente novamente.",
+      "duplicate": "Já existe uma solicitação pendente com este e-mail.",
       "noteLabel": "Importante:",
       "note": "Após enviar sua solicitação, nossa equipe analisará seus dados. Você receberá um e-mail com as credenciais de acesso ao painel em até 24 horas após a aprovação."
     }

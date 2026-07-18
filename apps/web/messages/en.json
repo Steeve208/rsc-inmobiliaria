@@ -764,6 +764,7 @@
       "successTitle": "Request sent!",
       "successMessage": "We received your business details. Our team will review the request and send your panel access credentials within 24 hours.",
       "error": "Could not send the request. Please try again.",
+      "duplicate": "A pending request already exists for this email.",
       "noteLabel": "Important:",
       "note": "After submitting your request, our team will review your details. You will receive an email with panel access credentials within 24 hours of approval."
     }

@@ -39,7 +39,14 @@ export function EmpresaCadastroPage() {
       });
 
       if (!res.ok) {
-        setError(t("error"));
+        const payload = (await res.json().catch(() => null)) as {
+          error?: string;
+        } | null;
+        if (payload?.error === "DUPLICATE_PENDING") {
+          setError(t("duplicate"));
+        } else {
+          setError(t("error"));
+        }
         setStatus("idle");
         return;
       }

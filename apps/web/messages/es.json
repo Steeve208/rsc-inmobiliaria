@@ -764,6 +764,7 @@
       "successTitle": "¡Solicitud enviada!",
       "successMessage": "Recibimos los datos de tu empresa. Nuestro equipo analizará la solicitud y enviará las credenciales de acceso al panel en hasta 24 horas.",
       "error": "No se pudo enviar la solicitud. Inténtalo de nuevo.",
+      "duplicate": "Ya existe una solicitud pendiente con este correo.",
       "noteLabel": "Importante:",
       "note": "Tras enviar tu solicitud, nuestro equipo analizará tus datos. Recibirás un correo con las credenciales de acceso al panel en hasta 24 horas tras la aprobación."
     }

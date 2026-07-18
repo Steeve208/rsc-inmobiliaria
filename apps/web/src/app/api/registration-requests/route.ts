@@ -24,7 +24,8 @@ export async function POST(request: Request) {
   const contactEmail = String(body.contactEmail ?? body.email ?? "").trim().toLowerCase();
   const contactPhone = String(body.contactPhone ?? body.phone ?? "").trim();
   const category = String(body.category ?? "real_estate").trim();
-  const message = String(body.message ?? body.cnpj ?? "").trim();
+  const cnpj = String(body.cnpj ?? "").trim();
+  const message = String(body.message ?? "").trim();
 
   if (!companyName || !contactName || !contactEmail) {
     return NextResponse.json({ error: "MISSING_FIELDS" }, { status: 400 });
@@ -40,7 +41,10 @@ export async function POST(request: Request) {
         contactEmail,
         contactPhone: contactPhone || undefined,
         category,
-        message: message ? `CNPJ/documento: ${message}` : undefined,
+        cnpj: cnpj || undefined,
+        message:
+          message ||
+          (cnpj ? `CNPJ/documento: ${cnpj}` : undefined),
       }),
     });
 
