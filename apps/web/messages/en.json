@@ -498,6 +498,7 @@
         "companies": {
           "title": "Companies",
           "links": {
+            "portal": "Business Portal",
             "agencies": "For agencies",
             "builders": "For developers",
             "api": "API",

@@ -116,13 +116,6 @@ export function Header() {
 
             <HeaderAuthActions />
 
-            <Link
-              href="/empresa/painel"
-              className="rk-btn-gold hidden h-12 items-center justify-center px-6 text-sm shadow-[0_10px_30px_rgba(212,166,42,.28)] xl:inline-flex"
-            >
-              {t("companyPortal")}
-            </Link>
-
             <button
               type="button"
               className="inline-flex rounded-2xl p-2 text-white xl:hidden"
@@ -164,13 +157,6 @@ export function Header() {
             <div className="mt-4 flex flex-col gap-3 border-t border-[rgba(255,255,255,.05)] pt-4">
               <RegionSwitcher />
               <HeaderAuthActions variant="mobile" />
-              <Link
-                href="/empresa/painel"
-                className="rk-btn-gold flex h-12 items-center justify-center px-6 text-sm"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {t("companyPortal")}
-              </Link>
             </div>
           </div>
         )}

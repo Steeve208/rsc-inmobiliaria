@@ -498,6 +498,7 @@
         "companies": {
           "title": "Empresas",
           "links": {
+            "portal": "Portal Empresas",
             "agencies": "Para imobiliárias",
             "builders": "Para construtoras",
             "api": "API",

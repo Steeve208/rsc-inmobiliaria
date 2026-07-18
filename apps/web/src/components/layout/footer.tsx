@@ -37,6 +37,7 @@ const columns = [
   {
     key: "companies",
     links: [
+      { href: "/empresa/painel", labelKey: "portal" },
       { href: "/para-empresas", labelKey: "agencies" },
       { href: "/para-empresas", labelKey: "builders" },
       { href: "/para-empresas", labelKey: "api" },
@@ -88,6 +89,7 @@ const socials = [
 
 export function Footer() {
   const t = useTranslations("landing.footer");
+  const tNav = useTranslations("nav");
   const year = new Date().getFullYear();
 
   return (
@@ -99,6 +101,12 @@ export function Footer() {
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#8C97A8]">
               {t("tagline")}
             </p>
+            <Link
+              href="/empresa/painel"
+              className="rk-btn-gold mt-6 inline-flex h-12 items-center justify-center px-6 text-sm"
+            >
+              {tNav("companyPortal")}
+            </Link>
             <div className="mt-6 flex items-center gap-3">
               {socials.map((social) => (
                 <a
