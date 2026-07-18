@@ -56,7 +56,9 @@
       "companies": "Empresas",
       "financing": "Financiamento",
       "services": "Serviços"
-    }
+    },
+    "toggleMenu": "Abrir menu",
+    "changeLanguage": "Alterar idioma"
   },
   "favorites": {
     "title": "Meus favoritos",
@@ -229,6 +231,16 @@
         "users": {
           "value": "+100k",
           "label": "Usuários"
+        }
+      },
+      "floating": {
+        "card1": {
+          "title": "Casa Moderna em Miami",
+          "place": "Miami, Flórida"
+        },
+        "card2": {
+          "title": "Apartamento Premium",
+          "place": "São Paulo, Brasil"
         }
       }
     },
@@ -2177,5 +2189,10 @@
         }
       }
     }
+  },
+  "brand": {
+    "tagline": "Marketplace premium",
+    "poweredBy": "Impulsionado por",
+    "poweredByBrand": "RSC Group"
   }
 }

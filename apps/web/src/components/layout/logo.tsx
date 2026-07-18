@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -47,6 +50,8 @@ type LogoProps = {
 };
 
 export function Logo({ className, showPoweredBy = false }: LogoProps) {
+  const t = useTranslations("brand");
+
   return (
     <Link href="/" className={cn("flex items-center gap-3", className)}>
       <ReeskovaMark className="size-11" />
@@ -55,12 +60,13 @@ export function Logo({ className, showPoweredBy = false }: LogoProps) {
           REESKOVA
         </span>
         <span className="mt-1.5 text-[9px] font-medium tracking-[0.16em] text-[#D4A62A] uppercase">
-          Real Estate Marketplace
+          {t("tagline")}
         </span>
         {showPoweredBy ? (
           <span className="mt-2 flex items-center gap-2 text-[9px] text-[#AEB7C5]">
             <span className="h-px w-4 bg-[#D4A62A]/50" aria-hidden />
-            Powered by <span className="text-[#D4A62A]">RSC Group</span>
+            {t("poweredBy")}{" "}
+            <span className="text-[#D4A62A]">{t("poweredByBrand")}</span>
             <span className="h-px w-4 bg-[#D4A62A]/50" aria-hidden />
           </span>
         ) : null}

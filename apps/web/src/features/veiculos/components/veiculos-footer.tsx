@@ -43,8 +43,9 @@ export function VeiculosFooter({ onSelectRegion, onCategorySelect }: Props) {
         <div className="grid gap-10 lg:grid-cols-[1.2fr_2fr] lg:gap-16">
           <div>
             <div className="flex items-baseline gap-2">
-              <span className="text-xl font-bold tracking-tight text-white">RSC</span>
-              <span className="text-sm font-medium text-[#86efac]">Market</span>
+              <span className="text-xl font-bold tracking-tight text-white">
+                REESKOVA
+              </span>
             </div>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/40">
               {t("tagline")}
@@ -154,7 +155,7 @@ export function VeiculosFooter({ onSelectRegion, onCategorySelect }: Props) {
 
         <div className="mt-10 flex flex-col gap-3 pt-6 text-xs text-white/30 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} RSC Market. {t("rights")}
+            © {year} Reeskova. {t("rights")}
           </p>
           <div className="flex gap-5">
             <Link href="/help" className="transition-colors hover:text-white/60">

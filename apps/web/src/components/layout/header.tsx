@@ -56,7 +56,7 @@ export function Header() {
     <>
       <MarketDetectionBanner />
       <header className="sticky top-0 z-50 border-b border-[rgba(255,255,255,.05)] bg-[rgba(6,8,15,.90)] backdrop-blur-[20px]">
-        <div className="rk-container flex h-[96px] items-center gap-5">
+        <div className="rk-container flex h-[72px] items-center gap-5">
           <Logo />
 
           <nav className="ml-2 hidden items-center gap-8 xl:flex">
@@ -178,7 +178,7 @@ export function Header() {
               type="button"
               className="inline-flex rounded-2xl p-2 text-white xl:hidden"
               onClick={toggleMobileMenu}
-              aria-label="Toggle menu"
+              aria-label={t("toggleMenu")}
             >
               {isMobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>

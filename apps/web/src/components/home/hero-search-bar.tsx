@@ -316,10 +316,10 @@ export function HeroSearchBar() {
   };
 
   const fieldClass =
-    "group relative flex min-h-[80px] flex-1 flex-col justify-center gap-1 px-5 py-3.5 transition-colors duration-300 hover:bg-[#F7F4EC]/70 lg:min-h-[96px] lg:border-r lg:border-[#E8E4D9]";
+    "group relative flex min-h-[64px] flex-1 flex-col justify-center gap-0.5 px-4 py-2.5 transition-colors duration-300 hover:bg-[#F7F4EC]/70 lg:min-h-[72px] lg:border-r lg:border-[#E8E4D9]";
 
   const selectClass =
-    "w-full appearance-none bg-transparent pr-7 text-[15px] font-medium text-[#1A1F2B] outline-none";
+    "w-full appearance-none bg-transparent pr-7 text-sm font-medium text-[#1A1F2B] outline-none";
 
   const TypeIcon =
     category === "properties"
@@ -332,8 +332,8 @@ export function HeroSearchBar() {
         : Car;
 
   return (
-    <div className="rk-container relative z-30 -mt-11">
-      <div className="mb-3 flex justify-center gap-2">
+    <div className="rk-container relative z-30 -mt-8">
+      <div className="mb-2 flex justify-center gap-1.5">
         {(
           [
             { id: "properties" as const, label: t("tabs.properties") },
@@ -345,7 +345,7 @@ export function HeroSearchBar() {
             type="button"
             onClick={() => setCategory(tab.id)}
             className={cn(
-              "rounded-full px-5 py-2 text-sm font-medium transition-colors duration-300",
+              "rounded-full px-4 py-1.5 text-xs font-medium transition-colors duration-300 sm:text-sm",
               category === tab.id
                 ? "bg-[#D4A62A] text-[#0B1220]"
                 : "bg-white/10 text-white/80 hover:bg-white/15 hover:text-white",
@@ -361,10 +361,10 @@ export function HeroSearchBar() {
           e.preventDefault();
           goToSearch();
         }}
-        className="overflow-hidden rounded-[999px] border border-white/40 bg-white shadow-[0_20px_60px_rgba(0,0,0,.25)] max-lg:rounded-[24px]"
-        initial={{ opacity: 0, y: 24 }}
+        className="overflow-hidden rounded-[999px] border border-white/40 bg-white shadow-[0_16px_40px_rgba(0,0,0,.22)] max-lg:rounded-[20px]"
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.25 }}
+        transition={{ duration: 0.4, delay: 0.15 }}
       >
         <div className="flex flex-col lg:flex-row lg:items-stretch">
           <div className={cn(fieldClass, "min-w-0 lg:flex-[1.35]")}>
@@ -509,23 +509,23 @@ export function HeroSearchBar() {
             </label>
           )}
 
-          <div className="flex items-center gap-3 p-3 lg:pl-2">
-            <div className="hidden min-w-[88px] text-right xl:block">
+          <div className="flex items-center gap-2 p-2.5 lg:pl-1">
+            <div className="hidden min-w-[72px] text-right xl:block">
               {catalogLoading ? (
-                <p className="text-xs text-[#8C97A8]">{t("loadingResults")}</p>
+                <p className="text-[11px] text-[#8C97A8]">{t("loadingResults")}</p>
               ) : matchCount != null ? (
                 <>
-                  <p className="rk-display text-lg font-bold leading-none text-[#1A1F2B]">
+                  <p className="rk-display text-base font-bold leading-none text-[#1A1F2B]">
                     {matchCount.toLocaleString()}
                   </p>
-                  <p className="mt-1 text-[11px] text-[#8C97A8]">{t("results")}</p>
+                  <p className="mt-0.5 text-[10px] text-[#8C97A8]">{t("results")}</p>
                 </>
               ) : null}
             </div>
             <button
               type="submit"
               disabled={isPending}
-              className="rk-btn-gold inline-flex h-[64px] w-full items-center justify-center gap-2 px-8 text-[15px] disabled:opacity-70 lg:min-w-[220px]"
+              className="rk-btn-gold inline-flex h-12 w-full items-center justify-center gap-2 px-6 text-sm disabled:opacity-70 lg:min-w-[180px]"
             >
               {isPending ? (
                 <Loader2 className="size-5 animate-spin" />

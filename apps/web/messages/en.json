@@ -56,7 +56,9 @@
       "companies": "Companies",
       "financing": "Financing",
       "services": "Services"
-    }
+    },
+    "toggleMenu": "Toggle menu",
+    "changeLanguage": "Change language"
   },
   "favorites": {
     "title": "My favorites",
@@ -229,6 +231,16 @@
         "users": {
           "value": "+100k",
           "label": "Users"
+        }
+      },
+      "floating": {
+        "card1": {
+          "title": "Modern Home in Miami",
+          "place": "Miami, Florida"
+        },
+        "card2": {
+          "title": "Premium Apartment",
+          "place": "São Paulo, Brazil"
         }
       }
     },
@@ -2177,5 +2189,10 @@
         }
       }
     }
+  },
+  "brand": {
+    "tagline": "Premium marketplace",
+    "poweredBy": "Powered by",
+    "poweredByBrand": "RSC Group"
   }
 }

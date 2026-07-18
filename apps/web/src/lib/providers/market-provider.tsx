@@ -8,8 +8,6 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { useLocale } from "next-intl";
-import { usePathname, useRouter } from "@/lib/i18n/routing";
 import { getMarket, markets } from "@/lib/markets/config";
 import { setMarketCookies } from "@/lib/markets/client";
 import type { MarketContextValue, MarketId } from "@/lib/markets/types";
@@ -27,26 +25,20 @@ export function MarketProvider({
   initialMarketId,
   initialConfirmed,
 }: Props) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const locale = useLocale();
   const [marketId, setMarketId] = useState<MarketId>(initialMarketId);
   const [isConfirmed, setIsConfirmed] = useState(initialConfirmed);
 
   const setMarket = useCallback(
     (id: MarketId, options?: { confirmed?: boolean }) => {
-      const next = getMarket(id);
+      // Validate market exists; keep the user's language choice independent.
+      getMarket(id);
       const confirmed = options?.confirmed ?? true;
 
       setMarketId(id);
       setIsConfirmed(confirmed);
       setMarketCookies(id, confirmed);
-
-      if (confirmed && next.defaultLocale !== locale) {
-        router.replace(pathname, { locale: next.defaultLocale });
-      }
     },
-    [locale, pathname, router],
+    [],
   );
 
   const confirmMarket = useCallback(() => {
