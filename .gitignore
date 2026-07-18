@@ -42,3 +42,6 @@ next-env.d.ts
 
 # local leads store (dev/demo)
 apps/web/.data/
+
+# private local promo / documentary media
+apps/web/public/promo/
