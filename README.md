@@ -25,7 +25,8 @@ Abre [http://localhost:3001](http://localhost:3001).
 
 - Listados públicos: consume `GET {BACKOFFICE}/api/marketplace/v1/listings`
 - Chat comprador ↔ empresa: `chat_thread` / `chat_message` (Drizzle) + sync a `conversations` / `messages` en Supabase
-- Empresas gestionan anuncios en el backoffice; responden chats en backoffice o en `/empresa/painel/dashboard`
+- **Empresas:** alta solo vía `/api/registration-requests` → backoffice. El CRUD local de anuncios (`POST /api/companies`, `/api/companies/.../properties`) está **desactivado** (HTTP 410).
+- Respuestas de chat empresa: backoffice → market con header `x-market-internal-secret` (`MARKET_INTERNAL_API_SECRET`).
 
 ## Estructura
 
@@ -40,11 +41,25 @@ apps/web/          # Next.js (App Router)
 
 ```bash
 cd apps/web
-npm run dev          # desarrollo
-npm run db:backfill-chats   # sincronizar chats existentes al backoffice
-npm run env:check    # validar variables de producción
+npm run dev                    # desarrollo (:3001)
+npm run db:backfill-chats      # sincronizar chats históricos al backoffice
+npm run db:promote-admin -- you@example.com   # promover user.role = admin
+npm run env:check              # validar variables de producción
 ```
+
+## Monitoreo (producción)
+
+En logs de Vercel / runtime, vigilar prefijos:
+
+| Prefijo | Significado |
+|---|---|
+| `[backoffice]` | Fallo HTTP al catálogo / eventos marketplace |
+| `[chat-sync]` | Fallo al espejar chat → `conversations` / `messages` |
+| `[visit-sync]` | Fallo al espejar visitas → `appointments` |
+| `[lead-sync]` | Fallo al crear/actualizar `leads` |
+| `[financing-sync]` | Fallo al espejar financiación → `financing_requests` |
+| `[production-config]` | Warnings de env al arrancar |
 
 ## Deploy
 
-Proyecto independiente en Vercel (u otro host). Variables críticas: `DATABASE_URL`, `BETTER_AUTH_SECRET`, `NEXT_PUBLIC_BACKOFFICE_URL`, `NEXT_PUBLIC_APP_URL`.
+Proyecto independiente en Vercel (u otro host). Variables críticas: `DATABASE_URL`, `BETTER_AUTH_SECRET`, `NEXT_PUBLIC_BACKOFFICE_URL`, `NEXT_PUBLIC_APP_URL`, `MARKET_INTERNAL_API_SECRET`.

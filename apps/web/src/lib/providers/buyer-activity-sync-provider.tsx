@@ -9,10 +9,7 @@ import {
   useState,
 } from "react";
 import { authClient } from "@/lib/auth-client";
-import {
-  clearGuestBuyerId,
-  readGuestBuyerId,
-} from "@/lib/leads/guest-buyer-id";
+import { clearGuestBuyerId } from "@/lib/leads/guest-buyer-id";
 import type { GuestBuyerSyncResult } from "@/lib/buyer/sync-guest-activity";
 
 type BuyerActivitySyncContextValue = {
@@ -25,7 +22,27 @@ const BuyerActivitySyncContext = createContext<BuyerActivitySyncContextValue | n
   null,
 );
 
-async function syncGuestBuyerActivity(guestBuyerId: string) {
+/** Only sync the guest ID bound to the httpOnly cookie (never a client-supplied guess). */
+async function syncBoundGuestBuyerActivity() {
+  const guestRes = await fetch("/api/buyer/guest", {
+    method: "GET",
+    credentials: "include",
+  });
+
+  if (guestRes.status === 404) {
+    clearGuestBuyerId();
+    return null;
+  }
+
+  if (!guestRes.ok) throw new Error("guest_lookup_failed");
+
+  const guestData = (await guestRes.json()) as { buyerId?: string };
+  const guestBuyerId = guestData.buyerId?.trim();
+  if (!guestBuyerId) {
+    clearGuestBuyerId();
+    return null;
+  }
+
   const res = await fetch("/api/buyer/sync-guest", {
     method: "POST",
     credentials: "include",
@@ -65,23 +82,16 @@ export function BuyerActivitySyncProvider({
     let cancelled = false;
 
     async function runSync() {
-      const guestBuyerId = readGuestBuyerId();
-      if (!guestBuyerId || guestBuyerId === userId) {
-        if (!cancelled) {
-          syncedForUserRef.current = userId;
-          setIsSynced(true);
-        }
-        return;
-      }
-
       try {
-        const result = await syncGuestBuyerActivity(guestBuyerId);
+        const result = await syncBoundGuestBuyerActivity();
         clearGuestBuyerId();
         if (!cancelled) {
           syncedForUserRef.current = userId;
           setIsSynced(true);
-          setLastSync(result);
-          setSyncVersion((value) => value + 1);
+          if (result) {
+            setLastSync(result);
+            setSyncVersion((value) => value + 1);
+          }
         }
       } catch {
         if (!cancelled) {

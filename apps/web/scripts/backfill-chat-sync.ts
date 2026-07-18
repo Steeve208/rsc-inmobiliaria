@@ -3,12 +3,15 @@
  * Usage: cd apps/web && npm run db:backfill-chats
  */
 import { asc, eq } from "drizzle-orm";
+import { loadEnvFiles } from "./load-env";
 import { db } from "../src/lib/db";
 import { chatMessage, chatThread } from "../src/lib/db/schema";
 import {
   syncChatMessageToBackoffice,
   syncThreadOpenToBackoffice,
 } from "../src/lib/leads/backoffice-sync";
+
+loadEnvFiles();
 
 async function main() {
   const threads = await db.select().from(chatThread).orderBy(asc(chatThread.createdAt));
@@ -50,6 +53,7 @@ async function main() {
   }
 
   console.log("Done.");
+  process.exit(0);
 }
 
 main().catch((error) => {

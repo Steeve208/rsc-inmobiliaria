@@ -1484,6 +1484,9 @@
         "saved": "¡Guardado!"
       },
       "listings": {
+        "disabledTitle": "Anuncios en el backoffice",
+        "disabledBody": "La gestión local de anuncios está desactivada. Publica y edita inmuebles o vehículos en el panel RSC (backoffice).",
+        "disabledCta": "Abrir backoffice",
         "loading": "Cargando anuncios...",
         "title": "Tus inmuebles",
         "new": "Nuevo",

@@ -4,6 +4,7 @@ import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { notifyAdminNewReport } from "@/lib/reports/notify-admin";
 import { createListingReport } from "@/lib/reports/store";
+import { enforceRateLimit } from "@/lib/security/rate-limit";
 
 const reportSchema = z.object({
   listingId: z.string().min(1),
@@ -14,6 +15,9 @@ const reportSchema = z.object({
 });
 
 export async function POST(request: Request) {
+  const limited = enforceRateLimit(request, "listing-report", 8, 60_000);
+  if (limited) return limited;
+
   let json: unknown;
   try {
     json = await request.json();

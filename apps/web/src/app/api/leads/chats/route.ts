@@ -11,6 +11,7 @@ import {
   requireBuyerAccess,
   requireCompanyAccess,
 } from "@/lib/auth/authorize";
+import { enforceRateLimit } from "@/lib/security/rate-limit";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -65,6 +66,9 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const limited = enforceRateLimit(request, "chats-open", 30, 60_000);
+    if (limited) return limited;
+
     const body = (await request.json()) as OpenChatInput;
 
     if (
@@ -89,6 +93,9 @@ export async function POST(request: Request) {
 }
 
 export async function PATCH(request: Request) {
+  const limited = enforceRateLimit(request, "chats-message", 60, 60_000);
+  if (limited) return limited;
+
   const body = (await request.json()) as SendChatMessageInput;
 
   if (!body.threadId || !body.text?.trim() || !body.sender) {

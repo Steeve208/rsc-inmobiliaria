@@ -5,6 +5,7 @@ import {
 } from "@/lib/geocoding/parse-osm";
 import { getMarketOrDefault, isMarketId } from "@/lib/markets/config";
 import { MARKET_COOKIE } from "@/lib/markets/constants";
+import { enforceRateLimit } from "@/lib/security/rate-limit";
 
 async function reverseWithPhoton(lat: number, lng: number) {
   const res = await fetch(
@@ -55,6 +56,9 @@ async function reverseWithNominatim(
 }
 
 export async function GET(request: Request) {
+  const limited = enforceRateLimit(request, "geocode-reverse", 60, 60_000);
+  if (limited) return limited;
+
   const { searchParams } = new URL(request.url);
   const lat = searchParams.get("lat");
   const lng = searchParams.get("lng");

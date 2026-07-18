@@ -7,11 +7,13 @@ import {
   updateVisit,
 } from "@/lib/leads/store";
 import type { CreateVisitInput, UpdateVisitInput } from "@/lib/leads/types";
+import { sanitizeBuyerVisitUpdate } from "@/lib/leads/visit-buyer-update";
 import {
   isInternalMarketRequest,
   requireBuyerAccess,
   requireCompanyAccess,
 } from "@/lib/auth/authorize";
+import { enforceRateLimit } from "@/lib/security/rate-limit";
 
 export async function GET(request: Request) {
   try {
@@ -47,6 +49,9 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const limited = enforceRateLimit(request, "visits-create", 20, 60_000);
+    if (limited) return limited;
+
     const body = (await request.json()) as CreateVisitInput;
 
     if (
@@ -108,7 +113,12 @@ export async function PATCH(request: Request) {
 
     const buyerAccess = await requireBuyerAccess(existing.buyerId);
     if (buyerAccess.ok) {
-      const visit = await updateVisit(body);
+      const sanitized = sanitizeBuyerVisitUpdate(existing, body);
+      if ("error" in sanitized) {
+        return NextResponse.json({ error: sanitized.error }, { status: 403 });
+      }
+
+      const visit = await updateVisit(sanitized);
       if (!visit) {
         return NextResponse.json({ error: "Visit not found" }, { status: 404 });
       }

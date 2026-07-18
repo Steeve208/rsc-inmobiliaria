@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 import { getBackofficeRegistrationUrl } from "@/lib/backoffice/config";
+import { enforceRateLimit } from "@/lib/security/rate-limit";
 
 export async function POST(request: Request) {
+  const limited = enforceRateLimit(request, "registration-requests", 5, 60_000);
+  if (limited) return limited;
+
   const target = getBackofficeRegistrationUrl();
   if (!target) {
     return NextResponse.json({ error: "BACKOFFICE_NOT_CONFIGURED" }, { status: 503 });

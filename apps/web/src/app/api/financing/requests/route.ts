@@ -14,6 +14,7 @@ import {
   requireAdminAccess,
   requireBuyerAccess,
 } from "@/lib/auth/authorize";
+import { enforceRateLimit } from "@/lib/security/rate-limit";
 
 function isValidStatus(value: string): value is FinancingRequestStatus {
   return FINANCING_REQUEST_STATUSES.includes(value as FinancingRequestStatus);
@@ -39,6 +40,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  const limited = enforceRateLimit(request, "financing-create", 10, 60_000);
+  if (limited) return limited;
+
   let json: unknown;
   try {
     json = await request.json();

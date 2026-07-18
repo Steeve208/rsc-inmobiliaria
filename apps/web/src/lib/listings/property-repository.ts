@@ -440,4 +440,29 @@ export async function getLaunchProperties(): Promise<PropertyListing[]> {
   }
 }
 
+/** Home featured strip: premium → launch → recommended → newest. */
+export async function listHomeFeaturedProperties(
+  limit = 4,
+): Promise<PropertyListing[]> {
+  const all = await listProperties();
+  const ordered = [
+    ...filterPropertySection(all, "premium"),
+    ...filterPropertySection(all, "launch"),
+    ...filterPropertySection(all, "recommended"),
+    ...all,
+  ];
+
+  const seen = new Set<string>();
+  const unique: PropertyListing[] = [];
+
+  for (const item of ordered) {
+    if (seen.has(item.id)) continue;
+    seen.add(item.id);
+    unique.push(item);
+    if (unique.length >= limit) break;
+  }
+
+  return unique;
+}
+
 export type { CompanyRow, AgentRow };

@@ -1,19 +1,51 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import {
-  getOrCreateGuestBuyerId,
+  ensureGuestBuyerId,
+  readGuestBuyerId,
   readGuestBuyerName,
   writeGuestBuyerName,
 } from "@/lib/leads/guest-buyer-id";
 
-/** Identidad del comprador: sesión autenticada o ID anónimo en localStorage. */
+/** Identidad del comprador: sesión autenticada o ID anónimo bound a cookie httpOnly. */
 export function useBuyerIdentity() {
-  const { data: session, isPending } = authClient.useSession();
+  const { data: session, isPending: sessionPending } = authClient.useSession();
+  const [guestBuyerId, setGuestBuyerId] = useState<string | null>(() =>
+    typeof window !== "undefined" ? readGuestBuyerId() : null,
+  );
+  const [guestPending, setGuestPending] = useState(false);
 
-  const buyerId = session?.user?.id ?? getOrCreateGuestBuyerId();
-  const buyerName =
-    session?.user?.name ?? readGuestBuyerName() ?? "";
+  useEffect(() => {
+    if (session?.user) {
+      setGuestPending(false);
+      return;
+    }
+
+    let cancelled = false;
+    setGuestPending(true);
+
+    void ensureGuestBuyerId()
+      .then((id) => {
+        if (!cancelled) {
+          setGuestBuyerId(id);
+          setGuestPending(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setGuestPending(false);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [session?.user]);
+
+  const buyerId = session?.user?.id ?? guestBuyerId ?? "";
+  const buyerName = session?.user?.name ?? readGuestBuyerName() ?? "";
   const buyerEmail = session?.user?.email ?? undefined;
   const isAuthenticated = Boolean(session?.user);
 
@@ -26,7 +58,7 @@ export function useBuyerIdentity() {
     buyerName,
     buyerEmail,
     isAuthenticated,
-    isPending,
+    isPending: sessionPending || (!session?.user && guestPending && !guestBuyerId),
     setBuyerName,
   };
 }

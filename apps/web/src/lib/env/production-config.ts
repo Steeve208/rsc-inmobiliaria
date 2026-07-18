@@ -88,7 +88,7 @@ export function getProductionEnvWarnings(options?: {
       variable: "RESEND_API_KEY",
       feature: "email",
       message:
-        "Saved-search alert emails and other outbound mail will be skipped (logged only).",
+        "Saved-search alerts and email verification will be skipped (logged only). Set RESEND_API_KEY or AUTH_REQUIRE_EMAIL_VERIFICATION=false.",
     });
   } else if (!isSet(process.env.RESEND_FROM_EMAIL)) {
     warnings.push({

@@ -1484,6 +1484,9 @@
         "saved": "Saved!"
       },
       "listings": {
+        "disabledTitle": "Listings in the backoffice",
+        "disabledBody": "Local listing management is disabled. Publish and edit properties or vehicles in the RSC backoffice.",
+        "disabledCta": "Open backoffice",
         "loading": "Loading listings...",
         "title": "Your properties",
         "new": "New",

@@ -10,22 +10,46 @@ import { Testimonials } from "@/components/home/testimonials";
 import { Partners } from "@/components/home/partners";
 import { Footer } from "@/components/layout/footer";
 import { listPublishedPlatformReviews } from "@/lib/reviews/store";
+import { listHomeFeaturedProperties } from "@/lib/listings/property-repository";
 
 type Props = {
   params: Promise<{ locale: string }>;
 };
 
+function formatHomePrice(price: number, currency: string) {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: currency || "BRL",
+    maximumFractionDigits: 0,
+  }).format(price);
+}
+
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const reviews = await listPublishedPlatformReviews(8);
+  const [reviews, featuredListings] = await Promise.all([
+    listPublishedPlatformReviews(8),
+    listHomeFeaturedProperties(4),
+  ]);
+
+  const featured = featuredListings.map((item) => ({
+    id: item.id,
+    title: item.title,
+    place: [item.neighborhood, item.city, item.state].filter(Boolean).join(", "),
+    priceLabel: formatHomePrice(item.price, item.currency),
+    beds: item.bedrooms ?? 0,
+    baths: item.bathrooms ?? 0,
+    area: item.area ?? 0,
+    badge: item.premium ? ("premium" as const) : item.launch ? ("new" as const) : null,
+    image: item.image,
+  }));
 
   return (
     <>
       <HeroSection />
       <StatsBar />
-      <FeaturedProperties />
+      <FeaturedProperties items={featured} />
       <ServiceCards />
       <HowItWorks />
       <InvestmentMarketplace />
