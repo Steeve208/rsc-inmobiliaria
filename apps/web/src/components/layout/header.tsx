@@ -56,10 +56,10 @@ export function Header() {
     <>
       <MarketDetectionBanner />
       <header className="sticky top-0 z-50 border-b border-[rgba(255,255,255,.05)] bg-[rgba(6,8,15,.90)] backdrop-blur-[20px]">
-        <div className="rk-container flex h-[72px] items-center gap-5">
+        <div className="rk-container relative flex h-[72px] items-center">
           <Logo />
 
-          <nav className="ml-2 hidden items-center gap-8 xl:flex">
+          <nav className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 xl:flex">
             {productNav.map((link) =>
               link.labelKey === "categories" ? (
                 <div
@@ -83,7 +83,7 @@ export function Header() {
                     />
                   </button>
                   {categoriesOpen ? (
-                    <div className="absolute left-0 top-full z-50 pt-3">
+                    <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3">
                       <div className="min-w-[220px] rounded-2xl border border-white/10 bg-[#0E1422]/98 p-2 shadow-[0_24px_60px_rgba(0,0,0,.45)] backdrop-blur-xl">
                         {categoryLinks.map((item) => (
                           <Link
@@ -126,7 +126,7 @@ export function Header() {
                 />
               </button>
               {moreOpen ? (
-                <div className="absolute left-0 top-full z-50 pt-3">
+                <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3">
                   <div className="min-w-[240px] rounded-2xl border border-white/10 bg-[#0E1422]/98 p-2 shadow-[0_24px_60px_rgba(0,0,0,.45)] backdrop-blur-xl">
                     <p className="px-3 pb-1.5 pt-2 text-[10px] font-semibold tracking-[0.14em] text-[#AEB7C5] uppercase">
                       {t("explore.title")}
@@ -166,13 +166,6 @@ export function Header() {
             </Link>
 
             <HeaderAuthActions />
-
-            <Link
-              href="/empresa/painel"
-              className="rk-btn-gold hidden h-11 items-center justify-center px-5 text-sm xl:inline-flex"
-            >
-              {t("companyPortal")}
-            </Link>
 
             <button
               type="button"
@@ -228,13 +221,6 @@ export function Header() {
             <div className="mt-4 flex flex-col gap-3 border-t border-[rgba(255,255,255,.05)] pt-4">
               <RegionSwitcher />
               <HeaderAuthActions variant="mobile" />
-              <Link
-                href="/empresa/painel"
-                className="rk-btn-gold inline-flex h-12 items-center justify-center px-5 text-sm"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {t("companyPortal")}
-              </Link>
             </div>
           </div>
         )}
