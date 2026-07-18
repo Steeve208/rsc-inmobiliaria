@@ -4,10 +4,43 @@ export type BackofficePublicListingPhoto = {
   name: string;
 };
 
+export type BackofficeBusinessHour = {
+  dayOfWeek: number;
+  openTime: string;
+  closeTime: string;
+  isClosed: boolean;
+  timezone: string;
+};
+
+export type BackofficeCompanyBranch = {
+  id: string;
+  name: string;
+  address: string | null;
+  city: string | null;
+  state: string | null;
+  country: string | null;
+  postalCode: string | null;
+  phone: string | null;
+  isPrimary: boolean;
+};
+
 export type BackofficePublicListingOrganization = {
   id: string;
   name: string;
   slug: string;
+  cnpj?: string | null;
+  logoUrl?: string | null;
+  website?: string | null;
+  description?: string | null;
+  phone?: string | null;
+  address?: string | null;
+  city?: string | null;
+  state?: string | null;
+  postalCode?: string | null;
+  whatsappNumber?: string | null;
+  whatsappUrl?: string | null;
+  primaryBranch?: BackofficeCompanyBranch | null;
+  businessHours?: BackofficeBusinessHour[];
 };
 
 export type BackofficePublicListing = {

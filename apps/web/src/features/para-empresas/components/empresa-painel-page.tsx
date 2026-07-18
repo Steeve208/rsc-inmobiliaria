@@ -1,12 +1,14 @@
 "use client";
 
-import { Building2, LayoutDashboard, Lock } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { Link, useRouter } from "@/lib/i18n/routing";
+import { Building2, LayoutDashboard } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/lib/i18n/routing";
+import { getBackofficeLoginUrl } from "@/lib/backoffice/config";
 
 export function EmpresaPainelPage() {
   const t = useTranslations("paraEmpresas.panel");
-  const router = useRouter();
+  const locale = useLocale();
+  const loginUrl = getBackofficeLoginUrl(locale);
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col items-center justify-center px-6 py-16">
@@ -16,45 +18,21 @@ export function EmpresaPainelPage() {
       <h1 className="mt-6 text-center text-2xl font-bold text-white">{t("title")}</h1>
       <p className="mt-3 text-center text-sm leading-relaxed text-white/55">{t("subtitle")}</p>
 
-      <form
-        className="mt-8 w-full space-y-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          router.push("/empresa/painel/dashboard?company=rsc-imoveis");
-        }}
-      >
-        <div>
-          <label htmlFor="email" className="mb-1.5 block text-xs font-medium text-white/50">
-            {t("email")}
-          </label>
-          <input
-            id="email"
-            type="email"
-            autoComplete="email"
-            placeholder={t("emailPlaceholder")}
-            className="h-11 w-full rounded-lg border border-white/10 bg-white/5 px-4 text-sm text-white outline-none placeholder:text-white/30 focus:border-[#d4a017]/50"
-          />
-        </div>
-        <div>
-          <label htmlFor="password" className="mb-1.5 block text-xs font-medium text-white/50">
-            {t("password")}
-          </label>
-          <input
-            id="password"
-            type="password"
-            autoComplete="current-password"
-            placeholder="••••••••"
-            className="h-11 w-full rounded-lg border border-white/10 bg-white/5 px-4 text-sm text-white outline-none placeholder:text-white/30 focus:border-[#d4a017]/50"
-          />
-        </div>
-        <button
-          type="submit"
-          className="flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#d4a017] text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
+      {loginUrl ? (
+        <a
+          href={loginUrl}
+          className="mt-8 flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#d4a017] text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
         >
-          <Lock className="size-4" />
           {t("submit")}
-        </button>
-      </form>
+        </a>
+      ) : (
+        <Link
+          href="/para-empresas"
+          className="mt-8 flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#d4a017] text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
+        >
+          {t("backToLanding")}
+        </Link>
+      )}
 
       <p className="mt-6 text-center text-sm text-white/40">
         {t("noAccount")}{" "}

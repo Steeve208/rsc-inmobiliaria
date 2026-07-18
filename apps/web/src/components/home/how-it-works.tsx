@@ -3,107 +3,75 @@
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import {
-  ChevronRight,
-  DollarSign,
-  FileText,
-  Key,
+  Handshake,
+  MapPinned,
+  MessageSquare,
   Search,
-  ShieldCheck,
+  Store,
+  Users,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const steps = [
-  {
-    key: "find",
-    icon: Search,
-    color: "border-[#3b82f6]/60 text-[#60a5fa] bg-[#3b82f6]/10",
-    numColor: "text-[#60a5fa]",
-  },
-  {
-    key: "choose",
-    icon: FileText,
-    color: "border-[#22c55e]/60 text-[#4ade80] bg-[#22c55e]/10",
-    numColor: "text-[#4ade80]",
-  },
-  {
-    key: "simulate",
-    icon: DollarSign,
-    color: "border-[#a855f7]/60 text-[#c084fc] bg-[#a855f7]/10",
-    numColor: "text-[#c084fc]",
-  },
-  {
-    key: "approve",
-    icon: ShieldCheck,
-    color: "border-[#d4a017]/60 text-[#fbbf24] bg-[#d4a017]/10",
-    numColor: "text-[#fbbf24]",
-  },
-  {
-    key: "achieve",
-    icon: Key,
-    color: "border-[#38bdf8]/60 text-[#38bdf8] bg-[#38bdf8]/10",
-    numColor: "text-[#38bdf8]",
-  },
+  { key: "search", icon: Search },
+  { key: "contact", icon: MessageSquare },
+  { key: "visit", icon: MapPinned },
+  { key: "negotiate", icon: Handshake },
+  { key: "close", icon: Users },
+  { key: "publish", icon: Store },
 ] as const;
 
 export function HowItWorks() {
   const t = useTranslations("landing.howItWorks");
 
   return (
-    <section className="px-6 py-8 lg:px-8 lg:py-10">
-      <div className="mx-auto max-w-[1440px]">
-        <h2 className="text-center text-3xl font-bold text-white sm:text-[2rem]">
-          {t("title")}
-        </h2>
+    <section className="pt-[80px]">
+      <div className="rk-container">
+        <div className="mb-4 flex flex-col items-center gap-3 text-center">
+          <div className="flex items-center gap-3">
+            <span className="h-8 w-1 rounded-full bg-[#D6A62E]" />
+            <h2 className="rk-section-title text-3xl lg:text-4xl">{t("title")}</h2>
+          </div>
+          <p className="max-w-2xl text-sm leading-relaxed text-[#8C97A8] sm:text-base">
+            {t("subtitle")}
+          </p>
+        </div>
 
-        <div className="mt-7 grid gap-4 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr_auto_1fr]">
+        <div className="relative mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
-              <div key={step.key} className="contents">
-                <motion.div
-                  className="flex items-start gap-3 rounded-xl border border-white/8 bg-[#081128]/45 p-3"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                >
-                  <div
-                    className={cn(
-                      "flex size-[52px] shrink-0 items-center justify-center rounded-xl border-2",
-                      step.color,
-                    )}
-                  >
-                    <Icon className="size-5" strokeWidth={1.5} />
-                  </div>
-                  <div className="min-w-0 pt-0.5">
-                    <h3 className="text-base font-semibold text-white">
-                      <span className={cn("mr-1.5", step.numColor)}>
-                        {index + 1}
-                      </span>
-                      {t(`steps.${step.key}.title`)}
-                    </h3>
-                    <p className="mt-1.5 text-xs leading-relaxed text-white/65">
-                      {t(`steps.${step.key}.description`)}
-                    </p>
-                  </div>
-                </motion.div>
-
+              <motion.div
+                key={step.key}
+                className="relative flex flex-col items-center text-center"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: index * 0.07 }}
+              >
                 {index < steps.length - 1 && (
                   <div
-                    className="hidden items-center justify-center lg:flex"
+                    className="pointer-events-none absolute left-[calc(50%+30px)] top-7 hidden h-px w-[calc(100%-30px)] border-t border-dashed border-[#D6A62E]/35 xl:block"
                     aria-hidden
-                  >
-                    <div className="flex items-center gap-0 text-white/30">
-                      <ChevronRight className="size-3.5" />
-                      <ChevronRight className="-ml-2 size-3.5" />
-                      <ChevronRight className="-ml-2 size-3.5" />
-                    </div>
-                  </div>
+                  />
                 )}
-              </div>
+                <div className="relative z-10 flex size-14 items-center justify-center rounded-full border border-[#D6A62E]/45 bg-[#111827] text-[#D6A62E]">
+                  <Icon className="size-5" strokeWidth={1.75} />
+                </div>
+                <p className="mt-3 text-xs font-semibold text-[#D6A62E]">{index + 1}</p>
+                <h3 className="mt-1 text-base font-semibold text-white">
+                  {t(`steps.${step.key}.title`)}
+                </h3>
+                <p className="mt-2 text-xs leading-relaxed text-[#8C97A8]">
+                  {t(`steps.${step.key}.description`)}
+                </p>
+              </motion.div>
             );
           })}
         </div>
+
+        <p className="mx-auto mt-10 max-w-3xl rounded-[16px] border border-[rgba(255,255,255,.08)] bg-[#0E1422] px-5 py-4 text-center text-sm leading-relaxed text-[#C8D0DD]">
+          {t("disclaimer")}
+        </p>
       </div>
     </section>
   );

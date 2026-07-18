@@ -4,6 +4,11 @@ import { db } from "@/lib/db";
 import * as schema from "@/lib/db/schema";
 import { financingRequest } from "@/lib/db/schema";
 import type { ListingCategory } from "@/lib/leads/types";
+import {
+  syncFinancingStatusToBackoffice,
+  syncFinancingToBackoffice,
+} from "./financing-sync";
+import { pullFinancingOrdersFromBackoffice } from "./backoffice-orders";
 import type {
   CreateFinancingRequestInput,
   FinancingRequest,
@@ -23,13 +28,14 @@ function toNumber(value: string | number) {
   return typeof value === "number" ? value : Number(value);
 }
 
-function mapRow(row: Row): FinancingRequest {
+function mapRow(row: Row, companyId?: string): FinancingRequest {
   return {
     id: row.id,
     buyerId: row.buyerId,
     buyerName: row.buyerName ?? undefined,
     buyerEmail: row.buyerEmail ?? undefined,
     buyerPhone: row.buyerPhone ?? undefined,
+    companyId,
     listingId: row.listingId ?? undefined,
     listingTitle: row.listingTitle ?? undefined,
     listingCategory: row.listingCategory
@@ -75,7 +81,9 @@ export async function createFinancingRequest(
     })
     .returning();
 
-  return mapRow(row);
+  const created = mapRow(row, input.companyId);
+  await syncFinancingToBackoffice(created);
+  return created;
 }
 
 export async function listFinancingRequests(filters: {
@@ -92,12 +100,22 @@ export async function listFinancingRequests(filters: {
     .where(conditions.length ? and(...conditions) : undefined)
     .orderBy(desc(financingRequest.createdAt));
 
-  return rows.map(mapRow);
+  await pullFinancingOrdersFromBackoffice(rows.map((row) => row.id));
+
+  const refreshed = await db
+    .select()
+    .from(financingRequest)
+    .where(conditions.length ? and(...conditions) : undefined)
+    .orderBy(desc(financingRequest.createdAt));
+
+  return refreshed.map((row) => mapRow(row));
 }
 
 export async function getFinancingRequest(
   id: string,
 ): Promise<FinancingRequest | undefined> {
+  await pullFinancingOrdersFromBackoffice([id]);
+
   const [row] = await db
     .select()
     .from(financingRequest)
@@ -116,7 +134,11 @@ export async function updateFinancingRequestStatus(
     .where(eq(financingRequest.id, input.id))
     .returning();
 
-  return row ? mapRow(row) : undefined;
+  if (!row) return undefined;
+
+  const updated = mapRow(row);
+  await syncFinancingStatusToBackoffice(updated.id, updated.status);
+  return updated;
 }
 
 export async function reassignFinancingRequestsBuyerId(

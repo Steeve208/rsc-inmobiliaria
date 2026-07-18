@@ -109,10 +109,31 @@ export async function syncVisitToBackoffice(visit: ScheduledVisit): Promise<void
         buyer_name = excluded.buyer_name,
         buyer_phone = excluded.buyer_phone,
         buyer_email = excluded.buyer_email,
-        market_status = excluded.market_status,
-        company_message = excluded.company_message,
-        proposed_date = excluded.proposed_date,
-        proposed_time = excluded.proposed_time,
+        -- Company orders (confirm / cancel / reschedule) win over stale buyer pending
+        market_status = case
+          when appointments.market_status in ('confirmed', 'cancelled', 'reschedule_proposed')
+            and excluded.market_status = 'pending'
+          then appointments.market_status
+          else excluded.market_status
+        end,
+        company_message = case
+          when appointments.market_status in ('confirmed', 'cancelled', 'reschedule_proposed')
+            and excluded.market_status = 'pending'
+          then appointments.company_message
+          else excluded.company_message
+        end,
+        proposed_date = case
+          when appointments.market_status = 'reschedule_proposed'
+            and excluded.market_status = 'pending'
+          then appointments.proposed_date
+          else excluded.proposed_date
+        end,
+        proposed_time = case
+          when appointments.market_status = 'reschedule_proposed'
+            and excluded.market_status = 'pending'
+          then appointments.proposed_time
+          else excluded.proposed_time
+        end,
         updated_at = now()
     `);
   } catch (error) {

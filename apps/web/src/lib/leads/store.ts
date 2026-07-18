@@ -11,6 +11,7 @@ import {
   syncThreadOpenToBackoffice,
 } from "./backoffice-sync";
 import { syncVisitToBackoffice } from "./visit-sync";
+import { pullVisitOrdersFromBackoffice } from "./backoffice-orders";
 import { syncLeadFromChatThread, syncLeadFromVisit } from "./lead-sync";
 import { recordBackofficeListingEvent } from "@/lib/backoffice/client";
 import { isListingUuid, runOptionalQuery } from "./visit-db";
@@ -121,6 +122,33 @@ async function loadMessages(threadId: string): Promise<MessageRow[]> {
 export async function getCompanyConfig(
   companyId: string,
 ): Promise<CompanyLeadConfig | undefined> {
+  const fromOrg = await runOptionalQuery(async () => {
+    const rows = await db.execute<{
+      name: string;
+      whatsapp: string | null;
+      whatsapp_number: string | null;
+    }>(sql`
+      select
+        o.name,
+        nullif(o.social_links->>'whatsapp', '') as whatsapp,
+        nullif(o.social_links->>'whatsappNumber', '') as whatsapp_number
+      from public.organizations o
+      where o.slug = ${companyId}
+      limit 1
+    `);
+    const row = rows[0];
+    if (!row) return undefined;
+    const whatsappNumber = (row.whatsapp_number || row.whatsapp || "").replace(/\D/g, "");
+    if (!whatsappNumber) return undefined;
+    return {
+      companyId,
+      companyName: row.name,
+      whatsappNumber,
+    } satisfies CompanyLeadConfig;
+  }, undefined);
+
+  if (fromOrg) return fromOrg;
+
   const [row] = await db
     .select()
     .from(companyLeadConfig)
@@ -482,6 +510,8 @@ export async function updateVisit(
 }
 
 export async function getVisitById(visitId: string): Promise<ScheduledVisit | undefined> {
+  await pullVisitOrdersFromBackoffice([visitId]);
+
   const [row] = await db
     .select()
     .from(scheduledVisit)
@@ -506,7 +536,15 @@ export async function listVisits(filters: {
     .where(conditions.length ? and(...conditions) : undefined)
     .orderBy(desc(scheduledVisit.createdAt));
 
-  return rows.map(mapVisit);
+  await pullVisitOrdersFromBackoffice(rows.map((row) => row.id));
+
+  const refreshed = await db
+    .select()
+    .from(scheduledVisit)
+    .where(conditions.length ? and(...conditions) : undefined)
+    .orderBy(desc(scheduledVisit.createdAt));
+
+  return refreshed.map(mapVisit);
 }
 
 export { reassignVisitsBuyerId } from "@/lib/buyer/sync-guest-activity";

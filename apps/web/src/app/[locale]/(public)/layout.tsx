@@ -8,7 +8,7 @@ export default function PublicLayout({
   return (
     <>
       <Header />
-      <main className="flex-1 bg-[#000810]">{children}</main>
+      <main className="flex-1 bg-[#070B14]">{children}</main>
     </>
   );
 }

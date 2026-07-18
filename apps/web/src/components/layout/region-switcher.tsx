@@ -29,11 +29,11 @@ export function RegionSwitcher() {
         render={
           <button
             type="button"
-            className="flex items-center gap-1.5 rounded-md px-2 py-1.5 text-sm text-white/90 transition-colors hover:bg-white/5 hover:text-white"
+            className="inline-flex h-9 items-center gap-1.5 rounded-[14px] px-2 text-sm font-medium text-[#C8D0DD] transition-colors duration-300 hover:bg-white/5 hover:text-[#D6A62E]"
             aria-label={tNav("changeRegion")}
           >
-            <Globe className="size-4" strokeWidth={1.5} />
-            <span>
+            <Globe className="size-4" strokeWidth={1.75} />
+            <span className="max-w-[140px] truncate">
               {market.flag} {t(`names.${marketId}`)}
             </span>
             <ChevronDown className="size-3.5 opacity-70" />

@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import { desc, eq } from "drizzle-orm";
+import { headers } from "next/headers";
 import { db } from "@/lib/db";
 import { company, companyLeadConfig } from "@/lib/db/schema";
 import { companyRegistrationSchema } from "@/lib/validations/company";
 import { slugifyCompanyId } from "@/lib/leads/utils";
 import { getMarketOrDefault, isMarketId } from "@/lib/markets/config";
+import { auth } from "@/lib/auth";
 
 export async function GET() {
   try {
@@ -70,6 +72,9 @@ export async function POST(request: Request) {
     );
   }
 
+  const session = await auth.api.getSession({ headers: await headers() });
+  const ownerUserId = session?.user?.id ?? null;
+
   const data = parsed.data;
   const id = await uniqueCompanyId(slugifyCompanyId(data.company));
   const whatsappNumber = data.phone.replace(/\D/g, "");
@@ -86,10 +91,10 @@ export async function POST(request: Request) {
       whatsappNumber,
       marketId: data.marketId ?? "br",
       verified: false,
+      ownerUserId,
     })
     .returning({ id: company.id, name: company.name });
 
-  // Sembrar la configuración de WhatsApp para que el botón de leads funcione.
   await db
     .insert(companyLeadConfig)
     .values({
@@ -100,7 +105,7 @@ export async function POST(request: Request) {
     .onConflictDoNothing({ target: companyLeadConfig.companyId });
 
   return NextResponse.json(
-    { id: created.id, name: created.name, status: "pending" },
+    { id: created.id, name: created.name, status: "pending", ownerUserId },
     { status: 201 },
   );
 }

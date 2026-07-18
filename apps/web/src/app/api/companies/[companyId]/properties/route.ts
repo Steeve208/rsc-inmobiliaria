@@ -7,6 +7,7 @@ import { createPropertySchema } from "@/lib/validations/property";
 import { db } from "@/lib/db";
 import { company } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { requireCompanyAccess } from "@/lib/auth/authorize";
 
 type RouteParams = { params: Promise<{ companyId: string }> };
 
@@ -22,6 +23,9 @@ async function companyExists(companyId: string) {
 export async function GET(_request: Request, { params }: RouteParams) {
   const { companyId } = await params;
 
+  const access = await requireCompanyAccess(companyId);
+  if (!access.ok) return access.response;
+
   if (!(await companyExists(companyId))) {
     return NextResponse.json({ error: "company_not_found" }, { status: 404 });
   }
@@ -36,6 +40,9 @@ export async function GET(_request: Request, { params }: RouteParams) {
 
 export async function POST(request: Request, { params }: RouteParams) {
   const { companyId } = await params;
+
+  const access = await requireCompanyAccess(companyId);
+  if (!access.ok) return access.response;
 
   if (!(await companyExists(companyId))) {
     return NextResponse.json({ error: "company_not_found" }, { status: 404 });

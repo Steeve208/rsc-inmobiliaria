@@ -10,6 +10,7 @@ import {
 } from "@/lib/listings/property-writes";
 import { uploadListingMedia } from "@/lib/storage/listing-media";
 import { toVideoEmbedUrl } from "@/lib/storage/listing-media-utils";
+import { requireCompanyAccess } from "@/lib/auth/authorize";
 
 type RouteParams = {
   params: Promise<{ companyId: string; propertyId: string }>;
@@ -17,6 +18,9 @@ type RouteParams = {
 
 export async function POST(request: Request, { params }: RouteParams) {
   const { companyId, propertyId } = await params;
+
+  const access = await requireCompanyAccess(companyId);
+  if (!access.ok) return access.response;
 
   const property = await getCompanyProperty(companyId, propertyId);
   if (!property) {
@@ -102,6 +106,10 @@ export async function POST(request: Request, { params }: RouteParams) {
 
 export async function DELETE(request: Request, { params }: RouteParams) {
   const { companyId, propertyId } = await params;
+
+  const access = await requireCompanyAccess(companyId);
+  if (!access.ok) return access.response;
+
   const { searchParams } = new URL(request.url);
   const imageId = searchParams.get("imageId");
   const removeFloorPlan = searchParams.get("floorPlan") === "1";

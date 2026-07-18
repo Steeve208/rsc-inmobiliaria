@@ -2,10 +2,16 @@ import { NextResponse } from "next/server";
 import {
   createVisit,
   getListingVisitAvailability,
+  getVisitById,
   listVisits,
   updateVisit,
 } from "@/lib/leads/store";
 import type { CreateVisitInput, UpdateVisitInput } from "@/lib/leads/types";
+import {
+  isInternalMarketRequest,
+  requireBuyerAccess,
+  requireCompanyAccess,
+} from "@/lib/auth/authorize";
 
 export async function GET(request: Request) {
   try {
@@ -20,11 +26,19 @@ export async function GET(request: Request) {
       );
     }
 
-    if (!buyerId && !companyId) {
-      return NextResponse.json({ error: "buyerId or companyId required" }, { status: 400 });
+    if (companyId) {
+      const access = await requireCompanyAccess(companyId);
+      if (!access.ok) return access.response;
+      return NextResponse.json(await listVisits({ companyId }));
     }
 
-    return NextResponse.json(await listVisits({ buyerId, companyId }));
+    if (buyerId) {
+      const access = await requireBuyerAccess(buyerId);
+      if (!access.ok) return access.response;
+      return NextResponse.json(await listVisits({ buyerId }));
+    }
+
+    return NextResponse.json({ error: "buyerId or companyId required" }, { status: 400 });
   } catch (error) {
     console.error("[visits] list failed", error);
     return NextResponse.json({ error: "VISITS_UNAVAILABLE" }, { status: 503 });
@@ -48,7 +62,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const visit = await createVisit(body);
+    const access = await requireBuyerAccess(body.buyerId);
+    if (!access.ok) return access.response;
+
+    const visit = await createVisit({ ...body, buyerId: access.buyerId });
     return NextResponse.json(visit, { status: 201 });
   } catch (error) {
     if (error instanceof Error && error.message === "DATE_NOT_AVAILABLE") {
@@ -70,12 +87,42 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: "visitId required" }, { status: 400 });
     }
 
-    const visit = await updateVisit(body);
-    if (!visit) {
+    if (isInternalMarketRequest(request)) {
+      const visit = await updateVisit(body);
+      if (!visit) {
+        return NextResponse.json({ error: "Visit not found" }, { status: 404 });
+      }
+      return NextResponse.json(visit);
+    }
+
+    const existing = await getVisitById(body.visitId);
+    if (!existing) {
       return NextResponse.json({ error: "Visit not found" }, { status: 404 });
     }
 
-    return NextResponse.json(visit);
+    const companyAccess = await requireCompanyAccess(existing.companyId);
+    if (companyAccess.ok) {
+      const visit = await updateVisit(body);
+      return NextResponse.json(visit);
+    }
+
+    const buyerAccess = await requireBuyerAccess(existing.buyerId);
+    if (buyerAccess.ok) {
+      const visit = await updateVisit(body);
+      if (!visit) {
+        return NextResponse.json({ error: "Visit not found" }, { status: 404 });
+      }
+      return NextResponse.json(visit);
+    }
+
+    if (
+      companyAccess.response.status === 401 &&
+      buyerAccess.response.status === 401
+    ) {
+      return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+    }
+
+    return NextResponse.json({ error: "forbidden" }, { status: 403 });
   } catch (error) {
     if (error instanceof Error && error.message === "TIME_NOT_AVAILABLE") {
       return NextResponse.json({ error: "TIME_NOT_AVAILABLE" }, { status: 409 });

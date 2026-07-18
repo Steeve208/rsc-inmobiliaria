@@ -19,7 +19,7 @@ export function getAppUrl() {
     process.env.BETTER_AUTH_URL ??
     process.env.NEXT_PUBLIC_APP_URL ??
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined) ??
-    "http://localhost:3000"
+    "http://localhost:3001"
   );
 }
 
@@ -130,6 +130,27 @@ export function getProductionEnvWarnings(options?: {
       feature: "cron",
       message:
         "Saved-search alert cron is disabled until CRON_SECRET is set and Vercel Cron is configured.",
+    });
+  }
+
+  if (!isSet(process.env.MARKET_INTERNAL_API_SECRET)) {
+    warnings.push({
+      variable: "MARKET_INTERNAL_API_SECRET",
+      feature: "backoffice-sync",
+      message:
+        "Backoffice → market company chat replies require MARKET_INTERNAL_API_SECRET (same value in both apps).",
+    });
+  }
+
+  if (
+    !isSet(process.env.NEXT_PUBLIC_BACKOFFICE_URL) &&
+    !isSet(process.env.NEXT_PUBLIC_API_URL)
+  ) {
+    warnings.push({
+      variable: "NEXT_PUBLIC_BACKOFFICE_URL",
+      feature: "backoffice-api",
+      message:
+        "Marketplace listings/registration will fall back to the default backoffice URL. Set NEXT_PUBLIC_BACKOFFICE_URL explicitly.",
     });
   }
 

@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "RSC — Ecosistema Inmobiliario y Automotriz",
-    "description": "Todo lo que necesitas para comprar, alquilar o vender inmuebles y vehículos con crédito inteligente y 100% digital."
+    "title": "REESKOVA — Marketplace inmobiliario",
+    "description": "Publica y encuentra ofertas de inmuebles y productos. RSC conecta clientes y empresas; la negociación y el papeleo son entre las partes."
   },
   "nav": {
     "properties": "Inmuebles",
@@ -26,7 +26,13 @@
       "companies": "Empresas",
       "companiesPlaceholder": "Buscar empresas...",
       "submit": "Buscar"
-    }
+    },
+    "buy": "Comprar",
+    "rent": "Alquilar",
+    "sell": "Vender",
+    "invest": "Invertir",
+    "more": "Más",
+    "publishListing": "Publicar anuncio"
   },
   "favorites": {
     "title": "Mis favoritos",
@@ -37,6 +43,24 @@
     "guestHint": "Inicia sesión para sincronizar tus favoritos en todos tus dispositivos.",
     "guestSyncBanner": "Estos favoritos se guardan solo en este dispositivo.",
     "syncedHint": "Sincronizado con tu cuenta — disponible en todos tus dispositivos."
+  },
+  "companyPresence": {
+    "title": "Empresa",
+    "cnpj": "CNPJ",
+    "address": "Dirección",
+    "phone": "Teléfono",
+    "hours": "Horarios",
+    "closed": "Cerrado",
+    "noDetails": "Esta empresa aún no publicó sede ni horarios.",
+    "days": {
+      "sunday": "Domingo",
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado"
+    }
   },
   "auth": {
     "continueWithGoogle": "Continuar con Google",
@@ -155,20 +179,19 @@
   },
   "landing": {
     "hero": {
-      "titleStart": "Todo lo que necesitas para",
-      "titleHighlight": "comprar, alquilar o vender",
-      "titleEnd": "está en RSC.",
-      "subtitle": "El mayor ecosistema inmobiliario y automotriz del mundo, con crédito inteligente y todo 100% digital."
+      "titleStart": "Encuentra el próximo capítulo de tu",
+      "titleHighlight": "historia.",
+      "titleEnd": "",
+      "subtitle": "Marketplace para inmobiliarias y concesionarias. RSC publica ofertas y conecta: la negociación y el papeleo son entre cliente y empresa.",
+      "ctaExplore": "Explorar ofertas",
+      "ctaPublish": "Publicar anuncio"
     },
     "search": {
-      "tabs": {
-        "properties": "Inmuebles",
-        "vehicles": "Vehículos",
-        "launches": "Lanzamientos"
-      },
-      "locationPlaceholder": "¿Dónde estás buscando?",
-      "queryPlaceholder": "¿Qué estás buscando?",
-      "submit": "Buscar",
+      "locationPlaceholder": "Ciudad, barrio o país",
+      "propertyType": "Tipo de propiedad",
+      "priceRange": "Rango de precio",
+      "bedrooms": "Habitaciones",
+      "submit": "Buscar propiedades",
       "filters": {
         "houses": "Casas",
         "apartments": "Apartamentos",
@@ -177,7 +200,38 @@
         "cars": "Coches",
         "motorcycles": "Motos",
         "trucks": "Camiones"
-      }
+      },
+      "priceOptions": {
+        "0": "Hasta USD 200k",
+        "1": "USD 200k – 500k",
+        "2": "USD 500k – 1M",
+        "3": "Más de USD 1M"
+      },
+      "tabs": {
+        "properties": "Inmuebles",
+        "vehicles": "Vehículos",
+        "launches": "Lanzamientos"
+      },
+      "queryPlaceholder": "¿Qué estás buscando?",
+      "labels": {
+        "location": "Ubicación",
+        "type": "Tipo",
+        "price": "Precio",
+        "bedrooms": "Habitaciones",
+        "condition": "Estado"
+      },
+      "priceUpTo": "Hasta",
+      "priceFrom": "Desde",
+      "results": "disponibles",
+      "resultsMobile": "{count} propiedades disponibles",
+      "loadingResults": "Cargando…",
+      "searching": "Buscando…",
+      "vehicleType": "Tipo de vehículo",
+      "submitVehicles": "Buscar vehículos",
+      "conditionAny": "Nuevo o usado",
+      "conditionNew": "Nuevo",
+      "conditionUsed": "Usado",
+      "resultsMobileVehicles": "{count} vehículos disponibles"
     },
     "credit": {
       "title": "Simula tu crédito",
@@ -188,7 +242,111 @@
       },
       "cta": "Simular ahora"
     },
+    "stats": {
+      "marketplace": {
+        "value": "Marketplace",
+        "label": "Publicación de ofertas"
+      },
+      "direct": {
+        "value": "Directo",
+        "label": "Cliente ↔ Empresa"
+      },
+      "noPaper": {
+        "value": "Sin gestoría",
+        "label": "RSC no hace papeleo"
+      },
+      "publish": {
+        "value": "Publica",
+        "label": "Ofertas y productos"
+      },
+      "companies": {
+        "value": "Empresas",
+        "label": "Anuncian aquí"
+      },
+      "markets": {
+        "value": "Regional",
+        "label": "Cobertura LATAM+"
+      },
+      "disclaimer": "Reeskova / RSC es una plataforma web de publicación y conexión. No intermediamos contratos, pagos ni trámites legales.",
+      "properties": {
+        "label": "Propiedades"
+      },
+      "countries": {
+        "label": "Países"
+      },
+      "users": {
+        "label": "Usuarios"
+      },
+      "agencies": {
+        "label": "Inmobiliarias"
+      },
+      "builders": {
+        "label": "Constructoras"
+      },
+      "volume": {
+        "label": "En transacciones"
+      },
+      "dealerships": {
+        "label": "Concesionarios asociados"
+      },
+      "vehicles": {
+        "label": "Vehículos disponibles"
+      },
+      "digital": {
+        "label": "Proceso digital"
+      },
+      "speed": {
+        "label": "Respuesta ágil"
+      },
+      "security": {
+        "label": "Protección de fondos"
+      },
+      "sign": {
+        "label": "Firma digital"
+      },
+      "credit": {
+        "label": "Financiación integrada"
+      }
+    },
+    "featured": {
+      "title": "Propiedades destacadas",
+      "viewAll": "Ver todas",
+      "badges": {
+        "premium": "Premium",
+        "new": "Nuevo"
+      }
+    },
     "services": {
+      "buy": {
+        "title": "Comprar",
+        "description": "Encuentra casas, apartamentos y terrenos en todo el mundo.",
+        "link": "Explorar"
+      },
+      "rent": {
+        "title": "Alquilar",
+        "description": "Opciones residenciales y comerciales listas para mudarte.",
+        "link": "Explorar"
+      },
+      "sell": {
+        "title": "Vender",
+        "description": "Publica inmuebles o vehículos y llega a compradores calificados.",
+        "link": "Publicar"
+      },
+      "invest": {
+        "title": "Invertir",
+        "description": "Descubre proyectos publicados por empresas. La decisión y los trámites son contigo y el anunciante.",
+        "link": "Explorar"
+      },
+      "financing": {
+        "title": "Financiación",
+        "description": "Explora anuncios con opciones de crédito ofrecidas por las empresas. El acuerdo es entre tú y ellas.",
+        "link": "Ver opciones"
+      },
+      "companies": {
+        "title": "Empresas",
+        "description": "Soluciones para inmobiliarias, constructoras y concesionarias.",
+        "link": "Saber más"
+      },
       "properties": {
         "title": "Inmuebles",
         "description": "Encuentra casas, apartamentos y terrenos en todo el país.",
@@ -196,70 +354,191 @@
       },
       "vehicles": {
         "title": "Vehículos",
-        "description": "Coches, motos, camiones y mucho más.",
+        "description": "Coches, SUVs, motos y más publicados por concesionarias.",
         "link": "Ver vehículos"
-      },
-      "financing": {
-        "title": "Financiación",
-        "description": "Simula y compara las mejores opciones de crédito.",
-        "link": "Simular ahora"
       },
       "insurance": {
         "title": "Seguros",
         "description": "Protección completa para ti, tu familia y tus bienes.",
         "link": "Ver seguros"
-      },
-      "companies": {
-        "title": "Para Empresas",
-        "description": "Soluciones completas para inmobiliarias y concesionarios.",
-        "link": "Saber más"
       }
     },
     "howItWorks": {
-      "title": "¿Cómo funciona RSC?",
+      "title": "¿Cómo funciona?",
+      "subtitle": "RSC solo publica ofertas y conecta. Todo lo demás lo resuelves directamente con la empresa.",
+      "disclaimer": "Importante: RSC no hace papeleo, no firma contratos, no custodia dinero ni cierra operaciones. La negociación, visita, documentación y entrega son exclusivamente entre cliente y empresa.",
       "steps": {
+        "search": {
+          "title": "Busca",
+          "description": "Explora inmuebles y vehículos publicados por empresas en el marketplace."
+        },
+        "contact": {
+          "title": "Contacta",
+          "description": "Escribe o solicita contacto con la empresa anunciante desde la plataforma."
+        },
+        "visit": {
+          "title": "Visita",
+          "description": "Coordina la visita directamente con la empresa. RSC no organiza trámites."
+        },
+        "negotiate": {
+          "title": "Negocia",
+          "description": "Acuerda precio y condiciones entre tú y la empresa, sin intermediación de RSC."
+        },
+        "close": {
+          "title": "Cierra",
+          "description": "Contratos, pagos y papeleo los gestionan cliente y empresa por su cuenta."
+        },
+        "publish": {
+          "title": "Publica",
+          "description": "Si eres empresa, publica tus ofertas y productos para llegar a más compradores."
+        },
         "find": {
           "title": "Encuentra",
-          "description": "Busca inmuebles o vehículos en tu región o en todo el país."
+          "description": "Busca inmuebles o vehículos en tu región."
         },
         "choose": {
           "title": "Elige",
-          "description": "Selecciona la opción ideal con toda la información."
+          "description": "Selecciona la opción ideal."
         },
         "simulate": {
           "title": "Simula",
-          "description": "Simula tu crédito y ve las mejores condiciones de financiación."
+          "description": "Consulta opciones publicadas por empresas."
         },
         "approve": {
-          "title": "Aprueba",
-          "description": "Envía tus documentos y recibe aprobación rápida y segura."
+          "title": "Contacta",
+          "description": "Habla directamente con la empresa."
         },
         "achieve": {
-          "title": "Realiza",
-          "description": "Firma digitalmente y cumple tu sueño con RSC."
+          "title": "Acuerda",
+          "description": "Cierra el trato con la empresa."
+        },
+        "escrow": {
+          "title": "Contacto",
+          "description": "La operación la cierran las partes."
+        },
+        "sign": {
+          "title": "Contrato",
+          "description": "El papeleo es entre cliente y empresa."
+        },
+        "deliver": {
+          "title": "Entrega",
+          "description": "La entrega la gestiona la empresa."
         }
       }
     },
-    "stats": {
-      "agencies": {
-        "value": "+25.000",
-        "label": "Inmobiliarias asociadas"
-      },
-      "dealerships": {
-        "value": "+15.000",
-        "label": "Concesionarios asociados"
-      },
-      "users": {
-        "value": "+2 millones",
-        "label": "Usuarios activos"
-      },
-      "properties": {
-        "value": "+5 millones",
-        "label": "Inmuebles disponibles"
-      },
-      "vehicles": {
-        "value": "+500 mil",
-        "label": "Vehículos disponibles"
+    "investment": {
+      "title": "Marketplace de inversión",
+      "yield": "Rentabilidad anual",
+      "minInvest": "Inversión mínima",
+      "cta": "Invertir ahora",
+      "status": {
+        "funding": "Financiando",
+        "open": "Abierto"
+      }
+    },
+    "ai": {
+      "badge": "Reeskova AI (BETA)",
+      "title": "Describe la propiedad que buscas",
+      "subtitle": "Nuestra IA entiende tu intención y encuentra coincidencias relevantes.",
+      "placeholder": "Ej: Quiero una casa frente al mar por menos de 300 mil dólares.",
+      "cta": "Buscar con IA"
+    },
+    "testimonials": {
+      "title": "Lo que dicen nuestros usuarios"
+    },
+    "partners": {
+      "title": "Aliados de confianza"
+    },
+    "footer": {
+      "tagline": "Marketplace para publicar ofertas de inmuebles y productos. RSC conecta clientes y empresas; no gestiona papeleo ni transacciones.",
+      "rights": "Todos los derechos reservados.",
+      "columns": {
+        "buy": {
+          "title": "Comprar",
+          "links": {
+            "houses": "Casas",
+            "apartments": "Apartamentos",
+            "land": "Terrenos",
+            "commercial": "Comerciales",
+            "launches": "Nuevos proyectos"
+          }
+        },
+        "sell": {
+          "title": "Vender",
+          "links": {
+            "publish": "Publicar inmueble",
+            "plans": "Planes para vender",
+            "guide": "Guía de venta",
+            "valuation": "Valoración gratuita"
+          }
+        },
+        "rent": {
+          "title": "Alquilar",
+          "links": {
+            "residential": "Alquiler residencial",
+            "commercial": "Alquiler comercial",
+            "seasonal": "Temporadas",
+            "students": "Estudiantes"
+          }
+        },
+        "companies": {
+          "title": "Empresas",
+          "links": {
+            "agencies": "Para inmobiliarias",
+            "builders": "Para constructoras",
+            "api": "API",
+            "advertise": "Anunciar empresa"
+          }
+        },
+        "brand": {
+          "title": "Reeskova",
+          "links": {
+            "about": "Sobre nosotros",
+            "careers": "Carreras",
+            "press": "Prensa",
+            "blog": "Blog"
+          }
+        },
+        "help": {
+          "title": "Ayuda",
+          "links": {
+            "center": "Centro de ayuda",
+            "contact": "Contacto",
+            "terms": "Términos",
+            "privacy": "Privacidad"
+          }
+        }
+      }
+    },
+    "partnerSpotlight": {
+      "eyebrow": "Impulsado por RSC Group",
+      "badge": "RSC Group",
+      "ctaSecondary": "Para empresas",
+      "ctaExplore": "Explorar marketplace",
+      "ctaCredit": "Ver anuncios",
+      "ctaBusiness": "Publicar ofertas",
+      "ctaInvest": "Ver proyectos",
+      "items": {
+        "ecosystem": {
+          "brand": "RSC Group",
+          "title": "Un marketplace, no una gestoría",
+          "description": "Reeskova publica ofertas y conecta personas con empresas. No hacemos trámites: la negociación y el papeleo son entre las partes."
+        },
+        "credit": {
+          "brand": "RSC Marketplace",
+          "title": "Ofertas a la vista de todos",
+          "description": "Encuentra inmuebles y productos publicados por empresas. Si hay financiación, la ofrece el anunciante; RSC solo muestra la oferta."
+        },
+        "business": {
+          "brand": "RSC Empresas",
+          "title": "Publica y recibe contactos",
+          "description": "Las empresas anuncian aquí y reciben leads. El cierre comercial y la documentación los gestionan ellas con el cliente."
+        },
+        "invest": {
+          "brand": "RSC Conexión",
+          "title": "Tú decides con la empresa",
+          "description": "Explora proyectos publicados y habla directo con quien anuncia. RSC no intermedia contratos ni pagos."
+        }
       }
     }
   },
@@ -1359,6 +1638,21 @@
         "weekly": "Semanal"
       },
       "lastAlertAt": "Última alerta: {date}"
+    },
+    "reviewTab": "Mi opinión",
+    "review": {
+      "title": "Evalúa Reeskova",
+      "subtitle": "Tu opinión aparece en la página principal cuando la publiques. RSC solo publica y conecta; no gestiona papeleo.",
+      "rating": "Tu calificación",
+      "comment": "Tu comentario",
+      "commentPlaceholder": "Cuéntanos cómo fue tu experiencia con el marketplace…",
+      "location": "Ciudad (opcional)",
+      "locationPlaceholder": "Ej: São Paulo, Brasil",
+      "submit": "Publicar evaluación",
+      "saving": "Guardando…",
+      "saved": "¡Listo! Tu evaluación ya puede aparecer en la home.",
+      "loading": "Cargando…",
+      "error": "No se pudo guardar. Inténtalo de nuevo."
     }
   },
   "financing": {

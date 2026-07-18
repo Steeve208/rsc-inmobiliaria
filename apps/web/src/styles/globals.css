@@ -7,9 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-manrope), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-playfair), ui-serif, Georgia, serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -131,6 +131,98 @@
   }
 }
 
+
+/* —— Reeskova Design System v1.0 —— */
+:root {
+  --rk-bg: #070B14;
+  --rk-bg-secondary: #0E1422;
+  --rk-card: #111827;
+  --rk-card-hover: #161F31;
+  --rk-card-featured: #101725;
+  --rk-border: rgba(255, 255, 255, 0.08);
+  --rk-separator: rgba(255, 255, 255, 0.05);
+  --rk-text: #FFFFFF;
+  --rk-text-secondary: #C8D0DD;
+  --rk-text-muted: #8C97A8;
+  --rk-gold: #D6A62E;
+  --rk-gold-hover: #E7BA4A;
+  --rk-gold-gradient: linear-gradient(180deg, #E0B848, #C9961A);
+  --rk-blue: #2B6EFF;
+  --rk-ai: #5B46FF;
+  --rk-success: #34D399;
+  --rk-error: #EF4444;
+  --rk-footer: #060B14;
+  --rk-nav-bg: rgba(6, 8, 15, 0.9);
+  --font-display: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-body: var(--font-manrope), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+
+@layer components {
+  .rk-shell {
+    @apply mx-auto w-full max-w-[1600px];
+  }
+
+  .rk-container {
+    @apply mx-auto w-full max-w-[1440px] px-5 md:px-8 xl:px-12;
+  }
+
+  .rk-display {
+    font-family: var(--font-display);
+  }
+
+  .rk-body {
+    font-family: var(--font-body);
+  }
+
+  .rk-btn-gold {
+    background: var(--rk-gold-gradient);
+    color: #070B14;
+    border-radius: 14px;
+    font-weight: 600;
+    transition: transform 300ms, filter 300ms, background 300ms;
+  }
+
+  .rk-btn-gold:hover {
+    background: linear-gradient(180deg, #E7BA4A, #D6A62E);
+    transform: scale(1.03);
+  }
+
+  .rk-btn-ghost {
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+    background: transparent;
+    border-radius: 14px;
+    font-weight: 600;
+    transition: transform 300ms, background 300ms, border-color 300ms;
+  }
+
+  .rk-btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: scale(1.03);
+  }
+
+  .rk-card {
+    background: var(--rk-card);
+    border: 1px solid var(--rk-border);
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    transition: transform 300ms, box-shadow 300ms, background 300ms, border-color 300ms;
+  }
+
+  .rk-card:hover {
+    background: var(--rk-card-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+  }
+
+  .rk-section-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -140,5 +232,36 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+/* Partners logo marquee */
+@keyframes rk-partners-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.rk-partners-track {
+  animation: rk-partners-scroll 38s linear infinite;
+  will-change: transform;
+}
+
+.rk-partners-marquee:hover .rk-partners-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rk-partners-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100% !important;
+    max-width: 1440px;
+    margin-inline: auto;
+    transform: none;
   }
 }

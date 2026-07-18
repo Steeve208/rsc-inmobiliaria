@@ -79,6 +79,7 @@ export type DealershipAgent = {
 
 export type VehicleDetail = VehicleListing & {
   companyId: string;
+  companyLogoUrl?: string;
   whatsappNumber: string;
   images: string[];
   videoUrl?: string;
@@ -94,6 +95,7 @@ export type VehicleDetail = VehicleListing & {
   equipment: string[];
   specs: Record<string, string>;
   agent: DealershipAgent;
+  companyInfo: import("@/features/imoveis/types").CompanyPublicInfo;
   dealershipRating: number;
   dealershipYears: number;
   dealershipActive: number;

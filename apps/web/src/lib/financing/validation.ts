@@ -5,6 +5,7 @@ export const createFinancingRequestSchema = z.object({
   buyerName: z.string().trim().min(2).max(120).optional(),
   buyerEmail: z.string().trim().email().optional(),
   buyerPhone: z.string().trim().min(8).max(30).optional(),
+  companyId: z.string().trim().min(1).optional(),
   listingId: z.string().trim().min(1).optional(),
   listingTitle: z.string().trim().min(1).max(300).optional(),
   listingCategory: z.enum(["properties", "vehicles"]).optional(),

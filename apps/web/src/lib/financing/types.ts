@@ -12,6 +12,7 @@ export type FinancingRequest = {
   buyerName?: string;
   buyerEmail?: string;
   buyerPhone?: string;
+  companyId?: string;
   listingId?: string;
   listingTitle?: string;
   listingCategory?: ListingCategory;
@@ -33,6 +34,7 @@ export type CreateFinancingRequestInput = {
   buyerName?: string;
   buyerEmail?: string;
   buyerPhone?: string;
+  companyId?: string;
   listingId?: string;
   listingTitle?: string;
   listingCategory?: ListingCategory;

@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "dev:clean": "node scripts/kill-next.mjs && node scripts/clean-next.mjs && next dev",
+    "dev": "next dev -p 3001",
+    "dev:clean": "node scripts/kill-next.mjs && node scripts/clean-next.mjs && next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -26,6 +26,7 @@
     "better-auth": "^1.6.22",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "date-fns": "^4.4.0",
     "drizzle-orm": "^0.45.2",
     "framer-motion": "^12.42.0",
     "lucide-react": "^1.21.0",

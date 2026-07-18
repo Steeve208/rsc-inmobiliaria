@@ -66,6 +66,26 @@ export type PropertyAgent = {
   photo: string;
 };
 
+export type CompanyBusinessHour = {
+  dayOfWeek: number;
+  openTime: string;
+  closeTime: string;
+  isClosed: boolean;
+  timezone: string;
+};
+
+export type CompanyPublicInfo = {
+  cnpj: string | null;
+  phone: string | null;
+  website: string | null;
+  address: string | null;
+  city: string | null;
+  state: string | null;
+  postalCode: string | null;
+  branchName: string | null;
+  businessHours: CompanyBusinessHour[];
+};
+
 export type PropertyDetail = PropertyListing & {
   companyId: string;
   companyLogoUrl?: string;
@@ -86,6 +106,7 @@ export type PropertyDetail = PropertyListing & {
   yearBuilt: number;
   description: string;
   agent: PropertyAgent | null;
+  companyInfo: CompanyPublicInfo;
   agencyRating: number;
   agencyYears: number;
   agencyActive: number;

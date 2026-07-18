@@ -184,7 +184,7 @@ export async function getVehicleDetail(id: string): Promise<VehicleDetail | unde
       ...base,
       companyId: row.vehicle.companyId ?? slugifyCompanyId(base.company),
       whatsappNumber:
-        row.vehicle.whatsappNumber ?? co?.whatsappNumber ?? "5554999887766",
+        row.vehicle.whatsappNumber ?? co?.whatsappNumber ?? "",
       images: images.length > 0 ? images : base.image ? [base.image] : [],
       videoUrl: row.vehicle.videoUrl ?? undefined,
       has360: row.vehicle.has360,
@@ -211,19 +211,35 @@ export async function getVehicleDetail(id: string): Promise<VehicleDetail | unde
       description:
         row.vehicle.description ??
         `${base.make} ${base.model} ${base.year} disponível na RSC Market.`,
-      agent: {
-        name: ag?.name ?? "Carlos Mendes",
-        role: ag?.role ?? "Consultor de Vendas",
-        phone: ag?.phone ?? "+55 51 99999-0000",
-        photo:
-          ag?.photoUrl ??
-          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
+      agent: ag
+        ? {
+            name: ag.name,
+            role: ag.role ?? "Consultor",
+            phone: ag.phone ?? "",
+            photo: ag.photoUrl ?? "",
+          }
+        : {
+            name: co?.name ?? base.company,
+            role: "Concessionária",
+            phone: row.vehicle.whatsappNumber ?? co?.whatsappNumber ?? "",
+            photo: "",
+          },
+      dealershipRating: num(co?.rating, 0),
+      dealershipYears: co?.yearsActive ?? 0,
+      dealershipActive: co?.activeListings ?? 0,
+      dealershipSold: co?.soldCount ?? 0,
+      dealershipReviews: co?.reviewsCount ?? 0,
+      companyInfo: {
+        cnpj: null,
+        phone: row.vehicle.whatsappNumber ?? co?.whatsappNumber ?? null,
+        website: null,
+        address: row.vehicle.address ?? null,
+        city: base.city,
+        state: base.state,
+        postalCode: null,
+        branchName: co?.name ?? base.company,
+        businessHours: [],
       },
-      dealershipRating: num(co?.rating, 4.8),
-      dealershipYears: co?.yearsActive ?? 15,
-      dealershipActive: co?.activeListings ?? 142,
-      dealershipSold: co?.soldCount ?? 890,
-      dealershipReviews: co?.reviewsCount ?? 124,
     };
   } catch {
     return undefined;

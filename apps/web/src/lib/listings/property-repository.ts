@@ -280,6 +280,17 @@ export async function getPropertyDetail(id: string): Promise<PropertyDetail | un
       agencyActive: co?.activeListings ?? 0,
       agencySold: co?.soldCount ?? 0,
       agencyReviews: co?.reviewsCount ?? 0,
+      companyInfo: {
+        cnpj: null,
+        phone: co?.whatsappNumber ?? null,
+        website: null,
+        address: row.property.address ?? null,
+        city: base.city,
+        state: base.state,
+        postalCode: null,
+        branchName: co?.name ?? base.company,
+        businessHours: [],
+      },
     };
   } catch {
     return undefined;

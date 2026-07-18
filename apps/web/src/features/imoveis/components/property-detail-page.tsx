@@ -35,6 +35,7 @@ import { shareListing } from "@/lib/listings/share-listing";
 import { PropertyMap } from "./property-map";
 import { PropertyCard } from "./property-card";
 import { ReportListingModal } from "./report-listing-modal";
+import { CompanyPresenceCard } from "@/components/company";
 import type { PropertyDetail, PropertyListing } from "../types";
 
 type Props = {
@@ -71,7 +72,7 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
   const [reportOpen, setReportOpen] = useState(false);
   const locationRef = useRef<HTMLElement>(null);
 
-  const financingHref = `/financing?price=${property.price}&down=${downPct}&listingId=${property.id}&title=${encodeURIComponent(property.title)}&category=properties&currency=${property.currency}`;
+  const financingHref = `/financing?price=${property.price}&down=${downPct}&listingId=${property.id}&title=${encodeURIComponent(property.title)}&category=properties&currency=${property.currency}&companyId=${encodeURIComponent(property.companyId)}`;
 
   const downPayment = Math.round(property.price * (downPct / 100));
   const monthlyRate = interestRate / 100;
@@ -579,55 +580,12 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
             />
           </div>
 
-          {/* Agency */}
-          <div className="rounded-xl bg-[#111d2f] p-5">
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/40">
-              {t("agency")}
-            </p>
-            <div className="mt-3 flex items-center gap-3">
-              {property.companyLogoUrl ? (
-                <div className="relative size-12 overflow-hidden rounded-lg">
-                  <Image
-                    src={property.companyLogoUrl}
-                    alt={property.company}
-                    fill
-                    className="object-cover"
-                    sizes="48px"
-                  />
-                </div>
-              ) : (
-                <div className="flex size-12 items-center justify-center rounded-lg bg-[#1d4ed8] text-sm font-bold text-white">
-                  {property.company.slice(0, 3).toUpperCase()}
-                </div>
-              )}
-              <div>
-                <p className="font-semibold text-white">{property.company}</p>
-                <div className="flex items-center gap-1 text-sm text-[#eebc49]">
-                  <Star className="size-3.5 fill-current" />
-                  {property.agencyRating > 0 ? property.agencyRating.toFixed(1) : "—"}
-                  {property.agencyYears > 0 ? (
-                    <span className="text-white/40">
-                      · {t("yearsInMarket", { years: property.agencyYears })}
-                    </span>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-            <div className="mt-4 grid grid-cols-3 gap-2 text-center text-xs">
-              <div className="rounded-lg bg-[#0a111f] px-2 py-2">
-                <p className="font-bold text-white">{property.agencyActive}</p>
-                <p className="text-white/40">{t("activeListings")}</p>
-              </div>
-              <div className="rounded-lg bg-[#0a111f] px-2 py-2">
-                <p className="font-bold text-white">{property.agencySold}</p>
-                <p className="text-white/40">{t("sold")}</p>
-              </div>
-              <div className="rounded-lg bg-[#0a111f] px-2 py-2">
-                <p className="font-bold text-white">{property.agencyReviews}</p>
-                <p className="text-white/40">{t("reviews")}</p>
-              </div>
-            </div>
-          </div>
+          <CompanyPresenceCard
+            companyName={property.company}
+            companyLogoUrl={property.companyLogoUrl}
+            companyInfo={property.companyInfo}
+            title={t("agency")}
+          />
 
           {property.agent ? (
             <div className="rounded-xl bg-[#111d2f] p-5">

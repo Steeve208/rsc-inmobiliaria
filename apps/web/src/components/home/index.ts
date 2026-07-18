@@ -1,4 +1,10 @@
 export { HeroSection } from "./hero-section";
+export { HeroSearchBar } from "./hero-search-bar";
+export { StatsBar } from "./stats-bar";
+export { FeaturedProperties } from "./featured-properties";
 export { ServiceCards } from "./service-cards";
 export { HowItWorks } from "./how-it-works";
-export { StatsBar } from "./stats-bar";
+export { InvestmentMarketplace } from "./investment-marketplace";
+export { PartnerSpotlight } from "./partner-spotlight";
+export { Testimonials } from "./testimonials";
+export { Partners } from "./partners";

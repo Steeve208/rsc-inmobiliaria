@@ -1,25 +1,21 @@
+import { redirect } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { CompanyLeadsPanel } from "@/features/contact";
+import { getBackofficeLoginUrl } from "@/lib/backoffice/config";
 
 type Props = {
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ company?: string }>;
 };
 
-export default async function Page({ params, searchParams }: Props) {
+/** Legacy market company panel — companies manage leads in the backoffice. */
+export default async function Page({ params }: Props) {
   const { locale } = await params;
-  const { company } = await searchParams;
   setRequestLocale(locale);
 
-  const companyId = company ?? "rsc-imoveis";
-  const companyName =
-    companyId === "rsc-imoveis"
-      ? "RSC Imóveis"
-      : companyId === "premium-estate"
-        ? "Premium Estate"
-        : companyId === "construtora-sul"
-          ? "Construtora Sul"
-          : companyId;
+  const loginUrl = getBackofficeLoginUrl(locale);
+  if (loginUrl) {
+    redirect(loginUrl);
+  }
 
-  return <CompanyLeadsPanel companyId={companyId} companyName={companyName} />;
+  redirect(`/${locale}/para-empresas`);
 }

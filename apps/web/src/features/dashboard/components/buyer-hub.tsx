@@ -8,6 +8,7 @@ import {
   Heart,
   MessageCircle,
   Send,
+  Star,
 } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
@@ -20,6 +21,7 @@ import { FavoritesPageSection } from "@/features/favorites";
 import { CompareHub } from "@/features/dashboard/components/compare-hub";
 import { SavedSearchesHub } from "@/features/imoveis/components/saved-searches-panel";
 import { BuyerFinancingRequestsPanel } from "@/features/financing/components/buyer-financing-requests-panel";
+import { BuyerReviewPanel } from "@/features/dashboard/components/buyer-review-panel";
 
 const tabs = [
   { id: "favorites", icon: Heart, href: "/dashboard", labelKey: "favorites" },
@@ -28,6 +30,7 @@ const tabs = [
   { id: "chats", icon: MessageCircle, href: "/dashboard/chats", labelKey: "chats" },
   { id: "compare", icon: GitCompare, href: "/dashboard/compare", labelKey: "compareTab" },
   { id: "requests", icon: Send, href: "/dashboard/requests", labelKey: "requests" },
+  { id: "review", icon: Star, href: "/dashboard/review", labelKey: "reviewTab" },
 ] as const;
 
 type Props = {
@@ -109,6 +112,12 @@ export function BuyerHub({ activeTab = "favorites", activeThreadId }: Props) {
       )}
 
       {activeTab === "compare" && <CompareHub />}
+
+      {activeTab === "review" && (
+        <section>
+          <BuyerReviewPanel />
+        </section>
+      )}
     </div>
   );
 }

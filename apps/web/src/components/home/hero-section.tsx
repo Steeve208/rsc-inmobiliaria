@@ -1,122 +1,93 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import {
-  Building2,
-  Car,
-  Check,
-  ChevronDown,
-  Rocket,
-  Search,
-} from "lucide-react";
-import { LocationAutocomplete } from "@/components/search/location-autocomplete";
-import {
-  clearLocationFilters,
-  resolvedLocationToFilters,
-  type ResolvedLocation,
-} from "@/lib/geocoding/types";
-import { locationToSearchParams } from "@/lib/geocoding/url-params";
-import { useRouter } from "@/lib/i18n/routing";
-import { useMarket } from "@/lib/providers/market-provider";
-import { cn } from "@/lib/utils";
+import { MapPin } from "lucide-react";
+import { Link } from "@/lib/i18n/routing";
+import { HeroSearchBar } from "@/components/home/hero-search-bar";
 
-type SearchTab = "properties" | "vehicles" | "launches";
+const floatingCards = [
+  {
+    title: "Casa moderna",
+    place: "Miami, Florida",
+    price: "USD 850,000",
+    image:
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400&q=80",
+    top: "20%",
+    right: "7%",
+  },
+  {
+    title: "Apartamento Premium",
+    place: "São Paulo, Brasil",
+    price: "USD 420,000",
+    image:
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&q=80",
+    top: "54%",
+    right: "16%",
+  },
+] as const;
 
 export function HeroSection() {
   const t = useTranslations("landing");
-  const tMarkets = useTranslations("markets");
-  const { market, marketId } = useMarket();
-  const router = useRouter();
-  const [activeTab, setActiveTab] = useState<SearchTab>("properties");
-  const [location, setLocation] = useState("");
-  const [resolvedLocation, setResolvedLocation] = useState<ResolvedLocation | null>(
-    null,
-  );
-  const [query, setQuery] = useState("");
-
-  const tabs: { id: SearchTab; label: string }[] = [
-    { id: "properties", label: t("search.tabs.properties") },
-    { id: "vehicles", label: t("search.tabs.vehicles") },
-    { id: "launches", label: t("search.tabs.launches") },
-  ];
-
-  const propertyFilters = [
-    t("search.filters.houses"),
-    t("search.filters.apartments"),
-    t("search.filters.land"),
-    t("search.filters.commercial"),
-  ];
-
-  const vehicleFilters = [
-    t("search.filters.cars"),
-    t("search.filters.motorcycles"),
-    t("search.filters.trucks"),
-  ];
-
-  const locationPlaceholder = tMarkets(`searchLocation.${market.defaultLocale}`);
-
-  const goToSearch = (extra?: { type?: string }) => {
-    const params = locationToSearchParams(
-      resolvedLocation
-        ? resolvedLocationToFilters(resolvedLocation)
-        : { city: location, locationLabel: location },
-    );
-    if (query) params.set("q", query);
-    if (extra?.type) params.set("type", extra.type);
-
-    if (activeTab === "properties") {
-      router.push(`/imoveis${params.toString() ? `?${params.toString()}` : ""}`);
-      return;
-    }
-
-    if (activeTab === "vehicles") {
-      router.push(`/veiculos${params.toString() ? `?${params.toString()}` : ""}`);
-      return;
-    }
-
-    params.set("launch", "1");
-    router.push(`/imoveis?${params.toString()}`);
-  };
 
   return (
-    <section className="relative overflow-hidden">
-      <Image
-        src="/hero-bg.png"
-        alt=""
-        fill
-        priority
-        className="object-cover object-[center_35%] brightness-[1.15] saturate-[1.05]"
-        sizes="100vw"
-      />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/75 via-[#020617]/35 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/80 via-transparent to-transparent" />
-
-      <div className="relative mx-auto max-w-[1440px] px-6 pb-10 pt-5 lg:px-8 lg:pb-12 lg:pt-6">
+    <section className="relative">
+      <div className="relative h-[640px] overflow-hidden lg:h-[760px]">
+        <Image
+          src="/hero-bg.png"
+          alt=""
+          fill
+          priority
+          className="object-cover object-[center_40%]"
+          sizes="100vw"
+        />
         <div
-          className={cn(
-            "grid items-start gap-6",
-            market.creditAvailable
-              ? "lg:grid-cols-[1fr_320px] xl:grid-cols-[1fr_340px]"
-              : "lg:grid-cols-1",
-          )}
-        >
-          <div>
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(5,8,15,.85), rgba(5,8,15,.40), rgba(5,8,15,.20))",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#070B14] via-transparent to-transparent" />
+
+        {floatingCards.map((card, i) => (
+          <motion.div
+            key={card.title}
+            className="pointer-events-none absolute z-10 hidden w-[230px] overflow-hidden rounded-[20px] border border-white/15 bg-[#070B14]/70 shadow-[0_20px_60px_rgba(0,0,0,.35)] backdrop-blur-md lg:block"
+            style={{ top: card.top, right: card.right }}
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
+          >
+            <div className="relative h-28">
+              <Image src={card.image} alt={card.title} fill className="object-cover" sizes="230px" />
+              <div className="absolute -left-1 top-3 flex size-7 items-center justify-center rounded-full bg-[#D6A62E] text-[#070B14] shadow-lg">
+                <MapPin className="size-3.5" fill="currentColor" />
+              </div>
+            </div>
+            <div className="p-3.5">
+              <p className="text-sm font-semibold text-white">{card.title}</p>
+              <p className="mt-0.5 text-xs text-[#8C97A8]">{card.place}</p>
+              <p className="mt-1.5 text-sm font-bold text-[#D6A62E]">{card.price}</p>
+            </div>
+          </motion.div>
+        ))}
+
+        <div className="rk-container relative z-20 flex h-full flex-col justify-center pb-28 pt-10">
+          <div className="w-full max-w-xl lg:max-w-[40%]">
             <motion.h1
-              className="max-w-3xl text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15]"
+              className="rk-display max-w-xl text-[2.5rem] font-bold leading-[1.15] tracking-tight text-white sm:text-5xl lg:text-[72px] lg:leading-[82px]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
               {t("hero.titleStart")}{" "}
-              <span className="text-[#d4a017]">{t("hero.titleHighlight")}</span>{" "}
-              {t("hero.titleEnd")}
+              <span className="text-[#D6A62E]">{t("hero.titleHighlight")}</span>
             </motion.h1>
 
             <motion.p
-              className="mt-4 max-w-2xl text-sm leading-relaxed text-white/75 sm:text-base"
+              className="mt-6 max-w-lg text-base leading-relaxed text-[#C8D0DD] sm:text-xl lg:text-2xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
@@ -125,130 +96,29 @@ export function HeroSection() {
             </motion.p>
 
             <motion.div
-              className="mt-5 max-w-3xl"
-              initial={{ opacity: 0, y: 24 }}
+              className="mt-9 flex flex-wrap gap-4"
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <div className="overflow-hidden rounded-t-xl bg-[#0f172a]/90 backdrop-blur-sm">
-                <div className="flex">
-                  {tabs.map((tab) => (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      onClick={() => setActiveTab(tab.id)}
-                      className={cn(
-                        "flex flex-1 items-center justify-center gap-2 px-4 py-3 text-sm font-medium transition-colors",
-                        activeTab === tab.id
-                          ? "bg-[#1d4ed8] text-white"
-                          : "text-white/70 hover:bg-white/5 hover:text-white",
-                      )}
-                    >
-                      {tab.id === "properties" && (
-                        <Building2 className="size-4" />
-                      )}
-                      {tab.id === "vehicles" && <Car className="size-4" />}
-                      {tab.id === "launches" && <Rocket className="size-4" />}
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-b-xl rounded-tr-xl bg-white p-2 shadow-2xl sm:p-3">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                  <LocationAutocomplete
-                    theme="light"
-                    value={location}
-                    placeholder={locationPlaceholder}
-                    onValueChange={setLocation}
-                    onPlaceResolved={(place) => {
-                      setResolvedLocation(place);
-                      setLocation(place.label);
-                    }}
-                    onLocationCleared={() => setResolvedLocation(null)}
-                    onEnter={() => goToSearch()}
-                  />
-                  <div className="flex flex-1 items-center gap-2 rounded-lg border border-gray-200 px-3 py-2.5">
-                    <Search className="size-4 shrink-0 text-gray-400" />
-                    <input
-                      type="text"
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      placeholder={t("search.queryPlaceholder")}
-                      className="w-full bg-transparent text-sm text-gray-800 outline-none placeholder:text-gray-400"
-                    />
-                    <ChevronDown className="size-4 shrink-0 text-gray-400" />
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => goToSearch()}
-                    className="h-11 shrink-0 rounded-lg bg-[#1d4ed8] px-8 text-sm font-semibold text-white transition-colors hover:bg-[#1e40af] sm:h-full sm:min-h-[44px]"
-                  >
-                    {t("search.submit")}
-                  </button>
-                </div>
-              </div>
-
-              <div className="mt-3 flex flex-wrap items-center gap-x-1 gap-y-1 text-xs text-white/60 sm:text-sm">
-                {propertyFilters.map((filter, i) => (
-                  <span key={filter} className="inline-flex items-center">
-                    {i > 0 && <span className="mx-1.5">·</span>}
-                    <button
-                      type="button"
-                      className="transition-colors hover:text-white"
-                    >
-                      {filter}
-                    </button>
-                  </span>
-                ))}
-                <span className="mx-2 hidden text-white/30 sm:inline">|</span>
-                {vehicleFilters.map((filter, i) => (
-                  <span key={filter} className="inline-flex items-center">
-                    {i > 0 && <span className="mx-1.5">·</span>}
-                    <button
-                      type="button"
-                      className="transition-colors hover:text-white"
-                    >
-                      {filter}
-                    </button>
-                  </span>
-                ))}
-              </div>
+              <Link
+                href="/imoveis"
+                className="rk-btn-gold inline-flex h-[58px] items-center justify-center px-8 text-sm"
+              >
+                {t("hero.ctaExplore")}
+              </Link>
+              <Link
+                href="/cadastrar"
+                className="rk-btn-ghost inline-flex h-[58px] items-center justify-center px-8 text-sm"
+              >
+                {t("hero.ctaPublish")}
+              </Link>
             </motion.div>
           </div>
-
-          {market.creditAvailable && (
-            <motion.aside
-              className="rounded-2xl border border-white/10 bg-[#0f172a]/80 p-6 backdrop-blur-md lg:mt-3"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <h2 className="text-lg font-semibold text-white">
-                {t("credit.title")}
-              </h2>
-              <ul className="mt-4 space-y-3">
-                {[0, 1, 2].map((i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2.5 text-sm text-white/80"
-                  >
-                    <Check className="mt-0.5 size-4 shrink-0 text-[#3b82f6]" />
-                    {t(`credit.benefits.${i}`)}
-                  </li>
-                ))}
-              </ul>
-              <button
-                type="button"
-                className="mt-6 w-full rounded-lg bg-[#1d4ed8] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1e40af]"
-              >
-                {t("credit.cta")}
-              </button>
-            </motion.aside>
-          )}
         </div>
       </div>
+
+      <HeroSearchBar />
     </section>
   );
 }

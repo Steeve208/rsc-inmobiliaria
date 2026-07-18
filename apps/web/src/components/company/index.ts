@@ -1,2 +1,1 @@
-// Company / business profile components
-export {};
+export { CompanyPresenceCard } from "./company-presence-card";

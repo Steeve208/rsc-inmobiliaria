@@ -12,7 +12,7 @@ import {
   enrichVehicle,
   vehicleListings,
 } from "../src/features/veiculos/mock-data";
-import { slugifyCompanyId, DEFAULT_COMPANY_CONFIGS } from "../src/lib/leads/utils";
+import { slugifyCompanyId } from "../src/lib/leads/utils";
 import { seedVehicleFromMock } from "../src/lib/listings/vehicle-repository";
 import type { PropertyListing } from "../src/features/imoveis/types";
 
@@ -30,7 +30,6 @@ const detailGalleryVehicle = [
 
 async function ensureCompany(name: string) {
   const id = slugifyCompanyId(name);
-  const config = DEFAULT_COMPANY_CONFIGS[id];
 
   await db
     .insert(company)
@@ -38,13 +37,13 @@ async function ensureCompany(name: string) {
       id,
       name,
       type: name.toLowerCase().includes("auto") ? "dealership" : "real_estate",
-      whatsappNumber: config?.whatsappNumber ?? "5554999887766",
+      whatsappNumber: null,
       verified: true,
-      rating: "4.8",
-      yearsActive: 10,
-      activeListings: 100,
-      soldCount: 500,
-      reviewsCount: 80,
+      rating: "0",
+      yearsActive: 0,
+      activeListings: 0,
+      soldCount: 0,
+      reviewsCount: 0,
     })
     .onConflictDoNothing();
 
@@ -53,7 +52,7 @@ async function ensureCompany(name: string) {
     .values({
       companyId: id,
       companyName: name,
-      whatsappNumber: config?.whatsappNumber ?? "5554999887766",
+      whatsappNumber: "",
     })
     .onConflictDoNothing();
 
@@ -159,20 +158,6 @@ async function main() {
   const companyIds = new Map<string, string>();
   for (const name of companyNames) {
     companyIds.set(name, await ensureCompany(name));
-  }
-
-  for (const config of Object.values(DEFAULT_COMPANY_CONFIGS)) {
-    await db
-      .insert(company)
-      .values({
-        id: config.companyId,
-        name: config.companyName,
-        whatsappNumber: config.whatsappNumber,
-        verified: true,
-        rating: "4.9",
-        yearsActive: 12,
-      })
-      .onConflictDoNothing();
   }
 
   for (const listing of propertyListings) {

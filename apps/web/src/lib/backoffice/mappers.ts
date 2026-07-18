@@ -1,4 +1,4 @@
-import type { PropertyDetail, PropertyListing } from "@/features/imoveis/types";
+import type { PropertyDetail, PropertyListing, CompanyPublicInfo } from "@/features/imoveis/types";
 import type { VehicleDetail, VehicleListing } from "@/features/veiculos/types";
 import type { BackofficePublicListing } from "@/lib/backoffice/types";
 import { listingImageUrl } from "@/lib/listings/listing-image";
@@ -34,6 +34,29 @@ function gallery(listing: BackofficePublicListing): string[] {
     .filter((url): url is string => Boolean(url))
     .map((url) => listingImageUrl(url));
   return photos.length > 0 ? photos : [coverImage(listing)];
+}
+
+function mapCompanyInfo(listing: BackofficePublicListing): CompanyPublicInfo {
+  const org = listing.organization;
+  const branch = org.primaryBranch ?? null;
+
+  return {
+    cnpj: org.cnpj ?? null,
+    phone: branch?.phone ?? org.phone ?? org.whatsappNumber ?? null,
+    website: org.website ?? null,
+    address: branch?.address ?? org.address ?? null,
+    city: branch?.city ?? org.city ?? listing.locationCity ?? null,
+    state: branch?.state ?? org.state ?? null,
+    postalCode: branch?.postalCode ?? org.postalCode ?? null,
+    branchName: branch?.name ?? null,
+    businessHours: (org.businessHours ?? []).map((hour) => ({
+      dayOfWeek: hour.dayOfWeek,
+      openTime: hour.openTime,
+      closeTime: hour.closeTime,
+      isClosed: hour.isClosed,
+      timezone: hour.timezone,
+    })),
+  };
 }
 
 export function mapBackofficeToPropertyListing(
@@ -82,7 +105,11 @@ export function mapBackofficeToPropertyDetail(
   return {
     ...base,
     companyId: listing.organization.slug,
-    whatsappNumber: str(meta.whatsappNumber),
+    companyLogoUrl: str(listing.organization.logoUrl) || undefined,
+    whatsappNumber:
+      str(listing.organization.whatsappNumber) ||
+      str(listing.organization.whatsappUrl) ||
+      str(meta.whatsappNumber),
     images,
     featured: listing.isFeatured || bool(meta.featured),
     virtualTourUrl: str(meta.virtualTourUrl) || undefined,
@@ -100,6 +127,7 @@ export function mapBackofficeToPropertyDetail(
     description: listing.description ?? "",
     videoUrl: str(meta.videoUrl) || undefined,
     agent: null,
+    companyInfo: mapCompanyInfo(listing),
     agencyRating: num(meta.agencyRating, 4.5),
     agencyYears: num(meta.agencyYears, 1),
     agencyActive: num(meta.agencyActive, 1),
@@ -154,7 +182,11 @@ export function mapBackofficeToVehicleDetail(
   return {
     ...base,
     companyId: listing.organization.slug,
-    whatsappNumber: str(meta.whatsappNumber),
+    companyLogoUrl: str(listing.organization.logoUrl) || undefined,
+    whatsappNumber:
+      str(listing.organization.whatsappNumber) ||
+      str(listing.organization.whatsappUrl) ||
+      str(meta.whatsappNumber),
     images,
     videoUrl: str(meta.videoUrl) || undefined,
     has360: bool(meta.has360) || Boolean(meta.tour360Url),
@@ -179,9 +211,13 @@ export function mapBackofficeToVehicleDetail(
     agent: {
       name: listing.organization.name,
       role: "Concessionária",
-      phone: str(meta.whatsappNumber),
+      phone:
+        str(listing.organization.whatsappNumber) ||
+        str(listing.organization.whatsappUrl) ||
+        str(meta.whatsappNumber),
       photo: "",
     },
+    companyInfo: mapCompanyInfo(listing),
     dealershipRating: num(meta.dealershipRating, 4.5),
     dealershipYears: num(meta.dealershipYears, 1),
     dealershipActive: num(meta.dealershipActive, 1),

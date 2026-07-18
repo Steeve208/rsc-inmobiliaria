@@ -4,6 +4,7 @@ import {
   updateCompanyProperty,
 } from "@/lib/listings/property-writes";
 import { updatePropertySchema } from "@/lib/validations/property";
+import { requireCompanyAccess } from "@/lib/auth/authorize";
 
 type RouteParams = {
   params: Promise<{ companyId: string; propertyId: string }>;
@@ -11,6 +12,9 @@ type RouteParams = {
 
 export async function GET(_request: Request, { params }: RouteParams) {
   const { companyId, propertyId } = await params;
+
+  const access = await requireCompanyAccess(companyId);
+  if (!access.ok) return access.response;
 
   try {
     const property = await getCompanyProperty(companyId, propertyId);
@@ -25,6 +29,9 @@ export async function GET(_request: Request, { params }: RouteParams) {
 
 export async function PATCH(request: Request, { params }: RouteParams) {
   const { companyId, propertyId } = await params;
+
+  const access = await requireCompanyAccess(companyId);
+  if (!access.ok) return access.response;
 
   let json: unknown;
   try {

@@ -8,18 +8,18 @@ import { haversineKm } from "@/lib/geocoding/geo-utils";
 import { slugifyCompanyId } from "@/lib/leads/utils";
 
 export const worldRegions: RegionItem[] = [
-  { id: "br", name: "Brasil", count: 890000, lat: -14.235, lng: -51.9253, flag: "🇧🇷" },
-  { id: "pt", name: "Portugal", count: 120000, lat: 39.3999, lng: -8.2245, flag: "🇵🇹" },
-  { id: "ar", name: "Argentina", count: 95000, lat: -38.4161, lng: -63.6167, flag: "🇦🇷" },
+  { id: "br", name: "Brasil", count: 0, lat: -14.235, lng: -51.9253, flag: "🇧🇷" },
+  { id: "pt", name: "Portugal", count: 0, lat: 39.3999, lng: -8.2245, flag: "🇵🇹" },
+  { id: "ar", name: "Argentina", count: 0, lat: -38.4161, lng: -63.6167, flag: "🇦🇷" },
 ];
 
 export const brazilStates: RegionItem[] = [
-  { id: "SP", name: "São Paulo", count: 285000, lat: -23.5505, lng: -46.6333 },
-  { id: "RS", name: "Rio Grande do Sul", count: 62000, lat: -30.0346, lng: -51.2177 },
-  { id: "SC", name: "Santa Catarina", count: 48000, lat: -27.5954, lng: -48.548 },
-  { id: "RJ", name: "Rio de Janeiro", count: 72000, lat: -22.9068, lng: -43.1729 },
-  { id: "MG", name: "Minas Gerais", count: 54000, lat: -19.9167, lng: -43.9345 },
-  { id: "PR", name: "Paraná", count: 41000, lat: -25.4284, lng: -49.2733 },
+  { id: "SP", name: "São Paulo", count: 0, lat: -23.5505, lng: -46.6333 },
+  { id: "RS", name: "Rio Grande do Sul", count: 0, lat: -30.0346, lng: -51.2177 },
+  { id: "SC", name: "Santa Catarina", count: 0, lat: -27.5954, lng: -48.548 },
+  { id: "RJ", name: "Rio de Janeiro", count: 0, lat: -22.9068, lng: -43.1729 },
+  { id: "MG", name: "Minas Gerais", count: 0, lat: -19.9167, lng: -43.9345 },
+  { id: "PR", name: "Paraná", count: 0, lat: -25.4284, lng: -49.2733 },
 ];
 
 export const premiumDealerships: PremiumDealership[] = [
@@ -543,16 +543,35 @@ export function enrichVehicle(base: VehicleListing) {
     },
     description: `${base.make} ${base.model} ${base.year} em excelente estado de conservação. Veículo verificado pela RSC com histórico completo, documentação regularizada e opções de financiamento disponíveis.`,
     agent: {
-      name: "Carlos Mendes",
-      role: "Consultor de Vendas",
-      phone: "+55 51 99999-0000",
-      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
+      name: "RSC Market",
+      role: "Concessionária",
+      phone: "",
+      photo: "",
     },
-    dealershipRating: 4.8,
-    dealershipYears: 15,
-    dealershipActive: 142,
-    dealershipSold: 890,
-    dealershipReviews: 124,
+    dealershipRating: 0,
+    dealershipYears: 0,
+    dealershipActive: 0,
+    dealershipSold: 0,
+    dealershipReviews: 0,
+    companyInfo: {
+      cnpj: null,
+      phone: "5554999887766",
+      website: null,
+      address: `Av. das Indústrias, 450 — ${base.city}`,
+      city: base.city,
+      state: base.state,
+      postalCode: null,
+      branchName: base.company,
+      businessHours: [
+        { dayOfWeek: 0, openTime: "00:00", closeTime: "00:00", isClosed: true, timezone: "America/Sao_Paulo" },
+        { dayOfWeek: 1, openTime: "09:00", closeTime: "18:00", isClosed: false, timezone: "America/Sao_Paulo" },
+        { dayOfWeek: 2, openTime: "09:00", closeTime: "18:00", isClosed: false, timezone: "America/Sao_Paulo" },
+        { dayOfWeek: 3, openTime: "09:00", closeTime: "18:00", isClosed: false, timezone: "America/Sao_Paulo" },
+        { dayOfWeek: 4, openTime: "09:00", closeTime: "18:00", isClosed: false, timezone: "America/Sao_Paulo" },
+        { dayOfWeek: 5, openTime: "09:00", closeTime: "18:00", isClosed: false, timezone: "America/Sao_Paulo" },
+        { dayOfWeek: 6, openTime: "09:00", closeTime: "13:00", isClosed: false, timezone: "America/Sao_Paulo" },
+      ],
+    },
   };
 }
 

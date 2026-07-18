@@ -24,6 +24,7 @@ export type FinancingSimulatorProps = {
   listingId?: string;
   listingTitle?: string;
   listingCategory?: ListingCategory;
+  companyId?: string;
   currency?: string;
 };
 
@@ -33,6 +34,7 @@ export function FinancingSimulator({
   listingId = "",
   listingTitle = "",
   listingCategory = "properties",
+  companyId = "",
   currency = "BRL",
 }: FinancingSimulatorProps) {
   const t = useTranslations("financing");
@@ -77,6 +79,7 @@ export function FinancingSimulator({
         buyerName: name.trim() || undefined,
         buyerEmail: email.trim() || undefined,
         buyerPhone: phone.trim() || undefined,
+        companyId: companyId || undefined,
         listingId: listingId || undefined,
         listingTitle: listingTitle || undefined,
         listingCategory: listingId ? listingCategory : undefined,

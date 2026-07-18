@@ -43,10 +43,10 @@ const themeClasses: Record<
     error: "text-red-400",
   },
   light: {
-    field: "border border-gray-200 bg-transparent",
+    field: "border-0 bg-transparent",
     input: "text-gray-800 placeholder:text-gray-400",
     icon: "text-gray-400",
-    gpsButton: "text-[#1d4ed8] hover:bg-gray-100",
+    gpsButton: "text-[#D6A62E] hover:bg-gray-100",
     dropdown: "border border-gray-200 bg-white py-1 shadow-lg",
     suggestion: "text-gray-800 hover:bg-gray-50",
     error: "text-red-600",

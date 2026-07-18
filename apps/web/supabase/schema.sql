@@ -80,8 +80,26 @@ DO $$ BEGIN
 EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 DO $$ BEGIN
-  CREATE TYPE visit_status AS ENUM ('pending', 'confirmed', 'cancelled');
+  CREATE TYPE visit_status AS ENUM (
+    'pending', 'confirmed', 'cancelled', 'reschedule_proposed'
+  );
 EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- Bases ya creadas sin el valor nuevo: ampliar el enum de forma idempotente
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_enum e
+    JOIN pg_type t ON t.oid = e.enumtypid
+    JOIN pg_namespace n ON n.oid = t.typnamespace
+    WHERE n.nspname = 'public'
+      AND t.typname = 'visit_status'
+      AND e.enumlabel = 'reschedule_proposed'
+  ) THEN
+    ALTER TYPE visit_status ADD VALUE 'reschedule_proposed';
+  END IF;
+END $$;
 
 DO $$ BEGIN
   CREATE TYPE chat_sender AS ENUM ('buyer', 'company');
@@ -104,10 +122,13 @@ CREATE TABLE IF NOT EXISTS "user" (
   -- Rol de la cuenta: 'user' | 'company' | 'admin'. Declarado como additionalField
   -- en Better Auth (lib/auth.ts). Coincide con la columna text del esquema Drizzle.
   "role"           text DEFAULT 'user' NOT NULL,
+  "phone"          text,
   "created_at"     timestamp DEFAULT now() NOT NULL,
   "updated_at"     timestamp DEFAULT now() NOT NULL,
   CONSTRAINT "user_email_unique" UNIQUE ("email")
 );
+
+ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "phone" text;
 
 CREATE TABLE IF NOT EXISTS "session" (
   "id"         text PRIMARY KEY NOT NULL,
@@ -354,8 +375,15 @@ CREATE TABLE IF NOT EXISTS "scheduled_visit" (
   "preferred_time"   text NOT NULL,
   "notes"            text,
   "status"           visit_status NOT NULL DEFAULT 'pending',
+  "company_message"  text,                       -- respuesta de la empresa
+  "proposed_date"    text,                       -- nueva fecha propuesta
+  "proposed_time"    text,                       -- nueva hora propuesta
   "created_at"       timestamp NOT NULL DEFAULT now()
 );
+
+ALTER TABLE "scheduled_visit" ADD COLUMN IF NOT EXISTS "company_message" text;
+ALTER TABLE "scheduled_visit" ADD COLUMN IF NOT EXISTS "proposed_date" text;
+ALTER TABLE "scheduled_visit" ADD COLUMN IF NOT EXISTS "proposed_time" text;
 
 CREATE INDEX IF NOT EXISTS "visit_buyer_idx"   ON "scheduled_visit" ("buyer_id");
 CREATE INDEX IF NOT EXISTS "visit_company_idx" ON "scheduled_visit" ("company_id");
@@ -551,14 +579,8 @@ BEGIN
 END $$;
 
 -- -----------------------------------------------------------------------------
--- 10.b Seed — configuraciones WhatsApp por defecto (coinciden con utils.ts)
+-- 10.b (removed) Fake WhatsApp company configs — companies set WhatsApp in backoffice
 -- -----------------------------------------------------------------------------
-INSERT INTO "company_lead_config" ("company_id", "company_name", "whatsapp_number")
-VALUES
-  ('rsc-imoveis',     'RSC Imóveis',     '5554999887766'),
-  ('premium-estate',  'Premium Estate',  '5554999112233'),
-  ('construtora-sul', 'Construtora Sul', '5554999445566')
-ON CONFLICT ("company_id") DO NOTHING;
 
 -- -----------------------------------------------------------------------------
 -- 11. Row Level Security (RLS)
@@ -605,3 +627,21 @@ ALTER TABLE "listing_report"      ENABLE ROW LEVEL SECURITY;
 -- =============================================================================
 -- FIN DEL ESQUEMA
 -- =============================================================================
+
+
+-- Platform reviews shown on landing testimonials
+CREATE TABLE IF NOT EXISTS "platform_review" (
+  "id" text PRIMARY KEY NOT NULL,
+  "user_id" text NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
+  "rating" integer NOT NULL,
+  "comment" text NOT NULL,
+  "display_name" text NOT NULL,
+  "location_label" text,
+  "avatar_url" text,
+  "status" text DEFAULT 'published' NOT NULL,
+  "created_at" timestamp DEFAULT now() NOT NULL,
+  "updated_at" timestamp DEFAULT now() NOT NULL
+);
+CREATE UNIQUE INDEX IF NOT EXISTS "platform_review_user_uidx" ON "platform_review" ("user_id");
+CREATE INDEX IF NOT EXISTS "platform_review_status_idx" ON "platform_review" ("status");
+CREATE INDEX IF NOT EXISTS "platform_review_created_idx" ON "platform_review" ("created_at");

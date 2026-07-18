@@ -537,3 +537,30 @@ export const cronJobRun = pgTable("cron_job_run", {
     .$onUpdate(() => new Date())
     .notNull(),
 });
+
+export const platformReview = pgTable(
+  "platform_review",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    rating: integer("rating").notNull(),
+    comment: text("comment").notNull(),
+    displayName: text("display_name").notNull(),
+    locationLabel: text("location_label"),
+    avatarUrl: text("avatar_url"),
+    status: text("status").default("published").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    unique("platform_review_user_uidx").on(table.userId),
+    index("platform_review_status_idx").on(table.status),
+    index("platform_review_created_idx").on(table.createdAt),
+  ],
+);
+

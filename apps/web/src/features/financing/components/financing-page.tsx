@@ -14,6 +14,7 @@ export function FinancingPage() {
   const listingId = searchParams.get("listingId") ?? "";
   const listingTitle = searchParams.get("title") ?? "";
   const listingCategory = (searchParams.get("category") ?? "properties") as ListingCategory;
+  const companyId = searchParams.get("companyId") ?? "";
   const currency = searchParams.get("currency") ?? "BRL";
 
   return (
@@ -29,6 +30,7 @@ export function FinancingPage() {
         listingId={listingId}
         listingTitle={listingTitle}
         listingCategory={listingCategory}
+        companyId={companyId}
         currency={currency}
       />
     </div>

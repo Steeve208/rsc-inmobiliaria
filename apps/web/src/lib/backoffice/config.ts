@@ -9,6 +9,7 @@ export function getBackofficeBaseUrl(): string | null {
   if (configured) return configured.replace(/\/$/, "");
 
   if (process.env.NODE_ENV === "development") {
+    // Local backoffice default; override with NEXT_PUBLIC_BACKOFFICE_URL.
     return "http://localhost:3000";
   }
 
@@ -21,6 +22,13 @@ export function getBackofficeBaseUrl(): string | null {
 
 export function isBackofficeConfigured(): boolean {
   return Boolean(getBackofficeBaseUrl());
+}
+
+export function isBackofficeExplicitlyConfigured(): boolean {
+  return Boolean(
+    process.env.NEXT_PUBLIC_BACKOFFICE_URL?.trim() ||
+      process.env.NEXT_PUBLIC_API_URL?.trim(),
+  );
 }
 
 export function getBackofficeLoginUrl(locale = "pt"): string | null {

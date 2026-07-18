@@ -72,6 +72,7 @@ export function ListingContactPanel({ listing, className }: Props) {
             variant="outline"
             className="border-0 bg-white/10 text-white/80 hover:bg-white/15"
             onClick={handleWhatsApp}
+            disabled={!whatsappNumber}
           >
             {t("whatsapp")}
           </Button>

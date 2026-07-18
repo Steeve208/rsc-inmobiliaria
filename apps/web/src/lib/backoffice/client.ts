@@ -9,7 +9,8 @@ import type {
   BackofficePublicListing,
 } from "@/lib/backoffice/types";
 
-const DEFAULT_LIMIT = 50;
+const DEFAULT_LIMIT = 100;
+const MAX_PAGES = 50; // up to 5000 listings per catalog fetch
 
 async function backofficeFetch<T>(path: string, init?: RequestInit): Promise<T | null> {
   const base = getBackofficeBaseUrl();
@@ -23,6 +24,7 @@ async function backofficeFetch<T>(path: string, init?: RequestInit): Promise<T |
         ...init?.headers,
       },
       cache: "no-store",
+      signal: init?.signal ?? AbortSignal.timeout(15000),
     });
 
     if (!response.ok) {
@@ -30,15 +32,45 @@ async function backofficeFetch<T>(path: string, init?: RequestInit): Promise<T |
       return null;
     }
     return (await response.json()) as T;
-  } catch {
+  } catch (error) {
+    console.error(
+      `[backoffice] ${path} unreachable:`,
+      error instanceof Error ? error.message : error,
+    );
     return null;
   }
 }
 
-export async function fetchBackofficeListings(
+export async function fetchBackofficeHealth(): Promise<{
+  ok: boolean;
+  baseUrl: string | null;
+  payload?: unknown;
+}> {
+  const base = getBackofficeBaseUrl();
+  if (!base) return { ok: false, baseUrl: null };
+
+  try {
+    const response = await fetch(`${base}/api/marketplace/v1/health`, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(8000),
+    });
+    const payload = (await response.json().catch(() => null)) as {
+      status?: string;
+    } | null;
+    return {
+      ok: response.ok && payload?.status === "ok",
+      baseUrl: base,
+      payload,
+    };
+  } catch {
+    return { ok: false, baseUrl: base };
+  }
+}
+
+export async function fetchBackofficeListingsPage(
   query: BackofficeListingsQuery = {},
-): Promise<BackofficePublicListing[]> {
-  if (!isBackofficeConfigured()) return [];
+): Promise<BackofficeListingsResponse | null> {
+  if (!isBackofficeConfigured()) return null;
 
   const params = new URLSearchParams();
   if (query.category) params.set("category", query.category);
@@ -48,21 +80,40 @@ export async function fetchBackofficeListings(
   params.set("page", String(query.page ?? 1));
   params.set("limit", String(query.limit ?? DEFAULT_LIMIT));
 
-  const payload = await backofficeFetch<BackofficeListingsResponse>(
+  return backofficeFetch<BackofficeListingsResponse>(
     `/api/marketplace/v1/listings?${params.toString()}`,
   );
+}
 
+export async function fetchBackofficeListings(
+  query: BackofficeListingsQuery = {},
+): Promise<BackofficePublicListing[]> {
+  const payload = await fetchBackofficeListingsPage(query);
   return payload?.data ?? [];
 }
 
 export async function fetchAllBackofficeListings(
   query: Omit<BackofficeListingsQuery, "page" | "limit"> = {},
 ): Promise<BackofficePublicListing[]> {
-  const firstPage = await fetchBackofficeListings({ ...query, page: 1, limit: DEFAULT_LIMIT });
-  if (firstPage.length < DEFAULT_LIMIT) return firstPage;
+  const all: BackofficePublicListing[] = [];
+  let page = 1;
 
-  const secondPage = await fetchBackofficeListings({ ...query, page: 2, limit: DEFAULT_LIMIT });
-  return [...firstPage, ...secondPage];
+  while (page <= MAX_PAGES) {
+    const payload = await fetchBackofficeListingsPage({
+      ...query,
+      page,
+      limit: DEFAULT_LIMIT,
+    });
+    const batch = payload?.data ?? [];
+    all.push(...batch);
+
+    const total = payload?.meta?.total;
+    if (batch.length < DEFAULT_LIMIT) break;
+    if (typeof total === "number" && all.length >= total) break;
+    page += 1;
+  }
+
+  return all;
 }
 
 export async function fetchBackofficeListingById(
@@ -90,6 +141,7 @@ export async function recordBackofficeListingEvent(
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ event }),
+      signal: AbortSignal.timeout(8000),
     });
   } catch {
     // non-blocking

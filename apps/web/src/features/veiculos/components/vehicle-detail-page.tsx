@@ -15,7 +15,6 @@ import {
   MessageCircle,
   Share2,
   ShieldCheck,
-  Star,
   Zap,
   ChevronRight as BreadcrumbChevron,
 } from "lucide-react";
@@ -24,6 +23,7 @@ import { cn } from "@/lib/utils";
 import { useFavoriteButton } from "@/hooks/use-favorites";
 import { shareListing } from "@/lib/listings/share-listing";
 import { VirtualTourEmbed } from "@/features/listings/components/virtual-tour-embed";
+import { CompanyPresenceCard } from "@/components/company";
 import { VehicleMap } from "./vehicle-map";
 import { VehicleCard } from "./vehicle-card";
 import { ListingContactPanel } from "@/features/contact";
@@ -84,7 +84,7 @@ export function VehicleDetailPage({
   }, [vehicle.videoUrl, vehicle.tour360Url]);
   const sidebarInstallment = Math.round(vehicle.price * 0.005);
   const sidebarDown = Math.round(vehicle.price * 0.2);
-  const financingHref = `/financing?price=${vehicle.price}&down=20&listingId=${vehicle.id}&title=${encodeURIComponent(vehicle.title)}&category=vehicles&currency=${vehicle.currency}`;
+  const financingHref = `/financing?price=${vehicle.price}&down=20&listingId=${vehicle.id}&title=${encodeURIComponent(vehicle.title)}&category=vehicles&currency=${vehicle.currency}&companyId=${encodeURIComponent(vehicle.companyId)}`;
 
   const prevImage = () =>
     setActiveImage((i) => (i === 0 ? vehicle.images.length - 1 : i - 1));
@@ -455,40 +455,24 @@ export function VehicleDetailPage({
             </div>
           </div>
 
-          {/* Concesionaria */}
-          <div className="rounded-xl bg-[#111d2f]/80 p-6">
-            <h3 className="text-sm font-semibold text-white">{t("dealershipTitle")}</h3>
-            <p className="mt-1 text-lg font-bold text-white">{vehicle.company}</p>
-            <div className="mt-3 flex items-center gap-1 text-sm text-[#d4a017]">
-              <Star className="size-4 fill-current" />
-              {vehicle.dealershipRating} · {vehicle.dealershipReviews} {t("reviews")}
-            </div>
-            <div className="mt-4 grid grid-cols-3 gap-2 text-center text-xs">
-              <div>
-                <p className="font-bold text-white">{vehicle.dealershipYears}</p>
-                <p className="text-white/45">{t("years")}</p>
-              </div>
-              <div>
-                <p className="font-bold text-white">{vehicle.dealershipActive}</p>
-                <p className="text-white/45">{t("active")}</p>
-              </div>
-              <div>
-                <p className="font-bold text-white">{vehicle.dealershipSold}</p>
-                <p className="text-white/45">{t("sold")}</p>
-              </div>
-            </div>
-            <div className="mt-5 flex items-center gap-3 pt-5">
-              <Image
-                src={vehicle.agent.photo}
-                alt={vehicle.agent.name}
-                width={48}
-                height={48}
-                className="size-12 rounded-full object-cover"
-              />
-              <div>
-                <p className="font-medium text-white">{vehicle.agent.name}</p>
-                <p className="text-xs text-white/45">{vehicle.agent.role}</p>
-              </div>
+          <CompanyPresenceCard
+            title={t("dealershipTitle")}
+            companyName={vehicle.company}
+            companyLogoUrl={vehicle.companyLogoUrl}
+            companyInfo={vehicle.companyInfo}
+          />
+
+          <div className="flex items-center gap-3 rounded-xl bg-[#111d2f]/80 p-6">
+            <Image
+              src={vehicle.agent.photo}
+              alt={vehicle.agent.name}
+              width={48}
+              height={48}
+              className="size-12 rounded-full object-cover"
+            />
+            <div>
+              <p className="font-medium text-white">{vehicle.agent.name}</p>
+              <p className="text-xs text-white/45">{vehicle.agent.role}</p>
             </div>
           </div>
 
