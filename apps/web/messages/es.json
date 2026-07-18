@@ -195,10 +195,12 @@
       "titleStart": "Encuentra el próximo capítulo de tu",
       "titleHighlight": "historia.",
       "titleEnd": "",
-      "subtitle": "Encuentra propiedades, vehículos y oportunidades de inversión en un solo lugar.",
+      "subtitle": "Propiedades, vehículos e inversiones en un solo lugar.",
       "ctaExplore": "Explorar ofertas",
       "ctaPublish": "Portal Empresas",
-      "ctaCompanies": "Portal Empresas"
+      "ctaCompanies": "Portal Empresas",
+      "ctaBuy": "Quiero comprar",
+      "ctaRent": "Quiero alquilar"
     },
     "search": {
       "locationPlaceholder": "Ciudad, barrio o país",

@@ -195,10 +195,12 @@
       "titleStart": "Find the next chapter of your",
       "titleHighlight": "story.",
       "titleEnd": "",
-      "subtitle": "Find properties, vehicles, and investment opportunities in one place.",
+      "subtitle": "Properties, vehicles, and investments in one place.",
       "ctaExplore": "Explore listings",
       "ctaPublish": "Business Portal",
-      "ctaCompanies": "Business Portal"
+      "ctaCompanies": "Business Portal",
+      "ctaBuy": "I want to buy",
+      "ctaRent": "I want to rent"
     },
     "search": {
       "locationPlaceholder": "City, neighborhood or country",
