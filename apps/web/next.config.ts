@@ -23,10 +23,14 @@ function supabaseStorageHostname() {
 
 const storageHost = supabaseStorageHostname();
 
+const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+
 const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_SUPABASE_URL: supabaseUrl,
     NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: supabaseKey,
+    // Ensure Mapbox is available to client bundles even if loaded only via .env*
+    NEXT_PUBLIC_MAPBOX_TOKEN: mapboxToken,
   },
   outputFileTracingRoot: path.join(process.cwd(), "../.."),
   images: {

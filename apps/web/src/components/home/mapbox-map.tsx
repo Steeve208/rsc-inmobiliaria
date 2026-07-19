@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { MapPin } from "lucide-react";
+import { getMapboxToken, isValidMapCoord } from "@/lib/maps/mapbox";
 
 export type MapMarker = {
   id: string;
@@ -17,22 +18,12 @@ type MapboxMapProps = {
   markers?: MapMarker[];
 };
 
-function isValidCoord(lng: number, lat: number) {
-  return (
-    Number.isFinite(lng) &&
-    Number.isFinite(lat) &&
-    !(lng === 0 && lat === 0) &&
-    Math.abs(lat) <= 90 &&
-    Math.abs(lng) <= 180
-  );
-}
-
 export function MapboxMap({ className, markers = [] }: MapboxMapProps) {
   const t = useTranslations("map");
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
-  const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-  const validMarkers = markers.filter((m) => isValidCoord(m.lng, m.lat));
+  const token = getMapboxToken();
+  const validMarkers = markers.filter((m) => isValidMapCoord(m.lng, m.lat));
   const markersKey = validMarkers
     .map((m) => `${m.id}:${m.lng},${m.lat}`)
     .join("|");

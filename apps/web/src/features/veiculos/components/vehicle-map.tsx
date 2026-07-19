@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { MapPin } from "lucide-react";
+import { getMapboxToken, isValidMapCoord } from "@/lib/maps/mapbox";
 import type { VehicleListing } from "../types";
 
 type Props = {
@@ -26,7 +27,7 @@ export function VehicleMap({
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markersRef = useRef<Map<string, mapboxgl.Marker>>(new Map());
-  const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+  const token = getMapboxToken();
 
   useEffect(() => {
     if (!token || !mapContainer.current || mapRef.current) return;
@@ -44,6 +45,7 @@ export function VehicleMap({
     });
 
     map.addControl(new mapboxgl.NavigationControl(), "top-right");
+    map.addControl(new mapboxgl.AttributionControl({ compact: true }));
 
     mapRef.current = map;
     const markersMap = markersRef.current;
@@ -63,7 +65,11 @@ export function VehicleMap({
     markersRef.current.forEach((m) => m.remove());
     markersRef.current.clear();
 
-    items.forEach((item) => {
+    const mappable = items.filter((item) =>
+      isValidMapCoord(item.lng, item.lat),
+    );
+
+    mappable.forEach((item) => {
       const el = document.createElement("div");
       el.className =
         "size-4 cursor-pointer rounded-full border-2 border-white shadow-lg transition-transform";
@@ -79,12 +85,12 @@ export function VehicleMap({
       markersRef.current.set(item.id, marker);
     });
 
-    if (items.length > 1) {
+    if (mappable.length > 1) {
       const bounds = new mapboxgl.LngLatBounds();
-      items.forEach((item) => bounds.extend([item.lng, item.lat]));
+      mappable.forEach((item) => bounds.extend([item.lng, item.lat]));
       map.fitBounds(bounds, { padding: 60, maxZoom: 14 });
-    } else if (items.length === 1) {
-      map.flyTo({ center: [items[0].lng, items[0].lat], zoom: 13 });
+    } else if (mappable.length === 1) {
+      map.flyTo({ center: [mappable[0].lng, mappable[0].lat], zoom: 13 });
     }
   }, [items, token, onHighlight]);
 
