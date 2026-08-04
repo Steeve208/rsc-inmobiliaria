@@ -40,7 +40,7 @@ export function useImoveisState() {
   const [filters, setFilters] = useState<ImoveisFilters>(() =>
     createDefaultFilters(marketId),
   );
-  const [view, setView] = useState<ImoveisView>("list");
+  const [view, setView] = useState<ImoveisView>("gallery");
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);

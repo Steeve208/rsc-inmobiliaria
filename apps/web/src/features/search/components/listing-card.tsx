@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ListingImage } from "@/components/listing-image";
 import { useTranslations } from "next-intl";
 import { Bath, BedDouble, Car, MapPin, Waves } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -26,10 +26,11 @@ export function ListingCard({ item, variant = "list" }: Props) {
     return (
       <article className="group overflow-hidden rounded-xl border border-white/10 bg-[#081128]/60 transition-colors hover:border-white/20">
         <div className="relative aspect-[4/3] overflow-hidden">
-          <Image
+          <ListingImage
             src={item.image}
             alt={item.title}
             fill
+            variant="card"
             className="object-cover transition-transform duration-300 group-hover:scale-105"
             sizes="(max-width:768px) 100vw, 33vw"
           />
@@ -56,10 +57,11 @@ export function ListingCard({ item, variant = "list" }: Props) {
   return (
     <article className="flex flex-col gap-4 overflow-hidden rounded-xl border border-white/10 bg-[#081128]/60 sm:flex-row">
       <div className="relative h-48 w-full shrink-0 sm:h-auto sm:w-64">
-        <Image
+        <ListingImage
           src={item.image}
           alt={item.title}
           fill
+          variant="card"
           className="object-cover"
           sizes="256px"
         />

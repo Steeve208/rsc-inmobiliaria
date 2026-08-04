@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ListingImage } from "@/components/listing-image";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { Bath, BedDouble, MapPin, Maximize2 } from "lucide-react";
@@ -55,10 +55,11 @@ export function FeaturedProperties({ items }: Props) {
             >
               <Link href={`/imoveis/${item.id}`}>
                 <div className="relative aspect-[16/10] overflow-hidden rounded-t-[20px]">
-                  <Image
+                  <ListingImage
                     src={item.image}
                     alt={item.title}
                     fill
+                    variant="card"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     sizes="(max-width:768px) 100vw, 25vw"
                   />

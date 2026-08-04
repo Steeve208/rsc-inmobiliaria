@@ -10,7 +10,7 @@ import type { VehicleDetail, VehicleListing } from "@/features/veiculos/types";
 import { enrichVehicle } from "@/features/veiculos/mock-data";
 import { slugifyCompanyId } from "@/lib/leads/utils";
 import {
-  fetchAllBackofficeListings,
+  fetchAllBackofficeListingsResult,
   fetchBackofficeListingById,
   incrementBackofficeListingViews,
   isBackofficeConfigured,
@@ -69,18 +69,7 @@ async function fetchImages(listingId: string): Promise<string[]> {
   return rows.map((r) => r.url);
 }
 
-async function listBackofficeVehicles(city?: string): Promise<VehicleListing[]> {
-  const listings = await fetchAllBackofficeListings({
-    category: "automotive",
-    city,
-  });
-  return listings.map(mapBackofficeToVehicleListing);
-}
-
-export async function listVehicles(): Promise<VehicleListing[]> {
-  if (isBackofficeConfigured()) {
-    return listBackofficeVehicles();
-  }
+async function listLocalVehicles(): Promise<VehicleListing[]> {
   try {
     const rows = await db
       .select({ vehicle: vehicleListing, company })
@@ -95,6 +84,23 @@ export async function listVehicles(): Promise<VehicleListing[]> {
   } catch {
     return [];
   }
+}
+
+async function listBackofficeVehicles(city?: string): Promise<VehicleListing[] | null> {
+  const result = await fetchAllBackofficeListingsResult({
+    category: "automotive",
+    city,
+  });
+  if (result.status === "error") return null;
+  return result.listings.map(mapBackofficeToVehicleListing);
+}
+
+export async function listVehicles(): Promise<VehicleListing[]> {
+  if (isBackofficeConfigured()) {
+    const remote = await listBackofficeVehicles();
+    if (remote) return remote;
+  }
+  return listLocalVehicles();
 }
 
 export async function listActiveVehiclesForAlerts(): Promise<VehicleListing[]> {
@@ -253,9 +259,11 @@ export async function listVehiclesByCity(
 ): Promise<VehicleListing[]> {
   if (isBackofficeConfigured()) {
     const listings = await listBackofficeVehicles(city);
-    return listings
-      .filter((item) => !state || item.state === state)
-      .slice(0, limit);
+    if (listings) {
+      return listings
+        .filter((item) => !state || item.state === state)
+        .slice(0, limit);
+    }
   }
   try {
     const rows = await db
@@ -286,14 +294,16 @@ export async function getAgencyVehicles(
   limit = 6,
 ): Promise<VehicleListing[]> {
   if (isBackofficeConfigured()) {
-    const listings = await fetchAllBackofficeListings({
+    const result = await fetchAllBackofficeListingsResult({
       category: "automotive",
       organization: companyId,
     });
-    return listings
-      .filter((item) => item.id !== excludeId)
-      .map(mapBackofficeToVehicleListing)
-      .slice(0, limit);
+    if (result.status === "ok") {
+      return result.listings
+        .filter((item) => item.id !== excludeId)
+        .map(mapBackofficeToVehicleListing)
+        .slice(0, limit);
+    }
   }
   try {
     const rows = await db
@@ -322,32 +332,19 @@ export async function getSimilarVehicles(
   id: string,
   limit = 4,
 ): Promise<VehicleListing[]> {
-  if (isBackofficeConfigured()) {
-    const base = await getVehicleById(id);
-    if (!base) return [];
-    const all = await listBackofficeVehicles();
-    return all
-      .filter((item) => item.id !== id)
-      .filter((item) => item.type === base.type || item.make === base.make)
-      .slice(0, limit);
-  }
-  try {
-    const all = await listVehicles();
-    const base = all.find((v) => v.id === id);
-    if (!base) return [];
-    return all
-      .filter((v) => v.id !== id && (v.type === base.type || v.make === base.make))
-      .slice(0, limit);
-  } catch {
-    return [];
-  }
+  const all = await listVehicles();
+  const base = all.find((v) => v.id === id);
+  if (!base) return [];
+  return all
+    .filter((v) => v.id !== id && (v.type === base.type || v.make === base.make))
+    .slice(0, limit);
 }
 
 export async function getFeaturedVehicles(): Promise<VehicleListing[]> {
-  if (isBackofficeConfigured()) {
-    return filterVehicleSection(await listBackofficeVehicles(), "launch");
-  }
   const all = await listVehicles();
+  if (isBackofficeConfigured()) {
+    return filterVehicleSection(all, "launch");
+  }
   return all.filter((v) => v.featured);
 }
 
@@ -377,25 +374,27 @@ export async function listHomeFeaturedVehicles(
 }
 
 export async function getPremiumVehicles(): Promise<VehicleListing[]> {
-  if (isBackofficeConfigured()) {
-    return filterVehicleSection(await listBackofficeVehicles(), "premium");
-  }
   const all = await listVehicles();
+  if (isBackofficeConfigured()) {
+    return filterVehicleSection(all, "premium");
+  }
   return all.filter((v) => v.premium);
 }
 
 export async function getRecommendedVehicles(): Promise<VehicleListing[]> {
-  if (isBackofficeConfigured()) {
-    return filterVehicleSection(await listBackofficeVehicles(), "recommended").slice(0, 6);
-  }
   const all = await listVehicles();
+  if (isBackofficeConfigured()) {
+    return filterVehicleSection(all, "recommended").slice(0, 6);
+  }
   return all.filter((v) => v.verified).slice(0, 6);
 }
 
 export async function getVehicleMakes(): Promise<string[]> {
   if (isBackofficeConfigured()) {
     const listings = await listBackofficeVehicles();
-    return [...new Set(listings.map((item) => item.make).filter(Boolean))].sort();
+    if (listings) {
+      return [...new Set(listings.map((item) => item.make).filter(Boolean))].sort();
+    }
   }
   try {
     const rows = await db

@@ -74,7 +74,8 @@ export function parseImoveisSearchParams(
     sort: (params.get("sort") as PropertySort) || "relevance",
   };
 
-  const view = (params.get("view") as ImoveisView) || "list";
+  const rawView = params.get("view");
+  const view: ImoveisView = rawView === "list" ? "list" : "gallery";
 
   return {
     filters,
@@ -120,7 +121,7 @@ export function imoveisFiltersToParams(
     if (value) params.set(key, value);
   }
 
-  if (view && view !== "list") params.set("view", view);
+  if (view && view !== "gallery") params.set("view", view);
 
   return params;
 }

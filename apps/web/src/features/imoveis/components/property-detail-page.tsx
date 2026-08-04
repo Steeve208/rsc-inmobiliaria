@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import { ListingImage } from "@/components/listing-image";
 import { useTranslations } from "next-intl";
 import {
   Bath,
@@ -247,13 +248,13 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
             {mediaTab === "photos" && (
               <>
             <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
-              <Image
+              <ListingImage
                 src={heroImage}
                 alt={property.title}
                 fill
                 priority
+                variant="hero"
                 className="object-cover"
-                sizes="(max-width:1280px) 100vw, 900px"
               />
               <button
                 type="button"
@@ -286,12 +287,12 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
                       : "ring-transparent opacity-80 hover:opacity-100",
                   )}
                 >
-                  <Image
+                  <ListingImage
                     src={src}
                     alt=""
                     fill
+                    variant="thumb"
                     className="object-cover"
-                    sizes="120px"
                   />
                 </button>
               ))}
@@ -300,12 +301,12 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
                   type="button"
                   className="relative aspect-[4/3] overflow-hidden rounded-lg"
                 >
-                  <Image
+                  <ListingImage
                     src={property.images[4] ?? heroImage}
                     alt=""
                     fill
+                    variant="thumb"
                     className="object-cover brightness-50"
-                    sizes="120px"
                   />
                   <span className="absolute inset-0 flex items-center justify-center text-center text-xs font-medium text-white">
                     {t("viewAllPhotos", { count: totalPhotos })}

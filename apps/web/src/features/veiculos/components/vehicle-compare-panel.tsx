@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import { ListingImage } from "@/components/listing-image";
 import { GitCompare, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
@@ -110,7 +110,13 @@ export function VehicleComparePanel() {
             className="overflow-hidden rounded-xl border border-border/60 bg-card"
           >
             <div className="relative aspect-[4/3]">
-              <Image src={item.image} alt={item.title} fill className="object-cover" />
+              <ListingImage
+                src={item.image}
+                alt={item.title}
+                fill
+                variant="card"
+                className="object-cover"
+              />
               <button
                 type="button"
                 onClick={() => remove(item.id)}

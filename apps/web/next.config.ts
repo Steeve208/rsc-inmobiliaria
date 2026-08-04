@@ -34,6 +34,8 @@ const nextConfig: NextConfig = {
   },
   outputFileTracingRoot: path.join(process.cwd(), "../.."),
   images: {
+    // Allow sharper listing photos (next/image default is 75).
+    qualities: [75, 80, 90, 95, 100],
     remotePatterns: [
       {
         protocol: "https",

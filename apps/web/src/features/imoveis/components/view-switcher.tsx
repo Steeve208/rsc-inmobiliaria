@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  LayoutGrid,
-  List,
-  Map as MapIcon,
-  Satellite,
-} from "lucide-react";
+import { LayoutGrid, List } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import type { ImoveisView } from "../types";
@@ -21,8 +16,6 @@ export function ViewSwitcher({ view, onChange }: Props) {
   const views: { id: ImoveisView; icon: typeof List; label: string }[] = [
     { id: "list", icon: List, label: t("list") },
     { id: "gallery", icon: LayoutGrid, label: t("gallery") },
-    { id: "map", icon: MapIcon, label: t("map") },
-    { id: "satellite", icon: Satellite, label: t("satellite") },
   ];
 
   return (

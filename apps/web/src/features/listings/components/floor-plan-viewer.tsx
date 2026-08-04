@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ListingImage } from "@/components/listing-image";
 import { Download } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { isPdfFloorPlanUrl } from "@/lib/storage/listing-media-utils";
@@ -25,10 +25,11 @@ export function FloorPlanViewer({ url, title }: Props) {
           />
         ) : (
           <div className="relative aspect-[4/3]">
-            <Image
+            <ListingImage
               src={url}
               alt={title}
               fill
+              variant="hero"
               className="object-contain"
               sizes="(max-width:1280px) 100vw, 900px"
             />

@@ -10,7 +10,7 @@ import type { PropertyDetail, PropertyListing } from "@/features/imoveis/types";
 import { listingImageUrl } from "@/lib/listings/constants";
 import { slugifyCompanyId } from "@/lib/leads/utils";
 import {
-  fetchAllBackofficeListings,
+  fetchAllBackofficeListingsResult,
   fetchBackofficeListingById,
   incrementBackofficeListingViews,
   isBackofficeConfigured,
@@ -91,40 +91,40 @@ async function fetchActiveProperties() {
     .orderBy(desc(propertyListing.publishedAt));
 }
 
-async function listBackofficeProperties(city?: string): Promise<PropertyListing[]> {
-  const listings = await fetchAllBackofficeListings({
+async function listLocalProperties(): Promise<PropertyListing[]> {
+  try {
+    const rows = await fetchActiveProperties();
+    return rows.map(({ property, company: co }) =>
+      mapListing(property, co?.name ?? property.companyId ?? ""),
+    );
+  } catch {
+    return [];
+  }
+}
+
+async function listBackofficeProperties(city?: string): Promise<PropertyListing[] | null> {
+  const result = await fetchAllBackofficeListingsResult({
     category: "real_estate",
     city,
   });
-  return listings.map(mapBackofficeToPropertyListing);
+  if (result.status === "error") return null;
+  return result.listings.map(mapBackofficeToPropertyListing);
 }
 
 export async function listActivePropertiesForAlerts(): Promise<PropertyListing[]> {
   if (isBackofficeConfigured()) {
-    return listBackofficeProperties();
+    const remote = await listBackofficeProperties();
+    if (remote) return remote;
   }
-  try {
-    const rows = await fetchActiveProperties();
-    return rows.map(({ property, company: co }) =>
-      mapListing(property, co?.name ?? property.companyId ?? ""),
-    );
-  } catch {
-    return [];
-  }
+  return listLocalProperties();
 }
 
 export async function listProperties(): Promise<PropertyListing[]> {
   if (isBackofficeConfigured()) {
-    return listBackofficeProperties();
+    const remote = await listBackofficeProperties();
+    if (remote) return remote;
   }
-  try {
-    const rows = await fetchActiveProperties();
-    return rows.map(({ property, company: co }) =>
-      mapListing(property, co?.name ?? property.companyId ?? ""),
-    );
-  } catch {
-    return [];
-  }
+  return listLocalProperties();
 }
 
 export async function listPropertiesByCity(
@@ -134,9 +134,11 @@ export async function listPropertiesByCity(
 ): Promise<PropertyListing[]> {
   if (isBackofficeConfigured()) {
     const listings = await listBackofficeProperties(city);
-    return listings
-      .filter((item) => !state || item.state === state)
-      .slice(0, limit);
+    if (listings) {
+      return listings
+        .filter((item) => !state || item.state === state)
+        .slice(0, limit);
+    }
   }
   try {
     const rows = await db
@@ -301,42 +303,29 @@ export async function getSimilarProperties(
   id: string,
   limit = 4,
 ): Promise<PropertyListing[]> {
-  if (isBackofficeConfigured()) {
-    const base = await getPropertyById(id);
-    if (!base) return [];
-    const all = await listBackofficeProperties();
-    return all
-      .filter((item) => item.id !== id)
-      .filter((item) => item.city === base.city || item.type === base.type)
-      .slice(0, limit);
+  const base = await getPropertyById(id);
+  if (!base) return [];
+
+  const all = await listProperties();
+  const others = all.filter((item) => item.id !== id);
+
+  const ranked = [
+    ...others.filter((item) => item.city === base.city && item.type === base.type),
+    ...others.filter((item) => item.city === base.city && item.type !== base.type),
+    ...others.filter((item) => item.state === base.state && item.city !== base.city),
+    ...others.filter((item) => item.country === base.country),
+  ];
+
+  const unique: PropertyListing[] = [];
+  const seen = new Set<string>();
+  for (const item of ranked) {
+    if (seen.has(item.id)) continue;
+    seen.add(item.id);
+    unique.push(item);
+    if (unique.length >= limit) break;
   }
-  try {
-    const base = await getPropertyById(id);
-    if (!base) return [];
 
-    const all = await listProperties();
-    const others = all.filter((item) => item.id !== id);
-
-    const ranked = [
-      ...others.filter((item) => item.city === base.city && item.type === base.type),
-      ...others.filter((item) => item.city === base.city && item.type !== base.type),
-      ...others.filter((item) => item.state === base.state && item.city !== base.city),
-      ...others.filter((item) => item.country === base.country),
-    ];
-
-    const unique: PropertyListing[] = [];
-    const seen = new Set<string>();
-    for (const item of ranked) {
-      if (seen.has(item.id)) continue;
-      seen.add(item.id);
-      unique.push(item);
-      if (unique.length >= limit) break;
-    }
-
-    return unique;
-  } catch {
-    return [];
-  }
+  return unique;
 }
 
 export async function getAgencyProperties(
@@ -345,14 +334,16 @@ export async function getAgencyProperties(
   limit = 6,
 ): Promise<PropertyListing[]> {
   if (isBackofficeConfigured()) {
-    const listings = await fetchAllBackofficeListings({
+    const result = await fetchAllBackofficeListingsResult({
       category: "real_estate",
       organization: companyId,
     });
-    return listings
-      .filter((item) => item.id !== excludeId)
-      .map(mapBackofficeToPropertyListing)
-      .slice(0, limit);
+    if (result.status === "ok") {
+      return result.listings
+        .filter((item) => item.id !== excludeId)
+        .map(mapBackofficeToPropertyListing)
+        .slice(0, limit);
+    }
   }
   try {
     const rows = await db
@@ -379,7 +370,8 @@ export async function getAgencyProperties(
 
 export async function getPremiumProperties(): Promise<PropertyListing[]> {
   if (isBackofficeConfigured()) {
-    return filterPropertySection(await listBackofficeProperties(), "premium");
+    const remote = await listBackofficeProperties();
+    if (remote) return filterPropertySection(remote, "premium");
   }
   try {
     const rows = await db
@@ -400,7 +392,8 @@ export async function getPremiumProperties(): Promise<PropertyListing[]> {
 
 export async function getRecommendedProperties(): Promise<PropertyListing[]> {
   if (isBackofficeConfigured()) {
-    return filterPropertySection(await listBackofficeProperties(), "recommended");
+    const remote = await listBackofficeProperties();
+    if (remote) return filterPropertySection(remote, "recommended");
   }
   try {
     const rows = await db
@@ -421,7 +414,8 @@ export async function getRecommendedProperties(): Promise<PropertyListing[]> {
 
 export async function getLaunchProperties(): Promise<PropertyListing[]> {
   if (isBackofficeConfigured()) {
-    return filterPropertySection(await listBackofficeProperties(), "launch");
+    const remote = await listBackofficeProperties();
+    if (remote) return filterPropertySection(remote, "launch");
   }
   try {
     const rows = await db

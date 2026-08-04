@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
+import { ListingImage } from "@/components/listing-image";
 import { useTranslations } from "next-intl";
 import {
   Calendar,
@@ -175,13 +176,13 @@ export function VehicleDetailPage({
             {mediaTab === "photos" && (
               <>
                 <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
-                  <Image
+                  <ListingImage
                     src={vehicle.images[activeImage] ?? vehicle.image}
                     alt={vehicle.title}
                     fill
                     priority
+                    variant="hero"
                     className="object-cover"
-                    sizes="(max-width:1280px) 100vw, 900px"
                   />
                   <button
                     type="button"
@@ -213,7 +214,13 @@ export function VehicleDetailPage({
                           : "ring-transparent opacity-80 hover:opacity-100",
                       )}
                     >
-                      <Image src={src} alt="" fill className="object-cover" sizes="120px" />
+                      <ListingImage
+                        src={src}
+                        alt=""
+                        fill
+                        variant="thumb"
+                        className="object-cover"
+                      />
                     </button>
                   ))}
                 </div>

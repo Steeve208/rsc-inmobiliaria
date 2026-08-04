@@ -1,4 +1,4 @@
-export type VeiculosView = "list" | "gallery" | "map" | "satellite";
+export type VeiculosView = "list" | "gallery";
 
 export type VehicleCategory =
   | "car"

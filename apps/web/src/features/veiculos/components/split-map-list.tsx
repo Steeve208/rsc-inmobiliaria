@@ -55,7 +55,6 @@ export function SplitMapList({
   }
 
   const showGallery = view === "gallery";
-  const showSatellite = view === "satellite";
   const visibleResults = results.slice(0, visibleCount);
   const hasMore = visibleCount < results.length;
 
@@ -107,16 +106,6 @@ export function SplitMapList({
               <VehicleCard key={item.id} item={item} variant="gallery" />
             ))}
           </div>
-        ) : showSatellite || view === "map" ? (
-          <div className="mt-6">
-            <VehicleMap
-              items={results}
-              highlightedId={highlightedId}
-              onHighlight={onHighlight}
-              satellite={showSatellite}
-              className="min-h-[600px]"
-            />
-          </div>
         ) : (
           <div className="mt-6 grid gap-5 lg:grid-cols-2">
             <div className="max-h-[640px] space-y-3 overflow-y-auto pr-1">
@@ -142,7 +131,7 @@ export function SplitMapList({
           </div>
         )}
 
-        {hasMore && view !== "map" && view !== "satellite" && (
+        {hasMore ? (
           <div className="mt-8 text-center">
             <button
               type="button"
@@ -152,9 +141,9 @@ export function SplitMapList({
               {t("loadMore", { remaining: results.length - visibleCount })}
             </button>
           </div>
-        )}
+        ) : null}
 
-        {view === "list" && results.length > 0 && (
+        {view === "list" && results.length > 0 ? (
           <div className="mt-4 lg:hidden">
             <VehicleMap
               items={results}
@@ -163,7 +152,7 @@ export function SplitMapList({
               className="min-h-[360px]"
             />
           </div>
-        )}
+        ) : null}
       </div>
     </section>
   );

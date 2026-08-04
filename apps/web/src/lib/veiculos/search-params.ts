@@ -65,7 +65,8 @@ export function parseVeiculosSearchParams(
     lng: lng ? Number(lng) : null,
   };
 
-  const view = (params.get("view") as VeiculosView) || "list";
+  const rawView = params.get("view");
+  const view: VeiculosView = rawView === "list" ? "list" : "gallery";
 
   return {
     filters,
@@ -108,7 +109,7 @@ export function veiculosFiltersToParams(
     if (value) params.set(key, value);
   }
 
-  if (view && view !== "list") params.set("view", view);
+  if (view && view !== "gallery") params.set("view", view);
 
   return params;
 }

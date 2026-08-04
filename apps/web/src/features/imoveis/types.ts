@@ -1,6 +1,6 @@
 import type { ListingItem, SearchFilters } from "@/features/search/types";
 
-export type ImoveisView = "list" | "gallery" | "map" | "satellite";
+export type ImoveisView = "list" | "gallery";
 
 export type PropertySort =
   | "relevance"

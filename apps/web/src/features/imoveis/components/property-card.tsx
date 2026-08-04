@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ListingImage } from "@/components/listing-image";
 import { useTranslations } from "next-intl";
 import { Bath, BedDouble, Car, GitCompare, Heart, MapPin, ShieldCheck } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
@@ -50,10 +50,11 @@ export function PropertyCard({
         variant === "list" ? "h-48 w-full shrink-0 sm:h-auto sm:w-56" : "aspect-[4/3]",
       )}
     >
-      <Image
+      <ListingImage
         src={item.image}
         alt={item.title}
         fill
+        variant="card"
         className="object-cover transition-transform duration-500 group-hover:scale-105"
         sizes={variant === "list" ? "224px" : "(max-width:768px) 100vw, 33vw"}
       />

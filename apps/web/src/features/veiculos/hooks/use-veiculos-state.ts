@@ -16,7 +16,7 @@ import { haversineKm } from "@/lib/geocoding/geo-utils";
 
 export function useVeiculosState() {
   const [filters, setFilters] = useState<VeiculosFilters>(defaultVeiculosFilters);
-  const [view, setView] = useState<VeiculosView>("list");
+  const [view, setView] = useState<VeiculosView>("gallery");
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
