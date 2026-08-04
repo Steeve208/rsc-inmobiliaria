@@ -54,7 +54,7 @@ const services = [
     icon: Wifi,
     href: "/services",
     image:
-      "https://images.unsplash.com/photo-1544197150-b99a580bb7a2?w=700&q=80",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=700&q=80",
   },
 ] as const;
 
