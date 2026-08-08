@@ -141,6 +141,13 @@
       "when": 1782701000000,
       "tag": "0017_visit_status_reschedule",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1782702000000,
+      "tag": "0018_api_rate_limit",
+      "breakpoints": true
     }
   ]
 }

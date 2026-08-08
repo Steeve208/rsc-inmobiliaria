@@ -1,4 +1,6 @@
 const PRODUCTION_BACKOFFICE_URL = "https://reeskco.vercel.app";
+/** Public company login (custom domain). Separate from the API base URL. */
+const PRODUCTION_PORTAL_LOGIN_URL = "https://portal.reeskova.com";
 
 export function getBackofficeBaseUrl(): string | null {
   const configured =
@@ -31,10 +33,14 @@ export function isBackofficeExplicitlyConfigured(): boolean {
   );
 }
 
-export function getBackofficeLoginUrl(locale = "pt"): string | null {
-  const base = getBackofficeBaseUrl();
-  if (!base) return null;
-  return `${base}/${locale}/auth/login`;
+/** Company portal login — always the public portal host when configured. */
+export function getBackofficeLoginUrl(locale = "es"): string {
+  const portalBase =
+    process.env.NEXT_PUBLIC_BACKOFFICE_PORTAL_URL?.trim() ||
+    PRODUCTION_PORTAL_LOGIN_URL;
+  const base = portalBase.replace(/\/$/, "");
+  const lang = locale.trim() || "es";
+  return `${base}/${lang}/auth/login`;
 }
 
 export function getBackofficeRegistrationUrl(): string | null {

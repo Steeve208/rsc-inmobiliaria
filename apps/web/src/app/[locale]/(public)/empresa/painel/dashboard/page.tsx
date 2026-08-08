@@ -12,10 +12,5 @@ export default async function Page({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const loginUrl = getBackofficeLoginUrl(locale);
-  if (loginUrl) {
-    redirect(loginUrl);
-  }
-
-  redirect(`/${locale}/para-empresas`);
+  redirect(getBackofficeLoginUrl(locale));
 }

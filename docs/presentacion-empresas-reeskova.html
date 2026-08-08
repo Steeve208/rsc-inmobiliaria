@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>REESKOVA — Presentación Corporativa para Empresas</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@500;600;700;800&display=swap");
+    @page { size: A4; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #9A3F28;
+      --soft: #F7F1EE;
+      --ink: #1C1C1C;
+      --muted: #5C5C5C;
+      --body: #3A3A3A;
+      --rule: #D0D0D0;
+    }
+    html, body { background: #ddd; color: var(--ink); font-family: "Libre Baskerville", Georgia, serif; }
+    .page {
+      width: 210mm; min-height: 297mm; margin: 14px auto; position: relative;
+      padding: 14mm 18mm 16mm;
+      background: #fff center/cover no-repeat;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      page-break-after: always;
+    }
+    .page::before {
+      content: ""; position: absolute; inset: 0;
+      background: rgba(255,255,255,.18);
+      pointer-events: none;
+    }
+    .page::after {
+      content: ""; position: absolute;
+      left: 15mm; right: 15mm; top: 38mm; bottom: 18mm;
+      background: rgba(255,255,255,.55);
+      pointer-events: none;
+    }
+    .page > * { position: relative; z-index: 1; }
+    @media print {
+      html, body { background: #fff; }
+      .page { margin: 0; box-shadow: none; }
+    }
+    .p1 { background-image: url("assets/bg/bg-01.jpg"); }
+    .p2 { background-image: url("assets/bg/bg-02.jpg"); }
+    .p3 { background-image: url("assets/bg/bg-03.jpg"); }
+    .p4 { background-image: url("assets/bg/bg-04.jpg"); }
+    .p5 { background-image: url("assets/bg/bg-05.jpg"); }
+    .p6 { background-image: url("assets/bg/bg-06.jpg"); }
+    .p7 { background-image: url("assets/bg/bg-07.jpg"); }
+    .p8 { background-image: url("assets/bg/bg-08.jpg"); }
+    .p9 { background-image: url("assets/bg/bg-09.jpg"); }
+    .p10 { background-image: url("assets/bg/bg-10.jpg"); }
+    .p11 { background-image: url("assets/bg/bg-11.jpg"); }
+    .p12 { background-image: url("assets/bg/bg-12.jpg"); }
+
+    .header {
+      display: grid; grid-template-columns: 56px 1fr 150px; gap: 10px; align-items: start;
+      padding-bottom: 8px; border-bottom: 1px solid var(--accent); margin-bottom: 14px;
+    }
+    .logo { width: 50px; }
+    .brand { text-align: center; font-family: Montserrat, sans-serif; }
+    .brand strong { display: block; font-size: 13px; }
+    .brand span { display: block; font-size: 9px; color: var(--muted); margin-top: 2px; line-height: 1.3; }
+    .contact { text-align: right; font-family: Montserrat, sans-serif; font-size: 9px; color: var(--muted); line-height: 1.55; }
+    .contact i { display: inline-block; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; margin-right: 4px; }
+
+    h1 { font-family: Montserrat, sans-serif; font-size: 22px; margin-bottom: 4px; }
+    .sub { font-family: Montserrat, sans-serif; font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+    .body { font-size: 10.5px; line-height: 1.5; color: var(--body); text-align: justify; margin-bottom: 8px; }
+    h2 { font-family: Montserrat, sans-serif; font-size: 11px; margin: 12px 0 6px; letter-spacing: .02em; }
+    h2 em { font-style: normal; color: var(--accent); margin-right: 8px; }
+    ul { margin: 4px 0 8px 14px; font-size: 10px; line-height: 1.45; color: var(--body); }
+    li { margin-bottom: 3px; }
+    .note { background: var(--soft); padding: 9px 11px; font-size: 10px; font-style: italic; line-height: 1.45; margin: 8px 0; }
+    .kpis { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; margin: 10px 0; }
+    .kpi { background: rgba(255,255,255,.85); padding: 8px 4px; text-align: center; }
+    .kpi b { display: block; color: var(--accent); font-family: Montserrat, sans-serif; font-size: 15px; }
+    .kpi span { font-family: Montserrat, sans-serif; font-size: 8px; color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; font-size: 9.5px; margin: 6px 0 10px; }
+    th { text-align: left; background: var(--soft); color: var(--accent); font-family: Montserrat, sans-serif; font-size: 8.5px; padding: 6px 8px; border-bottom: 1px solid #C8C0BC; }
+    td { padding: 6px 8px; border-bottom: 1px solid #E5E0DC; vertical-align: top; color: var(--body); }
+    td:first-child { font-family: Montserrat, sans-serif; font-weight: 700; color: var(--ink); width: 32%; }
+    .toc { list-style: none; margin: 0; padding: 0; }
+    .toc li { display: flex; gap: 12px; font-size: 10.5px; padding: 3px 0; color: var(--body); font-family: Montserrat, sans-serif; }
+    .toc li span { color: var(--muted); width: 22px; }
+    .steps { display: grid; gap: 6px; margin: 8px 0; }
+    .steps.n3 { grid-template-columns: repeat(3,1fr); }
+    .steps.n4 { grid-template-columns: repeat(4,1fr); }
+    .steps.n5 { grid-template-columns: repeat(5,1fr); }
+    .step { background: rgba(255,255,255,.85); padding: 8px; }
+    .step b { display: block; color: var(--accent); font-family: Montserrat, sans-serif; font-size: 10px; margin-bottom: 3px; }
+    .step p { font-size: 9px; color: var(--muted); line-height: 1.35; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .card { background: rgba(255,255,255,.85); padding: 10px; }
+    .card h3 { font-family: Montserrat, sans-serif; font-size: 10px; color: var(--accent); margin-bottom: 4px; }
+    .card p { font-size: 9.5px; color: var(--body); line-height: 1.4; }
+    .mock { background: #222; color: #fff; border-radius: 8px; padding: 12px; font-family: Montserrat, sans-serif; }
+    .mock h4 { font-size: 12px; margin-bottom: 2px; }
+    .mock .sub { color: #A0A0A0; font-size: 9px; margin-bottom: 8px; }
+    .mock .field { background: #2E2E2E; color: #888; font-size: 10px; padding: 7px 8px; margin: 3px 0 7px; border-radius: 4px; }
+    .mock label { font-size: 8px; color: #A0A0A0; text-transform: uppercase; }
+    .mock .btn { background: var(--accent); color: #fff; text-align: center; padding: 8px; font-weight: 700; font-size: 11px; border-radius: 4px; margin-top: 4px; }
+    .footer {
+      position: absolute; left: 18mm; right: 18mm; bottom: 9mm; z-index: 2;
+      border-top: 1px solid var(--rule); padding-top: 5px;
+      display: flex; justify-content: space-between;
+      font-family: Montserrat, sans-serif; font-size: 7.5px; color: #8A8A8A;
+    }
+    .notice { margin-top: 14px; padding: 10px 12px; background: rgba(255,255,255,.9); border: 1px solid var(--rule); font-family: Montserrat, sans-serif; font-size: 11px; }
+    .notice a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="notice" style="max-width:210mm;margin:16px auto 0;">
+    Documento corporativo de 12 páginas. Versión PDF recomendada para envío:
+    <a href="REESKOVA-Presentacion-Empresas.pdf">REESKOVA-Presentacion-Empresas.pdf</a>
+  </div>
+
+  <article class="page p1">
+    <header class="header">
+      <img class="logo" src="assets/rsc-group-logo.png" alt="RSC" />
+      <div class="brand"><strong>RSC Group</strong><span>Building the Next Generation of Digital Platforms<br>www.rscchain.com</span></div>
+      <div class="contact"><div><i></i>rscgroupltda@gmail.com</div><div><i></i>www.rscchain.com</div><div><i></i>+33 7 85 61 86 44</div></div>
+    </header>
+    <h1>REESKOVA</h1>
+    <p class="sub">Presentación Corporativa para Empresas<br>Inmobiliarias · Concesionarios · Constructoras · Partners de servicios</p>
+    <p class="body">REESKOVA es el marketplace premium de inmuebles, vehículos y servicios impulsado por RSC Group. Esta presentación describe la infraestructura digital, el modelo operativo y los flujos con los que las empresas verificadas publican inventario, reciben demanda calificada y gestionan la relación comercial.</p>
+    <div class="note">Modelo institucional: plataforma de publicación y conexión. REESKOVA / RSC no intermedia contratos, no custodia fondos ni realiza trámites legales.</div>
+    <div class="kpis">
+      <div class="kpi"><b>+10k</b><span>Propiedades</span></div>
+      <div class="kpi"><b>+2k</b><span>Empresas</span></div>
+      <div class="kpi"><b>+5k</b><span>Servicios</span></div>
+      <div class="kpi"><b>+100k</b><span>Usuarios</span></div>
+      <div class="kpi"><b>57</b><span>Mercados</span></div>
+    </div>
+    <h2>ÍNDICE</h2>
+    <ul class="toc">
+      <li><span>01</span>Portada y alcance</li>
+      <li><span>02</span>RSC Group y el posicionamiento de REESKOVA</li>
+      <li><span>03</span>Contexto de mercado y propuesta de valor</li>
+      <li><span>04</span>Verticales del marketplace</li>
+      <li><span>05</span>Journey del comprador</li>
+      <li><span>06</span>Propuesta para empresas y audiencias</li>
+      <li><span>07</span>Infraestructura SaaS — Portal Empresas</li>
+      <li><span>08</span>Proceso de incorporación y verificación</li>
+      <li><span>09</span>Operación: publicar, leads y visitas</li>
+      <li><span>10</span>Capacidades de descubrimiento del marketplace</li>
+      <li><span>11</span>Ecosistema, gobernanza y marco legal</li>
+      <li><span>12</span>Incorporación, contactos y siguientes pasos</li>
+    </ul>
+    <div class="footer"><span>REESKOVA · Presentación Corporativa para Empresas · RSC Group</span><span>01 / 12</span></div>
+  </article>
+
+  <article class="page p2">
+    <header class="header">
+      <img class="logo" src="assets/rsc-group-logo.png" alt="RSC" />
+      <div class="brand"><strong>RSC Group</strong><span>Building the Next Generation of Digital Platforms<br>www.rscchain.com</span></div>
+      <div class="contact"><div><i></i>rscgroupltda@gmail.com</div><div><i></i>www.rscchain.com</div><div><i></i>+33 7 85 61 86 44</div></div>
+    </header>
+    <h2><em>02</em>RSC GROUP Y EL POSICIONAMIENTO DE REESKOVA</h2>
+    <p class="body">RSC Group es la compañía de tecnología matriz de un ecosistema multiproducto. REESKOVA es la marca de marketplace premium del grupo: distribución digital de inventario y capa SaaS para empresas.</p>
+    <table>
+      <tr><th>Componente</th><th>Función</th></tr>
+      <tr><td>REESKOVA</td><td>Marketplace B2B2C + panel SaaS</td></tr>
+      <tr><td>RSC Chain</td><td>Infraestructura blockchain</td></tr>
+      <tr><td>RSC Wallet</td><td>Wallet y pagos</td></tr>
+      <tr><td>RSC Bank · Capital</td><td>Servicios financieros del grupo</td></tr>
+      <tr><td>Ora Technology</td><td>Partner tecnológico</td></tr>
+    </table>
+    <h2><em>04</em>DEFINICIÓN OPERATIVA</h2>
+    <p class="body">Solo empresas verificadas publican desde el Backoffice. Los consumidores descubren, contactan y cierran con la empresa. Idiomas: pt / es / en / fr / de / it / ar. Cobertura: 57 mercados.</p>
+    <div class="footer"><span>REESKOVA · Presentación Corporativa para Empresas · RSC Group</span><span>02 / 12</span></div>
+  </article>
+
+  <article class="page p3">
+    <header class="header">
+      <img class="logo" src="assets/rsc-group-logo.png" alt="RSC" />
+      <div class="brand"><strong>RSC Group</strong><span>Building the Next Generation of Digital Platforms</span></div>
+      <div class="contact"><div><i></i>rscgroupltda@gmail.com</div><div><i></i>+33 7 85 61 86 44</div></div>
+    </header>
+    <h2><em>05</em>CONTEXTO DE MERCADO</h2>
+    <p class="body">El mercado digital permanece fragmentado entre portales aislados. REESKOVA unifica distribución, leads operativos y confianza verificada sin ceder el cierre a una gestoría.</p>
+    <div class="grid2">
+      <div class="card"><h3>Distribución</h3><p>Multi-vertical en un solo journey.</p></div>
+      <div class="card"><h3>Leads operativos</h3><p>Chats, visitas y solicitudes al panel.</p></div>
+      <div class="card"><h3>Confianza</h3><p>Marketplace solo para empresas verificadas.</p></div>
+      <div class="card"><h3>Control</h3><p>Negociación y cierre entre las partes.</p></div>
+      <div class="card"><h3>SaaS</h3><p>Anuncios, CRM, chat, analytics e IA.</p></div>
+      <div class="card"><h3>Ecosistema</h3><p>Crédito, seguros y servicios del journey.</p></div>
+    </div>
+    <div class="footer"><span>REESKOVA · Presentación Corporativa para Empresas · RSC Group</span><span>03 / 12</span></div>
+  </article>
+
+  <article class="page p4">
+    <header class="header">
+      <img class="logo" src="assets/rsc-group-logo.png" alt="RSC" />
+      <div class="brand"><strong>RSC Group</strong><span>Building the Next Generation of Digital Platforms</span></div>
+      <div class="contact"><div><i></i>rscgroupltda@gmail.com</div></div>
+    </header>
+    <h2><em>07</em>VERTICALES DEL MARKETPLACE</h2>
+    <p class="body"><strong>Inmuebles</strong> — casas, apartamentos, terrenos, comerciales, lanzamientos. <strong>Vehículos</strong> — coches, SUVs, motos. <strong>Servicios</strong> — seguros, hogar, energía. <strong>Crédito</strong> — opciones de partners; acuerdo entre cliente y entidad.</p>
+    <table>
+      <tr><th>Regla</th><th>Aplicación</th></tr>
+      <tr><td>Solo empresas</td><td>Particulares no publican</td></tr>
+      <tr><td>Backoffice origen</td><td>Inventario sincronizado al marketplace</td></tr>
+      <tr><td>Identidad</td><td>Logo, documento, sucursales, WhatsApp</td></tr>
+      <tr><td>Sello verificado</td><td>Badge en tarjetas y fichas</td></tr>
+    </table>
+    <div class="footer"><span>REESKOVA · Presentación Corporativa para Empresas · RSC Group</span><span>04 / 12</span></div>
+  </article>
+
+  <article class="page p5">
+    <header class="header">
+      <img class="logo" src="assets/rsc-group-logo.png" alt="RSC" />
+      <div class="brand"><strong>RSC Group</strong><span>Building the Next Generation of Digital Platforms</span></div>
+      <div class="contact"><div><i></i>rscgroupltda@gmail.com</div></div>
+    </header>
+    <h2><em>09</em>JOURNEY DEL COMPRADOR</h2>
+    <div class="steps n5">
+      <div class="step"><b>01 Busca</b><p>Filtros, mapa, comparación, IA</p></div>
+      <div class="step"><b>02 Contacta</b><p>Chat RSC o WhatsApp</p></div>
+      <div class="step"><b>03 Visita</b><p>Agenda con la empresa</p></div>
+      <div class="step"><b>04 Negocia</b><p>Entre las partes</p></div>
+      <div class="step"><b>05 Cierra</b><p>Fuera de intermediación RSC</p></div>
+    </div>
+    <div class="note">RSC no organiza trámites ni cierra operaciones. Visita, documentación y entrega son entre cliente y empresa.</div>
+    <div class="footer"><span>REESKOVA · Presentación Corporativa para Empresas · RSC Group</span><span>05 / 12</span></div>
+  </article>
+
+  <article class="page p6">
+    <header class="header">
+      <img class="logo" src="assets/rsc-group-logo.png" alt="RSC" />
+      <div class="brand"><strong>RSC Group</strong><span>Building the Next Generation of Digital Platforms</span></div>
+      <div class="contact"><div><i></i>rscgroupltda@gmail.com</div></div>
+    </header>
+    <h2><em>12</em>PROPUESTA PARA EMPRESAS</h2>
+    <table>
+      <tr><th>Audiencia</th><th>Operación</th></tr>
+      <tr><td>Inmobiliarias</td><td>Publican, reciben contactos, conectan visitas y crédito</td></tr>
+      <tr><td>Concesionarios</td><td>Stock online, leads, visitas al showroom</td></tr>
+      <tr><td>Constructoras</td><td>Emprendimientos y demanda temprana</td></tr>
+      <tr><td>Partners</td><td>Servicios del journey</td></tr>
+    </table>
+    <h2><em>15</em>LO QUE REESKOVA NO HACE</h2>
+    <ul>
+      <li>No intermedia contratos</li>
+      <li>No custodia fondos</li>
+      <li>No gestiona trámites legales</li>
+      <li>No cierra la operación</li>
+    </ul>
+    <div class="footer"><span>REESKOVA · Presentación Corporativa para Empresas · RSC Group</span><span>06 / 12</span></div>
+  </article>
+
+  <article class="page p7">
+    <header class="header">
+      <img class="logo" src="assets/rsc-group-logo.png" alt="RSC" />
+      <div class="brand"><strong>RSC Group</strong><span>Building the Next Generation of Digital Platforms</span></div>
+      <div class="contact"><div><i></i>rscgroupltda@gmail.com</div></div>
+    </header>
+    <h2><em>16</em>INFRAESTRUCTURA SAAS — PORTAL EMPRESAS</h2>
+    <p class="body">Backoffice como origen de verdad; marketplace como capa de descubrimiento y conexión.</p>
+    <div class="grid2">
+      <div class="mock">
+        <h4>Panel de leads</h4>
+        <div class="sub">Empresa verificada · Operación en tiempo real</div>
+        <div class="field">Visita pendiente — Apto Centro · Hoy 15:00</div>
+        <div class="field">Chat RSC — Consulta SUV híbrido</div>
+        <div class="field">Visita confirmada — Casa Zona Sur</div>
+        <div class="field">Chat RSC — Financiación solicitada</div>
+      </div>
+      <ul>
+        <li>Gestión de anuncios</li>
+        <li>CRM de leads</li>
+        <li>Chat integrado</li>
+        <li>Agenda de visitas</li>
+        <li>Analytics</li>
+        <li>Sello verificado</li>
+        <li>IA para ventas</li>
+        <li>WhatsApp y organización</li>
+      </ul>
+    </div>
+    <div class="footer"><span>REESKOVA · Presentación Corporativa para Empresas · RSC Group</span><span>07 / 12</span></div>
+  </article>
+
+  <article class="page p8">
+    <header class="header">
+      <img class="logo" src="assets/rsc-group-logo.png" alt="RSC" />
+      <div class="brand"><strong>RSC Group</strong><span>Building the Next Generation of Digital Platforms</span></div>
+      <div class="contact"><div><i></i>rscgroupltda@gmail.com</div></div>
+    </header>
+    <h2><em>18</em>PROCESO DE INCORPORACIÓN</h2>
+    <div class="steps n3">
+      <div class="step"><b>01 Solicitud</b><p>/para-empresas → cadastro</p></div>
+      <div class="step"><b>02 Revisión</b><p>Hasta 24 horas</p></div>
+      <div class="step"><b>03 Activación</b><p>Credenciales Backoffice</p></div>
+    </div>
+    <div class="grid2" style="margin-top:12px">
+      <div class="mock">
+        <h4>Registro de empresa</h4>
+        <div class="sub">Portal Empresas · REESKOVA</div>
+        <label>Nombre</label><div class="field">Ej: Inmobiliaria Valle</div>
+        <label>Documento</label><div class="field">00.000.000/0001-00</div>
+        <label>Email</label><div class="field">contacto@tuempresa.com</div>
+        <label>Teléfono</label><div class="field">(51) 99999-0000</div>
+        <div class="btn">Solicitar registro</div>
+      </div>
+      <div>
+        <p class="body"><strong>API:</strong> POST /api/registration-requests · pending · notificación admins · 409 si duplicado.</p>
+        <ul>
+          <li>Login Backoffice</li>
+          <li>Perfil y sucursales</li>
+          <li>Primer inventario</li>
+          <li>Sello verificado</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer"><span>REESKOVA · Presentación Corporativa para Empresas · RSC Group</span><span>08 / 12</span></div>
+  </article>
+
+  <article class="page p9">
+    <header class="header">
+      <img class="logo" src="assets/rsc-group-logo.png" alt="RSC" />
+      <div class="brand"><strong>RSC Group</strong><span>Building the Next Generation of Digital Platforms</span></div>
+      <div class="contact"><div><i></i>rscgroupltda@gmail.com</div></div>
+    </header>
+    <h2><em>20</em>OPERACIÓN — PUBLICAR, LEADS Y VISITAS</h2>
+    <div class="steps n5">
+      <div class="step"><b>01 Crear</b><p>Datos del anuncio</p></div>
+      <div class="step"><b>02 Media</b><p>Fotos / video / 360°</p></div>
+      <div class="step"><b>03 Publicar</b><p>Estado activo</p></div>
+      <div class="step"><b>04 Sync</b><p>API → vitrina</p></div>
+      <div class="step"><b>05 Optimizar</b><p>Destacados / IA</p></div>
+    </div>
+    <table>
+      <tr><th>Flujo</th><th>Pasos</th></tr>
+      <tr><td>Contacto → lead</td><td>Ficha → Chat/WhatsApp → hilo → respuesta en panel → historial CRM</td></tr>
+      <tr><td>Agenda visita</td><td>Formulario → slots → POST /api/leads/visits → confirmar / reagendar</td></tr>
+    </table>
+    <div class="note">Estados de visita: pending · confirmed · cancelled · reschedule_proposed.</div>
+    <div class="footer"><span>REESKOVA · Presentación Corporativa para Empresas · RSC Group</span><span>09 / 12</span></div>
+  </article>
+
+  <article class="page p10">
+    <header class="header">
+      <img class="logo" src="assets/rsc-group-logo.png" alt="RSC" />
+      <div class="brand"><strong>RSC Group</strong><span>Building the Next Generation of Digital Platforms</span></div>
+      <div class="contact"><div><i></i>rscgroupltda@gmail.com</div></div>
+    </header>
+    <h2><em>23</em>CAPACIDADES DE DESCUBRIMIENTO</h2>
+    <div class="grid2">
+      <div class="card"><h3>Mapas</h3><p>Lista, galería, mapa, satélite.</p></div>
+      <div class="card"><h3>Comparar</h3><p>Inmuebles y vehículos + favoritos.</p></div>
+      <div class="card"><h3>Reeskova AI</h3><p>Búsqueda natural e insights.</p></div>
+      <div class="card"><h3>Financiación</h3><p>Opciones de partners en ficha.</p></div>
+      <div class="card"><h3>Multiidioma</h3><p>Siete idiomas de producto.</p></div>
+      <div class="card"><h3>Sello verificado</h3><p>Señal de confianza pública.</p></div>
+    </div>
+    <div class="footer"><span>REESKOVA · Presentación Corporativa para Empresas · RSC Group</span><span>10 / 12</span></div>
+  </article>
+
+  <article class="page p11">
+    <header class="header">
+      <img class="logo" src="assets/rsc-group-logo.png" alt="RSC" />
+      <div class="brand"><strong>RSC Group</strong><span>Building the Next Generation of Digital Platforms</span></div>
+      <div class="contact"><div><i></i>rscgroupltda@gmail.com</div></div>
+    </header>
+    <h2><em>26</em>ECOSISTEMA Y MARCO LEGAL</h2>
+    <p class="body">Financiación, seguros, hogar y energía complementan el journey. Grupo RSC: Bank, Capital, Ora Technology, Reesk Chain.</p>
+    <ul>
+      <li>Plataforma de publicación y conexión</li>
+      <li>No intermedia contratos ni custodia fondos</li>
+      <li>No actúa como inmobiliaria intermediaria, escrow ni bufete</li>
+      <li>Anunciantes responsables de sus propios procesos</li>
+    </ul>
+    <div class="footer"><span>REESKOVA · Presentación Corporativa para Empresas · RSC Group</span><span>11 / 12</span></div>
+  </article>
+
+  <article class="page p12">
+    <header class="header">
+      <img class="logo" src="assets/rsc-group-logo.png" alt="RSC" />
+      <div class="brand"><strong>RSC Group</strong><span>Building the Next Generation of Digital Platforms</span></div>
+      <div class="contact"><div><i></i>rscgroupltda@gmail.com</div></div>
+    </header>
+    <h2><em>29</em>CÓMO INCORPORAR SU EMPRESA</h2>
+    <div class="steps n4">
+      <div class="step"><b>01 Entrar</b><p>Para Empresas</p></div>
+      <div class="step"><b>02 Registrar</b><p>Formulario</p></div>
+      <div class="step"><b>03 Verificar</b><p>≤ 24 h</p></div>
+      <div class="step"><b>04 Activar</b><p>Backoffice</p></div>
+    </div>
+    <table>
+      <tr><th>Canal</th><th>Detalle</th></tr>
+      <tr><td>Registro web</td><td>REESKOVA → Para Empresas</td></tr>
+      <tr><td>Partnerships</td><td>rscgroupltda@gmail.com</td></tr>
+      <tr><td>Soporte</td><td>support@rscmarket.com</td></tr>
+      <tr><td>Teléfono</td><td>+33 7 85 61 86 44</td></tr>
+      <tr><td>Asunto</td><td>Incorporación empresa — REESKOVA</td></tr>
+    </table>
+    <div class="note">One Marketplace. Endless Opportunities. — REESKOVA by RSC Group</div>
+    <div class="footer"><span>REESKOVA · Presentación Corporativa para Empresas · RSC Group</span><span>12 / 12</span></div>
+  </article>
+</body>
+</html>

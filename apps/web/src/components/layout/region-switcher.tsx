@@ -56,7 +56,9 @@ export function RegionSwitcher() {
               {items.map((item) => (
                 <DropdownMenuItem
                   key={item.id}
-                  onClick={() => selectMarket(item.id)}
+                  onClick={() => {
+                    selectMarket(item.id);
+                  }}
                   className={marketId === item.id ? "font-semibold" : undefined}
                 >
                   <span className="me-2">{item.flag}</span>

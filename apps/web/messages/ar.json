@@ -232,11 +232,11 @@
   },
   "landing": {
     "hero": {
-      "title": "Discover a world of possibilities",
-      "titleStart": "Discover a world of",
-      "titleHighlight": "possibilities",
-      "titleEnd": "",
-      "subtitle": "Properties, vehicles, and services connected to make your plans real.",
+      "title": "Find the right place for the next chapter of your life.",
+      "titleStart": "Find the right place for the",
+      "titleHighlight": "next chapter",
+      "titleEnd": "of your life.",
+      "subtitle": "Properties, vehicles, financing, and services in one ecosystem.",
       "ctaExplore": "Explore marketplace",
       "ctaPublish": "Business Portal",
       "ctaCompanies": "Business Portal",
@@ -269,6 +269,14 @@
           "title": "Premium Apartment",
           "place": "São Paulo, Brazil"
         }
+      },
+      "ctaProperty": "Buy a property",
+      "ctaVehicle": "Buy a vehicle",
+      "pillars": {
+        "buy": "Buy",
+        "sell": "Sell",
+        "finance": "Finance",
+        "list": "List"
       }
     },
     "ecosystem": {
@@ -285,11 +293,15 @@
       }
     },
     "search": {
-      "locationPlaceholder": "City, neighborhood or country",
+      "heading": "What are you looking for?",
+      "locationPlaceholder": "City, area, or keyword",
       "propertyType": "Property type",
       "priceRange": "Price range",
       "bedrooms": "Bedrooms",
-      "submit": "Search properties",
+      "submit": "Search",
+      "intentBuy": "Buy",
+      "intentRent": "Rent",
+      "intentAny": "Buy or rent",
       "filters": {
         "houses": "Houses",
         "apartments": "Apartments",
@@ -316,7 +328,8 @@
         "type": "Type",
         "price": "Price",
         "bedrooms": "Bedrooms",
-        "condition": "Condition"
+        "condition": "Condition",
+        "intent": "Intent"
       },
       "priceUpTo": "Up to",
       "priceFrom": "From",
@@ -325,7 +338,7 @@
       "loadingResults": "Loading…",
       "searching": "Searching…",
       "vehicleType": "Vehicle type",
-      "submitVehicles": "Search vehicles",
+      "submitVehicles": "Search",
       "conditionAny": "New or used",
       "conditionNew": "New",
       "conditionUsed": "Used",
@@ -407,11 +420,23 @@
       }
     },
     "featured": {
-      "title": "عقارات مميزة",
-      "viewAll": "عرض الكل",
+      "eyebrow": "Featured selection",
+      "title": "Find your next place.",
+      "subtitle": "A curated selection of featured properties on Reeskova.",
+      "viewAll": "See all",
+      "viewProperty": "View property",
+      "save": "Save",
+      "specs": {
+        "beds": "{count} bedrooms",
+        "baths": "{count} bathrooms",
+        "garage": "{count} parking"
+      },
       "badges": {
         "premium": "Premium",
-        "new": "New"
+        "new": "New",
+        "featured": "Featured",
+        "sale": "Sale",
+        "rent": "Rent"
       }
     },
     "services": {
@@ -626,7 +651,8 @@
       }
     },
     "categories": {
-      "title": "استكشف حسب الفئات",
+      "title": "Find more on Reeskova",
+      "subtitle": "Explore by category and keep discovering.",
       "viewAll": "See all categories →",
       "items": {
         "properties": {
@@ -638,7 +664,7 @@
           "description": "Cars, SUVs, and bikes"
         },
         "launches": {
-          "title": "New Projects",
+          "title": "New projects",
           "description": "Launches and pre-sales"
         },
         "companies": {
@@ -650,23 +676,26 @@
           "description": "Credit for your plans"
         },
         "services": {
-          "title": "Services",
-          "description": "Everything for your next move"
+          "title": "Insurance",
+          "description": "Protection and services"
         }
-      },
-      "subtitle": "اعثر بسرعة على ما تبحث عنه."
+      }
     },
     "featuredVehicles": {
-      "title": "مركبات مميزة",
-      "viewAll": "عرض الكل"
+      "title": "Featured vehicles",
+      "subtitle": "A selection to move your next step forward.",
+      "viewAll": "See all",
+      "viewVehicle": "View vehicle",
+      "save": "Save"
     },
     "verifiedCompanies": {
       "title": "Verified companies",
       "viewAll": "See all →"
     },
     "marketplaceServices": {
-      "title": "Services for your new life",
-      "viewAll": "See all →",
+      "title": "Everything you need to make it real",
+      "subtitle": "Financing, protection, and services for every step.",
+      "viewAll": "See all",
       "items": {
         "financing": {
           "title": "Financing",
@@ -685,7 +714,7 @@
           "description": "Design for your space"
         },
         "solar": {
-          "title": "Solar Energy",
+          "title": "Energy",
           "description": "Efficiency for your home"
         },
         "internet": {
@@ -699,6 +728,89 @@
       "subtitle": "Get launches, premium vehicles, and exclusive offers.",
       "unavailable": "Email alerts are not available yet. Contact support for launches and offers.",
       "contactCta": "Contact support"
+    },
+    "ecosystemJourney": {
+      "title": "Everything you need for your next plan.",
+      "steps": {
+        "find": {
+          "label": "Find",
+          "description": "Properties, vehicles, and opportunities."
+        },
+        "finance": {
+          "label": "Finance",
+          "description": "Find solutions to make your purchase possible."
+        },
+        "protect": {
+          "label": "Protect",
+          "description": "Insurance and complementary services."
+        },
+        "transform": {
+          "label": "Transform",
+          "description": "Moving, decoration, energy, internet, and more."
+        }
+      }
+    },
+    "whyReeskova": {
+      "title": "A new way to find what you need.",
+      "items": {
+        "one": {
+          "number": "01",
+          "title": "Everything in one place",
+          "description": "Find products, properties, and connected services."
+        },
+        "two": {
+          "number": "02",
+          "title": "Verified opportunities",
+          "description": "Clear information so you can make better decisions."
+        },
+        "three": {
+          "number": "03",
+          "title": "More than a search",
+          "description": "From discovery to completion, Reeskova connects every step."
+        }
+      }
+    },
+    "sellCta": {
+      "title": "Have something to sell?",
+      "subtitle": "Reach people who are looking for exactly what you offer.",
+      "cta": "Advertise here",
+      "channels": {
+        "properties": "Properties",
+        "vehicles": "Vehicles",
+        "companies": "Companies",
+        "projects": "Projects"
+      }
+    },
+    "rscGroup": {
+      "eyebrow": "Brand architecture",
+      "title": "RSC Group is the group. Reeskova is the platform.",
+      "subtitle": "A clear hierarchy: the group ecosystem and the consumer marketplace.",
+      "brands": {
+        "group": {
+          "name": "RSC Group",
+          "role": "The ecosystem"
+        },
+        "reeskova": {
+          "name": "Reeskova",
+          "role": "Marketplace"
+        },
+        "bank": {
+          "name": "RSC Bank",
+          "role": "Financial solutions"
+        },
+        "capital": {
+          "name": "RSC Capital",
+          "role": "Investments"
+        },
+        "ora": {
+          "name": "Ora Technology",
+          "role": "Technology"
+        },
+        "chain": {
+          "name": "Reesk Chain",
+          "role": "Infrastructure"
+        }
+      }
     }
   },
   "search": {

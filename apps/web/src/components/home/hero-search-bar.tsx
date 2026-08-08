@@ -150,6 +150,7 @@ export function HeroSearchBar() {
   const [isPending, startTransition] = useTransition();
 
   const [category, setCategory] = useState<SearchCategory>("properties");
+  const [transaction, setTransaction] = useState<"buy" | "rent" | "">("buy");
   const [location, setLocation] = useState("");
   const [resolvedLocation, setResolvedLocation] =
     useState<ResolvedLocation | null>(null);
@@ -235,6 +236,7 @@ export function HeroSearchBar() {
       locationLabel: locationFields.locationLabel,
       lat: locationFields.lat,
       lng: locationFields.lng,
+      transaction,
       type: propertyType,
       bedrooms,
       priceMin: selectedPrice?.min ?? "",
@@ -246,6 +248,7 @@ export function HeroSearchBar() {
     market.countryName,
     propertyType,
     selectedPrice,
+    transaction,
   ]);
 
   const draftVehicleFilters = useMemo((): VeiculosFilters => {
@@ -316,7 +319,7 @@ export function HeroSearchBar() {
   };
 
   const fieldClass =
-    "group relative flex min-h-[64px] flex-1 flex-col justify-center gap-0.5 px-4 py-2.5 transition-colors duration-300 hover:bg-[#F7F4EC]/70 lg:min-h-[72px] lg:border-r lg:border-[#E8E4D9]";
+    "group relative flex min-h-[60px] flex-1 flex-col justify-center gap-0.5 px-4 py-2.5 transition-colors duration-300 hover:bg-[#F7F4EC]/80 lg:min-h-[68px] lg:border-r lg:border-[#EDE8DC]";
 
   const selectClass =
     "w-full appearance-none bg-transparent pr-7 text-sm font-medium text-[#1A1F2B] outline-none";
@@ -332,215 +335,241 @@ export function HeroSearchBar() {
         : Car;
 
   return (
-    <div className="rk-container relative z-30 -mt-8">
-      <div className="mb-2 flex justify-center gap-1.5">
-        {(
-          [
-            { id: "properties" as const, label: t("tabs.properties") },
-            { id: "vehicles" as const, label: t("tabs.vehicles") },
-          ] as const
-        ).map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            onClick={() => setCategory(tab.id)}
-            className={cn(
-              "rounded-full px-4 py-1.5 text-xs font-medium transition-colors duration-300 sm:text-sm",
-              category === tab.id
-                ? "bg-[#D4A62A] text-[#0B1220]"
-                : "bg-white/10 text-white/80 hover:bg-white/15 hover:text-white",
-            )}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
-      <motion.form
-        onSubmit={(e) => {
-          e.preventDefault();
-          goToSearch();
-        }}
-        className="overflow-hidden rounded-[999px] border border-white/40 bg-white shadow-[0_16px_40px_rgba(0,0,0,.22)] max-lg:rounded-[20px]"
-        initial={{ opacity: 0, y: 16 }}
+    <div className="rk-container relative z-30 -mt-10 pb-2">
+      <motion.div
+        className="overflow-hidden rounded-[22px] border border-[#E8E2D4] bg-white shadow-[0_20px_50px_rgba(0,0,0,.18)]"
+        initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.15 }}
+        transition={{ duration: 0.4, delay: 0.12 }}
       >
-        <div className="flex flex-col lg:flex-row lg:items-stretch">
-          <div className={cn(fieldClass, "min-w-0 lg:flex-[1.35]")}>
-            <span className="rk-display text-[11px] font-semibold tracking-[0.08em] text-[#8C97A8] uppercase">
-              {t("labels.location")}
-            </span>
-            <LocationAutocomplete
-              theme="light"
-              value={location}
-              placeholder={t("locationPlaceholder")}
-              onValueChange={(value) => {
-                setLocation(value);
-                if (!value) setResolvedLocation(null);
-              }}
-              onPlaceResolved={(place) => {
-                setResolvedLocation(place);
-                setLocation(place.label);
-              }}
-              onLocationCleared={() => setResolvedLocation(null)}
-              onEnter={goToSearch}
-              className="[&_div]:min-h-0 [&_div]:rounded-none [&_div]:border-0 [&_div]:px-0 [&_div]:ring-0"
-            />
-          </div>
-
-          <label className={fieldClass}>
-            <span className="rk-display text-[11px] font-semibold tracking-[0.08em] text-[#8C97A8] uppercase">
-              {t("labels.type")}
-            </span>
-            <div className="relative flex items-center gap-2">
-              <TypeIcon
-                className="size-4 shrink-0 text-[#D4A62A]"
-                strokeWidth={1.75}
-              />
-              {category === "properties" ? (
-                <select
-                  value={propertyType}
-                  onChange={(e) => setPropertyType(e.target.value)}
-                  className={selectClass}
-                >
-                  <option value="">{t("propertyType")}</option>
-                  {availablePropertyTypes.map((type) => (
-                    <option key={type} value={type}>
-                      {t(
-                        `filters.${
-                          type === "house"
-                            ? "houses"
-                            : type === "apartment"
-                              ? "apartments"
-                              : type === "land"
-                                ? "land"
-                                : "commercial"
-                        }`,
-                      )}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                <select
-                  value={vehicleType}
-                  onChange={(e) =>
-                    setVehicleType(e.target.value as VehicleCategory | "")
-                  }
-                  className={selectClass}
-                >
-                  <option value="">{t("vehicleType")}</option>
-                  {availableVehicleTypes.map((type) => (
-                    <option key={type} value={type}>
-                      {tVeiculos(type)}
-                    </option>
-                  ))}
-                </select>
-              )}
-              <ChevronDown className="pointer-events-none absolute right-0 size-4 text-[#8C97A8]" />
-            </div>
-          </label>
-
-          <label className={fieldClass}>
-            <span className="rk-display text-[11px] font-semibold tracking-[0.08em] text-[#8C97A8] uppercase">
-              {t("labels.price")}
-            </span>
-            <div className="relative">
-              <select
-                value={priceRangeId}
-                onChange={(e) => setPriceRangeId(e.target.value)}
-                className={selectClass}
+        <div className="border-b border-[#F0EBE0] px-5 py-4 sm:px-6">
+          <p className="rk-display text-base font-semibold text-[#1A1F2B] sm:text-lg">
+            {t("heading")}
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {(
+              [
+                { id: "properties" as const, label: t("tabs.properties") },
+                { id: "vehicles" as const, label: t("tabs.vehicles") },
+              ] as const
+            ).map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setCategory(tab.id)}
+                className={cn(
+                  "rounded-full px-4 py-1.5 text-xs font-semibold transition-colors duration-300 sm:text-sm",
+                  category === tab.id
+                    ? "bg-[#0B1220] text-white"
+                    : "bg-[#F4F1EA] text-[#5A6474] hover:bg-[#EBE6DA] hover:text-[#1A1F2B]",
+                )}
               >
-                <option value="">{t("priceRange")}</option>
-                {priceOptions.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {formatPriceLabel(option, market.currency.symbol, t)}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-0 top-1/2 size-4 -translate-y-1/2 text-[#8C97A8]" />
-            </div>
-          </label>
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
 
-          {category === "properties" ? (
-            <label className={cn(fieldClass, "lg:border-r-0")}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            goToSearch();
+          }}
+        >
+          <div className="flex flex-col lg:flex-row lg:items-stretch">
+            {category === "properties" ? (
+              <label className={cn(fieldClass, "lg:max-w-[140px]")}>
+                <span className="rk-display text-[11px] font-semibold tracking-[0.08em] text-[#8C97A8] uppercase">
+                  {t("labels.intent")}
+                </span>
+                <div className="relative">
+                  <select
+                    value={transaction}
+                    onChange={(e) =>
+                      setTransaction(e.target.value as "buy" | "rent" | "")
+                    }
+                    className={selectClass}
+                  >
+                    <option value="buy">{t("intentBuy")}</option>
+                    <option value="rent">{t("intentRent")}</option>
+                    <option value="">{t("intentAny")}</option>
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute right-0 top-1/2 size-4 -translate-y-1/2 text-[#8C97A8]" />
+                </div>
+              </label>
+            ) : null}
+
+            <label className={cn(fieldClass, "lg:max-w-[180px]")}>
               <span className="rk-display text-[11px] font-semibold tracking-[0.08em] text-[#8C97A8] uppercase">
-                {t("labels.bedrooms")}
+                {t("labels.type")}
               </span>
               <div className="relative flex items-center gap-2">
-                <BedDouble
-                  className="size-4 shrink-0 text-[#C8D0DD]"
+                <TypeIcon
+                  className="size-4 shrink-0 text-[#D4A62A]"
                   strokeWidth={1.75}
                 />
-                <select
-                  value={bedrooms}
-                  onChange={(e) => setBedrooms(e.target.value)}
-                  className={selectClass}
-                >
-                  <option value="">{t("bedrooms")}</option>
-                  {["1", "2", "3", "4", "5"].map((n) => (
-                    <option key={n} value={n}>
-                      {n}+
-                    </option>
-                  ))}
-                </select>
+                {category === "properties" ? (
+                  <select
+                    value={propertyType}
+                    onChange={(e) => setPropertyType(e.target.value)}
+                    className={selectClass}
+                  >
+                    <option value="">{t("propertyType")}</option>
+                    {availablePropertyTypes.map((type) => (
+                      <option key={type} value={type}>
+                        {t(
+                          `filters.${
+                            type === "house"
+                              ? "houses"
+                              : type === "apartment"
+                                ? "apartments"
+                                : type === "land"
+                                  ? "land"
+                                  : "commercial"
+                          }`,
+                        )}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <select
+                    value={vehicleType}
+                    onChange={(e) =>
+                      setVehicleType(e.target.value as VehicleCategory | "")
+                    }
+                    className={selectClass}
+                  >
+                    <option value="">{t("vehicleType")}</option>
+                    {availableVehicleTypes.map((type) => (
+                      <option key={type} value={type}>
+                        {tVeiculos(type)}
+                      </option>
+                    ))}
+                  </select>
+                )}
                 <ChevronDown className="pointer-events-none absolute right-0 size-4 text-[#8C97A8]" />
               </div>
             </label>
-          ) : (
-            <label className={cn(fieldClass, "lg:border-r-0")}>
+
+            <div className={cn(fieldClass, "min-w-0 lg:flex-[1.4]")}>
               <span className="rk-display text-[11px] font-semibold tracking-[0.08em] text-[#8C97A8] uppercase">
-                {t("labels.condition")}
+                {t("labels.location")}
+              </span>
+              <LocationAutocomplete
+                theme="light"
+                value={location}
+                placeholder={t("locationPlaceholder")}
+                onValueChange={(value) => {
+                  setLocation(value);
+                  if (!value) setResolvedLocation(null);
+                }}
+                onPlaceResolved={(place) => {
+                  setResolvedLocation(place);
+                  setLocation(place.label);
+                }}
+                onLocationCleared={() => setResolvedLocation(null)}
+                onEnter={goToSearch}
+                className="[&_div]:min-h-0 [&_div]:rounded-none [&_div]:border-0 [&_div]:px-0 [&_div]:ring-0"
+              />
+            </div>
+
+            <label className={fieldClass}>
+              <span className="rk-display text-[11px] font-semibold tracking-[0.08em] text-[#8C97A8] uppercase">
+                {t("labels.price")}
               </span>
               <div className="relative">
                 <select
-                  value={condition}
-                  onChange={(e) =>
-                    setCondition(e.target.value as "" | "new" | "used")
-                  }
+                  value={priceRangeId}
+                  onChange={(e) => setPriceRangeId(e.target.value)}
                   className={selectClass}
                 >
-                  <option value="">{t("conditionAny")}</option>
-                  <option value="new">{t("conditionNew")}</option>
-                  <option value="used">{t("conditionUsed")}</option>
+                  <option value="">{t("priceRange")}</option>
+                  {priceOptions.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {formatPriceLabel(option, market.currency.symbol, t)}
+                    </option>
+                  ))}
                 </select>
                 <ChevronDown className="pointer-events-none absolute right-0 top-1/2 size-4 -translate-y-1/2 text-[#8C97A8]" />
               </div>
             </label>
-          )}
 
-          <div className="flex items-center gap-2 p-2.5 lg:pl-1">
-            <div className="hidden min-w-[72px] text-right xl:block">
-              {catalogLoading ? (
-                <p className="text-[11px] text-[#8C97A8]">{t("loadingResults")}</p>
-              ) : matchCount != null ? (
-                <>
-                  <p className="rk-display text-base font-bold leading-none text-[#1A1F2B]">
-                    {matchCount.toLocaleString()}
-                  </p>
-                  <p className="mt-0.5 text-[10px] text-[#8C97A8]">{t("results")}</p>
-                </>
-              ) : null}
+            {category === "properties" ? (
+              <label className={cn(fieldClass, "lg:border-r-0 lg:max-w-[130px]")}>
+                <span className="rk-display text-[11px] font-semibold tracking-[0.08em] text-[#8C97A8] uppercase">
+                  {t("labels.bedrooms")}
+                </span>
+                <div className="relative flex items-center gap-2">
+                  <BedDouble
+                    className="size-4 shrink-0 text-[#C8D0DD]"
+                    strokeWidth={1.75}
+                  />
+                  <select
+                    value={bedrooms}
+                    onChange={(e) => setBedrooms(e.target.value)}
+                    className={selectClass}
+                  >
+                    <option value="">{t("bedrooms")}</option>
+                    {["1", "2", "3", "4", "5"].map((n) => (
+                      <option key={n} value={n}>
+                        {n}+
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute right-0 size-4 text-[#8C97A8]" />
+                </div>
+              </label>
+            ) : (
+              <label className={cn(fieldClass, "lg:border-r-0")}>
+                <span className="rk-display text-[11px] font-semibold tracking-[0.08em] text-[#8C97A8] uppercase">
+                  {t("labels.condition")}
+                </span>
+                <div className="relative">
+                  <select
+                    value={condition}
+                    onChange={(e) =>
+                      setCondition(e.target.value as "" | "new" | "used")
+                    }
+                    className={selectClass}
+                  >
+                    <option value="">{t("conditionAny")}</option>
+                    <option value="new">{t("conditionNew")}</option>
+                    <option value="used">{t("conditionUsed")}</option>
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute right-0 top-1/2 size-4 -translate-y-1/2 text-[#8C97A8]" />
+                </div>
+              </label>
+            )}
+
+            <div className="flex items-center gap-2 p-3 lg:pl-1">
+              <div className="hidden min-w-[72px] text-right xl:block">
+                {catalogLoading ? (
+                  <p className="text-[11px] text-[#8C97A8]">{t("loadingResults")}</p>
+                ) : matchCount != null ? (
+                  <>
+                    <p className="rk-display text-base font-bold leading-none text-[#1A1F2B]">
+                      {matchCount.toLocaleString()}
+                    </p>
+                    <p className="mt-0.5 text-[10px] text-[#8C97A8]">{t("results")}</p>
+                  </>
+                ) : null}
+              </div>
+              <button
+                type="submit"
+                disabled={isPending}
+                className="rk-btn-gold inline-flex h-12 w-full items-center justify-center gap-2 px-6 text-sm disabled:opacity-70 lg:min-w-[160px]"
+              >
+                {isPending ? (
+                  <Loader2 className="size-5 animate-spin" />
+                ) : (
+                  <Search className="size-5" strokeWidth={2} />
+                )}
+                {isPending ? t("searching") : t("submit")}
+              </button>
             </div>
-            <button
-              type="submit"
-              disabled={isPending}
-              className="rk-btn-gold inline-flex h-12 w-full items-center justify-center gap-2 px-6 text-sm disabled:opacity-70 lg:min-w-[180px]"
-            >
-              {isPending ? (
-                <Loader2 className="size-5 animate-spin" />
-              ) : (
-                <Search className="size-5" strokeWidth={2} />
-              )}
-              {isPending
-                ? t("searching")
-                : category === "vehicles"
-                  ? t("submitVehicles")
-                  : t("submit")}
-            </button>
           </div>
-        </div>
-      </motion.form>
+        </form>
+      </motion.div>
 
       {!catalogLoading && matchCount != null && (
         <p className="mt-3 text-center text-xs text-[#8C97A8] xl:hidden">

@@ -232,16 +232,24 @@
   },
   "landing": {
     "hero": {
-      "title": "Descubra um mundo de possibilidades",
-      "titleStart": "Descubra um mundo de",
-      "titleHighlight": "possibilidades",
-      "titleEnd": "",
-      "subtitle": "Imóveis, veículos e serviços conectados para tornar seus planos realidade.",
+      "title": "Encontre o lugar certo para o próximo capítulo da sua vida.",
+      "titleStart": "Encontre o lugar certo para o",
+      "titleHighlight": "próximo capítulo",
+      "titleEnd": "da sua vida.",
+      "subtitle": "Imóveis, veículos, financiamento e serviços em um único ecossistema.",
       "ctaExplore": "Explorar marketplace",
+      "ctaProperty": "Comprar imóvel",
+      "ctaVehicle": "Comprar veículo",
       "ctaPublish": "Portal Empresas",
       "ctaCompanies": "Portal Empresas",
       "ctaBuy": "Explorar",
       "ctaRent": "Ver veículos",
+      "pillars": {
+        "buy": "Comprar",
+        "sell": "Vender",
+        "finance": "Financiar",
+        "list": "Anunciar"
+      },
       "stats": {
         "properties": {
           "value": "+10k",
@@ -285,11 +293,15 @@
       }
     },
     "search": {
-      "locationPlaceholder": "Cidade, bairro ou país",
+      "heading": "O que você está procurando?",
+      "locationPlaceholder": "Cidade, região ou palavra-chave",
       "propertyType": "Tipo de imóvel",
       "priceRange": "Faixa de preço",
       "bedrooms": "Quartos",
-      "submit": "Buscar imóveis",
+      "submit": "Buscar",
+      "intentBuy": "Comprar",
+      "intentRent": "Alugar",
+      "intentAny": "Comprar ou alugar",
       "filters": {
         "houses": "Casas",
         "apartments": "Apartamentos",
@@ -316,7 +328,8 @@
         "type": "Tipo",
         "price": "Preço",
         "bedrooms": "Quartos",
-        "condition": "Condição"
+        "condition": "Condição",
+        "intent": "Intenção"
       },
       "priceUpTo": "Até",
       "priceFrom": "A partir de",
@@ -325,7 +338,7 @@
       "loadingResults": "Carregando…",
       "searching": "Buscando…",
       "vehicleType": "Tipo de veículo",
-      "submitVehicles": "Buscar veículos",
+      "submitVehicles": "Buscar",
       "conditionAny": "Novo ou usado",
       "conditionNew": "Novo",
       "conditionUsed": "Usado",
@@ -407,11 +420,23 @@
       }
     },
     "featured": {
-      "title": "Imóveis em destaque",
-      "viewAll": "Ver todos →",
+      "eyebrow": "Seleção em destaque",
+      "title": "Encontre seu próximo lugar.",
+      "subtitle": "Uma seleção de propriedades em destaque na Reeskova.",
+      "viewAll": "Ver todas",
+      "viewProperty": "Ver imóvel",
+      "save": "Salvar",
+      "specs": {
+        "beds": "{count} quartos",
+        "baths": "{count} banheiros",
+        "garage": "{count} vagas"
+      },
       "badges": {
         "premium": "Premium",
-        "new": "Novo"
+        "new": "Novo",
+        "featured": "Destacado",
+        "sale": "Venda",
+        "rent": "Aluguel"
       }
     },
     "services": {
@@ -626,7 +651,8 @@
       }
     },
     "categories": {
-      "title": "Explore por categorias",
+      "title": "Encontre mais na Reeskova",
+      "subtitle": "Explore por categoria e continue a jornada.",
       "viewAll": "Ver todas as categorias →",
       "items": {
         "properties": {
@@ -638,7 +664,7 @@
           "description": "Carros, SUVs e motos"
         },
         "launches": {
-          "title": "Novos Projetos",
+          "title": "Novos projetos",
           "description": "Lançamentos e pré-vendas"
         },
         "companies": {
@@ -650,22 +676,26 @@
           "description": "Crédito para seus planos"
         },
         "services": {
-          "title": "Serviços",
-          "description": "Tudo para sua nova vida"
+          "title": "Seguros",
+          "description": "Proteção e serviços"
         }
       }
     },
     "featuredVehicles": {
       "title": "Veículos em destaque",
-      "viewAll": "Ver todos →"
+      "subtitle": "Uma seleção para acelerar o próximo passo.",
+      "viewAll": "Ver todos",
+      "viewVehicle": "Ver veículo",
+      "save": "Salvar"
     },
     "verifiedCompanies": {
       "title": "Empresas verificadas",
       "viewAll": "Ver todas →"
     },
     "marketplaceServices": {
-      "title": "Serviços para sua nova vida",
-      "viewAll": "Ver todos →",
+      "title": "Tudo o que você precisa para tornar real",
+      "subtitle": "Financiamento, proteção e serviços para cada etapa.",
+      "viewAll": "Ver todos",
       "items": {
         "financing": {
           "title": "Financiamento",
@@ -676,7 +706,7 @@
           "description": "Proteja o que importa"
         },
         "moving": {
-          "title": "Mudanças",
+          "title": "Mudança",
           "description": "Mude com facilidade"
         },
         "decor": {
@@ -684,12 +714,95 @@
           "description": "Design para o seu espaço"
         },
         "solar": {
-          "title": "Energia Solar",
+          "title": "Energia",
           "description": "Eficiência para o lar"
         },
         "internet": {
           "title": "Internet",
           "description": "Conectividade premium"
+        }
+      }
+    },
+    "ecosystemJourney": {
+      "title": "Tudo o que você precisa para realizar seu próximo plano.",
+      "steps": {
+        "find": {
+          "label": "Encontre",
+          "description": "Imóveis, veículos e oportunidades."
+        },
+        "finance": {
+          "label": "Financie",
+          "description": "Encontre soluções para viabilizar sua compra."
+        },
+        "protect": {
+          "label": "Proteja",
+          "description": "Seguros e serviços complementares."
+        },
+        "transform": {
+          "label": "Transforme",
+          "description": "Mudança, decoração, energia, internet e muito mais."
+        }
+      }
+    },
+    "whyReeskova": {
+      "title": "Uma nova forma de encontrar o que você precisa.",
+      "items": {
+        "one": {
+          "number": "01",
+          "title": "Tudo em um só lugar",
+          "description": "Encontre produtos, propriedades e serviços conectados."
+        },
+        "two": {
+          "number": "02",
+          "title": "Oportunidades verificadas",
+          "description": "Informações claras para você tomar decisões melhores."
+        },
+        "three": {
+          "number": "03",
+          "title": "Mais do que uma busca",
+          "description": "Da descoberta à realização, a Reeskova conecta cada etapa."
+        }
+      }
+    },
+    "sellCta": {
+      "title": "Tem algo para vender?",
+      "subtitle": "Alcance pessoas que estão procurando exatamente o que você oferece.",
+      "cta": "Anuncie aqui",
+      "channels": {
+        "properties": "Imóveis",
+        "vehicles": "Veículos",
+        "companies": "Empresas",
+        "projects": "Projetos"
+      }
+    },
+    "rscGroup": {
+      "eyebrow": "Arquitetura de marca",
+      "title": "RSC Group é o grupo. Reeskova é a plataforma.",
+      "subtitle": "Uma hierarquia clara: o ecossistema do grupo e o marketplace voltado ao consumidor.",
+      "brands": {
+        "group": {
+          "name": "RSC Group",
+          "role": "The ecosystem"
+        },
+        "reeskova": {
+          "name": "Reeskova",
+          "role": "Marketplace"
+        },
+        "bank": {
+          "name": "RSC Bank",
+          "role": "Soluções financeiras"
+        },
+        "capital": {
+          "name": "RSC Capital",
+          "role": "Investimentos"
+        },
+        "ora": {
+          "name": "Ora Technology",
+          "role": "Tecnologia"
+        },
+        "chain": {
+          "name": "Reesk Chain",
+          "role": "Infraestrutura"
         }
       }
     },

@@ -3,6 +3,9 @@
 import { useTranslations } from "next-intl";
 import { Logo } from "@/components/layout/logo";
 import { Link } from "@/lib/i18n/routing";
+import { getBackofficeLoginUrl } from "@/lib/backoffice/config";
+
+const COMPANY_PORTAL_LOGIN_URL = getBackofficeLoginUrl("es");
 
 const columns = [
   {
@@ -23,7 +26,7 @@ const columns = [
       { href: "/como-funciona", labelKey: "howItWorks" },
       { href: "/#partners", labelKey: "partners" },
       { href: "/careers", labelKey: "careers" },
-      { href: "/empresa/painel", labelKey: "portal" },
+      { href: COMPANY_PORTAL_LOGIN_URL, labelKey: "portal", external: true },
       { href: "/empresa/cadastro", labelKey: "join" },
     ],
   },
@@ -51,7 +54,7 @@ const columns = [
 const socials = [
   {
     label: "Instagram",
-    href: "#",
+    href: "https://www.instagram.com/reeskova/",
     path: "M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37zM17.5 6.5h.01M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2z",
   },
   {
@@ -85,12 +88,12 @@ export function Footer() {
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#8C97A8]">
               {t("tagline")}
             </p>
-            <Link
-              href="/empresa/painel"
+            <a
+              href={COMPANY_PORTAL_LOGIN_URL}
               className="rk-btn-gold mt-6 inline-flex h-12 items-center justify-center px-6 text-sm"
             >
               {tNav("companyPortal")}
-            </Link>
+            </a>
             <div className="mt-6 flex items-center gap-3">
               {socials.map((social) => (
                 <a
@@ -129,16 +132,29 @@ export function Footer() {
                   {t(`columns.${column.key}.title`)}
                 </p>
                 <ul className="space-y-2.5">
-                  {column.links.map((link) => (
-                    <li key={`${column.key}-${link.labelKey}`}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-[#C8D0DD] transition-colors duration-300 hover:text-[#D4A62A]"
-                      >
-                        {t(`columns.${column.key}.links.${link.labelKey}`)}
-                      </Link>
-                    </li>
-                  ))}
+                  {column.links.map((link) => {
+                    const label = t(
+                      `columns.${column.key}.links.${link.labelKey}`,
+                    );
+                    const className =
+                      "text-sm text-[#C8D0DD] transition-colors duration-300 hover:text-[#D4A62A]";
+                    const isExternal =
+                      "external" in link && link.external === true;
+
+                    return (
+                      <li key={`${column.key}-${link.labelKey}`}>
+                        {isExternal ? (
+                          <a href={link.href} className={className}>
+                            {label}
+                          </a>
+                        ) : (
+                          <Link href={link.href} className={className}>
+                            {label}
+                          </Link>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}

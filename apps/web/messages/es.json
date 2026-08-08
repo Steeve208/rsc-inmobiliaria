@@ -232,11 +232,11 @@
   },
   "landing": {
     "hero": {
-      "title": "Descubre un mundo de posibilidades",
-      "titleStart": "Descubre un mundo de",
-      "titleHighlight": "posibilidades",
-      "titleEnd": "",
-      "subtitle": "Propiedades, vehículos y servicios conectados para hacer realidad tus planes.",
+      "title": "Encuentra el lugar correcto para el próximo capítulo de tu vida.",
+      "titleStart": "Encuentra el lugar correcto para el",
+      "titleHighlight": "próximo capítulo",
+      "titleEnd": "de tu vida.",
+      "subtitle": "Inmuebles, vehículos, financiamiento y servicios en un solo ecosistema.",
       "ctaExplore": "Explorar marketplace",
       "ctaPublish": "Portal Empresas",
       "ctaCompanies": "Portal Empresas",
@@ -269,6 +269,14 @@
           "title": "Apartamento Premium",
           "place": "São Paulo, Brasil"
         }
+      },
+      "ctaProperty": "Comprar inmueble",
+      "ctaVehicle": "Comprar vehículo",
+      "pillars": {
+        "buy": "Comprar",
+        "sell": "Vender",
+        "finance": "Financiar",
+        "list": "Anunciar"
       }
     },
     "ecosystem": {
@@ -285,47 +293,52 @@
       }
     },
     "search": {
-      "locationPlaceholder": "Ciudad, barrio o país",
-      "propertyType": "Tipo de propiedad",
+      "heading": "¿Qué estás buscando?",
+      "locationPlaceholder": "Ciudad, región o palabra clave",
+      "propertyType": "Tipo de inmueble",
       "priceRange": "Rango de precio",
       "bedrooms": "Habitaciones",
-      "submit": "Buscar propiedades",
+      "submit": "Buscar",
+      "intentBuy": "Comprar",
+      "intentRent": "Alquilar",
+      "intentAny": "Comprar o alquilar",
       "filters": {
         "houses": "Casas",
         "apartments": "Apartamentos",
         "land": "Terrenos",
         "commercial": "Comerciales",
-        "cars": "Coches",
+        "cars": "Autos",
         "motorcycles": "Motos",
         "trucks": "Camiones"
       },
       "priceOptions": {
-        "0": "Hasta USD 200k",
+        "0": "Up to USD 200k",
         "1": "USD 200k – 500k",
         "2": "USD 500k – 1M",
-        "3": "Más de USD 1M"
+        "3": "Over USD 1M"
       },
       "tabs": {
         "properties": "Inmuebles",
         "vehicles": "Vehículos",
         "launches": "Lanzamientos"
       },
-      "queryPlaceholder": "¿Qué estás buscando?",
+      "queryPlaceholder": "What are you looking for?",
       "labels": {
         "location": "Ubicación",
         "type": "Tipo",
         "price": "Precio",
         "bedrooms": "Habitaciones",
-        "condition": "Estado"
+        "condition": "Condición",
+        "intent": "Intención"
       },
       "priceUpTo": "Hasta",
       "priceFrom": "Desde",
       "results": "disponibles",
-      "resultsMobile": "{count} propiedades disponibles",
+      "resultsMobile": "{count} inmuebles disponibles",
       "loadingResults": "Cargando…",
       "searching": "Buscando…",
       "vehicleType": "Tipo de vehículo",
-      "submitVehicles": "Buscar vehículos",
+      "submitVehicles": "Buscar",
       "conditionAny": "Nuevo o usado",
       "conditionNew": "Nuevo",
       "conditionUsed": "Usado",
@@ -407,11 +420,23 @@
       }
     },
     "featured": {
-      "title": "Propiedades destacadas",
-      "viewAll": "Ver todas →",
+      "eyebrow": "Selección destacada",
+      "title": "Encuentra tu próximo lugar.",
+      "subtitle": "Una selección de propiedades destacadas en Reeskova.",
+      "viewAll": "Ver todas",
+      "viewProperty": "Ver inmueble",
+      "save": "Guardar",
+      "specs": {
+        "beds": "{count} habitaciones",
+        "baths": "{count} baños",
+        "garage": "{count} cocheras"
+      },
       "badges": {
         "premium": "Premium",
-        "new": "Nuevo"
+        "new": "Nuevo",
+        "featured": "Destacado",
+        "sale": "Venta",
+        "rent": "Alquiler"
       }
     },
     "services": {
@@ -626,7 +651,8 @@
       }
     },
     "categories": {
-      "title": "Explora por categorías",
+      "title": "Encuentra más en Reeskova",
+      "subtitle": "Explora por categoría y sigue descubriendo.",
       "viewAll": "Ver todas las categorías →",
       "items": {
         "properties": {
@@ -638,7 +664,7 @@
           "description": "Autos, SUVs y motos"
         },
         "launches": {
-          "title": "Proyectos Nuevos",
+          "title": "Nuevos proyectos",
           "description": "Lanzamientos y preventas"
         },
         "companies": {
@@ -650,22 +676,26 @@
           "description": "Crédito para tus planes"
         },
         "services": {
-          "title": "Servicios",
-          "description": "Todo para tu nueva vida"
+          "title": "Seguros",
+          "description": "Protección y servicios"
         }
       }
     },
     "featuredVehicles": {
       "title": "Vehículos destacados",
-      "viewAll": "Ver todos →"
+      "subtitle": "Una selección para avanzar al siguiente paso.",
+      "viewAll": "Ver todos",
+      "viewVehicle": "Ver vehículo",
+      "save": "Guardar"
     },
     "verifiedCompanies": {
       "title": "Empresas verificadas",
       "viewAll": "Ver todas →"
     },
     "marketplaceServices": {
-      "title": "Servicios para tu nueva vida",
-      "viewAll": "Ver todos →",
+      "title": "Todo lo que necesitas para hacerlo realidad",
+      "subtitle": "Financiamiento, protección y servicios para cada etapa.",
+      "viewAll": "Ver todos",
       "items": {
         "financing": {
           "title": "Financiamiento",
@@ -676,15 +706,15 @@
           "description": "Protege lo que importa"
         },
         "moving": {
-          "title": "Mudanzas",
-          "description": "Trasládate sin fricción"
+          "title": "Mudanza",
+          "description": "Muévete con facilidad"
         },
         "decor": {
           "title": "Decoración",
           "description": "Diseño para tu espacio"
         },
         "solar": {
-          "title": "Energía Solar",
+          "title": "Energía",
           "description": "Eficiencia para el hogar"
         },
         "internet": {
@@ -698,6 +728,89 @@
       "subtitle": "Recibe lanzamientos, vehículos premium y ofertas exclusivas.",
       "unavailable": "Los avisos por correo aún no están disponibles. Contáctanos para lanzamientos y ofertas.",
       "contactCta": "Contactar soporte"
+    },
+    "ecosystemJourney": {
+      "title": "Todo lo que necesitas para realizar tu próximo plan.",
+      "steps": {
+        "find": {
+          "label": "Encuentra",
+          "description": "Inmuebles, vehículos y oportunidades."
+        },
+        "finance": {
+          "label": "Financia",
+          "description": "Encuentra soluciones para viabilizar tu compra."
+        },
+        "protect": {
+          "label": "Protege",
+          "description": "Seguros y servicios complementarios."
+        },
+        "transform": {
+          "label": "Transforma",
+          "description": "Mudanza, decoración, energía, internet y mucho más."
+        }
+      }
+    },
+    "whyReeskova": {
+      "title": "Una nueva forma de encontrar lo que necesitas.",
+      "items": {
+        "one": {
+          "number": "01",
+          "title": "Todo en un solo lugar",
+          "description": "Encuentra productos, propiedades y servicios conectados."
+        },
+        "two": {
+          "number": "02",
+          "title": "Oportunidades verificadas",
+          "description": "Información clara para tomar mejores decisiones."
+        },
+        "three": {
+          "number": "03",
+          "title": "Más que una búsqueda",
+          "description": "Del descubrimiento a la realización, Reeskova conecta cada etapa."
+        }
+      }
+    },
+    "sellCta": {
+      "title": "¿Tienes algo para vender?",
+      "subtitle": "Llega a personas que buscan exactamente lo que ofreces.",
+      "cta": "Anuncie aquí",
+      "channels": {
+        "properties": "Inmuebles",
+        "vehicles": "Vehículos",
+        "companies": "Empresas",
+        "projects": "Proyectos"
+      }
+    },
+    "rscGroup": {
+      "eyebrow": "Arquitectura de marca",
+      "title": "RSC Group es el grupo. Reeskova es la plataforma.",
+      "subtitle": "Una jerarquía clara: el ecosistema del grupo y el marketplace orientado al consumidor.",
+      "brands": {
+        "group": {
+          "name": "RSC Group",
+          "role": "The ecosystem"
+        },
+        "reeskova": {
+          "name": "Reeskova",
+          "role": "Marketplace"
+        },
+        "bank": {
+          "name": "RSC Bank",
+          "role": "Soluciones financieras"
+        },
+        "capital": {
+          "name": "RSC Capital",
+          "role": "Inversiones"
+        },
+        "ora": {
+          "name": "Ora Technology",
+          "role": "Tecnología"
+        },
+        "chain": {
+          "name": "Reesk Chain",
+          "role": "Infraestructura"
+        }
+      }
     }
   },
   "search": {

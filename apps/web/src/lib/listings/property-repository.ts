@@ -434,6 +434,23 @@ export async function getLaunchProperties(): Promise<PropertyListing[]> {
   }
 }
 
+/** Reject obvious test / keyboard-mash titles from the homepage vitrine. */
+function isPresentableHomeListing(item: PropertyListing): boolean {
+  const title = item.title?.trim() ?? "";
+  if (title.length < 8) return false;
+  if (!item.image?.trim()) return false;
+  if (/\b(jyfty|asdf|qwerty|lorem|ipsum|teste\d*|xxx|demo)\b/i.test(title)) {
+    return false;
+  }
+  // Token with 4+ consonants in a row (e.g. "jyfty") usually means garbage.
+  const tokens = title.toLowerCase().split(/[^a-zà-ü]+/i).filter(Boolean);
+  for (const token of tokens) {
+    if (/[aeiouáéíóúàèìòùâêîôûãõäëïöü]/.test(token)) continue;
+    if (token.length >= 4) return false;
+  }
+  return true;
+}
+
 /** Home featured strip: premium → launch → recommended → newest. */
 export async function listHomeFeaturedProperties(
   limit = 4,
@@ -451,6 +468,7 @@ export async function listHomeFeaturedProperties(
 
   for (const item of ordered) {
     if (seen.has(item.id)) continue;
+    if (!isPresentableHomeListing(item)) continue;
     seen.add(item.id);
     unique.push(item);
     if (unique.length >= limit) break;

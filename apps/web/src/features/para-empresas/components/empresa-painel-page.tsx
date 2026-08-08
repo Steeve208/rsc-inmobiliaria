@@ -18,21 +18,12 @@ export function EmpresaPainelPage() {
       <h1 className="mt-6 text-center text-2xl font-bold text-white">{t("title")}</h1>
       <p className="mt-3 text-center text-sm leading-relaxed text-white/55">{t("subtitle")}</p>
 
-      {loginUrl ? (
-        <a
-          href={loginUrl}
-          className="mt-8 flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#d4a017] text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
-        >
-          {t("submit")}
-        </a>
-      ) : (
-        <Link
-          href="/para-empresas"
-          className="mt-8 flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#d4a017] text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
-        >
-          {t("backToLanding")}
-        </Link>
-      )}
+      <a
+        href={loginUrl}
+        className="mt-8 flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#d4a017] text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
+      >
+        {t("submit")}
+      </a>
 
       <p className="mt-6 text-center text-sm text-white/40">
         {t("noAccount")}{" "}
