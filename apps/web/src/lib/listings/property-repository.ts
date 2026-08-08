@@ -122,7 +122,8 @@ export async function listActivePropertiesForAlerts(): Promise<PropertyListing[]
 export async function listProperties(): Promise<PropertyListing[]> {
   if (isBackofficeConfigured()) {
     const remote = await listBackofficeProperties();
-    if (remote) return remote;
+    // Portal/backoffice is the source of truth for published inventory.
+    if (remote !== null) return remote;
   }
   return listLocalProperties();
 }
@@ -434,33 +435,23 @@ export async function getLaunchProperties(): Promise<PropertyListing[]> {
   }
 }
 
-/** Reject obvious test / keyboard-mash titles from the homepage vitrine. */
+/** Homepage vitrine: published portal listings with a usable photo. */
 function isPresentableHomeListing(item: PropertyListing): boolean {
-  const title = item.title?.trim() ?? "";
-  if (title.length < 8) return false;
   if (!item.image?.trim()) return false;
-  if (/\b(jyfty|asdf|qwerty|lorem|ipsum|teste\d*|xxx|demo)\b/i.test(title)) {
-    return false;
-  }
-  // Token with 4+ consonants in a row (e.g. "jyfty") usually means garbage.
-  const tokens = title.toLowerCase().split(/[^a-zà-ü]+/i).filter(Boolean);
-  for (const token of tokens) {
-    if (/[aeiouáéíóúàèìòùâêîôûãõäëïöü]/.test(token)) continue;
-    if (token.length >= 4) return false;
-  }
-  return true;
+  if (!item.title?.trim()) return false;
+  // Require at least a city or neighborhood from the portal payload.
+  return Boolean(item.city?.trim() || item.neighborhood?.trim());
 }
 
-/** Home featured strip: premium → launch → recommended → newest. */
-export async function listHomeFeaturedProperties(
-  limit = 4,
-): Promise<PropertyListing[]> {
-  const all = await listProperties();
+function pickHomeFeatured(
+  source: PropertyListing[],
+  limit: number,
+): PropertyListing[] {
   const ordered = [
-    ...filterPropertySection(all, "premium"),
-    ...filterPropertySection(all, "launch"),
-    ...filterPropertySection(all, "recommended"),
-    ...all,
+    ...filterPropertySection(source, "premium"),
+    ...filterPropertySection(source, "launch"),
+    ...filterPropertySection(source, "recommended"),
+    ...source,
   ];
 
   const seen = new Set<string>();
@@ -475,6 +466,14 @@ export async function listHomeFeaturedProperties(
   }
 
   return unique;
+}
+
+/** Home featured strip: only properties published via the portal/backoffice. */
+export async function listHomeFeaturedProperties(
+  limit = 4,
+): Promise<PropertyListing[]> {
+  const published = await listProperties();
+  return pickHomeFeatured(published, limit);
 }
 
 export type { CompanyRow, AgentRow };

@@ -36,6 +36,46 @@ function gallery(listing: BackofficePublicListing): string[] {
   return photos.length > 0 ? photos : [coverImage(listing)];
 }
 
+function looksLikeGarbageTitle(title: string): boolean {
+  const value = title.trim();
+  if (value.length < 6) return true;
+  if (/\b(jyfty|asdf|qwerty|lorem|ipsum|teste\d*|xxx|demo|nilh)\b/i.test(value)) {
+    return true;
+  }
+  const tokens = value.toLowerCase().split(/[^a-zà-ü]+/i).filter(Boolean);
+  return tokens.some(
+    (token) =>
+      token.length >= 4 &&
+      !/[aeiouáéíóúàèìòùâêîôûãõäëïöü]/.test(token),
+  );
+}
+
+const PROPERTY_TYPE_LABELS: Record<string, string> = {
+  house: "Casa",
+  apartment: "Apartamento",
+  land: "Terreno",
+  commercial: "Imóvel comercial",
+  condo: "Condomínio",
+  beach: "Casa de praia",
+  countryside: "Casa de campo",
+};
+
+/** Prefer a readable title when the portal listing was published with a bad name. */
+function propertyDisplayTitle(listing: BackofficePublicListing): string {
+  const raw = str(listing.title);
+  if (raw && !looksLikeGarbageTitle(raw)) return raw;
+
+  const meta = listing.metadata ?? {};
+  const type = str(meta.type, "apartment");
+  const typeLabel = PROPERTY_TYPE_LABELS[type] ?? "Imóvel";
+  const neighborhood = str(meta.neighborhood);
+  const city = listing.locationCity ?? str(meta.city);
+
+  if (neighborhood) return `${typeLabel} em ${neighborhood}`;
+  if (city) return `${typeLabel} em ${city}`;
+  return typeLabel;
+}
+
 function mapCompanyInfo(listing: BackofficePublicListing): CompanyPublicInfo {
   const org = listing.organization;
   const branch = org.primaryBranch ?? null;
@@ -63,20 +103,30 @@ export function mapBackofficeToPropertyListing(
   listing: BackofficePublicListing,
 ): PropertyListing {
   const meta = listing.metadata ?? {};
+  const neighborhood = str(meta.neighborhood, "");
+  const city =
+    str(listing.organization.city) ||
+    str(meta.city) ||
+    listing.locationCity ||
+    "";
+  const state =
+    str(listing.organization.state) ||
+    str(meta.state) ||
+    "";
 
   return {
     id: listing.id,
     category: "properties",
-    title: listing.title,
+    title: propertyDisplayTitle(listing),
     type: str(meta.type, "apartment"),
     transaction: str(meta.transaction, "buy"),
     condition: str(meta.condition, ""),
     price: listing.price ?? 0,
     currency: listing.currency,
     country: str(meta.country, "Brasil"),
-    state: str(meta.state, ""),
-    city: listing.locationCity ?? str(meta.city, ""),
-    neighborhood: str(meta.neighborhood, ""),
+    state,
+    city,
+    neighborhood,
     bedrooms: num(meta.bedrooms),
     bathrooms: num(meta.bathrooms),
     garage: num(meta.garage),

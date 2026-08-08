@@ -98,7 +98,7 @@ async function listBackofficeVehicles(city?: string): Promise<VehicleListing[] |
 export async function listVehicles(): Promise<VehicleListing[]> {
   if (isBackofficeConfigured()) {
     const remote = await listBackofficeVehicles();
-    if (remote) return remote;
+    if (remote !== null) return remote;
   }
   return listLocalVehicles();
 }
@@ -348,16 +348,15 @@ export async function getFeaturedVehicles(): Promise<VehicleListing[]> {
   return all.filter((v) => v.featured);
 }
 
-/** Home featured strip: premium → featured → recommended → newest. */
-export async function listHomeFeaturedVehicles(
-  limit = 4,
-): Promise<VehicleListing[]> {
-  const all = await listVehicles();
+function pickHomeFeaturedVehicles(
+  source: VehicleListing[],
+  limit: number,
+): VehicleListing[] {
   const ordered = [
-    ...all.filter((v) => v.premium),
-    ...all.filter((v) => v.featured),
-    ...all.filter((v) => v.verified),
-    ...all,
+    ...source.filter((v) => v.premium),
+    ...source.filter((v) => v.featured),
+    ...source.filter((v) => v.verified),
+    ...source,
   ];
 
   const seen = new Set<string>();
@@ -365,12 +364,21 @@ export async function listHomeFeaturedVehicles(
 
   for (const item of ordered) {
     if (seen.has(item.id)) continue;
+    if (!item.image?.trim()) continue;
     seen.add(item.id);
     unique.push(item);
     if (unique.length >= limit) break;
   }
 
   return unique;
+}
+
+/** Home featured strip: only vehicles published via the portal/backoffice. */
+export async function listHomeFeaturedVehicles(
+  limit = 4,
+): Promise<VehicleListing[]> {
+  const published = await listVehicles();
+  return pickHomeFeaturedVehicles(published, limit);
 }
 
 export async function getPremiumVehicles(): Promise<VehicleListing[]> {

@@ -1,5 +1,6 @@
-const PRODUCTION_BACKOFFICE_URL = "https://reeskco.vercel.app";
-/** Public company login (custom domain). Separate from the API base URL. */
+/** Marketplace listings API + company portal (same host in production). */
+const PRODUCTION_BACKOFFICE_URL = "https://portal.reeskova.com";
+/** Public company login (custom domain). */
 const PRODUCTION_PORTAL_LOGIN_URL = "https://portal.reeskova.com";
 
 export function getBackofficeBaseUrl(): string | null {
@@ -11,8 +12,8 @@ export function getBackofficeBaseUrl(): string | null {
   if (configured) return configured.replace(/\/$/, "");
 
   if (process.env.NODE_ENV === "development") {
-    // Local backoffice default; override with NEXT_PUBLIC_BACKOFFICE_URL.
-    return "http://localhost:3000";
+    // Prefer the live portal catalog in local market when env is unset.
+    return PRODUCTION_BACKOFFICE_URL;
   }
 
   if (process.env.NODE_ENV === "production") {
