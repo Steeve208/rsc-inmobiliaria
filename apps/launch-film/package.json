@@ -1,0 +1,24 @@
+{
+  "name": "launch-film",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "render": "remotion render LaunchFilm out/reeskova-launch.mp4 --codec=h264",
+    "render:preview": "remotion render LaunchFilm out/reeskova-launch-preview.mp4 --codec=h264 --scale=0.5"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.314",
+    "@remotion/google-fonts": "^4.0.314",
+    "@remotion/media-utils": "^4.0.314",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remotion": "^4.0.314"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.8.0"
+  }
+}

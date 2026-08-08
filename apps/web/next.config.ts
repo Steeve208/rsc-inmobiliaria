@@ -36,6 +36,9 @@ const nextConfig: NextConfig = {
   images: {
     // Allow sharper listing photos (next/image default is 75).
     qualities: [75, 80, 90, 95, 100],
+    // Prefer larger candidates so cards/thumbs are not soft on retina.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512],
     remotePatterns: [
       {
         protocol: "https",

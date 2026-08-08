@@ -11,6 +11,8 @@
     "build": "npm run build --workspace=web",
     "start": "npm run start --workspace=web",
     "lint": "npm run lint --workspace=web",
-    "clean": "npm run clean --workspace=web"
+    "clean": "npm run clean --workspace=web",
+    "film:dev": "npm run dev --workspace=launch-film",
+    "film:render": "npm run render --workspace=launch-film"
   }
 }
