@@ -15,7 +15,8 @@ const IMAGE_TYPES = new Set([
 const VIDEO_TYPES = new Set(["video/mp4", "video/webm", "video/quicktime"]);
 
 const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
-const MAX_VIDEO_BYTES = 100 * 1024 * 1024;
+/** Allow larger originals so sellers are not forced to compress before upload. */
+const MAX_VIDEO_BYTES = 500 * 1024 * 1024;
 
 export type MediaKind = "image" | "video" | "floorPlan";
 

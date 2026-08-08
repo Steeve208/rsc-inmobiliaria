@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import { ListingImage } from "@/components/listing-image";
+import { ListingVideo } from "@/components/listing-video";
 import { useTranslations } from "next-intl";
 import {
   Calendar,
@@ -227,14 +228,7 @@ export function VehicleDetailPage({
               </>
             )}
             {mediaTab === "video" && vehicle.videoUrl && (
-              <div className="aspect-video overflow-hidden rounded-xl">
-                <iframe
-                  src={vehicle.videoUrl}
-                  title={vehicle.title}
-                  className="size-full"
-                  allowFullScreen
-                />
-              </div>
+              <ListingVideo url={vehicle.videoUrl} title={vehicle.title} />
             )}
             {mediaTab === "tour360" && vehicle.tour360Url ? (
               <VirtualTourEmbed url={vehicle.tour360Url} title={vehicle.title} />

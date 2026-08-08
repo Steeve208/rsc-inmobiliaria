@@ -1,11 +1,12 @@
-export type Locale = "en" | "es" | "pt";
+export type Locale = "en" | "es" | "pt" | "fr" | "de" | "it" | "ar";
 
 export type MarketRegion =
   | "latam"
   | "north_america"
   | "caribbean"
   | "europe"
-  | "africa";
+  | "africa"
+  | "middle_east";
 
 export type MarketId =
   | "br" | "mx" | "ar" | "co" | "cl" | "pe" | "uy" | "ec" | "ve" | "bo"
@@ -14,7 +15,8 @@ export type MarketId =
   | "jm" | "pr" | "tt" | "ht" | "bs" | "bb"
   | "es" | "pt" | "fr" | "de" | "it" | "gb" | "ie" | "nl" | "be" | "ch"
   | "at" | "pl" | "se" | "no" | "gr" | "cz" | "ro"
-  | "za" | "ng" | "ke" | "gh" | "eg" | "ma" | "ao" | "mz" | "sn" | "ci" | "tz";
+  | "za" | "ng" | "ke" | "gh" | "eg" | "ma" | "ao" | "mz" | "sn" | "ci" | "tz"
+  | "sa" | "ae";
 
 export type NavLinkConfig = {
   href: string;

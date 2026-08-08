@@ -3,6 +3,7 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { ListingImage } from "@/components/listing-image";
+import { ListingVideo } from "@/components/listing-video";
 import { useTranslations } from "next-intl";
 import {
   Bath,
@@ -31,7 +32,6 @@ import { VirtualTourEmbed } from "@/features/listings/components/virtual-tour-em
 import { FloorPlanViewer } from "@/features/listings/components/floor-plan-viewer";
 import { ListingContactPanel } from "@/features/contact";
 import { useFavoriteButton } from "@/hooks/use-favorites";
-import { isDirectVideoUrl, toVideoEmbedUrl } from "@/lib/storage/listing-media-utils";
 import { shareListing } from "@/lib/listings/share-listing";
 import { PropertyMap } from "./property-map";
 import { PropertyCard } from "./property-card";
@@ -123,7 +123,7 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
   const thumbnails = property.images.slice(0, 4);
   const totalPhotos = property.images.length;
   const heroImage = property.images[activeImage] ?? property.images[0] ?? property.image;
-  const videoSrc = property.videoUrl ? toVideoEmbedUrl(property.videoUrl) : "";
+  const videoSrc = property.videoUrl?.trim() ?? "";
 
   const availableMediaTabs = useMemo(() => {
     const tabs: (typeof mediaTabs)[number][] = ["photos"];
@@ -318,23 +318,7 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
             )}
 
             {mediaTab === "video" && videoSrc && (
-              <div className="aspect-video overflow-hidden rounded-xl bg-black">
-                {isDirectVideoUrl(videoSrc) ? (
-                  <video
-                    src={videoSrc}
-                    controls
-                    className="size-full object-contain"
-                    playsInline
-                  />
-                ) : (
-                  <iframe
-                    src={videoSrc}
-                    title={property.title}
-                    className="size-full"
-                    allowFullScreen
-                  />
-                )}
-              </div>
+              <ListingVideo url={videoSrc} title={property.title} />
             )}
 
             {mediaTab === "video" && !videoSrc && (

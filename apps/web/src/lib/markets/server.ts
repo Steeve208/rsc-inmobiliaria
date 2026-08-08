@@ -24,6 +24,9 @@ function detectFromAcceptLanguage(acceptLanguage: string | null): MarketId {
   if (primary.startsWith("pt")) return "br";
   if (primary.startsWith("es")) return "es";
   if (primary.startsWith("fr")) return "fr";
+  if (primary.startsWith("de")) return "de";
+  if (primary.startsWith("it")) return "it";
+  if (primary.startsWith("ar")) return "sa";
   if (primary.startsWith("en")) return "us";
 
   return defaultMarketId;

@@ -91,9 +91,9 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <HeroSection />
-      <MarketplaceCategories />
       <FeaturedProperties items={featured} />
       <FeaturedVehicles items={vehicles} />
+      <MarketplaceCategories />
       <VerifiedCompanies items={companies} />
       <MarketplaceServices />
       <div id="partners">

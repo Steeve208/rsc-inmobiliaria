@@ -59,7 +59,7 @@ export function Logo({ className, showPoweredBy = false }: LogoProps) {
         <span className="text-[18px] font-bold tracking-[0.08em] text-white uppercase">
           REESKOVA
         </span>
-        <span className="mt-1.5 text-[9px] font-medium tracking-[0.16em] text-[#D4A62A] uppercase">
+        <span className="mt-1.5 max-w-[11rem] text-[9px] font-medium leading-snug tracking-[0.04em] text-[#D4A62A]">
           {t("tagline")}
         </span>
         {showPoweredBy ? (

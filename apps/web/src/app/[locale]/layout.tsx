@@ -87,6 +87,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html
       lang={locale}
+      dir={locale === "ar" ? "rtl" : "ltr"}
       suppressHydrationWarning
       className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
@@ -97,7 +98,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         />
       </head>
       <body className="rk-body flex min-h-full flex-col">
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers
             initialMarketId={marketId}
             initialMarketConfirmed={isConfirmed}

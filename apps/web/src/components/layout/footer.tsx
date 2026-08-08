@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import { Logo } from "@/components/layout/logo";
-import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 import { Link } from "@/lib/i18n/routing";
 
 const columns = [
@@ -150,7 +149,6 @@ export function Footer() {
           <p className="text-xs text-[#8C97A8]">
             © {year} Reeskova. {t("rights")}
           </p>
-          <LocaleSwitcher />
         </div>
       </div>
     </footer>

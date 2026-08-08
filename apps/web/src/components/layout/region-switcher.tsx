@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { marketList, marketRegions } from "@/lib/markets/config";
-import { useMarket } from "@/lib/providers/market-provider";
+import { useMarketSelection } from "@/hooks/use-market-selection";
 import type { MarketRegion } from "@/lib/markets/types";
 
 function marketsByRegion(region: MarketRegion) {
@@ -21,7 +21,7 @@ function marketsByRegion(region: MarketRegion) {
 export function RegionSwitcher() {
   const t = useTranslations("markets");
   const tNav = useTranslations("nav");
-  const { market, marketId, setMarket } = useMarket();
+  const { market, marketId, selectMarket } = useMarketSelection();
 
   return (
     <DropdownMenu>
@@ -56,12 +56,12 @@ export function RegionSwitcher() {
               {items.map((item) => (
                 <DropdownMenuItem
                   key={item.id}
-                  onClick={() => setMarket(item.id)}
+                  onClick={() => selectMarket(item.id)}
                   className={marketId === item.id ? "font-semibold" : undefined}
                 >
-                  <span className="mr-2">{item.flag}</span>
+                  <span className="me-2">{item.flag}</span>
                   <span className="flex-1">{t(`names.${item.id}`)}</span>
-                  <span className="ml-2 text-xs text-muted-foreground">
+                  <span className="ms-2 text-xs text-muted-foreground">
                     {t(`languages.${item.defaultLocale}`)}
                   </span>
                 </DropdownMenuItem>

@@ -8,7 +8,7 @@ VALUES (
   'listing-media',
   'listing-media',
   true,
-  104857600,
+  524288000,
   ARRAY[
     'image/jpeg',
     'image/png',

@@ -1,24 +1,24 @@
 {
   "metadata": {
-    "title": "REESKOVA — Marketplace for properties, vehicles, and services",
-    "description": "Explore properties, vehicles, companies, and services in a premium marketplace."
+    "title": "REESKOVA — Marktplatz für Immobilien, Fahrzeuge und Services",
+    "description": "Entdecken Sie Immobilien, Fahrzeuge, Unternehmen und Services auf einem globalen Marktplatz."
   },
   "nav": {
     "home": "Home",
     "properties": "Properties",
-    "vehicles": "Vehicles",
-    "financing": "Financing",
+    "vehicles": "Fahrzeuge",
+    "financing": "Finanzierung",
     "investments": "Investments",
     "credit": "Credit",
     "services": "Services",
-    "companies": "Companies",
+    "companies": "Unternehmen",
     "paraEmpresas": "For Business",
-    "help": "Help",
+    "help": "Hilfe",
     "signIn": "Sign in",
     "signUp": "Register",
     "signOut": "Sign out",
-    "wishlist": "Wishlist",
-    "changeRegion": "Change region",
+    "wishlist": "Favoriten",
+    "changeRegion": "Land wechseln",
     "globalSearch": {
       "categoryLabel": "Search category",
       "properties": "Properties",
@@ -33,32 +33,32 @@
     "rent": "Rent",
     "sell": "Sell",
     "invest": "Invest",
-    "more": "More",
+    "more": "Mehr",
     "publishListing": "Post a listing",
     "clientArea": "Client Area",
     "companyPortal": "Business Portal",
     "explore": {
-      "title": "Explore",
-      "houses": "Houses",
-      "apartments": "Apartments",
-      "land": "Land",
-      "launches": "Launches",
-      "commercial": "Commercial",
-      "luxury": "Luxury"
+      "title": "Entdecken",
+      "houses": "Häuser",
+      "apartments": "Wohnungen",
+      "land": "Grundstücke",
+      "launches": "Neubauprojekte",
+      "commercial": "Gewerbe",
+      "luxury": "Luxus"
     },
-    "exploreNav": "Explore",
-    "categories": "Categories",
-    "howItWorks": "How it works",
+    "exploreNav": "Entdecken",
+    "categories": "Kategorien",
+    "howItWorks": "So funktioniert's",
     "cat": {
-      "properties": "Properties",
-      "vehicles": "Vehicles",
-      "launches": "New projects",
-      "companies": "Companies",
-      "financing": "Financing",
+      "properties": "Immobilien",
+      "vehicles": "Fahrzeuge",
+      "launches": "Neubauprojekte",
+      "companies": "Unternehmen",
+      "financing": "Finanzierung",
       "services": "Services"
     },
-    "toggleMenu": "Toggle menu",
-    "changeLanguage": "Change language"
+    "toggleMenu": "Menü",
+    "changeLanguage": "Sprache wechseln"
   },
   "favorites": {
     "title": "My favorites",
@@ -143,80 +143,80 @@
   },
   "markets": {
     "regions": {
-      "latam": "Latin America",
-      "northAmerica": "North America",
-      "caribbean": "Caribbean",
-      "europe": "Europe",
-      "africa": "Africa",
-      "middleEast": "Middle East"
+      "latam": "Lateinamerika",
+      "northAmerica": "Nordamerika",
+      "caribbean": "Karibik",
+      "europe": "Europa",
+      "africa": "Afrika",
+      "middleEast": "Naher Osten"
     },
     "languages": {
       "en": "English",
       "es": "Español",
       "pt": "Português",
-      "fr": "French",
-      "de": "German",
-      "it": "Italian",
-      "ar": "Arabic"
+      "fr": "Français",
+      "de": "Deutsch",
+      "it": "Italiano",
+      "ar": "العربية"
     },
     "names": {
-      "br": "Brazil",
-      "mx": "Mexico",
-      "ar": "Argentina",
-      "co": "Colombia",
+      "br": "Brasilien",
+      "mx": "Mexiko",
+      "ar": "Argentinien",
+      "co": "Kolumbien",
       "cl": "Chile",
       "pe": "Peru",
       "uy": "Uruguay",
       "ec": "Ecuador",
       "ve": "Venezuela",
-      "bo": "Bolivia",
+      "bo": "Bolivien",
       "py": "Paraguay",
       "cr": "Costa Rica",
       "pa": "Panama",
       "gt": "Guatemala",
-      "do": "Dominican Republic",
-      "cu": "Cuba",
+      "do": "Dominikanische Republik",
+      "cu": "Kuba",
       "hn": "Honduras",
       "sv": "El Salvador",
       "ni": "Nicaragua",
-      "us": "United States",
-      "ca": "Canada",
-      "jm": "Jamaica",
+      "us": "Vereinigte Staaten",
+      "ca": "Kanada",
+      "jm": "Jamaika",
       "pr": "Puerto Rico",
-      "tt": "Trinidad and Tobago",
+      "tt": "Trinidad und Tobago",
       "ht": "Haiti",
       "bs": "Bahamas",
       "bb": "Barbados",
-      "es": "Spain",
+      "es": "Spanien",
       "pt": "Portugal",
-      "fr": "France",
-      "de": "Germany",
-      "it": "Italy",
-      "gb": "United Kingdom",
-      "ie": "Ireland",
-      "nl": "Netherlands",
-      "be": "Belgium",
-      "ch": "Switzerland",
-      "at": "Austria",
-      "pl": "Poland",
-      "se": "Sweden",
-      "no": "Norway",
-      "gr": "Greece",
-      "cz": "Czech Republic",
-      "ro": "Romania",
-      "za": "South Africa",
+      "fr": "Frankreich",
+      "de": "Deutschland",
+      "it": "Italien",
+      "gb": "Vereinigtes Königreich",
+      "ie": "Irland",
+      "nl": "Niederlande",
+      "be": "Belgien",
+      "ch": "Schweiz",
+      "at": "Österreich",
+      "pl": "Polen",
+      "se": "Schweden",
+      "no": "Norwegen",
+      "gr": "Griechenland",
+      "cz": "Tschechien",
+      "ro": "Rumänien",
+      "za": "Südafrika",
       "ng": "Nigeria",
-      "ke": "Kenya",
+      "ke": "Kenia",
       "gh": "Ghana",
-      "eg": "Egypt",
-      "ma": "Morocco",
+      "eg": "Ägypten",
+      "ma": "Marokko",
       "ao": "Angola",
-      "mz": "Mozambique",
+      "mz": "Mosambik",
       "sn": "Senegal",
-      "ci": "Côte d'Ivoire",
-      "tz": "Tanzania",
-      "sa": "Saudi Arabia",
-      "ae": "United Arab Emirates"
+      "ci": "Elfenbeinküste",
+      "tz": "Tansania",
+      "sa": "Saudi-Arabien",
+      "ae": "Vereinigte Arabische Emirate"
     },
     "searchLocation": {
       "en": "City / ZIP",
@@ -224,10 +224,10 @@
       "pt": "Cidade"
     },
     "detection": {
-      "message": "We detected you're in {country}. Is that correct?",
-      "confirm": "Yes, continue",
-      "change": "Choose another country",
-      "dismiss": "Dismiss"
+      "message": "Wir haben erkannt, dass Sie in {country} sind. Fortfahren?",
+      "confirm": "Bestätigen",
+      "change": "Ändern",
+      "dismiss": "Schließen"
     }
   },
   "landing": {
@@ -407,8 +407,8 @@
       }
     },
     "featured": {
-      "title": "Featured properties",
-      "viewAll": "See all →",
+      "title": "Immobilien im Fokus",
+      "viewAll": "Alle anzeigen",
       "badges": {
         "premium": "Premium",
         "new": "New"
@@ -626,7 +626,7 @@
       }
     },
     "categories": {
-      "title": "Browse by category",
+      "title": "Nach Kategorien entdecken",
       "viewAll": "See all categories →",
       "items": {
         "properties": {
@@ -653,11 +653,12 @@
           "title": "Services",
           "description": "Everything for your next move"
         }
-      }
+      },
+      "subtitle": "Finden Sie schnell, was Sie suchen."
     },
     "featuredVehicles": {
-      "title": "Featured vehicles",
-      "viewAll": "See all →"
+      "title": "Fahrzeuge im Fokus",
+      "viewAll": "Alle anzeigen"
     },
     "verifiedCompanies": {
       "title": "Verified companies",
@@ -2553,5 +2554,9 @@
       "retry": "Try again",
       "home": "Go home"
     }
+  },
+  "footer": {
+    "rights": "Alle Rechte vorbehalten.",
+    "tagline": "Der Marktplatz, auf dem tausende Unternehmen Immobilien, Fahrzeuge und Services anbieten."
   }
 }

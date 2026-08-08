@@ -1,7 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
-import { routing } from "./lib/i18n/routing";
+import { routing, type AppLocale } from "./lib/i18n/routing";
 import {
   detectMarketFromHeaders,
   marketCookieOptions,
@@ -12,9 +12,15 @@ import { updateSession } from "./utils/supabase/middleware";
 
 const intlMiddleware = createMiddleware(routing);
 
-function getLocaleFromRequest(request: NextRequest) {
+const localePathGroup = routing.locales.join("|");
+
+function isAppLocale(value: string | undefined | null): value is AppLocale {
+  return Boolean(value && routing.locales.includes(value as AppLocale));
+}
+
+function getLocaleFromRequest(request: NextRequest): AppLocale {
   const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
-  if (cookieLocale && routing.locales.includes(cookieLocale as "en" | "es" | "pt")) {
+  if (isAppLocale(cookieLocale)) {
     return cookieLocale;
   }
 
@@ -26,11 +32,13 @@ function getLocaleFromRequest(request: NextRequest) {
   return routing.defaultLocale;
 }
 
-const protectedPathPattern =
-  /^\/(en|es|pt)\/(dashboard|empresa\/painel)(\/|$)/;
+const protectedPathPattern = new RegExp(
+  `^/(${localePathGroup})/(dashboard|empresa/painel)(/|$)`,
+);
 /** Pages signed-in users should leave (not reset-password: email links may arrive with a session). */
-const authPathPattern =
-  /^\/(en|es|pt)\/(entrar|cadastrar|recuperar-senha)(\/|$)/;
+const authPathPattern = new RegExp(
+  `^/(${localePathGroup})/(entrar|cadastrar|recuperar-senha)(/|$)`,
+);
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -70,5 +78,5 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/dashboard", "/dashboard/:path*", "/(en|es|pt)/:path*"],
+  matcher: ["/", "/dashboard", "/dashboard/:path*", "/(en|es|pt|fr|de|it|ar)/:path*"],
 };

@@ -147,12 +147,17 @@
       "northAmerica": "América do Norte",
       "caribbean": "Caribe",
       "europe": "Europa",
-      "africa": "África"
+      "africa": "África",
+      "middleEast": "Oriente Médio"
     },
     "languages": {
       "en": "English",
       "es": "Español",
-      "pt": "Português"
+      "pt": "Português",
+      "fr": "Francês",
+      "de": "Alemão",
+      "it": "Italiano",
+      "ar": "Árabe"
     },
     "names": {
       "br": "Brasil",
@@ -209,7 +214,9 @@
       "mz": "Moçambique",
       "sn": "Senegal",
       "ci": "Costa do Marfim",
-      "tz": "Tanzânia"
+      "tz": "Tanzânia",
+      "sa": "Arábia Saudita",
+      "ae": "Emirados Árabes Unidos"
     },
     "searchLocation": {
       "en": "City / ZIP",
@@ -2197,7 +2204,7 @@
     }
   },
   "brand": {
-    "tagline": "Marketplace premium",
+    "tagline": "Marketplace I by RSC Group",
     "poweredBy": "Impulsionado por",
     "poweredByBrand": "RSC Group"
   },

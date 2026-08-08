@@ -147,7 +147,7 @@ export function Header() {
             </div>
           </nav>
 
-          <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
+          <div className="ms-auto flex shrink-0 items-center gap-2 sm:gap-3">
             <div className="hidden lg:block">
               <RegionSwitcher />
             </div>

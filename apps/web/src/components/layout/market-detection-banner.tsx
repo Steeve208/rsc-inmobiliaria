@@ -2,8 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { Check, Globe, X } from "lucide-react";
-import { useMarket } from "@/lib/providers/market-provider";
 import { marketList } from "@/lib/markets/config";
+import { useMarketSelection } from "@/hooks/use-market-selection";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +13,8 @@ import {
 
 export function MarketDetectionBanner() {
   const t = useTranslations("markets");
-  const { market, isConfirmed, confirmMarket, setMarket } = useMarket();
+  const { market, isConfirmed, confirmDetectedMarket, selectMarket } =
+    useMarketSelection();
 
   if (isConfirmed) return null;
 
@@ -35,7 +36,7 @@ export function MarketDetectionBanner() {
         <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
-            onClick={confirmMarket}
+            onClick={confirmDetectedMarket}
             className="inline-flex items-center gap-1.5 rounded-md bg-[#d4a017] px-3 py-1.5 text-xs font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
           >
             <Check className="size-3.5" />
@@ -57,7 +58,7 @@ export function MarketDetectionBanner() {
               {marketList.map((item) => (
                 <DropdownMenuItem
                   key={item.id}
-                  onClick={() => setMarket(item.id, { confirmed: true })}
+                  onClick={() => selectMarket(item.id, { confirmed: true })}
                   className={market.id === item.id ? "font-semibold" : undefined}
                 >
                   <span className="mr-2">{item.flag}</span>
@@ -69,7 +70,7 @@ export function MarketDetectionBanner() {
 
           <button
             type="button"
-            onClick={confirmMarket}
+            onClick={confirmDetectedMarket}
             className="rounded-md p-1.5 text-white/50 transition-colors hover:bg-white/5 hover:text-white"
             aria-label={t("detection.dismiss")}
           >
