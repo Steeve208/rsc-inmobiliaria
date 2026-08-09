@@ -47,7 +47,7 @@ const categoryLinks = [
 
 export function Header() {
   const t = useTranslations("nav");
-  const { count } = useFavorites();
+  const { count, isLoggedIn } = useFavorites();
   const { market } = useMarket();
   const { isMobileMenuOpen, setMobileMenuOpen, toggleMobileMenu } =
     useUiStore();
@@ -160,18 +160,20 @@ export function Header() {
               <RegionSwitcher />
             </div>
 
-            <Link
-              href="/favoritos"
-              className="relative inline-flex rounded-2xl p-2.5 text-[#AEB7C5] transition-colors duration-300 hover:text-[#D4A62A]"
-              aria-label={t("wishlist")}
-            >
-              <Heart className="size-5" strokeWidth={1.75} />
-              {count > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex size-4 items-center justify-center rounded-full bg-[#D4A62A] text-[10px] font-bold text-[#070B14]">
-                  {count > 9 ? "9+" : count}
-                </span>
-              )}
-            </Link>
+            {isLoggedIn ? (
+              <Link
+                href="/dashboard"
+                className="relative inline-flex rounded-2xl p-2.5 text-[#AEB7C5] transition-colors duration-300 hover:text-[#D4A62A]"
+                aria-label={t("wishlist")}
+              >
+                <Heart className="size-5" strokeWidth={1.75} />
+                {count > 0 && (
+                  <span className="absolute -right-0.5 -top-0.5 flex size-4 items-center justify-center rounded-full bg-[#D4A62A] text-[10px] font-bold text-[#070B14]">
+                    {count > 9 ? "9+" : count}
+                  </span>
+                )}
+              </Link>
+            ) : null}
 
             <HeaderAuthActions />
 
@@ -188,6 +190,9 @@ export function Header() {
 
         {isMobileMenuOpen && (
           <div className="border-t border-[rgba(255,255,255,.05)] px-5 py-4 md:px-8 xl:hidden">
+            <div className="mb-4 border-b border-[rgba(255,255,255,.05)] pb-4">
+              <RegionSwitcher />
+            </div>
             <nav className="flex flex-col gap-1">
               {productNav.map((link) => (
                 <Link
@@ -227,7 +232,6 @@ export function Header() {
               ))}
             </nav>
             <div className="mt-4 flex flex-col gap-3 border-t border-[rgba(255,255,255,.05)] pt-4">
-              <RegionSwitcher />
               <HeaderAuthActions variant="mobile" />
             </div>
           </div>

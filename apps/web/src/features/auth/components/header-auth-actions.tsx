@@ -174,7 +174,7 @@ export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
         )}
       >
         <User className="size-4" strokeWidth={1.75} />
-        {t("clientArea")}
+        {t("signIn")}
       </Link>
     </div>
   );

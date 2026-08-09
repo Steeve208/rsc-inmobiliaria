@@ -13,8 +13,6 @@ import { authClient } from "@/lib/auth-client";
 import {
   clearGuestFavorites,
   readGuestFavorites,
-  toggleGuestFavorite,
-  writeGuestFavorites,
   type GuestFavorite,
 } from "@/lib/favorites/guest-storage";
 import {
@@ -78,33 +76,18 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const reconcileFavorites = useCallback(
-    async (
-      items: FavoriteEntry[],
-      mode: "guest" | "server",
-    ) => {
+    async (items: FavoriteEntry[]) => {
       const gen = ++reconcileGenRef.current;
-      const { kept, removed } = await findResolvableFavorites(items);
+      const { removed } = await findResolvableFavorites(items);
       if (gen !== reconcileGenRef.current) return;
 
       if (removed.length === 0) return;
 
-      if (mode === "guest") {
-        writeGuestFavorites(kept);
-      } else {
-        void deleteServerFavorites(removed);
-      }
-
+      void deleteServerFavorites(removed);
       applyRemovedFavorites(removed);
     },
     [applyRemovedFavorites],
   );
-
-  const refreshGuest = useCallback(() => {
-    const guestItems = readGuestFavorites();
-    setFavorites(guestItems);
-    setIsSynced(false);
-    void reconcileFavorites(guestItems, "guest");
-  }, [reconcileFavorites]);
 
   const refreshServer = useCallback(async () => {
     setLoading(true);
@@ -112,7 +95,7 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
       const items = await fetchServerFavorites();
       setFavorites(items);
       setIsSynced(true);
-      void reconcileFavorites(items, "server");
+      void reconcileFavorites(items);
     } finally {
       setLoading(false);
     }
@@ -126,6 +109,7 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
 
     setLoading(true);
     try {
+      // Legacy guest favorites (pre auth-gate) still merge once into the account.
       const guestItems = readGuestFavorites();
       const merged = guestItems.length
         ? await syncGuestFavoritesToServer(guestItems)
@@ -135,7 +119,7 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
       setFavorites(merged);
       setIsSynced(true);
       syncedForUserRef.current = userId;
-      void reconcileFavorites(merged, "server");
+      void reconcileFavorites(merged);
     } catch {
       await refreshServer();
     } finally {
@@ -146,12 +130,13 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!session?.user) {
       syncedForUserRef.current = null;
-      refreshGuest();
+      setFavorites([]);
+      setIsSynced(false);
       return;
     }
 
     void mergeGuestIntoAccount(session.user.id);
-  }, [session?.user, refreshGuest, mergeGuestIntoAccount]);
+  }, [session?.user, mergeGuestIntoAccount]);
 
   const isFavorite = useCallback(
     (listingKind: "property" | "vehicle", listingId: string) =>
@@ -165,16 +150,11 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
 
   const toggle = useCallback(
     async (listingKind: "property" | "vehicle", listingId: string) => {
-      const active = isFavorite(listingKind, listingId);
-
       if (!session?.user) {
-        const next = toggleGuestFavorite(listingKind, listingId);
-        setFavorites(next);
-        if (!active) {
-          void trackListingEvent(listingId, "favorite");
-        }
-        return true;
+        return false;
       }
+
+      const active = isFavorite(listingKind, listingId);
 
       setFavorites((current) => {
         if (active) {
@@ -208,6 +188,10 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
           if (!res.ok) throw new Error("create_failed");
         }
 
+        if (!active) {
+          void trackListingEvent(listingId, "favorite");
+        }
+
         return true;
       } catch {
         await refreshServer();
@@ -222,8 +206,9 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
       await refreshServer();
       return;
     }
-    refreshGuest();
-  }, [session?.user, refreshGuest, refreshServer]);
+    setFavorites([]);
+    setIsSynced(false);
+  }, [session?.user, refreshServer]);
 
   const value = useMemo(
     () => ({
