@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
 import { marketplace } from "@/lib/layout/marketplace";
+import { useMarket } from "@/lib/providers/market-provider";
 import { cn } from "@/lib/utils";
 import { brazilStates, worldRegions } from "@/lib/listings/regions";
 import type { RegionItem } from "../types";
@@ -16,6 +17,7 @@ export function ImoveisFooter({ onSelectRegion, onCategorySelect }: Props) {
   const t = useTranslations("imoveis.footer");
   const tc = useTranslations("imoveis.categories");
   const tn = useTranslations("nav");
+  const { market } = useMarket();
   const year = new Date().getFullYear();
 
   const propertyLinks = [
@@ -27,10 +29,12 @@ export function ImoveisFooter({ onSelectRegion, onCategorySelect }: Props) {
   ] as const;
 
   const serviceLinks = [
-    { href: "/financing", label: tn("financing") },
+    ...(market.creditAvailable
+      ? [{ href: "/financing", label: tn("financing") }]
+      : []),
     { href: "/services", label: tn("services") },
     { href: "/help", label: tn("help") },
-  ] as const;
+  ];
 
   const companyLinks = [
     { href: "/para-empresas", label: tn("paraEmpresas") },

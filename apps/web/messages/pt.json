@@ -1932,33 +1932,86 @@
     }
   },
   "financing": {
-    "title": "Simulador de financiamento",
-    "subtitle": "Estime parcelas e conheça o RSC Credit para seu imóvel.",
-    "simulatorTitle": "Simule seu financiamento",
-    "forListing": "Simulação para",
-    "propertyValue": "Valor do imóvel",
-    "downPayment": "Entrada",
-    "term": "Prazo (meses)",
-    "rate": "Taxa mensal (%)",
-    "estimatedInstallment": "Parcela estimada",
-    "perMonth": "/mês",
-    "rscCreditTitle": "RSC Credit",
-    "rscCreditBody": "Crédito imobiliário com análise rápida e taxas competitivas.",
-    "benefit1": "Análise em até 24 horas",
-    "benefit2": "Parceiros verificados em todo o Brasil",
-    "benefit3": "Processo 100% digital",
-    "applicantName": "Nome completo",
-    "applicantEmail": "E-mail",
-    "applicantPhone": "Telefone",
-    "notes": "Observações (opcional)",
-    "notesPlaceholder": "Informações adicionais para análise de crédito...",
-    "requestId": "Protocolo: {id}",
-    "cta": "Voltar ao imóvel",
-    "submitRequest": "Enviar solicitação de financiamento",
-    "submitting": "Enviando...",
-    "submitSuccess": "Sua simulação foi salva. Acompanhe o status no seu painel.",
-    "submitError": "Não foi possível salvar sua solicitação. Tente novamente.",
-    "viewRequests": "Ver minhas solicitações"
+    "title": "Financiamento com a RSC Crédit",
+    "subtitle": "Consultoria financeira gratuita para viabilizar imóveis, veículos e crédito no Brasil.",
+    "hero": {
+      "eyebrow": "RSC Crédit · Brasil",
+      "title": "Soluções financeiras para tornar seu próximo plano realidade.",
+      "subtitle": "A RSC Crédit é a consultoria financeira do ecossistema RSC. Comparamos opções entre instituições parceiras e acompanhamos você em cada etapa — sem cobrar pela consultoria.",
+      "cta": "Ir para a RSC Crédit",
+      "ctaHint": "Você será direcionado para rsccredit.com.br"
+    },
+    "about": {
+      "title": "O que é a RSC Crédit?",
+      "body": "Não somos um banco. Atuamos como consultoria e facilitadora: analisamos seu perfil, comparamos propostas na nossa rede de parceiros e orientamos a melhor escolha com transparência.",
+      "guarantees": {
+        "free": {
+          "title": "Consultoria 100% gratuita",
+          "body": "Não cobramos taxa de cadastro, análise ou orientação. Desconfie de quem pedir dinheiro em nome da RSC Crédit."
+        },
+        "partners": {
+          "title": "Rede de parceiros",
+          "body": "Acesso a bancos, financeiras e instituições regulamentadas para crédito, financiamento e seguros."
+        },
+        "support": {
+          "title": "Acompanhamento completo",
+          "body": "Do primeiro contato até a contratação com o parceiro, você tem suporte especializado."
+        }
+      }
+    },
+    "services": {
+      "title": "Como a RSC Crédit pode ajudar",
+      "subtitle": "Soluções para pessoas físicas e empresas, com assessoria em cada etapa.",
+      "items": {
+        "home": {
+          "title": "Financiamento imobiliário",
+          "body": "Crédito e cartas contempladas para compra de imóveis residenciais ou comerciais."
+        },
+        "vehicle": {
+          "title": "Financiamento de veículos",
+          "body": "Assessoria para adquirir veículos novos ou usados com condições competitivas."
+        },
+        "personal": {
+          "title": "Crédito pessoal",
+          "body": "Análise e busca de opções adaptadas às suas necessidades."
+        },
+        "business": {
+          "title": "Crédito empresarial",
+          "body": "Capital de giro, expansão e fortalecimento de negócios."
+        }
+      }
+    },
+    "steps": {
+      "title": "Como funciona",
+      "subtitle": "Consultoria que compara o mercado por você.",
+      "items": {
+        "profile": {
+          "title": "Informe seu perfil",
+          "body": "Valor, objetivo e dados de contato na RSC Crédit — simulação ou WhatsApp."
+        },
+        "compare": {
+          "title": "Comparamos parceiros",
+          "body": "Analisamos opções entre instituições financeiras da rede associada."
+        },
+        "propose": {
+          "title": "Receba sua proposta",
+          "body": "Você escolhe a melhor opção com acompanhamento até a contratação."
+        }
+      }
+    },
+    "cta": {
+      "title": "Pronto para continuar na RSC Crédit?",
+      "body": "Todo o percurso de crédito, financiamento e consultoria acontece no site oficial da RSC Crédit — com transparência e zero taxa de consultoria.",
+      "button": "Acessar rsccredit.com.br",
+      "disclaimer": "A aprovação final cabe às instituições financeiras parceiras."
+    },
+    "unavailable": {
+      "eyebrow": "Financiamento",
+      "title": "Disponível apenas no Brasil",
+      "body": "O financiamento via RSC Crédit está disponível para o mercado brasileiro. Seu mercado atual é {country}.",
+      "ctaProperties": "Ver imóveis",
+      "ctaHome": "Voltar ao início"
+    }
   },
   "financingRequests": {
     "loading": "Carregando solicitações...",

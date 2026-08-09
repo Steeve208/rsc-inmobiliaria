@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
+import { useMarket } from "@/lib/providers/market-provider";
 import { useFavoriteButton } from "@/hooks/use-favorites";
 import { shareListing } from "@/lib/listings/share-listing";
 import { VirtualTourEmbed } from "@/features/listings/components/virtual-tour-embed";
@@ -56,6 +57,7 @@ export function VehicleDetailPage({
 }: Props) {
   const t = useTranslations("veiculos.detail");
   const tc = useTranslations("veiculos.categories");
+  const { market } = useMarket();
   const { active: isFavorite, handleClick: handleFavoriteClick } = useFavoriteButton(
     "vehicle",
     vehicle.id,
@@ -428,20 +430,25 @@ export function VehicleDetailPage({
             <p className="text-3xl font-bold text-white">
               {formatPrice(vehicle.price, vehicle.currency)}
             </p>
-            <p className="mt-1 text-sm text-white/50">
-              {t("downFrom")} {formatPrice(sidebarDown, vehicle.currency)}
-            </p>
-            <p className="mt-1 text-sm text-[#86efac]">
-              {t("installmentsFrom")} {formatPrice(sidebarInstallment, vehicle.currency)}/mes
-            </p>
-            <Link
-              href={financingHref}
-              className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#22c55e] py-3 text-sm font-semibold text-white hover:bg-[#16a34a]"
-            >
-              <Zap className="size-4" />
-              {t("simulateFinancing")}
-            </Link>
-            <div className="mt-3">
+            {market.creditAvailable ? (
+              <>
+                <p className="mt-1 text-sm text-white/50">
+                  {t("downFrom")} {formatPrice(sidebarDown, vehicle.currency)}
+                </p>
+                <p className="mt-1 text-sm text-[#86efac]">
+                  {t("installmentsFrom")}{" "}
+                  {formatPrice(sidebarInstallment, vehicle.currency)}/mes
+                </p>
+                <Link
+                  href={financingHref}
+                  className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#22c55e] py-3 text-sm font-semibold text-white hover:bg-[#16a34a]"
+                >
+                  <Zap className="size-4" />
+                  {t("simulateFinancing")}
+                </Link>
+              </>
+            ) : null}
+            <div className={market.creditAvailable ? "mt-3" : "mt-5"}>
               <ListingContactPanel
                 listing={{
                   listingId: vehicle.id,

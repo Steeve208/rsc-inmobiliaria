@@ -12,9 +12,10 @@ import {
   Wifi,
 } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
+import { useMarket } from "@/lib/providers/market-provider";
 
 const services = [
-  { key: "financing", icon: CreditCard, href: "/financing" },
+  { key: "financing", icon: CreditCard, href: "/financing", brazilOnly: true },
   { key: "insurance", icon: Shield, href: "/services#insurance" },
   { key: "moving", icon: Package, href: "/services" },
   { key: "decor", icon: Armchair, href: "/services" },
@@ -24,6 +25,11 @@ const services = [
 
 export function MarketplaceServices() {
   const t = useTranslations("landing.marketplaceServices");
+  const { market } = useMarket();
+  const visibleServices = services.filter(
+    (service) =>
+      !("brazilOnly" in service && service.brazilOnly) || market.creditAvailable,
+  );
 
   return (
     <section className="bg-[#F7F5F0] pt-16 sm:pt-20">
@@ -45,7 +51,7 @@ export function MarketplaceServices() {
         </div>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-          {services.map((service, index) => {
+          {visibleServices.map((service, index) => {
             const Icon = service.icon;
             return (
               <motion.div

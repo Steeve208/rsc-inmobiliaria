@@ -7,11 +7,13 @@ import {
   Store,
   Trees,
 } from "lucide-react";
+import { cookies, headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/lib/i18n/routing";
 import { marketplace } from "@/lib/layout/marketplace";
 import { buildCitySearchHref } from "@/lib/imoveis/city-search-href";
 import type { CityLandingEntry } from "@/lib/imoveis/city-slugs";
+import { readMarketFromCookies } from "@/lib/markets/server";
 import { PropertyCard } from "./property-card";
 import { CityLandingFaq } from "./city-landing-faq";
 import type { PropertyListing } from "../types";
@@ -36,6 +38,7 @@ export async function CityLandingPage({ entry, listings, relatedCities }: Props)
   const { city, state, slug } = entry;
   const t = await getTranslations("imoveis.cityLanding");
   const tc = await getTranslations("imoveis.categories");
+  const { market } = readMarketFromCookies(await cookies(), await headers());
   const labels = { city, state, count: listings.length };
 
   const faqItems = Array.from({ length: FAQ_COUNT }, (_, index) => ({
@@ -149,10 +152,12 @@ export async function CityLandingPage({ entry, listings, relatedCities }: Props)
               <p className="mt-3 text-sm font-medium text-white">{city}, {state}</p>
               <p className="mt-1 text-sm text-white/55">{t("stats.region", labels)}</p>
             </div>
-            <div className="rounded-xl border border-white/8 bg-white/[0.02] p-5">
-              <p className="text-sm font-medium text-white">{t("stats.financingTitle")}</p>
-              <p className="mt-1 text-sm text-white/55">{t("stats.financingBody", labels)}</p>
-            </div>
+            {market.creditAvailable ? (
+              <div className="rounded-xl border border-white/8 bg-white/[0.02] p-5">
+                <p className="text-sm font-medium text-white">{t("stats.financingTitle")}</p>
+                <p className="mt-1 text-sm text-white/55">{t("stats.financingBody", labels)}</p>
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
@@ -240,11 +245,13 @@ export async function CityLandingPage({ entry, listings, relatedCities }: Props)
                     {t("links.rent", labels)}
                   </Link>
                 </li>
-                <li>
-                  <Link href="/financing" className="text-white/65 hover:text-[#fbbf24]">
-                    {t("links.financing")}
-                  </Link>
-                </li>
+                {market.creditAvailable ? (
+                  <li>
+                    <Link href="/financing" className="text-white/65 hover:text-[#fbbf24]">
+                      {t("links.financing")}
+                    </Link>
+                  </li>
+                ) : null}
                 <li>
                   <Link href="/help" className="text-white/65 hover:text-[#fbbf24]">
                     {t("links.help")}

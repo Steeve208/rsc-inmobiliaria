@@ -10,6 +10,7 @@ import { HeaderAuthActions } from "@/features/auth";
 import { Link } from "@/lib/i18n/routing";
 import { useUiStore } from "@/hooks/use-ui-store";
 import { useFavorites } from "@/hooks/use-favorites";
+import { useMarket } from "@/lib/providers/market-provider";
 import { cn } from "@/lib/utils";
 
 const navLinkClass =
@@ -47,10 +48,17 @@ const categoryLinks = [
 export function Header() {
   const t = useTranslations("nav");
   const { count } = useFavorites();
+  const { market } = useMarket();
   const { isMobileMenuOpen, setMobileMenuOpen, toggleMobileMenu } =
     useUiStore();
   const [moreOpen, setMoreOpen] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
+  const visibleMoreLinks = moreLinks.filter(
+    (link) => link.href !== "/financing" || market.creditAvailable,
+  );
+  const visibleCategoryLinks = categoryLinks.filter(
+    (link) => link.href !== "/financing" || market.creditAvailable,
+  );
 
   return (
     <>
@@ -85,7 +93,7 @@ export function Header() {
                   {categoriesOpen ? (
                     <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3">
                       <div className="min-w-[220px] rounded-2xl border border-white/10 bg-[#0E1422]/98 p-2 shadow-[0_24px_60px_rgba(0,0,0,.45)] backdrop-blur-xl">
-                        {categoryLinks.map((item) => (
+                        {visibleCategoryLinks.map((item) => (
                           <Link
                             key={item.labelKey}
                             href={item.href}
@@ -131,7 +139,7 @@ export function Header() {
                     <p className="px-3 pb-1.5 pt-2 text-[10px] font-semibold tracking-[0.14em] text-[#AEB7C5] uppercase">
                       {t("explore.title")}
                     </p>
-                    {moreLinks.map((link) => (
+                    {visibleMoreLinks.map((link) => (
                       <Link
                         key={link.labelKey}
                         href={link.href}
@@ -194,7 +202,7 @@ export function Header() {
               <p className="mt-2 px-2 pt-2 text-[10px] font-semibold tracking-[0.14em] text-[#AEB7C5]/70 uppercase">
                 {t("categories")}
               </p>
-              {categoryLinks.map((link) => (
+              {visibleCategoryLinks.map((link) => (
                 <Link
                   key={link.labelKey}
                   href={link.href}
@@ -207,7 +215,7 @@ export function Header() {
               <p className="mt-2 px-2 pt-2 text-[10px] font-semibold tracking-[0.14em] text-[#AEB7C5]/70 uppercase">
                 {t("more")}
               </p>
-              {moreLinks.map((link) => (
+              {visibleMoreLinks.map((link) => (
                 <Link
                   key={link.labelKey}
                   href={link.href}

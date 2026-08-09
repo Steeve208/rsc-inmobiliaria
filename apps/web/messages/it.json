@@ -1932,33 +1932,86 @@
     }
   },
   "financing": {
-    "title": "Financing simulator",
-    "subtitle": "Estimate installments and learn about RSC Credit.",
-    "simulatorTitle": "Simulate your financing",
-    "forListing": "Simulation for",
-    "propertyValue": "Property value",
-    "downPayment": "Down payment",
-    "term": "Term (months)",
-    "rate": "Monthly rate (%)",
-    "estimatedInstallment": "Estimated installment",
-    "perMonth": "/mo",
-    "rscCreditTitle": "RSC Credit",
-    "rscCreditBody": "Mortgage credit with fast analysis and competitive rates.",
-    "benefit1": "Analysis within 24 hours",
-    "benefit2": "Verified partners nationwide",
-    "benefit3": "100% digital process",
-    "applicantName": "Full name",
-    "applicantEmail": "Email",
-    "applicantPhone": "Phone",
-    "notes": "Notes (optional)",
-    "notesPlaceholder": "Additional information for credit analysis...",
-    "requestId": "Reference: {id}",
-    "cta": "Back to property",
-    "submitRequest": "Submit financing request",
-    "submitting": "Submitting...",
-    "submitSuccess": "Your simulation was saved. Track the status in your dashboard.",
-    "submitError": "Could not save your request. Please try again.",
-    "viewRequests": "View my requests"
+    "title": "Financing with RSC Crédit",
+    "subtitle": "Free financial consulting to unlock properties, vehicles, and credit in Brazil.",
+    "hero": {
+      "eyebrow": "RSC Crédit · Brazil",
+      "title": "Financial solutions to make your next plan real.",
+      "subtitle": "RSC Crédit is the financial consulting arm of the RSC ecosystem. We compare options across partner institutions and guide you at every step — with no consulting fee.",
+      "cta": "Go to RSC Crédit",
+      "ctaHint": "You will be directed to rsccredit.com.br"
+    },
+    "about": {
+      "title": "What is RSC Crédit?",
+      "body": "We are not a bank. We act as a consultancy and facilitator: we analyze your profile, compare proposals across our partner network, and guide you to the best choice with transparency.",
+      "guarantees": {
+        "free": {
+          "title": "100% free consulting",
+          "body": "We never charge registration, analysis, or advisory fees. Be wary of anyone asking for money in RSC Crédit's name."
+        },
+        "partners": {
+          "title": "Partner network",
+          "body": "Access to banks, lenders, and regulated institutions for credit, financing, and insurance."
+        },
+        "support": {
+          "title": "Full support",
+          "body": "From first contact through contracting with a partner, you get specialized support."
+        }
+      }
+    },
+    "services": {
+      "title": "How RSC Crédit can help",
+      "subtitle": "Solutions for individuals and companies, with guidance at every stage.",
+      "items": {
+        "home": {
+          "title": "Home financing",
+          "body": "Credit and contemplated letters for residential or commercial property purchases."
+        },
+        "vehicle": {
+          "title": "Vehicle financing",
+          "body": "Advisory to buy new or used vehicles with competitive conditions."
+        },
+        "personal": {
+          "title": "Personal credit",
+          "body": "Analysis and search for options tailored to your needs."
+        },
+        "business": {
+          "title": "Business credit",
+          "body": "Working capital, expansion, and business strengthening."
+        }
+      }
+    },
+    "steps": {
+      "title": "How it works",
+      "subtitle": "Consulting that compares the market for you.",
+      "items": {
+        "profile": {
+          "title": "Share your profile",
+          "body": "Amount, goal, and contact details on RSC Crédit — simulation or WhatsApp."
+        },
+        "compare": {
+          "title": "We compare partners",
+          "body": "We analyze options across financial institutions in the associated network."
+        },
+        "propose": {
+          "title": "Receive your proposal",
+          "body": "You choose the best option with support through contracting."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to continue with RSC Crédit?",
+      "body": "The full credit, financing, and consulting journey happens on the official RSC Crédit website — with transparency and zero consulting fees.",
+      "button": "Open rsccredit.com.br",
+      "disclaimer": "Final approval is up to the partner financial institutions."
+    },
+    "unavailable": {
+      "eyebrow": "Financing",
+      "title": "Available in Brazil only",
+      "body": "Financing via RSC Crédit is available for the Brazilian market. Your current market is {country}.",
+      "ctaProperties": "Browse properties",
+      "ctaHome": "Back to home"
+    }
   },
   "financingRequests": {
     "loading": "Loading requests...",

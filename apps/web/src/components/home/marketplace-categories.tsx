@@ -11,18 +11,24 @@ import {
   Shield,
 } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
+import { useMarket } from "@/lib/providers/market-provider";
 
 const categories = [
   { key: "properties", icon: Home, href: "/imoveis" },
   { key: "vehicles", icon: Car, href: "/veiculos" },
   { key: "companies", icon: Building2, href: "/para-empresas" },
   { key: "launches", icon: HardHat, href: "/imoveis?launch=1" },
-  { key: "financing", icon: CreditCard, href: "/financing" },
+  { key: "financing", icon: CreditCard, href: "/financing", brazilOnly: true },
   { key: "services", icon: Shield, href: "/services" },
 ] as const;
 
 export function MarketplaceCategories() {
   const t = useTranslations("landing.categories");
+  const { market } = useMarket();
+  const visibleCategories = categories.filter(
+    (category) =>
+      !("brazilOnly" in category && category.brazilOnly) || market.creditAvailable,
+  );
 
   return (
     <section id="categorias" className="scroll-mt-28 bg-[#F7F5F0] pt-14 sm:pt-16">
@@ -35,7 +41,7 @@ export function MarketplaceCategories() {
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 lg:gap-4">
-          {categories.map((category, index) => {
+          {visibleCategories.map((category, index) => {
             const Icon = category.icon;
             return (
               <motion.div

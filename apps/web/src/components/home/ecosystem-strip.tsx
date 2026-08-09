@@ -12,11 +12,12 @@ import {
   Sun,
 } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
+import { useMarket } from "@/lib/providers/market-provider";
 
 const items = [
   { key: "properties", icon: Home, href: "/imoveis" },
   { key: "vehicles", icon: Car, href: "/veiculos" },
-  { key: "financing", icon: CreditCard, href: "/financing" },
+  { key: "financing", icon: CreditCard, href: "/financing", brazilOnly: true },
   { key: "insurance", icon: Shield, href: "/services#insurance" },
   { key: "solar", icon: Sun, href: "/services" },
   { key: "moving", icon: Package, href: "/services" },
@@ -25,6 +26,11 @@ const items = [
 
 export function EcosystemStrip() {
   const t = useTranslations("landing.ecosystem");
+  const { market } = useMarket();
+  const visibleItems = items.filter(
+    (item) =>
+      !("brazilOnly" in item && item.brazilOnly) || market.creditAvailable,
+  );
 
   return (
     <section className="border-b border-white/[0.04] pb-10 pt-4 lg:pb-14 lg:pt-6">
@@ -43,7 +49,7 @@ export function EcosystemStrip() {
         </motion.div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 lg:gap-4">
-          {items.map((item, index) => {
+          {visibleItems.map((item, index) => {
             const Icon = item.icon;
             return (
               <motion.div

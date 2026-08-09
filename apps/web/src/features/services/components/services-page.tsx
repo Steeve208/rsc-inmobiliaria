@@ -14,6 +14,7 @@ import {
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
 import { marketplace } from "@/lib/layout/marketplace";
+import { useMarket } from "@/lib/providers/market-provider";
 import { cn } from "@/lib/utils";
 
 const accent = "#d4a017";
@@ -41,6 +42,7 @@ const services = [
     key: "financing",
     icon: TrendingUp,
     href: "/financing",
+    brazilOnly: true,
     border: "border-[#a855f7]/30",
     gradient: "from-[#a855f7]/15 via-[#0f172a] to-[#020617]",
     iconBox: "bg-[#a855f7]/20 text-[#c084fc]",
@@ -71,6 +73,11 @@ const benefits = ["verified", "digital", "support", "regional"] as const;
 export function ServicesPage() {
   const t = useTranslations("servicesPage");
   const tl = useTranslations("landing.services");
+  const { market } = useMarket();
+  const visibleServices = services.filter(
+    (service) =>
+      !("brazilOnly" in service && service.brazilOnly) || market.creditAvailable,
+  );
 
   return (
     <div className="relative overflow-hidden">
@@ -107,7 +114,7 @@ export function ServicesPage() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {services.map((service, index) => {
+            {visibleServices.map((service, index) => {
               const Icon = service.icon;
               return (
                 <motion.article

@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Logo } from "@/components/layout/logo";
 import { Link } from "@/lib/i18n/routing";
 import { getBackofficeLoginUrl } from "@/lib/backoffice/config";
+import { useMarket } from "@/lib/providers/market-provider";
 
 const COMPANY_PORTAL_LOGIN_URL = getBackofficeLoginUrl("es");
 
@@ -77,7 +78,17 @@ const socials = [
 export function Footer() {
   const t = useTranslations("landing.footer");
   const tNav = useTranslations("nav");
+  const { market } = useMarket();
   const year = new Date().getFullYear();
+  const visibleColumns = columns.map((column) => ({
+    ...column,
+    links: column.links.filter(
+      (link) =>
+        !("href" in link) ||
+        link.href !== "/financing" ||
+        market.creditAvailable,
+    ),
+  }));
 
   return (
     <footer className="mt-[70px] border-t border-[rgba(255,255,255,.05)] bg-[#060B14]">
@@ -126,7 +137,7 @@ export function Footer() {
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-            {columns.map((column) => (
+            {visibleColumns.map((column) => (
               <div key={column.key}>
                 <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-[#8C97A8]">
                   {t(`columns.${column.key}.title`)}

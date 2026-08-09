@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
+import { useMarket } from "@/lib/providers/market-provider";
 import { VirtualTourEmbed } from "@/features/listings/components/virtual-tour-embed";
 import { FloorPlanViewer } from "@/features/listings/components/floor-plan-viewer";
 import { ListingContactPanel } from "@/features/contact";
@@ -59,6 +60,7 @@ function formatPrice(price: number, currency: string, fractionDigits = 0) {
 export function PropertyDetailPage({ property, similar, agencyListings = [] }: Props) {
   const t = useTranslations("imoveis.detail");
   const tc = useTranslations("imoveis.categories");
+  const { market } = useMarket();
   const { active: isFavorite, handleClick: handleFavoriteClick } = useFavoriteButton(
     "property",
     property.id,
@@ -420,85 +422,86 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
             </div>
           </section>
 
-          {/* Financing simulator */}
-          <section className="rounded-xl bg-[#111d2f]/60 p-6">
-            <h2 className="text-lg font-semibold text-white">
-              {t("simulatorTitle")}
-            </h2>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              <label className="block">
-                <span className="text-xs text-white/45">
-                  {t("simulator.propertyValue")}
-                </span>
-                <input
-                  readOnly
-                  value={formatPrice(property.price, property.currency)}
-                  className="mt-1.5 w-full rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
-                />
-              </label>
-              <label className="block">
-                <span className="text-xs text-white/45">
-                  {t("simulator.downPayment")}
-                </span>
-                <div className="mt-1.5 flex gap-2">
+          {market.creditAvailable ? (
+            <section className="rounded-xl bg-[#111d2f]/60 p-6">
+              <h2 className="text-lg font-semibold text-white">
+                {t("simulatorTitle")}
+              </h2>
+              <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                <label className="block">
+                  <span className="text-xs text-white/45">
+                    {t("simulator.propertyValue")}
+                  </span>
                   <input
                     readOnly
-                    value={formatPrice(downPayment, property.currency)}
-                    className="flex-1 rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
+                    value={formatPrice(property.price, property.currency)}
+                    className="mt-1.5 w-full rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
                   />
-                  <select
-                    value={downPct}
-                    onChange={(e) => setDownPct(Number(e.target.value))}
-                    className="rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
-                  >
-                    {[10, 20, 30, 40, 50].map((p) => (
-                      <option key={p} value={p}>
-                        {p}%
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </label>
-              <label className="block">
-                <span className="text-xs text-white/45">
-                  {t("simulator.term")}
+                </label>
+                <label className="block">
+                  <span className="text-xs text-white/45">
+                    {t("simulator.downPayment")}
+                  </span>
+                  <div className="mt-1.5 flex gap-2">
+                    <input
+                      readOnly
+                      value={formatPrice(downPayment, property.currency)}
+                      className="flex-1 rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
+                    />
+                    <select
+                      value={downPct}
+                      onChange={(e) => setDownPct(Number(e.target.value))}
+                      className="rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
+                    >
+                      {[10, 20, 30, 40, 50].map((p) => (
+                        <option key={p} value={p}>
+                          {p}%
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </label>
+                <label className="block">
+                  <span className="text-xs text-white/45">
+                    {t("simulator.term")}
+                  </span>
+                  <input
+                    type="number"
+                    value={termMonths}
+                    onChange={(e) => setTermMonths(Number(e.target.value))}
+                    className="mt-1.5 w-full rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
+                  />
+                </label>
+                <label className="block">
+                  <span className="text-xs text-white/45">
+                    {t("simulator.interestRate")}
+                  </span>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={interestRate}
+                    onChange={(e) => setInterestRate(Number(e.target.value))}
+                    className="mt-1.5 w-full rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
+                  />
+                </label>
+              </div>
+              <div className="mt-5 flex flex-wrap items-center justify-between gap-4 rounded-lg bg-[#1d4ed8]/10 px-4 py-3">
+                <span className="text-sm text-white/70">
+                  {t("simulator.estimatedInstallment")}
                 </span>
-                <input
-                  type="number"
-                  value={termMonths}
-                  onChange={(e) => setTermMonths(Number(e.target.value))}
-                  className="mt-1.5 w-full rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
-                />
-              </label>
-              <label className="block">
-                <span className="text-xs text-white/45">
-                  {t("simulator.interestRate")}
+                <span className="text-xl font-bold text-white">
+                  {formatPrice(estimatedInstallment, property.currency, 2)}
+                  {t("simulator.perMonth")}
                 </span>
-                <input
-                  type="number"
-                  step="0.01"
-                  value={interestRate}
-                  onChange={(e) => setInterestRate(Number(e.target.value))}
-                  className="mt-1.5 w-full rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
-                />
-              </label>
-            </div>
-            <div className="mt-5 flex flex-wrap items-center justify-between gap-4 rounded-lg bg-[#1d4ed8]/10 px-4 py-3">
-              <span className="text-sm text-white/70">
-                {t("simulator.estimatedInstallment")}
-              </span>
-              <span className="text-xl font-bold text-white">
-                {formatPrice(estimatedInstallment, property.currency, 2)}
-                {t("simulator.perMonth")}
-              </span>
-            </div>
-            <Link
-              href={financingHref}
-              className="mt-4 flex w-full items-center justify-center rounded-md bg-[#d4a017] px-4 py-2 text-sm font-semibold text-[#0a111f] transition-colors hover:bg-[#eebc49]"
-            >
-              {t("simulateNow")}
-            </Link>
-          </section>
+              </div>
+              <Link
+                href={financingHref}
+                className="mt-4 flex w-full items-center justify-center rounded-md bg-[#d4a017] px-4 py-2 text-sm font-semibold text-[#0a111f] transition-colors hover:bg-[#eebc49]"
+              >
+                {t("simulateNow")}
+              </Link>
+            </section>
+          ) : null}
         </div>
 
         {/* Sidebar */}
@@ -527,28 +530,29 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
             </div>
           </div>
 
-          {/* Financing estimate */}
-          <div className="rounded-xl bg-[#111d2f] p-5">
-            <p className="text-sm text-white/55">
-              {t("downFrom")}{" "}
-              <span className="font-semibold text-white">
-                {formatPrice(sidebarDown, property.currency)}
-              </span>
-            </p>
-            <p className="mt-1 text-sm text-white/55">
-              {t("installmentsFrom")}{" "}
-              <span className="font-semibold text-white">
-                {formatPrice(sidebarInstallment, property.currency)}
-                {t("simulator.perMonth")}
-              </span>
-            </p>
-            <Link
-              href={financingHref}
-              className="mt-4 flex w-full items-center justify-center rounded-md bg-[#d4a017] px-4 py-2 text-sm font-semibold text-[#0a111f] transition-colors hover:bg-[#eebc49]"
-            >
-              {t("simulateFinancing")}
-            </Link>
-          </div>
+          {market.creditAvailable ? (
+            <div className="rounded-xl bg-[#111d2f] p-5">
+              <p className="text-sm text-white/55">
+                {t("downFrom")}{" "}
+                <span className="font-semibold text-white">
+                  {formatPrice(sidebarDown, property.currency)}
+                </span>
+              </p>
+              <p className="mt-1 text-sm text-white/55">
+                {t("installmentsFrom")}{" "}
+                <span className="font-semibold text-white">
+                  {formatPrice(sidebarInstallment, property.currency)}
+                  {t("simulator.perMonth")}
+                </span>
+              </p>
+              <Link
+                href={financingHref}
+                className="mt-4 flex w-full items-center justify-center rounded-md bg-[#d4a017] px-4 py-2 text-sm font-semibold text-[#0a111f] transition-colors hover:bg-[#eebc49]"
+              >
+                {t("simulateFinancing")}
+              </Link>
+            </div>
+          ) : null}
 
           {/* Contact */}
           <div className="rounded-xl bg-[#111d2f] p-5">
