@@ -335,7 +335,7 @@ export function HeroSearchBar() {
         : Car;
 
   return (
-    <div className="rk-container relative z-30 -mt-10 pb-2">
+    <div className="rk-container relative z-30 -mt-10 pb-0">
       <motion.div
         className="overflow-hidden rounded-[22px] border border-[#E8E2D4] bg-white shadow-[0_20px_50px_rgba(0,0,0,.18)]"
         initial={{ opacity: 0, y: 18 }}
@@ -572,7 +572,7 @@ export function HeroSearchBar() {
       </motion.div>
 
       {!catalogLoading && matchCount != null && (
-        <p className="mt-3 text-center text-xs text-[#8C97A8] xl:hidden">
+        <p className="mt-2 text-center text-xs text-[#8C97A8] xl:hidden">
           {category === "vehicles"
             ? t("resultsMobileVehicles", { count: matchCount })
             : t("resultsMobile", { count: matchCount })}

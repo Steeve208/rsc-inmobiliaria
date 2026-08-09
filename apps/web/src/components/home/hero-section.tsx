@@ -12,7 +12,7 @@ export function HeroSection() {
   const t = useTranslations("landing");
 
   return (
-    <section className="relative bg-[#F7F5F0] pb-2">
+    <section className="relative bg-[#F7F5F0] pb-0">
       <div className="relative h-[340px] overflow-hidden sm:h-[360px] lg:h-[380px]">
         <Image
           src="/hero-bg.png"

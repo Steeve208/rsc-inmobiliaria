@@ -142,7 +142,7 @@ export function FeaturedProperties({ items }: Props) {
   if (items.length === 0) return null;
 
   return (
-    <section className="bg-[#F7F5F0] pt-14 pb-4 sm:pt-16">
+    <section className="bg-[#F7F5F0] pt-6 pb-4 sm:pt-8">
       <div className="rk-container">
         <div className="mb-9 flex flex-col gap-3 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-xl">
