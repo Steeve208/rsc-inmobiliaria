@@ -7,6 +7,7 @@ import { EcosystemJourney } from "@/components/home/ecosystem-journey";
 import { MarketplaceServices } from "@/components/home/marketplace-services";
 import { WhyReeskova } from "@/components/home/why-reeskova";
 import { SellCta } from "@/components/home/sell-cta";
+import { NewsletterCta } from "@/components/home/newsletter-cta";
 import { RscGroupSection } from "@/components/home/rsc-group-section";
 import { Footer } from "@/components/layout/footer";
 import { listHomeFeaturedProperties } from "@/lib/listings/property-repository";
@@ -77,6 +78,7 @@ export default async function HomePage({ params }: Props) {
       <MarketplaceServices />
       <WhyReeskova />
       <SellCta />
+      <NewsletterCta />
       <RscGroupSection />
       <Footer />
     </>

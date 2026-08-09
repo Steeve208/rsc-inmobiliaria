@@ -808,9 +808,8 @@
     },
     "newsletter": {
       "title": "Seja o primeiro a descobrir novas oportunidades",
-      "subtitle": "Receba lançamentos, veículos premium e ofertas exclusivas.",
-      "unavailable": "Alertas por e-mail ainda não estão disponíveis. Fale com o suporte para lançamentos e ofertas.",
-      "contactCta": "Falar com suporte"
+      "subtitle": "Receba lançamentos, veículos premium e oportunidades selecionadas pela Reeskova.",
+      "cta": "Entrar na lista de espera"
     }
   },
   "search": {

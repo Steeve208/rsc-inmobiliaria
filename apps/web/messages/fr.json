@@ -724,10 +724,9 @@
       }
     },
     "newsletter": {
-      "title": "Be the first to discover new opportunities",
-      "subtitle": "Get launches, premium vehicles, and exclusive offers.",
-      "unavailable": "Email alerts are not available yet. Contact support for launches and offers.",
-      "contactCta": "Contact support"
+      "title": "Soyez le premier à découvrir de nouvelles opportunités",
+      "subtitle": "Recevez des lancements, des véhicules premium et des opportunités sélectionnées par Reeskova.",
+      "cta": "Rejoindre la liste d'attente"
     },
     "ecosystemJourney": {
       "title": "Tout ce dont vous avez besoin pour votre prochain projet.",
