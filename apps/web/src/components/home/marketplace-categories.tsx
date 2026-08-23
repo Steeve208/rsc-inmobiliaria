@@ -17,7 +17,7 @@ const categories = [
   { key: "properties", icon: Home, href: "/imoveis" },
   { key: "vehicles", icon: Car, href: "/veiculos" },
   { key: "companies", icon: Building2, href: "/para-empresas" },
-  { key: "launches", icon: HardHat, href: "/imoveis?launch=1" },
+  { key: "launches", icon: HardHat, href: "/projetos" },
   { key: "financing", icon: CreditCard, href: "/financing", brazilOnly: true },
   { key: "services", icon: Shield, href: "/services" },
 ] as const;

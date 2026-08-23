@@ -221,7 +221,11 @@
     "searchLocation": {
       "en": "City / ZIP",
       "es": "Ciudad",
-      "pt": "Cidade"
+      "pt": "Cidade",
+      "fr": "Ville",
+      "de": "Stadt / PLZ",
+      "it": "Città",
+      "ar": "المدينة"
     },
     "detection": {
       "message": "Abbiamo rilevato che ti trovi in {country}. Continuare?",

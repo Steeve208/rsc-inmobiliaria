@@ -6,6 +6,8 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { MapPin } from "lucide-react";
 import { getMapboxToken, isValidMapCoord } from "@/lib/maps/mapbox";
+import { formatCompactMoney } from "@/lib/marketplace/format";
+import { cn } from "@/lib/utils";
 import type { PropertyListing } from "../types";
 
 type Props = {
@@ -13,6 +15,8 @@ type Props = {
   highlightedId?: string | null;
   onHighlight?: (id: string | null) => void;
   satellite?: boolean;
+  theme?: "dark" | "light";
+  pricePins?: boolean;
   className?: string;
 };
 
@@ -21,6 +25,8 @@ export function PropertyMap({
   highlightedId,
   onHighlight,
   satellite = false,
+  theme = "dark",
+  pricePins = false,
   className,
 }: Props) {
   const t = useTranslations("map");
@@ -28,6 +34,7 @@ export function PropertyMap({
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markersRef = useRef<Map<string, mapboxgl.Marker>>(new Map());
   const token = getMapboxToken();
+  const light = theme === "light";
 
   useEffect(() => {
     if (!token || !mapContainer.current || mapRef.current) return;
@@ -38,31 +45,36 @@ export function PropertyMap({
       container: mapContainer.current,
       style: satellite
         ? "mapbox://styles/mapbox/satellite-streets-v12"
-        : "mapbox://styles/mapbox/dark-v11",
+        : light
+          ? "mapbox://styles/mapbox/streets-v12"
+          : "mapbox://styles/mapbox/dark-v11",
       center: [-51.5192, -29.1714],
       zoom: 12,
       attributionControl: false,
     });
 
-    map.addControl(new mapboxgl.NavigationControl(), "top-right");
+    map.addControl(
+      new mapboxgl.NavigationControl({ showCompass: false }),
+      "bottom-right",
+    );
     map.addControl(new mapboxgl.AttributionControl({ compact: true }));
 
     mapRef.current = map;
     const markersMap = markersRef.current;
 
     return () => {
-      markersMap.forEach((m) => m.remove());
+      markersMap.forEach((marker) => marker.remove());
       markersMap.clear();
       map.remove();
       mapRef.current = null;
     };
-  }, [token, satellite]);
+  }, [token, satellite, light]);
 
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !token) return;
 
-    markersRef.current.forEach((m) => m.remove());
+    markersRef.current.forEach((marker) => marker.remove());
     markersRef.current.clear();
 
     const mappable = items.filter((item) =>
@@ -71,9 +83,15 @@ export function PropertyMap({
 
     mappable.forEach((item) => {
       const el = document.createElement("div");
-      el.className =
-        "size-4 cursor-pointer rounded-full border-2 border-white shadow-lg transition-transform";
-      el.style.backgroundColor = "#1d4ed8";
+      if (pricePins) {
+        el.className =
+          "cursor-pointer rounded-md bg-white px-1.5 py-0.5 text-[10px] font-bold text-[#0B1220] shadow-md ring-1 ring-black/10 transition-transform";
+        el.textContent = formatCompactMoney(item.price, item.currency);
+      } else {
+        el.className =
+          "size-4 cursor-pointer rounded-full border-2 border-white shadow-lg transition-transform";
+        el.style.backgroundColor = "#1d4ed8";
+      }
 
       el.addEventListener("mouseenter", () => onHighlight?.(item.id));
       el.addEventListener("mouseleave", () => onHighlight?.(null));
@@ -88,53 +106,59 @@ export function PropertyMap({
     if (mappable.length > 1) {
       const bounds = new mapboxgl.LngLatBounds();
       mappable.forEach((item) => bounds.extend([item.lng, item.lat]));
-      map.fitBounds(bounds, { padding: 60, maxZoom: 14 });
+      map.fitBounds(bounds, { padding: 48, maxZoom: 13 });
     } else if (mappable.length === 1) {
       map.flyTo({ center: [mappable[0].lng, mappable[0].lat], zoom: 13 });
     }
-  }, [items, token, onHighlight]);
+  }, [items, token, onHighlight, pricePins]);
 
   useEffect(() => {
     markersRef.current.forEach((marker, id) => {
       const el = marker.getElement();
-      if (id === highlightedId) {
-        el.style.backgroundColor = "#d4a017";
-        el.style.transform = "scale(1.5)";
-        el.style.zIndex = "10";
+      const active = id === highlightedId;
+      el.style.transform = active ? "scale(1.12)" : "scale(1)";
+      el.style.zIndex = active ? "10" : "1";
+      if (!pricePins) {
+        el.style.backgroundColor = active ? "#d4a017" : "#1d4ed8";
       } else {
-        el.style.backgroundColor = "#1d4ed8";
-        el.style.transform = "scale(1)";
-        el.style.zIndex = "1";
+        el.style.backgroundColor = active ? "#E8A84A" : "#ffffff";
       }
     });
-  }, [highlightedId]);
+  }, [highlightedId, pricePins]);
 
   if (!token) {
     return (
       <div
-        className={`relative flex min-h-[360px] flex-col items-center justify-center gap-3 overflow-hidden rounded-xl bg-[#081128]/60 p-8 text-center ${className ?? ""}`}
+        className={cn(
+          "relative flex min-h-[220px] flex-col items-center justify-center gap-3 overflow-hidden p-6 text-center",
+          light ? "bg-[#E8EEF4] text-[#4B5563]" : "bg-[#081128]/60 text-white/50",
+          className,
+        )}
       >
-        <div className="absolute inset-0 opacity-20">
-          {items.map((item, i) => (
-            <div
+        <div className="absolute inset-0">
+          {items.slice(0, 12).map((item, index) => (
+            <button
               key={item.id}
-              className="absolute size-3 rounded-full bg-[#1d4ed8]"
+              type="button"
+              className={cn(
+                "absolute -translate-x-1/2 -translate-y-1/2 rounded-md px-1.5 py-0.5 text-[10px] font-bold shadow-sm",
+                highlightedId === item.id
+                  ? "bg-[#E8A84A] text-[#070B14]"
+                  : "bg-white text-[#0B1220]",
+              )}
               style={{
-                top: `${20 + (i * 13) % 60}%`,
-                left: `${15 + (i * 17) % 70}%`,
-                transform: highlightedId === item.id ? "scale(1.8)" : "scale(1)",
-                backgroundColor: highlightedId === item.id ? "#d4a017" : "#1d4ed8",
+                top: `${22 + ((index * 13) % 56)}%`,
+                left: `${18 + ((index * 17) % 64)}%`,
               }}
               onMouseEnter={() => onHighlight?.(item.id)}
               onMouseLeave={() => onHighlight?.(null)}
-            />
+            >
+              {formatCompactMoney(item.price, item.currency)}
+            </button>
           ))}
         </div>
-        <MapPin className="relative size-8 text-[#60a5fa]" />
-        <p className="relative max-w-sm text-sm text-white/50">{t("noToken")}</p>
-        <p className="relative text-xs text-white/30">
-          {items.length} {t("fallbackListings")}
-        </p>
+        <MapPin className={cn("relative size-7", light ? "text-[#6B7285]" : "text-[#60a5fa]")} />
+        <p className="relative max-w-sm text-xs">{t("noToken")}</p>
       </div>
     );
   }
@@ -142,7 +166,7 @@ export function PropertyMap({
   return (
     <div
       ref={mapContainer}
-      className={`overflow-hidden rounded-xl ${className ?? "min-h-[360px]"}`}
+      className={cn("overflow-hidden", className ?? "min-h-[360px]")}
     />
   );
 }

@@ -13,7 +13,7 @@ export default async function Page({ params }: Props) {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-[60vh] items-center justify-center text-white/50">
+        <div className="flex min-h-[60vh] items-center justify-center text-[#6B7285]">
           Loading...
         </div>
       }

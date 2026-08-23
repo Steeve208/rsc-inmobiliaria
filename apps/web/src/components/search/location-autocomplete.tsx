@@ -17,6 +17,8 @@ type Props = {
   onEnter?: () => void;
   className?: string;
   theme?: Theme;
+  hideGps?: boolean;
+  hideIcon?: boolean;
 };
 
 const themeClasses: Record<
@@ -68,6 +70,8 @@ export function LocationAutocomplete({
   onEnter,
   className,
   theme = "dark",
+  hideGps = false,
+  hideIcon = false,
 }: Props) {
   const t = useTranslations("imoveis.location");
   const styles = themeClasses[theme];
@@ -180,11 +184,14 @@ export function LocationAutocomplete({
       <div
         className={cn(
           "flex h-11 items-center gap-2 rounded-xl px-3",
-          theme === "light" && "h-auto min-h-[44px] rounded-lg",
+          theme === "light" && !hideIcon && "h-auto min-h-[44px] rounded-lg",
+          hideIcon && "h-auto min-h-0 gap-0 px-0",
           styles.field,
         )}
       >
-        <MapPin className={cn("size-4 shrink-0", styles.icon)} strokeWidth={1.75} />
+        {hideIcon ? null : (
+          <MapPin className={cn("size-4 shrink-0", styles.icon)} strokeWidth={1.75} />
+        )}
         <input
           type="text"
           value={value}
@@ -209,19 +216,21 @@ export function LocationAutocomplete({
         {(searchLoading || gpsLoading) && (
           <Loader2 className="size-4 shrink-0 animate-spin text-white/40" />
         )}
-        <button
-          type="button"
-          onClick={handleGps}
-          disabled={gpsLoading}
-          title={t("useGps")}
-          className={cn(
-            "flex size-8 shrink-0 items-center justify-center rounded-lg transition-colors disabled:opacity-50",
-            styles.gpsButton,
-          )}
-          aria-label={t("useGps")}
-        >
-          <Navigation className="size-4" strokeWidth={1.75} />
-        </button>
+        {hideGps ? null : (
+          <button
+            type="button"
+            onClick={handleGps}
+            disabled={gpsLoading}
+            title={t("useGps")}
+            className={cn(
+              "flex size-8 shrink-0 items-center justify-center rounded-lg transition-colors disabled:opacity-50",
+              styles.gpsButton,
+            )}
+            aria-label={t("useGps")}
+          >
+            <Navigation className="size-4" strokeWidth={1.75} />
+          </button>
+        )}
       </div>
 
       {open && suggestions.length > 0 && (

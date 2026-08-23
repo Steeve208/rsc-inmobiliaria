@@ -3,11 +3,13 @@ import {
   type VeiculosFilters,
   type VeiculosView,
   type VehicleCategory,
+  type VehicleSort,
 } from "@/features/veiculos/types";
 
 const SEARCH_KEYS = [
   "city",
   "state",
+  "country",
   "type",
   "lat",
   "lng",
@@ -19,10 +21,17 @@ const SEARCH_KEYS = [
   "yearMax",
   "priceMin",
   "priceMax",
+  "mileageMin",
   "mileageMax",
   "fuel",
   "transmission",
   "condition",
+  "verified",
+  "photos",
+  "lowKm",
+  "reduced",
+  "newWeek",
+  "sort",
 ] as const;
 
 export function hasVeiculosSearchParams(params: URLSearchParams): boolean {
@@ -50,6 +59,7 @@ export function parseVeiculosSearchParams(
     yearMax: params.get("yearMax") ?? "",
     priceMin: params.get("priceMin") ?? "",
     priceMax: params.get("priceMax") ?? "",
+    mileageMin: params.get("mileageMin") ?? "",
     mileageMax: params.get("mileageMax") ?? "",
     fuel: (params.get("fuel") as VeiculosFilters["fuel"]) ?? "",
     transmission: (params.get("transmission") as VeiculosFilters["transmission"]) ?? "",
@@ -58,15 +68,23 @@ export function parseVeiculosSearchParams(
     drive: (params.get("drive") as VeiculosFilters["drive"]) ?? "",
     financing: params.get("financing") === "1",
     condition: (params.get("condition") as VeiculosFilters["condition"]) ?? "",
+    country: params.get("country") ?? "",
     state: params.get("state") ?? "",
     city,
     locationLabel: params.get("locationLabel") ?? city,
     lat: lat ? Number(lat) : null,
     lng: lng ? Number(lng) : null,
+    verifiedOnly: params.get("verified") === "1",
+    withPhotos: params.get("photos") === "1",
+    lowMileage: params.get("lowKm") === "1",
+    priceReduced: params.get("reduced") === "1",
+    newThisWeek: params.get("newWeek") === "1",
+    sort: (params.get("sort") as VehicleSort) || defaults.sort,
   };
 
   const rawView = params.get("view");
-  const view: VeiculosView = rawView === "list" ? "list" : "gallery";
+  const view: VeiculosView =
+    rawView === "list" || rawView === "map" ? rawView : "grid";
 
   return {
     filters,
@@ -83,6 +101,7 @@ export function veiculosFiltersToParams(
 
   const entries: [string, string][] = [
     ["q", filters.query],
+    ["country", filters.country],
     ["state", filters.state],
     ["city", filters.city],
     ["locationLabel", filters.locationLabel],
@@ -95,6 +114,7 @@ export function veiculosFiltersToParams(
     ["yearMax", filters.yearMax],
     ["priceMin", filters.priceMin],
     ["priceMax", filters.priceMax],
+    ["mileageMin", filters.mileageMin],
     ["mileageMax", filters.mileageMax],
     ["fuel", filters.fuel],
     ["transmission", filters.transmission],
@@ -103,13 +123,19 @@ export function veiculosFiltersToParams(
     ["drive", filters.drive],
     ["condition", filters.condition],
     ["financing", filters.financing ? "1" : ""],
+    ["verified", filters.verifiedOnly ? "1" : ""],
+    ["photos", filters.withPhotos ? "1" : ""],
+    ["lowKm", filters.lowMileage ? "1" : ""],
+    ["reduced", filters.priceReduced ? "1" : ""],
+    ["newWeek", filters.newThisWeek ? "1" : ""],
+    ["sort", filters.sort !== defaultVeiculosFilters.sort ? filters.sort : ""],
   ];
 
   for (const [key, value] of entries) {
     if (value) params.set(key, value);
   }
 
-  if (view && view !== "gallery") params.set("view", view);
+  if (view && view !== "grid") params.set("view", view);
 
   return params;
 }

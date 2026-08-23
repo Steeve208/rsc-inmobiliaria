@@ -54,7 +54,7 @@ export function SplitMapList({
     setTimeout(() => setSavedFlash(false), 2000);
   }
 
-  const showGallery = view === "gallery";
+  const showGallery = view === "grid";
   const visibleResults = results.slice(0, visibleCount);
   const hasMore = visibleCount < results.length;
 

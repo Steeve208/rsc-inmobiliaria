@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import {
   clearLocationFilters,
@@ -14,7 +14,6 @@ import { ActiveFilterTags } from "./active-filter-tags";
 import { LocationAutocomplete } from "./location-autocomplete";
 import { countActiveFilters } from "../utils/filter-tags";
 import { defaultImoveisFilters, type ImoveisFilters } from "../types";
-import { useMarket } from "@/lib/providers/market-provider";
 import { TransactionTabs } from "./transaction-tabs";
 
 type Props = {
@@ -37,7 +36,7 @@ export function SearchHeader({
   const t = useTranslations("imoveis.search");
   const tCategories = useTranslations("imoveis.categories");
   const tMarkets = useTranslations("markets");
-  const { market } = useMarket();
+  const locale = useLocale();
   const tf = useTranslations("imoveis.filters");
   const [menuOpen, setMenuOpen] = useState(false);
   const [draft, setDraft] = useState<ImoveisFilters>(filters);
@@ -85,7 +84,7 @@ export function SearchHeader({
     priceFrom: t("priceFrom"),
     areaFrom: tf("areaMin"),
     areaTo: tf("areaMax"),
-    city: tMarkets(`searchLocation.${market.defaultLocale}`),
+    city: tMarkets(`searchLocation.${locale}`),
     state: tf("state"),
   };
 
@@ -132,7 +131,7 @@ export function SearchHeader({
             <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
               <LocationAutocomplete
                 value={locationText}
-                placeholder={tMarkets(`searchLocation.${market.defaultLocale}`)}
+                placeholder={tMarkets(`searchLocation.${locale}`)}
                 onValueChange={setLocationText}
                 onPlaceResolved={handlePlaceResolved}
                 onLocationCleared={handleLocationCleared}

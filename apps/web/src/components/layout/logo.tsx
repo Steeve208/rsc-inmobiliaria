@@ -47,21 +47,33 @@ type LogoProps = {
   className?: string;
   /** Footer only */
   showPoweredBy?: boolean;
+  compact?: boolean;
 };
 
-export function Logo({ className, showPoweredBy = false }: LogoProps) {
+export function Logo({
+  className,
+  showPoweredBy = false,
+  compact = false,
+}: LogoProps) {
   const t = useTranslations("brand");
 
   return (
     <Link href="/" className={cn("flex items-center gap-3", className)}>
-      <ReeskovaMark className="size-11" />
+      <ReeskovaMark className={compact ? "size-8" : "size-11"} />
       <div className="flex flex-col leading-none">
-        <span className="text-[18px] font-bold tracking-[0.08em] text-white uppercase">
+        <span
+          className={cn(
+            "font-bold tracking-[0.12em] uppercase",
+            compact ? "text-[17px] text-[#E8A84A]" : "text-[18px] text-white",
+          )}
+        >
           REESKOVA
         </span>
-        <span className="mt-1.5 max-w-[11rem] text-[9px] font-medium leading-snug tracking-[0.04em] text-[#D4A62A]">
-          {t("tagline")}
-        </span>
+        {compact ? null : (
+          <span className="mt-1.5 max-w-[11rem] text-[9px] font-medium leading-snug tracking-[0.04em] text-[#D4A62A]">
+            {t("tagline")}
+          </span>
+        )}
         {showPoweredBy ? (
           <span className="mt-2 flex items-center gap-2 text-[9px] text-[#AEB7C5]">
             <span className="h-px w-4 bg-[#D4A62A]/50" aria-hidden />

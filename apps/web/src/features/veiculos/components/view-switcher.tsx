@@ -15,7 +15,7 @@ export function ViewSwitcher({ view, onChange }: Props) {
 
   const views: { id: VeiculosView; icon: typeof List; label: string }[] = [
     { id: "list", icon: List, label: t("list") },
-    { id: "gallery", icon: LayoutGrid, label: t("gallery") },
+    { id: "grid", icon: LayoutGrid, label: t("gallery") },
   ];
 
   return (

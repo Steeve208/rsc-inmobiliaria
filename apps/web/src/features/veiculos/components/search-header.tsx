@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import {
   clearLocationFilters,
@@ -14,7 +14,6 @@ import { FilterMenuPanel } from "./filter-menu-panel";
 import { ActiveFilterTags } from "./active-filter-tags";
 import { countActiveFilters } from "../utils/filter-tags";
 import { defaultVeiculosFilters, type VeiculosFilters } from "../types";
-import { useMarket } from "@/lib/providers/market-provider";
 
 type Props = {
   filters: VeiculosFilters;
@@ -33,7 +32,7 @@ export function SearchHeader({
 }: Props) {
   const t = useTranslations("veiculos.search");
   const tMarkets = useTranslations("markets");
-  const { market } = useMarket();
+  const locale = useLocale();
   const tf = useTranslations("veiculos.filters");
   const tc = useTranslations("veiculos.categories");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -130,7 +129,7 @@ export function SearchHeader({
             <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
               <LocationAutocomplete
                 value={locationText}
-                placeholder={tMarkets(`searchLocation.${market.defaultLocale}`)}
+                placeholder={tMarkets(`searchLocation.${locale}`)}
                 onValueChange={setLocationText}
                 onPlaceResolved={handlePlaceResolved}
                 onLocationCleared={handleLocationCleared}

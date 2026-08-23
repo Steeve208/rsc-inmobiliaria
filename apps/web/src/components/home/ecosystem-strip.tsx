@@ -6,31 +6,26 @@ import {
   Armchair,
   Car,
   CreditCard,
+  HardHat,
   Home,
   Package,
   Shield,
-  Sun,
 } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
-import { useMarket } from "@/lib/providers/market-provider";
 
 const items = [
   { key: "properties", icon: Home, href: "/imoveis" },
   { key: "vehicles", icon: Car, href: "/veiculos" },
-  { key: "financing", icon: CreditCard, href: "/financing", brazilOnly: true },
-  { key: "insurance", icon: Shield, href: "/services#insurance" },
-  { key: "solar", icon: Sun, href: "/services" },
-  { key: "moving", icon: Package, href: "/services" },
-  { key: "furniture", icon: Armchair, href: "/services" },
+  { key: "financing", icon: CreditCard, href: "/services?type=financing" },
+  { key: "insurance", icon: Shield, href: "/services?type=insurance" },
+  { key: "renovation", icon: HardHat, href: "/services?type=renovation" },
+  { key: "moving", icon: Package, href: "/services?type=moving" },
+  { key: "furniture", icon: Armchair, href: "/services?type=interior" },
 ] as const;
 
 export function EcosystemStrip() {
   const t = useTranslations("landing.ecosystem");
-  const { market } = useMarket();
-  const visibleItems = items.filter(
-    (item) =>
-      !("brazilOnly" in item && item.brazilOnly) || market.creditAvailable,
-  );
+  const visibleItems = items;
 
   return (
     <section className="border-b border-white/[0.04] pb-10 pt-4 lg:pb-14 lg:pt-6">

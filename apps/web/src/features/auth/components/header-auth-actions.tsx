@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   className?: string;
-  variant?: "desktop" | "mobile";
+  variant?: "desktop" | "mobile" | "compact";
 };
 
 function shortDisplayName(name: string | null | undefined, fallback: string) {
@@ -90,7 +90,14 @@ export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
     }
 
     return (
-      <div className={cn("relative hidden sm:block", className)} ref={menuRef}>
+      <div
+        className={cn(
+          "relative hidden sm:block",
+          variant === "compact" && "block",
+          className,
+        )}
+        ref={menuRef}
+      >
         <button
           type="button"
           onClick={() => setOpen((value) => !value)}
@@ -171,9 +178,13 @@ export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
         className={cn(
           "hidden h-10 items-center justify-center gap-2 rounded-full border border-white/10 px-4 text-sm font-medium text-[#AEB7C5] transition-colors duration-300 hover:border-white/20 hover:text-white sm:inline-flex",
           variant === "mobile" && "flex h-12 w-full rounded-2xl",
+          variant === "compact" &&
+            "inline-flex h-9 rounded-md border border-white/70 px-3 text-xs font-semibold text-white hover:border-white hover:bg-white/10 hover:text-white",
         )}
       >
-        <User className="size-4" strokeWidth={1.75} />
+        {variant === "compact" ? null : (
+          <User className="size-4" strokeWidth={1.75} />
+        )}
         {t("signIn")}
       </Link>
     </div>

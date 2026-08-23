@@ -11,6 +11,8 @@ const staticPaths = [
   "",
   "/imoveis",
   "/veiculos",
+  "/projetos",
+  "/negocios",
   "/services",
   "/financing",
   "/para-empresas",

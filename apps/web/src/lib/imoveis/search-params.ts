@@ -20,6 +20,7 @@ const SEARCH_KEYS = [
   "priceMin",
   "priceMax",
   "bedrooms",
+  "bathrooms",
   "garage",
   "condition",
   "areaMin",
@@ -28,6 +29,12 @@ const SEARCH_KEYS = [
   "pets",
   "financing",
   "rscCredit",
+  "featured",
+  "verified",
+  "photos",
+  "tour",
+  "reduced",
+  "newWeek",
   "sort",
 ] as const;
 
@@ -62,6 +69,7 @@ export function parseImoveisSearchParams(
     priceMin: params.get("priceMin") ?? "",
     priceMax: params.get("priceMax") ?? "",
     bedrooms: params.get("bedrooms") ?? "",
+    bathrooms: params.get("bathrooms") ?? "",
     garage: params.get("garage") ?? "",
     pool: params.get("pool") === "1",
     areaMin: params.get("areaMin") ?? "",
@@ -70,12 +78,21 @@ export function parseImoveisSearchParams(
     pets: params.get("pets") === "1",
     rscCredit: params.get("rscCredit") === "1",
     launchOnly: params.get("launch") === "1",
+    featuredOnly: params.get("featured") === "1",
+    verifiedOnly: params.get("verified") === "1",
+    withPhotos: params.get("photos") === "1",
+    withVirtualTour: params.get("tour") === "1",
+    priceReduced: params.get("reduced") === "1",
+    newThisWeek: params.get("newWeek") === "1",
     radiusKm: params.get("radius") ? Number(params.get("radius")) : defaults.radiusKm,
-    sort: (params.get("sort") as PropertySort) || "relevance",
+    sort: (params.get("sort") as PropertySort) || defaults.sort,
   };
 
   const rawView = params.get("view");
-  const view: ImoveisView = rawView === "list" ? "list" : "gallery";
+  const view: ImoveisView =
+    rawView === "list" || rawView === "map"
+      ? rawView
+      : "grid";
 
   return {
     filters,
@@ -105,6 +122,7 @@ export function imoveisFiltersToParams(
     ["priceMin", filters.priceMin],
     ["priceMax", filters.priceMax],
     ["bedrooms", filters.bedrooms],
+    ["bathrooms", filters.bathrooms],
     ["garage", filters.garage],
     ["areaMin", filters.areaMin],
     ["areaMax", filters.areaMax],
@@ -113,15 +131,21 @@ export function imoveisFiltersToParams(
     ["financing", filters.financing ? "1" : ""],
     ["rscCredit", filters.rscCredit ? "1" : ""],
     ["launch", filters.launchOnly ? "1" : ""],
+    ["featured", filters.featuredOnly ? "1" : ""],
+    ["verified", filters.verifiedOnly ? "1" : ""],
+    ["photos", filters.withPhotos ? "1" : ""],
+    ["tour", filters.withVirtualTour ? "1" : ""],
+    ["reduced", filters.priceReduced ? "1" : ""],
+    ["newWeek", filters.newThisWeek ? "1" : ""],
     ["radius", filters.radiusKm !== defaultImoveisFilters.radiusKm ? String(filters.radiusKm) : ""],
-    ["sort", filters.sort !== "relevance" ? filters.sort : ""],
+    ["sort", filters.sort !== defaultImoveisFilters.sort ? filters.sort : ""],
   ];
 
   for (const [key, value] of entries) {
     if (value) params.set(key, value);
   }
 
-  if (view && view !== "gallery") params.set("view", view);
+  if (view && view !== "grid") params.set("view", view);
 
   return params;
 }

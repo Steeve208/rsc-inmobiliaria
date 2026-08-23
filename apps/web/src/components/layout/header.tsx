@@ -1,241 +1,187 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { ChevronDown, Heart, Menu, X } from "lucide-react";
+import {
+  Briefcase,
+  Building2,
+  Car,
+  Clock,
+  Crown,
+  Heart,
+  Menu,
+  ShoppingCart,
+  Smartphone,
+  Sparkles,
+  Tag,
+  Wrench,
+  X,
+} from "lucide-react";
 import { Logo } from "@/components/layout/logo";
+import { GlobalSearch } from "@/components/layout/global-search";
 import { RegionSwitcher } from "@/components/layout/region-switcher";
+import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 import { MarketDetectionBanner } from "@/components/layout/market-detection-banner";
 import { HeaderAuthActions } from "@/features/auth";
-import { Link } from "@/lib/i18n/routing";
+import { Link, usePathname } from "@/lib/i18n/routing";
 import { useUiStore } from "@/hooks/use-ui-store";
 import { useFavorites } from "@/hooks/use-favorites";
-import { useMarket } from "@/lib/providers/market-provider";
-import { cn } from "@/lib/utils";
+import { SECONDARY_NAV } from "@/lib/marketplace/catalog";
 
-const navLinkClass =
-  "text-sm font-medium text-[#AEB7C5] transition-colors duration-300 hover:text-[#D4A62A] whitespace-nowrap";
-
-const productNav = [
-  { href: "/imoveis", labelKey: "exploreNav" as const },
-  { href: "/#categorias", labelKey: "categories" as const },
-  { href: "/para-empresas", labelKey: "companies" as const },
-  { href: "/services", labelKey: "services" as const },
-] as const;
-
-const moreLinks = [
-  { href: "/imoveis?type=house", labelKey: "explore.houses" as const },
-  { href: "/imoveis?type=apartment", labelKey: "explore.apartments" as const },
-  { href: "/imoveis?type=land", labelKey: "explore.land" as const },
-  { href: "/imoveis?launch=1", labelKey: "explore.launches" as const },
-  { href: "/imoveis?type=commercial", labelKey: "explore.commercial" as const },
-  { href: "/imoveis?featured=1", labelKey: "explore.luxury" as const },
-  { href: "/veiculos", labelKey: "vehicles" as const },
-  { href: "/financing", labelKey: "financing" as const },
-  { href: "/como-funciona", labelKey: "howItWorks" as const },
-  { href: "/help", labelKey: "help" as const },
-] as const;
-
-const categoryLinks = [
-  { href: "/imoveis", labelKey: "cat.properties" as const },
-  { href: "/veiculos", labelKey: "cat.vehicles" as const },
-  { href: "/imoveis?launch=1", labelKey: "cat.launches" as const },
-  { href: "/para-empresas", labelKey: "cat.companies" as const },
-  { href: "/financing", labelKey: "cat.financing" as const },
-  { href: "/services", labelKey: "cat.services" as const },
-] as const;
+const navIcons = {
+  properties: Building2,
+  vehicles: Car,
+  projects: Sparkles,
+  businesses: Briefcase,
+  services: Wrench,
+  deals: Tag,
+  newListings: Clock,
+  premium: Crown,
+} as const;
 
 export function Header() {
-  const t = useTranslations("nav");
+  const t = useTranslations("marketplace.header");
+  const tNav = useTranslations("nav");
   const { count, isLoggedIn } = useFavorites();
-  const { market } = useMarket();
   const { isMobileMenuOpen, setMobileMenuOpen, toggleMobileMenu } =
     useUiStore();
-  const [moreOpen, setMoreOpen] = useState(false);
-  const [categoriesOpen, setCategoriesOpen] = useState(false);
-  const visibleMoreLinks = moreLinks.filter(
-    (link) => link.href !== "/financing" || market.creditAvailable,
-  );
-  const visibleCategoryLinks = categoryLinks.filter(
-    (link) => link.href !== "/financing" || market.creditAvailable,
-  );
+  const pathname = usePathname();
 
   return (
     <>
       <MarketDetectionBanner />
-      <header className="sticky top-0 z-50 border-b border-[rgba(255,255,255,.05)] bg-[rgba(6,8,15,.90)] backdrop-blur-[20px]">
-        <div className="rk-container relative flex h-[72px] items-center">
-          <Logo />
+      <header className="sticky top-0 z-50">
+        <div className="bg-[#0B0F19]">
+          <div className="rk-container flex h-16 items-center gap-3">
+            <Logo className="shrink-0" compact />
 
-          <nav className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 xl:flex">
-            {productNav.map((link) =>
-              link.labelKey === "categories" ? (
-                <div
-                  key={link.labelKey}
-                  className="relative"
-                  onMouseEnter={() => setCategoriesOpen(true)}
-                  onMouseLeave={() => setCategoriesOpen(false)}
-                >
-                  <button
-                    type="button"
-                    className={cn(navLinkClass, "inline-flex items-center gap-1")}
-                    aria-expanded={categoriesOpen}
-                    onClick={() => setCategoriesOpen((open) => !open)}
-                  >
-                    {t(link.labelKey)}
-                    <ChevronDown
-                      className={cn(
-                        "size-3.5 transition-transform duration-200",
-                        categoriesOpen && "rotate-180",
-                      )}
-                    />
-                  </button>
-                  {categoriesOpen ? (
-                    <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3">
-                      <div className="min-w-[220px] rounded-2xl border border-white/10 bg-[#0E1422]/98 p-2 shadow-[0_24px_60px_rgba(0,0,0,.45)] backdrop-blur-xl">
-                        {visibleCategoryLinks.map((item) => (
-                          <Link
-                            key={item.labelKey}
-                            href={item.href}
-                            className="block rounded-xl px-3 py-2.5 text-sm text-[#AEB7C5] transition-colors hover:bg-white/5 hover:text-[#D4A62A]"
-                            onClick={() => setCategoriesOpen(false)}
-                          >
-                            {t(item.labelKey)}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  ) : null}
-                </div>
-              ) : (
-                <Link key={link.labelKey} href={link.href} className={navLinkClass}>
-                  {t(link.labelKey)}
-                </Link>
-              ),
-            )}
+            <GlobalSearch
+              key="desktop-search"
+              className="hidden min-w-0 flex-1 md:block"
+            />
 
-            <div
-              className="relative"
-              onMouseEnter={() => setMoreOpen(true)}
-              onMouseLeave={() => setMoreOpen(false)}
-            >
-              <button
-                type="button"
-                className={cn(navLinkClass, "inline-flex items-center gap-1")}
-                aria-expanded={moreOpen}
-                onClick={() => setMoreOpen((open) => !open)}
-              >
-                {t("more")}
-                <ChevronDown
-                  className={cn(
-                    "size-3.5 transition-transform duration-200",
-                    moreOpen && "rotate-180",
-                  )}
-                />
-              </button>
-              {moreOpen ? (
-                <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3">
-                  <div className="min-w-[240px] rounded-2xl border border-white/10 bg-[#0E1422]/98 p-2 shadow-[0_24px_60px_rgba(0,0,0,.45)] backdrop-blur-xl">
-                    <p className="px-3 pb-1.5 pt-2 text-[10px] font-semibold tracking-[0.14em] text-[#AEB7C5] uppercase">
-                      {t("explore.title")}
-                    </p>
-                    {visibleMoreLinks.map((link) => (
-                      <Link
-                        key={link.labelKey}
-                        href={link.href}
-                        className="block rounded-xl px-3 py-2.5 text-sm text-[#AEB7C5] transition-colors hover:bg-white/5 hover:text-[#D4A62A]"
-                        onClick={() => setMoreOpen(false)}
-                      >
-                        {t(link.labelKey)}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          </nav>
+            <div className="ms-auto flex shrink-0 items-center gap-1 sm:gap-2">
+              <LocaleSwitcher key="header-locale" />
 
-          <div className="ms-auto flex shrink-0 items-center gap-2 sm:gap-3">
-            <div className="hidden lg:block">
-              <RegionSwitcher />
-            </div>
-
-            {isLoggedIn ? (
               <Link
-                href="/dashboard"
-                className="relative inline-flex rounded-2xl p-2.5 text-[#AEB7C5] transition-colors duration-300 hover:text-[#D4A62A]"
-                aria-label={t("wishlist")}
+                href={isLoggedIn ? "/dashboard" : "/favoritos"}
+                className="relative inline-flex items-center gap-1.5 rounded-md px-2 py-1.5 text-xs font-semibold text-white/90 hover:text-[#E8A84A]"
               >
-                <Heart className="size-5" strokeWidth={1.75} />
-                {count > 0 && (
-                  <span className="absolute -right-0.5 -top-0.5 flex size-4 items-center justify-center rounded-full bg-[#D4A62A] text-[10px] font-bold text-[#070B14]">
+                <Heart className="size-4" />
+                <span className="hidden lg:inline">{t("saved")}</span>
+                {count > 0 ? (
+                  <span className="absolute -right-0.5 -top-0.5 flex size-4 items-center justify-center rounded-full bg-[#E8A84A] text-[10px] font-bold text-[#070B14]">
                     {count > 9 ? "9+" : count}
                   </span>
-                )}
+                ) : null}
               </Link>
-            ) : null}
 
-            <HeaderAuthActions />
+              <HeaderAuthActions variant="compact" />
 
-            <button
-              type="button"
-              className="inline-flex rounded-2xl p-2 text-white xl:hidden"
-              onClick={toggleMobileMenu}
-              aria-label={t("toggleMenu")}
-            >
-              {isMobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-            </button>
+              <Link
+                href="/para-empresas"
+                className="hidden h-9 items-center rounded-md bg-[#E8A84A] px-3.5 text-xs font-bold text-[#070B14] hover:bg-[#F0B85A] lg:inline-flex"
+              >
+                {t("listCta")}
+              </Link>
+
+              <Link
+                href="/favoritos"
+                className="hidden size-9 items-center justify-center rounded-md text-white/90 hover:text-[#E8A84A] lg:inline-flex"
+                aria-label={t("cart")}
+              >
+                <ShoppingCart className="size-5" />
+              </Link>
+
+              <button
+                type="button"
+                className="inline-flex rounded-md p-2 text-white xl:hidden"
+                onClick={toggleMobileMenu}
+                aria-label={tNav("toggleMenu")}
+              >
+                {isMobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+              </button>
+            </div>
+          </div>
+
+          <div className="rk-container pb-3 md:hidden">
+            <GlobalSearch key="mobile-search" />
           </div>
         </div>
 
-        {isMobileMenuOpen && (
-          <div className="border-t border-[rgba(255,255,255,.05)] px-5 py-4 md:px-8 xl:hidden">
-            <div className="mb-4 border-b border-[rgba(255,255,255,.05)] pb-4">
-              <RegionSwitcher />
+        <nav className="bg-[#111827]">
+          <div className="rk-container flex h-11 items-center gap-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {SECONDARY_NAV.map((link) => {
+              const Icon = navIcons[link.icon];
+              const active =
+                (link.labelKey === "properties" &&
+                  (pathname === "/imoveis" || pathname.startsWith("/imoveis/"))) ||
+                (link.labelKey === "vehicles" &&
+                  (pathname === "/veiculos" || pathname.startsWith("/veiculos/"))) ||
+                (link.labelKey === "projects" &&
+                  (pathname === "/projetos" || pathname.startsWith("/projetos/"))) ||
+                (link.labelKey === "businesses" &&
+                  (pathname === "/negocios" || pathname.startsWith("/negocios/"))) ||
+                (link.labelKey === "services" &&
+                  (pathname === "/services" || pathname.startsWith("/services/")));
+              return (
+                <Link
+                  key={link.labelKey}
+                  href={link.href}
+                  className={
+                    active
+                      ? "inline-flex shrink-0 items-center gap-1.5 border-b-2 border-[#E8A84A] text-[13px] font-medium text-[#E8A84A]"
+                      : "inline-flex shrink-0 items-center gap-1.5 text-[13px] font-medium text-white/85 hover:text-[#E8A84A]"
+                  }
+                >
+                  <Icon className="size-3.5 opacity-80" strokeWidth={1.8} />
+                  {t(`nav.${link.labelKey}`)}
+                </Link>
+              );
+            })}
+            <Link
+              href="/help"
+              className="ms-auto hidden shrink-0 items-center gap-1.5 text-[13px] font-medium text-white/85 hover:text-[#E8A84A] lg:inline-flex"
+            >
+              <Smartphone className="size-3.5" strokeWidth={1.8} />
+              {t("downloadApp")}
+            </Link>
+          </div>
+        </nav>
+
+        {isMobileMenuOpen ? (
+          <div className="border-t border-white/10 bg-[#0B0F19] px-5 py-4 xl:hidden">
+            <div className="mb-4 flex flex-col gap-3 border-b border-white/10 pb-4">
+              <RegionSwitcher key="mobile-region" />
+              <LocaleSwitcher key="mobile-locale" />
             </div>
             <nav className="flex flex-col gap-1">
-              {productNav.map((link) => (
-                <Link
-                  key={link.labelKey}
-                  href={link.href}
-                  className="rounded-2xl px-2 py-2.5 text-sm font-medium text-[#AEB7C5] hover:bg-[#161F31] hover:text-[#D4A62A]"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {t(link.labelKey)}
-                </Link>
-              ))}
-              <p className="mt-2 px-2 pt-2 text-[10px] font-semibold tracking-[0.14em] text-[#AEB7C5]/70 uppercase">
-                {t("categories")}
-              </p>
-              {visibleCategoryLinks.map((link) => (
-                <Link
-                  key={link.labelKey}
-                  href={link.href}
-                  className="rounded-2xl px-2 py-2.5 text-sm font-medium text-[#AEB7C5] hover:bg-[#161F31] hover:text-[#D4A62A]"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {t(link.labelKey)}
-                </Link>
-              ))}
-              <p className="mt-2 px-2 pt-2 text-[10px] font-semibold tracking-[0.14em] text-[#AEB7C5]/70 uppercase">
-                {t("more")}
-              </p>
-              {visibleMoreLinks.map((link) => (
-                <Link
-                  key={link.labelKey}
-                  href={link.href}
-                  className="rounded-2xl px-2 py-2.5 text-sm font-medium text-[#AEB7C5] hover:bg-[#161F31] hover:text-[#D4A62A]"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {t(link.labelKey)}
-                </Link>
-              ))}
+              {SECONDARY_NAV.map((link) => {
+                const Icon = navIcons[link.icon];
+                return (
+                  <Link
+                    key={link.labelKey}
+                    href={link.href}
+                    className="inline-flex items-center gap-2 rounded-xl px-2 py-2.5 text-sm font-medium text-[#AEB7C5] hover:bg-[#161F31] hover:text-[#E8A84A]"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Icon className="size-4" />
+                    {t(`nav.${link.labelKey}`)}
+                  </Link>
+                );
+              })}
             </nav>
-            <div className="mt-4 flex flex-col gap-3 border-t border-[rgba(255,255,255,.05)] pt-4">
+            <div className="mt-4 flex flex-col gap-3 border-t border-white/10 pt-4">
+              <Link
+                href="/para-empresas"
+                className="inline-flex h-12 items-center justify-center rounded-2xl bg-[#E8A84A] text-sm font-bold text-[#070B14]"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {t("listCta")}
+              </Link>
               <HeaderAuthActions variant="mobile" />
             </div>
           </div>
-        )}
+        ) : null}
       </header>
     </>
   );

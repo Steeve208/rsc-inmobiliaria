@@ -45,3 +45,6 @@ apps/web/.data/
 
 # private local promo / documentary media
 apps/web/public/promo/
+
+# assembled local brand kit (duplicates large promo/video binaries)
+brand-kit-reeskova/

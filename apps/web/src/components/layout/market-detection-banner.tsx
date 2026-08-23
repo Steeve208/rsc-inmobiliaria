@@ -4,12 +4,8 @@ import { useTranslations } from "next-intl";
 import { Check, Globe, X } from "lucide-react";
 import { marketList } from "@/lib/markets/config";
 import { useMarketSelection } from "@/hooks/use-market-selection";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { SimpleMenu } from "@/components/layout/simple-menu";
+import { cn } from "@/lib/utils";
 
 export function MarketDetectionBanner() {
   const t = useTranslations("markets");
@@ -43,30 +39,38 @@ export function MarketDetectionBanner() {
             {t("detection.confirm")}
           </button>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger
-              render={
+          <SimpleMenu
+            trigger={({ toggle }) => (
+              <button
+                type="button"
+                onClick={toggle}
+                className="rounded-md border border-white/20 px-3 py-1.5 text-xs font-medium text-white/90 transition-colors hover:bg-white/5"
+              >
+                {t("detection.change")}
+              </button>
+            )}
+          >
+            {(close) =>
+              marketList.map((item) => (
                 <button
-                  type="button"
-                  className="rounded-md border border-white/20 px-3 py-1.5 text-xs font-medium text-white/90 transition-colors hover:bg-white/5"
-                >
-                  {t("detection.change")}
-                </button>
-              }
-            />
-            <DropdownMenuContent align="end" className="min-w-44">
-              {marketList.map((item) => (
-                <DropdownMenuItem
                   key={item.id}
-                  onClick={() => selectMarket(item.id, { confirmed: true })}
-                  className={market.id === item.id ? "font-semibold" : undefined}
+                  type="button"
+                  role="menuitem"
+                  onClick={() => {
+                    selectMarket(item.id, { confirmed: true });
+                    close();
+                  }}
+                  className={cn(
+                    "flex w-full items-center rounded-xl px-3 py-2 text-left text-sm text-[#AEB7C5] transition-colors hover:bg-white/5 hover:text-white",
+                    market.id === item.id && "font-semibold text-white",
+                  )}
                 >
                   <span className="mr-2">{item.flag}</span>
                   {t(`names.${item.id}`)}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+                </button>
+              ))
+            }
+          </SimpleMenu>
 
           <button
             type="button"

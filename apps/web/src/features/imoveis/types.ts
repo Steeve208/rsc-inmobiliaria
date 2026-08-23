@@ -1,6 +1,6 @@
 import type { ListingItem, SearchFilters } from "@/features/search/types";
 
-export type ImoveisView = "list" | "gallery";
+export type ImoveisView = "grid" | "list" | "map";
 
 export type PropertySort =
   | "relevance"
@@ -35,6 +35,13 @@ export type ImoveisFilters = SearchFilters & {
   pets: boolean;
   rscCredit: boolean;
   launchOnly: boolean;
+  bathrooms: string;
+  featuredOnly: boolean;
+  verifiedOnly: boolean;
+  withPhotos: boolean;
+  withVirtualTour: boolean;
+  priceReduced: boolean;
+  newThisWeek: boolean;
   locationLabel: string;
   lat: number | null;
   lng: number | null;
@@ -55,8 +62,12 @@ export type PropertyListing = ListingItem & {
   verified?: boolean;
   bathrooms?: number;
   premium?: boolean;
+  featured?: boolean;
   launch?: boolean;
   videoUrl?: string;
+  virtualTour?: boolean;
+  originalPrice?: number;
+  discountPercent?: number;
 };
 
 export type PropertyAgent = {
@@ -117,7 +128,7 @@ export type PropertyDetail = PropertyListing & {
 export const defaultImoveisFilters: ImoveisFilters = {
   category: "properties",
   query: "",
-  country: "Brasil",
+  country: "",
   state: "",
   city: "",
   neighborhood: "",
@@ -137,9 +148,16 @@ export const defaultImoveisFilters: ImoveisFilters = {
   pets: false,
   rscCredit: false,
   launchOnly: false,
+  bathrooms: "",
+  featuredOnly: false,
+  verifiedOnly: false,
+  withPhotos: false,
+  withVirtualTour: false,
+  priceReduced: false,
+  newThisWeek: false,
   locationLabel: "",
   lat: null,
   lng: null,
   radiusKm: 40,
-  sort: "relevance",
+  sort: "newest",
 };

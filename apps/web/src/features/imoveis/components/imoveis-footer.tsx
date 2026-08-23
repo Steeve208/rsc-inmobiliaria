@@ -82,7 +82,7 @@ export function ImoveisFooter({ onSelectRegion, onCategorySelect }: Props) {
                       <Link
                         href={
                           "launch" in link && link.launch
-                            ? "/imoveis?launch=1"
+                            ? "/projetos"
                             : `/imoveis?type=${link.id}`
                         }
                         className="text-sm text-white/50 transition-colors hover:text-[#60a5fa]"

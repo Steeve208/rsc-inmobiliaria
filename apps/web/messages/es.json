@@ -221,7 +221,11 @@
     "searchLocation": {
       "en": "City / ZIP",
       "es": "Ciudad",
-      "pt": "Cidade"
+      "pt": "Cidade",
+      "fr": "Ville",
+      "de": "Stadt / PLZ",
+      "it": "Città",
+      "ar": "المدينة"
     },
     "detection": {
       "message": "Detectamos que estás en {country}. ¿Es correcto?",
@@ -287,9 +291,9 @@
         "vehicles": "Vehículos",
         "financing": "Financiamiento",
         "insurance": "Seguros",
-        "solar": "Energía solar",
+        "renovation": "Reforma",
         "moving": "Mudanzas",
-        "furniture": "Mobiliario"
+        "furniture": "Diseño de interiores"
       }
     },
     "search": {
@@ -713,13 +717,13 @@
           "title": "Decoración",
           "description": "Diseño para tu espacio"
         },
-        "solar": {
-          "title": "Energía",
-          "description": "Eficiencia para el hogar"
+        "inspection": {
+          "title": "Inspección",
+          "description": "Verifica antes de comprar"
         },
-        "internet": {
-          "title": "Internet",
-          "description": "Conectividad premium"
+        "renovation": {
+          "title": "Reforma",
+          "description": "Actualiza y mejora la propiedad"
         }
       }
     },
@@ -2701,6 +2705,728 @@
             "0": "Escribe a support@rscmarket.com con “Security” en el asunto. Incluye pasos para reproducir, URLs afectadas y si pueden estar involucrados datos personales. No divulgues vulnerabilidades públicamente antes de que podamos evaluarlas y corregirlas."
           }
         }
+      }
+    }
+  },
+  "marketplace": {
+    "save": "Guardar",
+    "seeAll": "Ver todo",
+    "deals": "Ofertas del día",
+    "featuredProperties": "Propiedades destacadas",
+    "newListings": "Nuevos anuncios — Recién añadidos",
+    "continueExploring": "Sigue explorando",
+    "popularVehicles": "Vehículos más populares",
+    "featuredIn": "Destacados en {city}",
+    "badges": {
+      "premium": "Premium",
+      "new": "Nuevo",
+      "featured": "Destacado",
+      "deal": "Oferta"
+    },
+    "types": {
+      "property": {
+        "house": "Casa",
+        "apartment": "Apartamento",
+        "land": "Terreno",
+        "commercial": "Comercial",
+        "condominium": "Condominio",
+        "penthouse": "Ático",
+        "studio": "Estudio"
+      },
+      "vehicle": {
+        "car": "Auto",
+        "suv": "SUV",
+        "motorcycle": "Moto",
+        "truck": "Camión",
+        "van": "Van",
+        "electric": "Eléctrico",
+        "hybrid": "Híbrido"
+      }
+    },
+    "specs": {
+      "beds": "{count} hab.",
+      "baths": "{count} baños",
+      "area": "{area} m²"
+    },
+    "header": {
+      "deliverTo": "Entregar en",
+      "saved": "Guardados",
+      "cart": "Carrito",
+      "downloadApp": "Descargar App",
+      "listCta": "Publicar en Reeskova",
+      "nav": {
+        "properties": "Propiedades",
+        "vehicles": "Vehículos",
+        "projects": "Proyectos",
+        "businesses": "Empresas",
+        "services": "Servicios",
+        "deals": "Ofertas",
+        "newListings": "Nuevos anuncios",
+        "premium": "Premium",
+        "visits": "Visitas gratis"
+      }
+    },
+    "headerSearch": {
+      "categoryLabel": "Categoría de búsqueda",
+      "placeholder": "Buscar propiedades, vehículos, proyectos o servicios inmobiliarios...",
+      "placeholders": {
+        "all": "Buscar propiedades, vehículos, proyectos o servicios inmobiliarios...",
+        "properties": "Buscar propiedad, barrio o ciudad...",
+        "vehicles": "Buscar auto, moto o concesionario...",
+        "projects": "Buscar proyecto, desarrollador o ciudad...",
+        "businesses": "Buscar negocio, franquicia o empresa...",
+        "services": "Buscar servicio, profesional o empresa..."
+      },
+      "submit": "Buscar",
+      "categories": {
+        "all": "Todas",
+        "properties": "Propiedades",
+        "vehicles": "Vehículos",
+        "projects": "Proyectos",
+        "businesses": "Empresas",
+        "services": "Servicios"
+      }
+    },
+    "hero": {
+      "titleStart": "Encuentra tu próxima",
+      "titleHighlight": "oportunidad",
+      "subtitle": "Propiedades, vehículos, proyectos y servicios de empresas verificadas."
+    },
+    "search": {
+      "tabs": {
+        "properties": "Propiedades",
+        "vehicles": "Vehículos",
+        "projects": "Proyectos",
+        "businesses": "Empresas",
+        "services": "Servicios"
+      },
+      "query": "¿Qué estás buscando?",
+      "queryPlaceholder": "Apartamento, Honda Civic, oficina...",
+      "location": "Ubicación",
+      "locationPlaceholder": "Ciudad o barrio",
+      "type": "Tipo",
+      "anyType": "Cualquier tipo",
+      "price": "Precio",
+      "anyPrice": "Cualquier precio",
+      "moreFilters": "Más filtros",
+      "submit": "Buscar",
+      "popular": "Búsquedas populares:"
+    },
+    "quickPicks": {
+      "title": "Accesos rápidos",
+      "viewAll": "Ver todas las categorías",
+      "propertiesUnder": {
+        "title": "Propiedades",
+        "subtitle": "Hasta USD 500 mil"
+      },
+      "luxury": {
+        "title": "Propiedades de lujo",
+        "subtitle": "Selección premium"
+      },
+      "rentals": {
+        "title": "Alquiler",
+        "subtitle": "Apartamentos y casas"
+      },
+      "carsUnder": {
+        "title": "Autos",
+        "subtitle": "Hasta USD 30 mil"
+      },
+      "projects": {
+        "title": "Nuevos proyectos",
+        "subtitle": "Próximos lanzamientos"
+      },
+      "commercial": {
+        "title": "Comercial",
+        "subtitle": "Oficinas y locales"
+      },
+      "land": {
+        "title": "Terrenos",
+        "subtitle": "Inversión en tierra"
+      }
+    },
+    "promos": {
+      "premium": {
+        "title": "Propiedades Premium",
+        "subtitle": "Selección curada para ti"
+      },
+      "projects": {
+        "title": "Nuevos Proyectos",
+        "subtitle": "Descubre desarrollos próximos"
+      },
+      "vehicles": {
+        "title": "Ofertas de vehículos",
+        "subtitle": "Las mejores ofertas en vehículos premium"
+      },
+      "hot": {
+        "title": "Oportunidades destacadas",
+        "subtitle": "Ofertas por tiempo limitado"
+      },
+      "cta": {
+        "explore": "Explorar",
+        "deals": "Ver ofertas"
+      }
+    },
+    "categories": {
+      "apartments": "Apartamentos",
+      "houses": "Casas",
+      "land": "Terrenos",
+      "commercial": "Comercial",
+      "rentals": "Alquiler",
+      "cars": "Autos",
+      "motorcycles": "Motos",
+      "trucks": "Camiones",
+      "projects": "Nuevos Proyectos",
+      "businesses": "Empresas",
+      "services": "Servicios",
+      "more": "Más"
+    },
+    "trust": {
+      "verified": {
+        "title": "Empresas verificadas",
+        "text": "Solo anunciantes confiables y verificados."
+      },
+      "secure": {
+        "title": "Plataforma segura",
+        "text": "Tu seguridad es nuestra prioridad."
+      },
+      "global": {
+        "title": "Alcance global",
+        "text": "Oportunidades en las mejores ubicaciones."
+      },
+      "connect": {
+        "title": "Fácil de conectar",
+        "text": "Contacta directo con el anunciante."
+      },
+      "search": {
+        "title": "Búsqueda inteligente",
+        "text": "Filtros avanzados para encontrar exactamente lo que quieres."
+      }
+    },
+    "footer": {
+      "tagline": "El marketplace para descubrir propiedades, vehículos, proyectos, empresas y servicios.",
+      "portal": "Portal Empresas",
+      "rights": "Todos los derechos reservados.",
+      "reeskova": {
+        "title": "Reeskova",
+        "about": "Sobre nosotros",
+        "how": "Cómo funciona",
+        "blog": "Blog",
+        "careers": "Carreras",
+        "contact": "Contacto"
+      },
+      "support": {
+        "title": "Soporte",
+        "help": "Centro de ayuda",
+        "safety": "Consejos de seguridad",
+        "terms": "Términos de uso",
+        "privacy": "Privacidad",
+        "cookies": "Cookies"
+      },
+      "business": {
+        "title": "Para empresas",
+        "property": "Publica tu propiedad",
+        "vehicle": "Publica tu vehículo",
+        "advertise": "Anuncia tu empresa",
+        "partner": "Sé partner"
+      },
+      "newsletter": {
+        "title": "Mantente al día",
+        "text": "Recibe las mejores oportunidades en tu correo.",
+        "placeholder": "Tu email",
+        "submit": "Suscribirse"
+      },
+      "app": {
+        "title": "Descarga la app"
+      }
+    },
+    "listing": {
+      "breadcrumbHome": "Inicio",
+      "breadcrumbProperties": "Propiedades",
+      "title": "Propiedades en venta y alquiler",
+      "subtitle": "Encuentra tu propiedad ideal con empresas verificadas.",
+      "promoTitle": "Publica tu propiedad en Reeskova",
+      "promoCta": "Publicar propiedad",
+      "count": "{count} propiedades encontradas",
+      "status": "Mostrar resultados para",
+      "statusOptions": {
+        "all": "Todas las propiedades",
+        "sale": "En venta",
+        "rent": "En alquiler"
+      },
+      "propertyType": "Tipo de propiedad",
+      "types": {
+        "apartment": "Apartamento",
+        "house": "Casa",
+        "condominium": "Condominio",
+        "penthouse": "Ático",
+        "studio": "Estudio",
+        "commercial": "Comercial",
+        "land": "Terreno"
+      },
+      "priceRange": "Rango de precio",
+      "minPrice": "Precio mín.",
+      "maxPrice": "Precio máx.",
+      "location": "Ubicación",
+      "locationPlaceholder": "Ciudad, barrio o región",
+      "bedrooms": "Habitaciones",
+      "bathrooms": "Baños",
+      "any": "Cualquiera",
+      "roomsPlus": "{count}+",
+      "moreFilters": "Más filtros",
+      "filters": "Filtros",
+      "sortLabel": "Ordenar",
+      "sortBy": "Ordenar por:",
+      "reset": "Restablecer",
+      "close": "Cerrar",
+      "back": "Volver",
+      "save": "Guardar",
+      "forSale": "en venta",
+      "forRent": "en alquiler",
+      "priceMonth": "{price} / mes",
+      "showResults": "Ver {count} resultados",
+      "empty": "No se encontraron propiedades",
+      "emptyHint": "Ajusta los filtros o explora otra zona.",
+      "pagination": "Paginación",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "expandMap": "Ampliar mapa",
+      "searchAsMove": "Buscar al mover el mapa",
+      "popularAreas": "Explorar zonas populares",
+      "insights": "Resumen del mercado",
+      "avgPrice": "Precio medio (30 días)",
+      "pills": {
+        "verified": "Solo verificadas",
+        "photos": "Con fotos",
+        "tour": "Con tour virtual",
+        "reduced": "Precio reducido",
+        "newWeek": "Nuevas esta semana"
+      },
+      "views": {
+        "grid": "Cuadrícula",
+        "list": "Lista",
+        "map": "Mapa"
+      },
+      "sort": {
+        "newest": "Más recientes",
+        "relevance": "Relevancia",
+        "price_asc": "Menor precio",
+        "price_desc": "Mayor precio",
+        "area_desc": "Mayor superficie"
+      }
+    },
+    "vehicles": {
+      "breadcrumbHome": "Inicio",
+      "breadcrumbVehicles": "Vehículos",
+      "title": "Vehículos en venta",
+      "subtitle": "Encuentra el vehículo perfecto con dealers verificados.",
+      "promoTitle": "Vende tu vehículo en Reeskova",
+      "promoCta": "Publicar vehículo",
+      "count": "{count} vehículos encontrados",
+      "vehicleType": "Tipo de vehículo",
+      "types": {
+        "all": "Todos",
+        "car": "Autos",
+        "motorcycle": "Motos",
+        "truck": "Camiones",
+        "van": "Vans"
+      },
+      "make": "Marca",
+      "model": "Modelo",
+      "priceRange": "Rango de precio",
+      "minPrice": "Precio mín.",
+      "maxPrice": "Precio máx.",
+      "location": "Ubicación",
+      "locationPlaceholder": "Ciudad, barrio o región",
+      "year": "Año",
+      "kilometers": "Kilómetros",
+      "transmission": "Transmisión",
+      "fuel": "Combustible",
+      "min": "Mín.",
+      "max": "Máx.",
+      "any": "Cualquiera",
+      "moreFilters": "Más filtros",
+      "filters": "Filtros",
+      "sortLabel": "Ordenar",
+      "sortBy": "Ordenar por:",
+      "reset": "Restablecer",
+      "close": "Cerrar",
+      "back": "Volver",
+      "save": "Guardar",
+      "showResults": "Ver {count} resultados",
+      "empty": "No se encontraron vehículos",
+      "emptyHint": "Ajusta los filtros o explora otra zona.",
+      "expandMap": "Ampliar mapa",
+      "searchAsMove": "Buscar al mover el mapa",
+      "popularAreas": "Zonas populares",
+      "insights": "Insights del mercado",
+      "avgPrice": "Precio medio (últimos 30 días)",
+      "mostSearched": "Más buscados",
+      "transmissions": {
+        "automatic": "Automático",
+        "manual": "Manual",
+        "cvt": "CVT"
+      },
+      "fuels": {
+        "flex": "Flex",
+        "gasoline": "Gasolina",
+        "diesel": "Diésel",
+        "hybrid": "Híbrido",
+        "electric": "Eléctrico"
+      },
+      "pills": {
+        "verified": "Solo dealers verificados",
+        "photos": "Con fotos",
+        "lowKm": "Poco kilometraje",
+        "reduced": "Precio reducido",
+        "newWeek": "Nuevos esta semana"
+      },
+      "views": {
+        "grid": "Cuadrícula",
+        "list": "Lista",
+        "map": "Mapa"
+      },
+      "sort": {
+        "newest": "Más recientes",
+        "price_asc": "Menor precio",
+        "price_desc": "Mayor precio",
+        "mileage_asc": "Menor kilometraje"
+      }
+    },
+    "projects": {
+      "breadcrumbHome": "Inicio",
+      "breadcrumbProjects": "Proyectos",
+      "title": "Proyectos inmobiliarios",
+      "subtitle": "Descubre nuevos desarrollos de los mejores developers.",
+      "promoTitle": "Lanza tu proyecto en Reeskova",
+      "promoCta": "Publicar proyecto",
+      "count": "{count} proyectos encontrados",
+      "propertyType": "Tipo de propiedad",
+      "types": {
+        "all": "Todos",
+        "residential": "Residencial",
+        "commercial": "Comercial",
+        "mixed": "Uso mixto",
+        "industrial": "Industrial",
+        "hospitality": "Hospitality"
+      },
+      "status": "Estado del proyecto",
+      "statuses": {
+        "prelaunch": "Pre-lanzamiento",
+        "construction": "En construcción",
+        "ready": "Listo para habitar"
+      },
+      "priceRange": "Rango de precio",
+      "minPrice": "Precio mín.",
+      "maxPrice": "Precio máx.",
+      "location": "Ubicación",
+      "locationPlaceholder": "Ciudad, barrio o región",
+      "deliveryDate": "Fecha de entrega",
+      "from": "Desde",
+      "to": "Hasta",
+      "any": "Cualquiera",
+      "moreFilters": "Más filtros",
+      "filters": "Filtros",
+      "sortLabel": "Ordenar",
+      "sortBy": "Ordenar por:",
+      "reset": "Restablecer",
+      "close": "Cerrar",
+      "back": "Volver",
+      "save": "Guardar",
+      "developer": "Developer",
+      "showResults": "Ver {count} proyectos",
+      "empty": "No se encontraron proyectos",
+      "emptyHint": "Ajusta los filtros o explora otro destino.",
+      "expandMap": "Ampliar mapa",
+      "searchAsMove": "Buscar al mover el mapa",
+      "popularAreas": "Explorar destinos populares",
+      "insights": "Insights del mercado",
+      "newProjects": "Nuevos proyectos (últimos 30 días)",
+      "avgPrice": "Precio medio",
+      "priceFrom": "Desde {price}",
+      "delivery": "Entrega estimada: {date}",
+      "bedsRange": "{range} hab.",
+      "units": {
+        "apartments": "Departamentos",
+        "houses": "Casas",
+        "studios": "Estudios",
+        "offices": "Oficinas",
+        "villas": "Villas"
+      },
+      "badges": {
+        "prelaunch": "Pre-lanzamiento",
+        "construction": "En construcción",
+        "ready": "Listo",
+        "new": "Nuevo",
+        "featured": "Destacado",
+        "highRoi": "Alto ROI",
+        "paymentPlan": "Plan de pago",
+        "luxury": "Luxury",
+        "sustainable": "Sustentable"
+      },
+      "pills": {
+        "verified": "Solo developers verificados",
+        "plan": "Con plan de pago",
+        "roi": "Alto potencial de ROI",
+        "prelaunch": "Pre-lanzamiento",
+        "luxury": "Luxury",
+        "eco": "Sustentable",
+        "amenities": "Con amenities"
+      },
+      "views": {
+        "grid": "Cuadrícula",
+        "list": "Lista",
+        "map": "Mapa"
+      },
+      "sort": {
+        "newest": "Más recientes",
+        "price_asc": "Menor precio",
+        "price_desc": "Mayor precio",
+        "delivery_asc": "Entrega más próxima"
+      },
+      "trust": {
+        "verified": {
+          "title": "Developers verificados",
+          "text": "Solo developers de confianza."
+        },
+        "secure": {
+          "title": "Pagos seguros",
+          "text": "Transacciones claras y protegidas."
+        },
+        "opportunities": {
+          "title": "Mejores oportunidades",
+          "text": "Acceso a proyectos exclusivos y pre-lanzamiento."
+        },
+        "global": {
+          "title": "Alcance global",
+          "text": "Proyectos en las mejores ubicaciones."
+        },
+        "support": {
+          "title": "Soporte experto",
+          "text": "Nuestro equipo está para ayudarte."
+        }
+      }
+    },
+    "businesses": {
+      "breadcrumbHome": "Inicio",
+      "breadcrumbBusinesses": "Negocios",
+      "title": "Negocios en venta",
+      "subtitle": "Encuentra negocios rentables y oportunidades de adquisición.",
+      "promoTitle": "Vende tu negocio en Reeskova",
+      "promoCta": "Publicar negocio",
+      "count": "{count} negocios encontrados",
+      "category": "Categoría",
+      "types": {
+        "all": "Todos",
+        "food": "Alimentos y bebidas",
+        "retail": "Retail",
+        "services": "Servicios",
+        "beauty": "Salud y belleza",
+        "education": "Educación",
+        "hospitality": "Hospitality"
+      },
+      "priceRange": "Rango de precio",
+      "revenueRange": "Facturación anual",
+      "minPrice": "Precio mín.",
+      "maxPrice": "Precio máx.",
+      "minRevenue": "Facturación mín.",
+      "maxRevenue": "Facturación máx.",
+      "location": "Ubicación",
+      "locationPlaceholder": "Ciudad, barrio o región",
+      "any": "Cualquiera",
+      "moreFilters": "Más filtros",
+      "filters": "Filtros",
+      "sortLabel": "Ordenar",
+      "sortBy": "Ordenar por:",
+      "reset": "Restablecer",
+      "close": "Cerrar",
+      "back": "Volver",
+      "save": "Guardar",
+      "broker": "Broker",
+      "revenue": "Facturación anual",
+      "cashFlow": "Cash flow",
+      "showResults": "Ver {count} negocios",
+      "empty": "No se encontraron negocios",
+      "emptyHint": "Ajusta los filtros o explora otra ciudad.",
+      "expandMap": "Ampliar mapa",
+      "popularCategories": "Categorías populares",
+      "insights": "Insights del mercado",
+      "activeListings": "Listings activos",
+      "avgPrice": "Precio medio de venta",
+      "avgRevenue": "Facturación media",
+      "badges": {
+        "profitable": "Rentable",
+        "franchise": "Franquicia",
+        "equipment": "Con equipo",
+        "reduced": "Precio reducido"
+      },
+      "pills": {
+        "verified": "Solo negocios verificados",
+        "profit": "Rentable",
+        "equipment": "Con equipo",
+        "franchise": "Franquicia disponible",
+        "financing": "Financiación del vendedor",
+        "reduced": "Precio reducido"
+      },
+      "views": {
+        "grid": "Cuadrícula",
+        "list": "Lista",
+        "map": "Mapa"
+      },
+      "sort": {
+        "newest": "Más recientes",
+        "price_asc": "Menor precio",
+        "price_desc": "Mayor precio",
+        "revenue_desc": "Mayor facturación"
+      },
+      "trust": {
+        "verified": {
+          "title": "Negocios verificados",
+          "text": "Listings revisados con brokers verificados."
+        },
+        "secure": {
+          "title": "Transacciones seguras",
+          "text": "Adquisiciones claras y protegidas."
+        },
+        "opportunities": {
+          "title": "Mejores oportunidades",
+          "text": "Negocios rentables y franquicias."
+        },
+        "global": {
+          "title": "Alcance global",
+          "text": "Negocios en mercados clave."
+        },
+        "support": {
+          "title": "Soporte experto",
+          "text": "Especialistas para tu adquisición."
+        }
+      }
+    },
+    "services": {
+      "breadcrumbHome": "Inicio",
+      "breadcrumbServices": "Servicios",
+      "title": "Servicios para tu propiedad",
+      "subtitle": "Encuentra profesionales verificados para comprar, vender, alquilar, reformar y gestionar tu propiedad.",
+      "promoTitle": "Haz crecer tu negocio de servicios en Reeskova. Llega a miles de propietarios e inversores.",
+      "promoCta": "Publica tu servicio",
+      "count": "{count} servicios encontrados",
+      "popular": "Servicios populares",
+      "category": "Categoría de servicio",
+      "types": {
+        "all": "Todos",
+        "agents": "Agentes inmobiliarios",
+        "management": "Administración de propiedades",
+        "inspection": "Inspección de vivienda",
+        "appraisal": "Tasación / Valoración",
+        "architecture": "Arquitectura",
+        "interior": "Diseño de interiores",
+        "renovation": "Reforma y remodelación",
+        "construction": "Construcción",
+        "landscaping": "Paisajismo",
+        "cleaning": "Limpieza",
+        "moving": "Mudanza y reubicación",
+        "security": "Seguridad",
+        "maintenance": "Mantenimiento y reparaciones",
+        "photography": "Fotografía / Tours virtuales",
+        "legal": "Servicios legales",
+        "financing": "Hipoteca / Financiamiento",
+        "insurance": "Seguros",
+        "staging": "Home staging"
+      },
+      "cycle": {
+        "buy": "Comprar",
+        "finance": "Financiar",
+        "inspect": "Inspeccionar",
+        "renovate": "Reformar",
+        "manage": "Gestionar",
+        "sell": "Vender / Alquilar"
+      },
+      "priceRange": "Rango de precio",
+      "minPrice": "Precio mín.",
+      "maxPrice": "Precio máx.",
+      "location": "Ubicación",
+      "locationPlaceholder": "Ciudad o barrio",
+      "any": "Cualquiera",
+      "availability": "Disponibilidad",
+      "filters": "Filtros",
+      "sortLabel": "Ordenar",
+      "sortBy": "Ordenar por:",
+      "reset": "Restablecer",
+      "close": "Cerrar",
+      "back": "Volver",
+      "save": "Guardar",
+      "provider": "Proveedor",
+      "verifiedProvider": "Proveedor verificado",
+      "priceFrom": "Desde",
+      "perMonth": "/ mes",
+      "requestQuote": "Pedir presupuesto",
+      "showResults": "Mostrar {count} servicios",
+      "empty": "No se encontraron servicios inmobiliarios",
+      "emptyHint": "Prueba otra categoría o ciudad. Aquí solo aparecen servicios ligados a la propiedad.",
+      "expandMap": "Ampliar mapa",
+      "popularCategories": "Categorías populares",
+      "insights": "Datos del mercado",
+      "activeListings": "Servicios activos",
+      "avgRating": "Valoración media",
+      "responseTime": "Tiempo de respuesta",
+      "responseValue": "2,3h",
+      "badges": {
+        "topRated": "Mejor valorado",
+        "verified": "Verificado",
+        "today": "Disponible hoy"
+      },
+      "pills": {
+        "today": "Disponible hoy",
+        "week": "Disponible esta semana",
+        "online": "Servicios online",
+        "verified": "Proveedores verificados"
+      },
+      "views": {
+        "grid": "Vista de cuadrícula",
+        "list": "Vista de lista",
+        "map": "Vista de mapa"
+      },
+      "sort": {
+        "recommended": "Recomendados",
+        "newest": "Más recientes",
+        "price_asc": "Menor precio"
+      },
+      "trust": {
+        "verified": {
+          "title": "Profesionales verificados",
+          "text": "Proveedores revisados para el trabajo inmobiliario."
+        },
+        "secure": {
+          "title": "Pagos seguros",
+          "text": "Paga con protección de depósito en garantía."
+        },
+        "quality": {
+          "title": "Calidad garantizada",
+          "text": "Servicios ligados a tu transacción inmobiliaria."
+        },
+        "support": {
+          "title": "Soporte 24/7",
+          "text": "Nuestro equipo está para ayudarte en cualquier momento."
+        },
+        "global": {
+          "title": "Alcance global",
+          "text": "Encuentra profesionales inmobiliarios de confianza en el mundo."
+        }
+      }
+    },
+    "mobileNav": {
+      "home": "Inicio",
+      "explore": "Explorar",
+      "list": "Publicar",
+      "saved": "Guardados",
+      "account": "Cuenta",
+      "listTitle": "Publicar en Reeskova",
+      "close": "Cerrar",
+      "listActions": {
+        "property": "Propiedad",
+        "vehicle": "Vehículo",
+        "project": "Proyecto",
+        "business": "Empresa",
+        "service": "Servicio"
       }
     }
   },

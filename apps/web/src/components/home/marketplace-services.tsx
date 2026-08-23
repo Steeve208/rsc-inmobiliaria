@@ -6,30 +6,25 @@ import {
   Armchair,
   ArrowRight,
   CreditCard,
+  HardHat,
   Package,
+  SearchCheck,
   Shield,
-  Sun,
-  Wifi,
 } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
-import { useMarket } from "@/lib/providers/market-provider";
 
 const services = [
-  { key: "financing", icon: CreditCard, href: "/financing", brazilOnly: true },
-  { key: "insurance", icon: Shield, href: "/services#insurance" },
-  { key: "moving", icon: Package, href: "/services" },
-  { key: "decor", icon: Armchair, href: "/services" },
-  { key: "solar", icon: Sun, href: "/services" },
-  { key: "internet", icon: Wifi, href: "/services" },
+  { key: "financing", icon: CreditCard, href: "/services?type=financing" },
+  { key: "insurance", icon: Shield, href: "/services?type=insurance" },
+  { key: "moving", icon: Package, href: "/services?type=moving" },
+  { key: "decor", icon: Armchair, href: "/services?type=interior" },
+  { key: "inspection", icon: SearchCheck, href: "/services?type=inspection" },
+  { key: "renovation", icon: HardHat, href: "/services?type=renovation" },
 ] as const;
 
 export function MarketplaceServices() {
   const t = useTranslations("landing.marketplaceServices");
-  const { market } = useMarket();
-  const visibleServices = services.filter(
-    (service) =>
-      !("brazilOnly" in service && service.brazilOnly) || market.creditAvailable,
-  );
+  const visibleServices = services;
 
   return (
     <section className="bg-[#F7F5F0] pt-16 sm:pt-20">

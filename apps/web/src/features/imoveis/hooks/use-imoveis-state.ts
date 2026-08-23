@@ -16,6 +16,8 @@ import { brazilStates, worldRegions } from "@/lib/listings/regions";
 import { getDefaultCountryFilters } from "@/lib/markets/config";
 import { useMarket } from "@/lib/providers/market-provider";
 import type { MarketId } from "@/lib/markets/types";
+import { propertyListings } from "../mock-data";
+import { mergePropertyCatalog } from "@/lib/marketplace/home-property-mocks";
 
 function createDefaultNav(marketId: MarketId): MapNavigation {
   const { country, countryCode } = getDefaultCountryFilters(marketId);
@@ -26,11 +28,10 @@ function createDefaultNav(marketId: MarketId): MapNavigation {
   };
 }
 
-function createDefaultFilters(marketId: MarketId): ImoveisFilters {
-  const { country } = getDefaultCountryFilters(marketId);
+function createDefaultFilters(_marketId: MarketId): ImoveisFilters {
   return {
     ...defaultImoveisFilters,
-    country,
+    country: "",
   };
 }
 
@@ -40,7 +41,7 @@ export function useImoveisState() {
   const [filters, setFilters] = useState<ImoveisFilters>(() =>
     createDefaultFilters(marketId),
   );
-  const [view, setView] = useState<ImoveisView>("gallery");
+  const [view, setView] = useState<ImoveisView>("grid");
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
@@ -50,12 +51,14 @@ export function useImoveisState() {
     fetch("/api/listings/properties")
       .then((r) => r.json())
       .then((data: PropertyListing[]) => {
-        setCatalog(data);
-        if (data.length > 0) {
-          setHasSearched(true);
-        }
+        const live = Array.isArray(data) ? data : [];
+        setCatalog(mergePropertyCatalog(live, propertyListings));
+        setHasSearched(true);
       })
-      .catch(() => setCatalog([]));
+      .catch(() => {
+        setCatalog(mergePropertyCatalog([], propertyListings));
+        setHasSearched(true);
+      });
   }, []);
 
   useEffect(() => {
@@ -70,10 +73,9 @@ export function useImoveisState() {
   );
 
   const results = useMemo(() => {
-    if (!hasSearched) return [];
     const list = filterProperties(catalog, filters, nav);
     return sortProperties(list, filters.sort, filters);
-  }, [filters, nav, hasSearched, catalog]);
+  }, [filters, nav, catalog]);
 
   const updateFilters = useCallback((next: Partial<ImoveisFilters>) => {
     setFilters((prev) => ({ ...prev, ...next }));
@@ -89,14 +91,14 @@ export function useImoveisState() {
       setHasSearched(true);
       setNav({
         level: "properties",
-        country: next.country || market.countryName,
-        countryCode: market.countryCode,
+        country: next.country || undefined,
+        countryCode: next.country ? market.countryCode : undefined,
         state: next.state || undefined,
         city: next.city || undefined,
         neighborhood: next.neighborhood || undefined,
       });
     },
-    [market.countryCode, market.countryName],
+    [market.countryCode],
   );
 
   const initFromUrl = useCallback(
@@ -107,15 +109,15 @@ export function useImoveisState() {
       if (searched) {
         setNav({
           level: "properties",
-          country: next.country || market.countryName,
-          countryCode: market.countryCode,
+          country: next.country || undefined,
+          countryCode: next.country ? market.countryCode : undefined,
           state: next.state || undefined,
           city: next.city || undefined,
           neighborhood: next.neighborhood || undefined,
         });
       }
     },
-    [market.countryCode, market.countryName],
+    [market.countryCode],
   );
 
   const selectRegionFromFooter = useCallback(
@@ -170,8 +172,8 @@ export function useImoveisState() {
       setFilters(next);
       setNav({
         level: "properties",
-        country: next.country || market.countryName,
-        countryCode: market.countryCode,
+        country: next.country || undefined,
+        countryCode: next.country ? market.countryCode : undefined,
         state: next.state || undefined,
         city: next.city || undefined,
         neighborhood: next.neighborhood || undefined,
@@ -180,7 +182,7 @@ export function useImoveisState() {
     } finally {
       setAiLoading(false);
     }
-  }, [market.countryCode, market.countryName, marketId]);
+  }, [market.countryCode, marketId]);
 
   return {
     nav,
@@ -189,6 +191,7 @@ export function useImoveisState() {
     highlightedId,
     aiLoading,
     hasSearched,
+    catalog,
     results,
     setView,
     setHighlightedId,

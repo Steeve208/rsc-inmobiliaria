@@ -10,13 +10,13 @@ import {
 } from "../types";
 import { parseVehicleAiQuery } from "@/lib/listings/parse-ai-query";
 import { resolveSearchLocationFromQuery } from "@/lib/geocoding/resolve-search-location";
-import { filterVehicles } from "@/lib/listings/filters";
+import { filterVehicles, sortVehicles } from "@/lib/listings/filters";
 import { brazilStates, worldRegions } from "@/lib/listings/regions";
-import { haversineKm } from "@/lib/geocoding/geo-utils";
+import { mergeVehicleCatalog } from "@/lib/marketplace/home-vehicle-mocks";
 
 export function useVeiculosState() {
   const [filters, setFilters] = useState<VeiculosFilters>(defaultVeiculosFilters);
-  const [view, setView] = useState<VeiculosView>("gallery");
+  const [view, setView] = useState<VeiculosView>("grid");
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
@@ -26,26 +26,19 @@ export function useVeiculosState() {
     fetch("/api/listings/vehicles")
       .then((r) => r.json())
       .then((data: VehicleListing[]) => {
-        setCatalog(data);
-        if (data.length > 0) {
-          setHasSearched(true);
-        }
+        const live = Array.isArray(data) ? data : [];
+        setCatalog(mergeVehicleCatalog(live));
+        setHasSearched(true);
       })
-      .catch(() => setCatalog([]));
+      .catch(() => {
+        setCatalog(mergeVehicleCatalog([]));
+        setHasSearched(true);
+      });
   }, []);
 
   const results = useMemo(() => {
-    if (!hasSearched) return [];
-    let list = filterVehicles(catalog, filters);
-    if (filters.lat != null && filters.lng != null) {
-      list = [...list].sort(
-        (a, b) =>
-          haversineKm(filters.lat!, filters.lng!, a.lat, a.lng) -
-          haversineKm(filters.lat!, filters.lng!, b.lat, b.lng),
-      );
-    }
-    return list;
-  }, [filters, hasSearched, catalog]);
+    return sortVehicles(filterVehicles(catalog, filters), filters.sort);
+  }, [filters, catalog]);
 
   const updateFilters = useCallback((next: Partial<VeiculosFilters>) => {
     setFilters((prev) => ({ ...prev, ...next }));
@@ -60,39 +53,46 @@ export function useVeiculosState() {
     setHasSearched(true);
   }, []);
 
-  const initFromUrl = useCallback((next: VeiculosFilters, searched: boolean) => {
-    setFilters(next);
-    setHasSearched(searched);
-  }, []);
+  const initFromUrl = useCallback(
+    (next: VeiculosFilters, nextView: VeiculosView, searched: boolean) => {
+      setFilters(next);
+      setView(nextView);
+      setHasSearched(searched);
+    },
+    [],
+  );
 
-  const selectRegionFromFooter = useCallback((region: RegionItem): VeiculosFilters | null => {
-    const isState = brazilStates.some((s) => s.id === region.id);
-    const isCountry = worldRegions.some((r) => r.id === region.id);
+  const selectRegionFromFooter = useCallback(
+    (region: RegionItem): VeiculosFilters | null => {
+      const isState = brazilStates.some((s) => s.id === region.id);
+      const isCountry = worldRegions.some((r) => r.id === region.id);
 
-    if (isState) {
-      return {
-        ...defaultVeiculosFilters,
-        state: region.id,
-        city: "",
-        locationLabel: `${region.name}, ${region.id}`,
-        lat: null,
-        lng: null,
-        query: "",
-      };
-    }
+      if (isState) {
+        return {
+          ...defaultVeiculosFilters,
+          state: region.id,
+          city: "",
+          locationLabel: `${region.name}, ${region.id}`,
+          lat: null,
+          lng: null,
+          query: "",
+        };
+      }
 
-    if (isCountry) {
-      return {
-        ...defaultVeiculosFilters,
-        locationLabel: region.name,
-        lat: null,
-        lng: null,
-        query: "",
-      };
-    }
+      if (isCountry) {
+        return {
+          ...defaultVeiculosFilters,
+          locationLabel: region.name,
+          lat: null,
+          lng: null,
+          query: "",
+        };
+      }
 
-    return null;
-  }, []);
+      return null;
+    },
+    [],
+  );
 
   const runAiSearch = useCallback(async (query: string) => {
     setAiLoading(true);
@@ -119,6 +119,7 @@ export function useVeiculosState() {
     highlightedId,
     aiLoading,
     hasSearched,
+    catalog,
     results,
     setView,
     setHighlightedId,

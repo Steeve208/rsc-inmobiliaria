@@ -1,4 +1,6 @@
-export type VeiculosView = "list" | "gallery";
+export type VeiculosView = "grid" | "list" | "map";
+
+export type VehicleSort = "newest" | "price_asc" | "price_desc" | "mileage_asc";
 
 export type VehicleCategory =
   | "car"
@@ -25,6 +27,7 @@ export type VeiculosFilters = {
   yearMax: string;
   priceMin: string;
   priceMax: string;
+  mileageMin: string;
   mileageMax: string;
   fuel: FuelType | "";
   transmission: TransmissionType | "";
@@ -34,10 +37,17 @@ export type VeiculosFilters = {
   financing: boolean;
   city: string;
   state: string;
+  country: string;
   condition: VehicleCondition;
+  verifiedOnly: boolean;
+  withPhotos: boolean;
+  lowMileage: boolean;
+  priceReduced: boolean;
+  newThisWeek: boolean;
   locationLabel: string;
   lat: number | null;
   lng: number | null;
+  sort: VehicleSort;
 };
 
 export type VehicleListing = {
@@ -55,6 +65,8 @@ export type VehicleListing = {
   engine: string;
   drive: DriveType;
   price: number;
+  originalPrice?: number;
+  discountPercent?: number;
   currency: string;
   country: string;
   state: string;
@@ -64,6 +76,8 @@ export type VehicleListing = {
   verified?: boolean;
   premium?: boolean;
   featured?: boolean;
+  rating?: number;
+  reviews?: number;
   image: string;
   lat: number;
   lng: number;
@@ -130,6 +144,7 @@ export const defaultVeiculosFilters: VeiculosFilters = {
   yearMax: "",
   priceMin: "",
   priceMax: "",
+  mileageMin: "",
   mileageMax: "",
   fuel: "",
   transmission: "",
@@ -139,8 +154,15 @@ export const defaultVeiculosFilters: VeiculosFilters = {
   financing: false,
   city: "",
   state: "",
+  country: "",
   condition: "",
+  verifiedOnly: false,
+  withPhotos: false,
+  lowMileage: false,
+  priceReduced: false,
+  newThisWeek: false,
   locationLabel: "",
   lat: null,
   lng: null,
+  sort: "newest",
 };

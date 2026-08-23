@@ -50,7 +50,7 @@ export function SplitMapList({
     setVisibleCount(PROPERTY_PAGE_SIZE);
   }, [results, filters.sort]);
 
-  const showGallery = view === "gallery";
+  const showGallery = view === "grid";
   const visibleResults = results.slice(0, visibleCount);
   const hasMore = visibleCount < results.length;
 
