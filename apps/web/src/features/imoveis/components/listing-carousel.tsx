@@ -31,7 +31,7 @@ export function ListingCarousel({ title, subtitle, items, badge }: Props) {
         <div className={`${marketplace.headerGap} flex items-end justify-between gap-4`}>
           <div>
             {badge && (
-              <span className="mb-3 inline-block rounded-full bg-[#d4a017]/15 px-3 py-1 text-xs font-semibold text-[#d4a017]">
+              <span className="mb-3 inline-block rounded-full bg-[#2BB8A8]/15 px-3 py-1 text-xs font-semibold text-[#2BB8A8]">
                 {badge}
               </span>
             )}

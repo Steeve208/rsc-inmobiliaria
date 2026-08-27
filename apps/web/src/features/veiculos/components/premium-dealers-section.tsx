@@ -33,7 +33,7 @@ export function PremiumDealersSection() {
     <section className="market-section">
       <div className={marketplace.container}>
         <div className={marketplace.headerGap}>
-          <span className="mb-3 inline-block rounded-full bg-[#d4a017]/15 px-3 py-1 text-xs font-semibold text-[#d4a017]">
+          <span className="mb-3 inline-block rounded-full bg-[#2BB8A8]/15 px-3 py-1 text-xs font-semibold text-[#2BB8A8]">
             {t("badge")}
           </span>
           <h2 className={marketplace.title}>{t("title")}</h2>
@@ -69,7 +69,7 @@ export function PremiumDealersSection() {
                   <span className="text-xs text-white/45">
                     {t("listings", { count: dealer.listings })}
                   </span>
-                  <span className="inline-flex items-center gap-1 text-xs text-[#d4a017]">
+                  <span className="inline-flex items-center gap-1 text-xs text-[#2BB8A8]">
                     <Star className="size-3 fill-current" />
                     {dealer.rating.toFixed(1)}
                   </span>

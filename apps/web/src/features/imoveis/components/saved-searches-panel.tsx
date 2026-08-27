@@ -152,9 +152,9 @@ export function SavedSearchesPanel({ vertical = "property" }: { vertical?: Saved
   return (
     <section className="space-y-4">
       {!isLoggedIn ? (
-        <p className="rounded-lg border border-[#d4a017]/25 bg-[#d4a017]/10 px-4 py-3 text-sm text-white/75">
+        <p className="rounded-lg border border-[#2BB8A8]/25 bg-[#2BB8A8]/10 px-4 py-3 text-sm text-white/75">
           {t("guestSyncBanner")}{" "}
-          <Link href="/entrar" className="font-medium text-[#fbbf24] hover:underline">
+          <Link href="/entrar" className="font-medium text-[#3DCCBC] hover:underline">
             {t("signIn")}
           </Link>
         </p>

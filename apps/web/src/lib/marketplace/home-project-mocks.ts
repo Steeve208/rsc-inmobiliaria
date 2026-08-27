@@ -1,6 +1,7 @@
 import type { ProjectListing, ProjectType, ProjectUnitType } from "@/features/projetos/types";
 import { projectListings } from "@/features/projetos/mock-data";
 import type { PropertyListing } from "@/features/imoveis/types";
+import { listingCodeValue } from "@/lib/listings/listing-code";
 
 /** Preview-only project mocks. Drop this file and its import before production. */
 export const INCLUDE_HOME_PROJECT_MOCKS = process.env.NODE_ENV !== "production";
@@ -54,6 +55,7 @@ export function propertyToProject(
     lng: item.lng,
     publishedAt: item.publishedAt,
     propertyId: item.id,
+    code: listingCodeValue(`launch-${item.id}`, undefined, "project"),
   };
 }
 

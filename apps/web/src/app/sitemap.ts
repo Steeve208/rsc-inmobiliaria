@@ -27,6 +27,8 @@ const staticPaths = [
   "/careers",
   "/guides",
   "/security",
+  "/corredores",
+  "/revistas",
 ] as const;
 
 async function listActiveListingIds() {

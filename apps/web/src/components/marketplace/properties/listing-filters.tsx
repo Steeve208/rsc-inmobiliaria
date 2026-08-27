@@ -1,12 +1,12 @@
 "use client";
 
-import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import {
   clearLocationFilters,
   resolvedLocationToFilters,
 } from "@/lib/geocoding/types";
 import { LocationAutocomplete } from "@/components/search/location-autocomplete";
+import { FilterFold, FilterSection } from "@/components/marketplace/filter-section";
 import type { ImoveisFilters, PropertyListing } from "@/features/imoveis/types";
 import { cn } from "@/lib/utils";
 import {
@@ -16,8 +16,6 @@ import {
   countByCity,
   countByTransaction,
   countByType,
-  priceExtent,
-  priceHistogram,
 } from "./listing-utils";
 
 type Props = {
@@ -26,31 +24,12 @@ type Props = {
   onChange: (patch: Partial<ImoveisFilters>) => void;
 };
 
-function Section({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="border-b border-[#EFECE4] py-3.5 last:border-b-0">
-      <h3 className="mb-2 text-[13px] font-bold text-[#0B1220]">{title}</h3>
-      {children}
-    </section>
-  );
-}
-
 export function ListingFilters({ filters, catalog, onChange }: Props) {
   const t = useTranslations("marketplace.listing");
-  const { min, max } = useMemo(() => priceExtent(catalog), [catalog]);
-  const bars = useMemo(() => priceHistogram(catalog), [catalog]);
-  const minValue = Number(filters.priceMin || min);
-  const maxValue = Number(filters.priceMax || max);
 
   return (
     <div>
-      <Section title={t("status")}>
+      <FilterSection title={t("status")}>
         <div className="space-y-2">
           {(
             [
@@ -69,7 +48,7 @@ export function ListingFilters({ filters, catalog, onChange }: Props) {
                   name="property-status"
                   checked={filters.transaction === value}
                   onChange={() => onChange({ transaction: value })}
-                  className="size-4 accent-[#E8A84A]"
+                  className="size-4 accent-[#2BB8A8]"
                 />
                 {t(`statusOptions.${key}`)}
               </span>
@@ -79,9 +58,9 @@ export function ListingFilters({ filters, catalog, onChange }: Props) {
             </label>
           ))}
         </div>
-      </Section>
+      </FilterSection>
 
-      <Section title={t("propertyType")}>
+      <FilterSection title={t("propertyType")}>
         <div className="space-y-2">
           {PROPERTY_TYPE_OPTIONS.map((type) => {
             const count = countByType(catalog, type);
@@ -97,7 +76,7 @@ export function ListingFilters({ filters, catalog, onChange }: Props) {
                     onChange={() =>
                       onChange({ type: filters.type === type ? "" : type })
                     }
-                    className="size-4 accent-[#E8A84A]"
+                    className="size-4 accent-[#2BB8A8]"
                   />
                   {t(`types.${type}`)}
                 </span>
@@ -106,9 +85,9 @@ export function ListingFilters({ filters, catalog, onChange }: Props) {
             );
           })}
         </div>
-      </Section>
+      </FilterSection>
 
-      <Section title={t("priceRange")}>
+      <FilterSection title={t("priceRange")}>
         <div className="grid grid-cols-2 gap-2">
           <input
             type="number"
@@ -116,7 +95,7 @@ export function ListingFilters({ filters, catalog, onChange }: Props) {
             value={filters.priceMin}
             onChange={(event) => onChange({ priceMin: event.target.value })}
             placeholder={t("minPrice")}
-            className="h-10 rounded-md border border-[#E5E7EB] px-3 text-sm text-[#0B1220] outline-none focus:border-[#E8A84A]"
+            className="h-10 rounded-md border border-[#E5E7EB] px-3 text-sm text-[#0B1220] outline-none focus:border-[#2BB8A8]"
           />
           <input
             type="number"
@@ -124,58 +103,21 @@ export function ListingFilters({ filters, catalog, onChange }: Props) {
             value={filters.priceMax}
             onChange={(event) => onChange({ priceMax: event.target.value })}
             placeholder={t("maxPrice")}
-            className="h-10 rounded-md border border-[#E5E7EB] px-3 text-sm text-[#0B1220] outline-none focus:border-[#E8A84A]"
+            className="h-10 rounded-md border border-[#E5E7EB] px-3 text-sm text-[#0B1220] outline-none focus:border-[#2BB8A8]"
           />
         </div>
-        <div className="mt-3 flex h-12 items-end gap-0.5">
-          {bars.map((ratio, index) => (
-            <div
-              key={index}
-              className="flex-1 rounded-t-sm bg-[#E8A84A]/70"
-              style={{ height: `${Math.max(12, ratio * 100)}%` }}
-            />
-          ))}
-        </div>
-        <div className="mt-2 grid grid-cols-2 gap-2">
-          <input
-            type="range"
-            min={min}
-            max={max}
-            value={minValue}
-            onChange={(event) =>
-              onChange({
-                priceMin: String(
-                  Math.min(Number(event.target.value), maxValue),
-                ),
-              })
-            }
-            className="col-span-2 accent-[#E8A84A]"
-          />
-          <input
-            type="range"
-            min={min}
-            max={max}
-            value={maxValue}
-            onChange={(event) =>
-              onChange({
-                priceMax: String(
-                  Math.max(Number(event.target.value), minValue),
-                ),
-              })
-            }
-            className="col-span-2 accent-[#E8A84A]"
-          />
-        </div>
-      </Section>
+      </FilterSection>
 
-      <Section title={t("location")}>
+      <FilterFold title={t("location")}>
         <LocationAutocomplete
           value={filters.locationLabel || filters.city}
           placeholder={t("locationPlaceholder")}
           theme="light"
           hideGps
           onValueChange={(value) => onChange({ locationLabel: value })}
-          onPlaceResolved={(location) => onChange(resolvedLocationToFilters(location))}
+          onPlaceResolved={(location) =>
+            onChange(resolvedLocationToFilters(location))
+          }
           onLocationCleared={() =>
             onChange({
               city: "",
@@ -215,7 +157,7 @@ export function ListingFilters({ filters, catalog, onChange }: Props) {
                           },
                     );
                   }}
-                  className="size-4 accent-[#E8A84A]"
+                  className="size-4 accent-[#2BB8A8]"
                 />
                 {place.city}
               </span>
@@ -225,13 +167,13 @@ export function ListingFilters({ filters, catalog, onChange }: Props) {
             </label>
           ))}
         </div>
-      </Section>
+      </FilterFold>
 
-      <Section title={t("bedrooms")}>
+      <FilterFold title={t("bedrooms")}>
         <select
           value={filters.bedrooms}
           onChange={(event) => onChange({ bedrooms: event.target.value })}
-          className="h-10 w-full rounded-md border border-[#E5E7EB] bg-white px-3 text-sm text-[#0B1220] outline-none focus:border-[#E8A84A]"
+          className="h-10 w-full rounded-md border border-[#E5E7EB] bg-white px-3 text-sm text-[#0B1220] outline-none focus:border-[#2BB8A8]"
         >
           <option value="">{t("any")}</option>
           {ROOM_OPTIONS.map((value) => (
@@ -240,9 +182,9 @@ export function ListingFilters({ filters, catalog, onChange }: Props) {
             </option>
           ))}
         </select>
-      </Section>
+      </FilterFold>
 
-      <Section title={t("bathrooms")}>
+      <FilterFold title={t("bathrooms")}>
         <div className="flex flex-wrap gap-1.5">
           <Chip
             active={!filters.bathrooms}
@@ -260,9 +202,9 @@ export function ListingFilters({ filters, catalog, onChange }: Props) {
             />
           ))}
         </div>
-      </Section>
+      </FilterFold>
 
-      <Section title={t("moreFilters")}>
+      <FilterFold title={t("moreFilters")}>
         <div className="space-y-3">
           {(
             [
@@ -285,7 +227,7 @@ export function ListingFilters({ filters, catalog, onChange }: Props) {
                 onClick={() => onChange({ [field]: !filters[field] })}
                 className={cn(
                   "relative h-6 w-11 rounded-full transition",
-                  filters[field] ? "bg-[#E8A84A]" : "bg-[#D1D5DB]",
+                  filters[field] ? "bg-[#2BB8A8]" : "bg-[#D1D5DB]",
                 )}
               >
                 <span
@@ -298,7 +240,7 @@ export function ListingFilters({ filters, catalog, onChange }: Props) {
             </label>
           ))}
         </div>
-      </Section>
+      </FilterFold>
     </div>
   );
 }

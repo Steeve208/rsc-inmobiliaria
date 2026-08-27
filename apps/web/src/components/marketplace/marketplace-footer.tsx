@@ -43,9 +43,9 @@ function AppPhoneMockup() {
   return (
     <div className="relative mx-auto h-[210px] w-[108px] rounded-[22px] border-[3px] border-white/20 bg-[#0B1220] p-1.5 shadow-[0_16px_40px_rgba(0,0,0,.45)]">
       <div className="absolute left-1/2 top-1.5 h-1.5 w-8 -translate-x-1/2 rounded-full bg-white/20" />
-      <div className="h-full overflow-hidden rounded-[16px] bg-[#F4F4F5]">
+      <div className="h-full overflow-hidden rounded-[16px] bg-[#F4F7FA]">
         <div className="bg-[#0B0F19] px-2 pb-1.5 pt-3">
-          <p className="text-[7px] font-bold tracking-[0.16em] text-[#E8A84A]">
+          <p className="text-[7px] font-bold tracking-[0.16em] text-[#EBAD5B]">
             REESKOVA
           </p>
           <div className="mt-1 h-3 rounded-full bg-white/90" />
@@ -53,7 +53,7 @@ function AppPhoneMockup() {
         <div className="space-y-1 p-1.5">
           <div className="overflow-hidden rounded bg-white">
             <div className="h-10 bg-[#1F2937]" />
-            <div className="h-1.5 w-10 m-1 rounded bg-[#E8A84A]" />
+            <div className="h-1.5 w-10 m-1 rounded bg-[#EBAD5B]" />
           </div>
           <div className="grid grid-cols-2 gap-1">
             <div className="h-8 rounded bg-white" />
@@ -74,14 +74,14 @@ export function MarketplaceFooter() {
 
   return (
     <footer className="bg-[#0B0F19] text-white">
-      <div className="rk-container grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-12">
+      <div className="rk-container grid gap-8 py-6 sm:grid-cols-2 lg:grid-cols-12">
         <div className="lg:col-span-4">
-          <p className="rk-display text-lg font-bold">{t("newsletter.title")}</p>
-          <p className="mt-2 max-w-sm text-sm leading-relaxed text-[#8C97A8]">
+          <p className="rk-display text-base font-bold">{t("newsletter.title")}</p>
+          <p className="mt-1.5 max-w-sm text-[13px] leading-relaxed text-[#8C97A8]">
             {t("newsletter.text")}
           </p>
           <form
-            className="mt-4 flex max-w-md gap-2"
+            className="mt-3 flex max-w-md gap-2"
             onSubmit={(event) => {
               event.preventDefault();
               router.push("/cadastrar");
@@ -93,50 +93,50 @@ export function MarketplaceFooter() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder={t("newsletter.placeholder")}
-              className="h-11 min-w-0 flex-1 rounded-md border border-white/10 bg-white px-3 text-sm text-[#0B1220] outline-none placeholder:text-[#8C97A8] focus:border-[#E8A84A]"
+              className="h-10 min-w-0 flex-1 rounded-md border border-white/10 bg-white px-3 text-sm text-[#0B1220] outline-none placeholder:text-[#8C97A8] focus:border-[#EBAD5B]"
             />
             <button
               type="submit"
-              className="h-11 rounded-md bg-[#E8A84A] px-4 text-sm font-bold text-[#070B14] hover:bg-[#F0B85A]"
+              className="h-10 rounded-md bg-[#EBAD5B] px-4 text-sm font-bold text-[#1A1205] hover:bg-[#F2C06E]"
             >
               {t("newsletter.submit")}
             </button>
           </form>
-          <div className="mt-6">
+          <div className="mt-4">
             <Logo compact />
           </div>
         </div>
 
         <div className="lg:col-span-2">
-          <p className="mb-3 text-xs font-semibold tracking-wider text-[#8C97A8] uppercase">
+          <p className="mb-2 text-xs font-semibold tracking-wider text-[#8C97A8] uppercase">
             {t("reeskova.title")}
           </p>
-          <ul className="space-y-2 text-sm text-[#C8D0DD]">
-            <li><Link href="/about" className="hover:text-[#E8A84A]">{t("reeskova.about")}</Link></li>
-            <li><Link href="/#partners" className="hover:text-[#E8A84A]">{t("reeskova.blog")}</Link></li>
-            <li><Link href="/help#contact" className="hover:text-[#E8A84A]">{t("reeskova.contact")}</Link></li>
+          <ul className="space-y-1.5 text-[13px] text-[#C8D0DD]">
+            <li><Link href="/about" className="hover:text-[#EBAD5B]">{t("reeskova.about")}</Link></li>
+            <li><Link href="/#partners" className="hover:text-[#EBAD5B]">{t("reeskova.blog")}</Link></li>
+            <li><Link href="/help#contact" className="hover:text-[#EBAD5B]">{t("reeskova.contact")}</Link></li>
           </ul>
         </div>
 
         <div className="lg:col-span-2">
-          <p className="mb-3 text-xs font-semibold tracking-wider text-[#8C97A8] uppercase">
+          <p className="mb-2 text-xs font-semibold tracking-wider text-[#8C97A8] uppercase">
             {t("support.title")}
           </p>
-          <ul className="space-y-2 text-sm text-[#C8D0DD]">
-            <li><Link href="/help" className="hover:text-[#E8A84A]">{t("support.help")}</Link></li>
-            <li><Link href="/security" className="hover:text-[#E8A84A]">{t("support.safety")}</Link></li>
-            <li><Link href="/privacy" className="hover:text-[#E8A84A]">{t("support.privacy")}</Link></li>
-            <li><Link href="/cookies" className="hover:text-[#E8A84A]">{t("support.cookies")}</Link></li>
+          <ul className="space-y-1.5 text-[13px] text-[#C8D0DD]">
+            <li><Link href="/help" className="hover:text-[#EBAD5B]">{t("support.help")}</Link></li>
+            <li><Link href="/security" className="hover:text-[#EBAD5B]">{t("support.safety")}</Link></li>
+            <li><Link href="/privacy" className="hover:text-[#EBAD5B]">{t("support.privacy")}</Link></li>
+            <li><Link href="/cookies" className="hover:text-[#EBAD5B]">{t("support.cookies")}</Link></li>
           </ul>
         </div>
 
         <div className="lg:col-span-2">
-          <p className="mb-3 text-xs font-semibold tracking-wider text-[#8C97A8] uppercase">
+          <p className="mb-2 text-xs font-semibold tracking-wider text-[#8C97A8] uppercase">
             {t("business.title")}
           </p>
-          <ul className="space-y-2 text-sm text-[#C8D0DD]">
-            <li><Link href="/empresa/cadastro" className="hover:text-[#E8A84A]">{t("business.property")}</Link></li>
-            <li><Link href="/para-empresas" className="hover:text-[#E8A84A]">{t("business.advertise")}</Link></li>
+          <ul className="space-y-1.5 text-[13px] text-[#C8D0DD]">
+            <li><Link href="/empresa/cadastro" className="hover:text-[#EBAD5B]">{t("business.property")}</Link></li>
+            <li><Link href="/para-empresas" className="hover:text-[#EBAD5B]">{t("business.advertise")}</Link></li>
           </ul>
         </div>
 
@@ -157,25 +157,25 @@ export function MarketplaceFooter() {
       </div>
 
       <div className="border-t border-white/5">
-        <div className="rk-container flex flex-col items-start justify-between gap-3 py-5 text-xs text-[#8C97A8] sm:flex-row sm:items-center">
+        <div className="rk-container flex flex-col items-start justify-between gap-3 py-3.5 text-xs text-[#8C97A8] sm:flex-row sm:items-center">
           <p>© {year} Reeskova. {t("rights")}</p>
           <div className="flex items-center gap-3 text-white/70">
-            <a href="https://facebook.com" aria-label="Facebook" className="hover:text-[#E8A84A]">
+            <a href="https://facebook.com" aria-label="Facebook" className="hover:text-[#EBAD5B]">
               <FacebookIcon className="size-4" />
             </a>
-            <a href="https://instagram.com" aria-label="Instagram" className="hover:text-[#E8A84A]">
+            <a href="https://instagram.com" aria-label="Instagram" className="hover:text-[#EBAD5B]">
               <InstagramIcon className="size-4" />
             </a>
-            <a href="https://linkedin.com" aria-label="LinkedIn" className="hover:text-[#E8A84A]">
+            <a href="https://linkedin.com" aria-label="LinkedIn" className="hover:text-[#EBAD5B]">
               <LinkedInIcon className="size-4" />
             </a>
-            <a href="https://youtube.com" aria-label="YouTube" className="hover:text-[#E8A84A]">
+            <a href="https://youtube.com" aria-label="YouTube" className="hover:text-[#EBAD5B]">
               <YouTubeIcon className="size-4" />
             </a>
           </div>
           <p>
             {tBrand("poweredBy")}{" "}
-            <span className="text-[#E8A84A]">{tBrand("poweredByBrand")}</span>
+            <span className="text-[#EBAD5B]">{tBrand("poweredByBrand")}</span>
           </p>
         </div>
       </div>

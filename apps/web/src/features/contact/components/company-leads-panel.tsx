@@ -114,7 +114,7 @@ export function CompanyLeadsPanel({ companyId, companyName }: Props) {
             className={cn(
               "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
               tab === item
-                ? "bg-[#d4a017] text-[#000a1a]"
+                ? "bg-[#2BB8A8] text-[#000a1a]"
                 : "bg-white/10 text-white/70 hover:bg-white/15",
             )}
           >
@@ -184,7 +184,7 @@ export function CompanyLeadsPanel({ companyId, companyName }: Props) {
                 key={thread.id}
                 className={cn(
                   "rounded-xl bg-white/5 p-4",
-                  activeThreadId === thread.id && "ring-1 ring-[#d4a017]/40",
+                  activeThreadId === thread.id && "ring-1 ring-[#2BB8A8]/40",
                 )}
                 onClick={() => setActiveThreadId(thread.id)}
               >
@@ -255,7 +255,7 @@ export function CompanyLeadsPanel({ companyId, companyName }: Props) {
             />
             <p className="text-xs text-white/40">{t("config.hint")}</p>
           </div>
-          <Button type="submit" className="gap-2 bg-[#d4a017] text-[#000a1a] hover:bg-[#c39216]">
+          <Button type="submit" className="gap-2 bg-[#2BB8A8] text-[#000a1a] hover:bg-[#1E9B8C]">
             <Save className="size-4" />
             {saved ? t("config.saved") : t("config.save")}
           </Button>

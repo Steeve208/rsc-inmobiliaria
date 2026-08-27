@@ -39,7 +39,7 @@ export function ExploreCard({ item }: Props) {
           onClick={handleClick}
           className={cn(
             "absolute right-1.5 top-1.5 inline-flex size-6 items-center justify-center rounded-full backdrop-blur-md",
-            active ? "bg-[#D4A62A] text-[#070B14]" : "bg-white/90 text-[#1A1F2B]",
+            active ? "bg-[#1E9B8C] text-[#070B14]" : "bg-white/90 text-[#1A1F2B]",
           )}
           aria-label={t("save")}
         >
@@ -50,7 +50,7 @@ export function ExploreCard({ item }: Props) {
         <h3 className="line-clamp-2 min-h-[2.25rem] text-xs font-semibold text-[#0B1220]">
           {item.title}
         </h3>
-        <p className="mt-1 text-sm font-bold text-[#D4A62A]">
+        <p className="mt-1 text-sm font-bold text-[#1E9B8C]">
           {formatMarketplacePrice(item.price, item.currency)}
         </p>
       </Link>

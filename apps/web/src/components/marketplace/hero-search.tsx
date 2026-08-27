@@ -245,11 +245,11 @@ export function HeroSearch() {
   const showTypeAndPrice =
     tab === "properties" || tab === "vehicles" || tab === "projects" || tab === "businesses";
   const fieldClass =
-    "flex min-h-[46px] items-center gap-2 border-b border-[#EEEEEE] px-2.5 py-1 lg:border-b-0 lg:border-r";
+    "flex min-h-[48px] items-center gap-2 border-b border-[#EEEEEE] px-3 py-1.5 lg:border-b-0 lg:border-r lg:border-[#E8EEF4]";
   const labelClass =
-    "block text-[9px] font-semibold leading-none tracking-[0.1em] text-[#8B95A7] uppercase";
+    "block text-[11px] font-semibold leading-none text-[#6B7285]";
   const controlClass =
-    "mt-0.5 w-full bg-transparent text-[13px] font-medium leading-tight text-[#1A1F2B] outline-none placeholder:text-[#9CA3AF]";
+    "mt-1 w-full bg-transparent text-[13px] font-medium leading-tight text-[#1A1F2B] outline-none placeholder:text-[#9CA3AF]";
 
   return (
     <div className="w-full">
@@ -269,10 +269,10 @@ export function HeroSearch() {
                 setVehicleType("");
               }}
               className={cn(
-                "shrink-0 px-3 py-1.5 text-xs font-semibold transition",
+                "shrink-0 px-3.5 py-1.5 text-[12px] font-semibold transition",
                 active
-                  ? "rounded-t-xl bg-white text-[#0B1220]"
-                  : "mb-0.5 rounded-md bg-black/45 text-white hover:bg-black/55",
+                  ? "rounded-t-lg bg-white text-[#0B1220]"
+                  : "mb-0.5 rounded-lg bg-black/40 text-white hover:bg-black/55",
               )}
             >
               {t(`tabs.${id}`)}
@@ -283,7 +283,7 @@ export function HeroSearch() {
 
       <form
         className={cn(
-          "overflow-hidden bg-white shadow-[0_12px_32px_rgba(0,0,0,.2)]",
+          "overflow-hidden bg-white shadow-[0_10px_28px_rgba(0,0,0,.22)]",
           tab === "properties"
             ? "rounded-xl rounded-tl-none"
             : "rounded-xl",
@@ -297,12 +297,12 @@ export function HeroSearch() {
           className={cn(
             "grid items-stretch",
             showTypeAndPrice
-              ? "lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1.15fr)_minmax(0,0.85fr)_minmax(0,0.85fr)_auto]"
-              : "lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1.15fr)_auto]",
+              ? "lg:grid-cols-[minmax(0,1.55fr)_minmax(0,1.05fr)_minmax(0,0.75fr)_minmax(0,0.75fr)_minmax(0,0.72fr)]"
+              : "lg:grid-cols-[minmax(0,1.55fr)_minmax(0,1.05fr)_minmax(0,0.72fr)]",
           )}
         >
           <label className={fieldClass}>
-            <Search className="size-4 shrink-0 text-[#E8A84A]" strokeWidth={1.75} />
+            <Search className="size-4 shrink-0 text-[#9CA3AF]" strokeWidth={1.75} />
             <span className="min-w-0 flex-1">
               <span className={labelClass}>{t("query")}</span>
               <input
@@ -315,7 +315,7 @@ export function HeroSearch() {
           </label>
 
           <div className={fieldClass}>
-            <MapPin className="size-4 shrink-0 text-[#E8A84A]" strokeWidth={1.75} />
+            <MapPin className="size-4 shrink-0 text-[#9CA3AF]" strokeWidth={1.75} />
             <div className="min-w-0 flex-1">
               <span className={labelClass}>{t("location")}</span>
               <LocationAutocomplete
@@ -437,11 +437,11 @@ export function HeroSearch() {
             </label>
           ) : null}
 
-          <div className="flex items-center p-1">
+          <div className="flex items-center p-2">
             <button
               type="submit"
               disabled={isPending}
-              className="inline-flex h-9 min-w-[80px] items-center justify-center rounded-lg bg-[#E8A84A] px-4 text-[13px] font-bold text-[#141414] transition hover:bg-[#F0B85A] disabled:opacity-70"
+              className="inline-flex h-10 w-full items-center justify-center rounded-lg bg-[#F9B14D] px-4 text-[13px] font-bold text-[#1A1205] transition hover:bg-[#F2C06E] disabled:opacity-70"
             >
               {isPending ? <Loader2 className="size-4 animate-spin" /> : t("submit")}
             </button>

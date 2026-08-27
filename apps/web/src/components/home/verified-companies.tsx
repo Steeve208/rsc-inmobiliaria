@@ -36,7 +36,7 @@ function CompanyMark({ name, logo }: { name: string; logo: string | null }) {
     .join("");
 
   return (
-    <span className="text-sm font-semibold tracking-wide text-[#D4A62A]">
+    <span className="text-sm font-semibold tracking-wide text-[#1E9B8C]">
       {initials || "R"}
     </span>
   );
@@ -52,12 +52,12 @@ export function VerifiedCompanies({ items }: Props) {
       <div className="rk-container">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="h-8 w-1 rounded-full bg-[#D4A62A]" />
+            <span className="h-8 w-1 rounded-full bg-[#1E9B8C]" />
             <h2 className="rk-section-title text-3xl lg:text-4xl">{t("title")}</h2>
           </div>
           <Link
             href="/para-empresas"
-            className="text-sm font-semibold text-[#D4A62A] transition-colors duration-300 hover:text-[#E7BA4A]"
+            className="text-sm font-semibold text-[#1E9B8C] transition-colors duration-300 hover:text-[#E7BA4A]"
           >
             {t("viewAll")}
           </Link>
@@ -74,7 +74,7 @@ export function VerifiedCompanies({ items }: Props) {
             >
               <Link
                 href="/para-empresas"
-                className="group flex aspect-square flex-col items-center justify-center gap-3 rounded-[20px] border border-white/[0.08] bg-[#111827] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#D4A62A]/40 hover:bg-[#161F31]"
+                className="group flex aspect-square flex-col items-center justify-center gap-3 rounded-[20px] border border-white/[0.08] bg-[#111827] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#1E9B8C]/40 hover:bg-[#161F31]"
               >
                 <div className="relative flex size-14 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-[#0E1422]">
                   <CompanyMark name={company.name} logo={company.logo} />

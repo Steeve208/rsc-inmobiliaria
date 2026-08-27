@@ -9,6 +9,7 @@ import {
 import type { VehicleDetail, VehicleListing } from "@/features/veiculos/types";
 import { enrichVehicle } from "@/features/veiculos/mock-data";
 import { slugifyCompanyId } from "@/lib/leads/utils";
+import { listingCodeValue } from "@/lib/listings/listing-code";
 import {
   fetchAllBackofficeListingsResult,
   fetchBackofficeListingById,
@@ -57,6 +58,7 @@ function mapListing(row: VehicleRow, companyName: string): VehicleListing {
     lat: num(row.lat),
     lng: num(row.lng),
     publishedAt: row.publishedAt?.toISOString().slice(0, 10) ?? "",
+    code: listingCodeValue(row.id, undefined, "vehicle"),
   };
 }
 

@@ -81,7 +81,7 @@ export function HelpPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-[#d4a017]/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#fbbf24]">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#2BB8A8]/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#3DCCBC]">
               <BookOpen className="size-3.5" />
               {t("hero.badge")}
             </span>
@@ -99,18 +99,18 @@ export function HelpPage() {
                 <Link
                   key={key}
                   href={href}
-                  className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.02] px-4 py-3.5 text-sm text-white/70 transition-colors hover:border-[#d4a017]/30 hover:bg-[#d4a017]/5 hover:text-white"
+                  className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.02] px-4 py-3.5 text-sm text-white/70 transition-colors hover:border-[#2BB8A8]/30 hover:bg-[#2BB8A8]/5 hover:text-white"
                 >
-                  <Icon className="size-4 shrink-0 text-[#d4a017]" />
+                  <Icon className="size-4 shrink-0 text-[#2BB8A8]" />
                   {t(`quickLinks.${key}`)}
                 </Link>
               ) : (
                 <a
                   key={key}
                   href={href}
-                  className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.02] px-4 py-3.5 text-sm text-white/70 transition-colors hover:border-[#d4a017]/30 hover:bg-[#d4a017]/5 hover:text-white"
+                  className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.02] px-4 py-3.5 text-sm text-white/70 transition-colors hover:border-[#2BB8A8]/30 hover:bg-[#2BB8A8]/5 hover:text-white"
                 >
-                  <Icon className="size-4 shrink-0 text-[#d4a017]" />
+                  <Icon className="size-4 shrink-0 text-[#2BB8A8]" />
                   {t(`quickLinks.${key}`)}
                 </a>
               ),
@@ -128,7 +128,7 @@ export function HelpPage() {
             <div className="mt-8 space-y-10">
               {faqCategories.map((category) => (
                 <div key={category}>
-                  <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-[#d4a017]">
+                  <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-[#2BB8A8]">
                     {t(`faq.categories.${category}.title`)}
                   </h3>
                   <div className="space-y-3">
@@ -182,7 +182,7 @@ export function HelpPage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/entrar"
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-[#d4a017] px-5 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
+                className="inline-flex h-11 items-center justify-center rounded-lg bg-[#2BB8A8] px-5 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#1E9B8C]"
               >
                 {t("contact.ctaAccount")}
               </Link>
@@ -207,7 +207,7 @@ export function HelpPage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/privacy"
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-[#d4a017] px-5 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
+                className="inline-flex h-11 items-center justify-center rounded-lg bg-[#2BB8A8] px-5 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#1E9B8C]"
               >
                 {t("quickLinks.privacy")}
               </Link>

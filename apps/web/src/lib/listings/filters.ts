@@ -7,16 +7,25 @@ import type { ProjetosFilters, ProjectListing } from "@/features/projetos/types"
 import type { VeiculosFilters } from "@/features/veiculos/types";
 import type { VehicleListing } from "@/features/veiculos/types";
 import { brazilStates } from "@/lib/listings/regions";
+import { pickPremiumProperties } from "@/lib/listings/property-sections";
+import { isListingCodeQuery, matchesListingCode } from "@/lib/listings/listing-code";
 
 export function filterProperties(
   listings: PropertyListing[],
   filters: ImoveisFilters,
   nav: MapNavigation,
 ): PropertyListing[] {
-  return listings.filter((item) => {
+  if (isListingCodeQuery(filters.query)) {
+    return listings.filter((item) =>
+      matchesListingCode(item, filters.query, "property"),
+    );
+  }
+
+  const filtered = listings.filter((item) => {
     if (filters.query) {
       const q = filters.query.toLowerCase();
       const matches =
+        matchesListingCode(item, filters.query, "property") ||
         item.title.toLowerCase().includes(q) ||
         item.city.toLowerCase().includes(q) ||
         item.neighborhood.toLowerCase().includes(q) ||
@@ -64,7 +73,6 @@ export function filterProperties(
         return false;
     }
     if (filters.launchOnly && !item.launch) return false;
-    if (filters.featuredOnly && !item.premium && !item.featured) return false;
     if (filters.verifiedOnly && !item.verified) return false;
     if (filters.withPhotos && !item.image) return false;
     if (filters.withVirtualTour && !item.virtualTour && !item.videoUrl) return false;
@@ -91,6 +99,12 @@ export function filterProperties(
     if (filters.rscCredit && !item.financing) return false;
     return true;
   });
+
+  if (!filters.featuredOnly) return filtered;
+
+  const flagged = filtered.filter((item) => item.premium || item.featured);
+  if (flagged.length > 0) return flagged;
+  return pickPremiumProperties(filtered, filtered.length);
 }
 
 const CAR_TYPES = new Set(["car", "suv", "sports", "electric", "hybrid"]);
@@ -108,6 +122,12 @@ export function filterVehicles(
   listings: VehicleListing[],
   filters: VeiculosFilters,
 ): VehicleListing[] {
+  if (isListingCodeQuery(filters.query)) {
+    return listings.filter((item) =>
+      matchesListingCode(item, filters.query, "vehicle"),
+    );
+  }
+
   return listings.filter((v) => {
     if (!matchesVehicleType(v.type, filters.type)) return false;
     if (filters.make && !v.make.toLowerCase().includes(filters.make.toLowerCase()))
@@ -144,7 +164,8 @@ export function filterVehicles(
     if (filters.query) {
       const q = filters.query.toLowerCase();
       const haystack = `${v.title} ${v.make} ${v.model} ${v.city}`.toLowerCase();
-      if (!haystack.includes(q)) return false;
+      if (!matchesListingCode(v, filters.query, "vehicle") && !haystack.includes(q))
+        return false;
     }
     if (filters.lat != null && filters.lng != null) {
       const dist = haversineKm(filters.lat, filters.lng, v.lat, v.lng);
@@ -158,6 +179,12 @@ export function filterProjects(
   listings: ProjectListing[],
   filters: ProjetosFilters,
 ): ProjectListing[] {
+  if (isListingCodeQuery(filters.query)) {
+    return listings.filter((item) =>
+      matchesListingCode(item, filters.query, "project"),
+    );
+  }
+
   return listings.filter((item) => {
     if (filters.type && item.type !== filters.type) return false;
     if (filters.status && item.status !== filters.status) return false;
@@ -181,7 +208,11 @@ export function filterProjects(
       const q = filters.query.toLowerCase();
       const haystack =
         `${item.title} ${item.developer} ${item.city} ${item.unitType}`.toLowerCase();
-      if (!haystack.includes(q)) return false;
+      if (
+        !matchesListingCode(item, filters.query, "project") &&
+        !haystack.includes(q)
+      )
+        return false;
     }
     return true;
   });
@@ -216,10 +247,20 @@ export function filterServices(
     if (filters.availableToday && !item.availableToday) return false;
     if (filters.availableWeek && !item.availableWeek) return false;
     if (filters.online && !item.online) return false;
-    if (filters.country && item.country !== filters.country) return false;
+    if (filters.country && item.country.toLowerCase() !== filters.country.toLowerCase())
+      return false;
     if (filters.city && !item.city.toLowerCase().includes(filters.city.toLowerCase()))
       return false;
-    if (filters.state && item.state !== filters.state) return false;
+    if (filters.state) {
+      const region = brazilStates.find(
+        (entry) =>
+          entry.id === filters.state ||
+          entry.name.toLowerCase() === filters.state.toLowerCase(),
+      );
+      const aliases = [filters.state, region?.id, region?.name].filter(Boolean) as string[];
+      if (!aliases.some((alias) => item.state.toLowerCase() === alias.toLowerCase()))
+        return false;
+    }
     if (filters.query) {
       const q = filters.query.toLowerCase();
       const haystack =
@@ -253,6 +294,12 @@ export function filterBusinesses(
   listings: BusinessListing[],
   filters: NegociosFilters,
 ): BusinessListing[] {
+  if (isListingCodeQuery(filters.query)) {
+    return listings.filter((item) =>
+      matchesListingCode(item, filters.query, "business"),
+    );
+  }
+
   return listings.filter((item) => {
     if (filters.type && item.type !== filters.type) return false;
     if (filters.priceMin && item.price < Number(filters.priceMin)) return false;
@@ -274,7 +321,11 @@ export function filterBusinesses(
       const q = filters.query.toLowerCase();
       const haystack =
         `${item.title} ${item.broker} ${item.city} ${item.type}`.toLowerCase();
-      if (!haystack.includes(q)) return false;
+      if (
+        !matchesListingCode(item, filters.query, "business") &&
+        !haystack.includes(q)
+      )
+        return false;
     }
     return true;
   });

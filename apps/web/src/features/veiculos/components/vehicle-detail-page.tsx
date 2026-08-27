@@ -31,6 +31,7 @@ import { VehicleMap } from "./vehicle-map";
 import { VehicleCard } from "./vehicle-card";
 import { ListingContactPanel } from "@/features/contact";
 import { ReportListingModal } from "@/features/imoveis/components/report-listing-modal";
+import { ListingCodeBadge } from "@/components/marketplace/listing-code-badge";
 import type { VehicleDetail, VehicleListing } from "../types";
 
 type Props = {
@@ -133,6 +134,12 @@ export function VehicleDetailPage({
                 {t("verifiedBadge")}
               </span>
             )}
+            <ListingCodeBadge
+              id={vehicle.id}
+              code={vehicle.code}
+              kind="vehicle"
+              className="bg-white/10 px-2.5 py-1 text-[11px] text-[#2BB8A8]"
+            />
           </div>
           <p className="mt-2 flex flex-wrap items-center gap-2 text-sm text-white/55">
             <MapPin className="size-4 shrink-0 text-white/40" />
@@ -154,7 +161,7 @@ export function VehicleDetailPage({
             className={cn(
               "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition-colors",
               isFavorite
-                ? "bg-[#d4a017] text-[#000a1a]"
+                ? "bg-[#2BB8A8] text-[#000a1a]"
                 : "bg-[#111d2f] text-white/80 hover:bg-white/5",
             )}
           >
@@ -459,6 +466,7 @@ export function VehicleDetailPage({
                   whatsappNumber: vehicle.whatsappNumber,
                   agentName: vehicle.agent.name,
                 }}
+                mode="vehicle"
               />
             </div>
           </div>

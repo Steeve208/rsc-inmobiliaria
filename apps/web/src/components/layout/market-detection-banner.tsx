@@ -17,11 +17,11 @@ export function MarketDetectionBanner() {
   return (
     <div
       role="status"
-      className="border-b border-[#d4a017]/30 bg-[#0f172a] px-4 py-3 text-sm text-white"
+      className="border-b border-[#EBAD5B]/30 bg-[#0f172a] px-4 py-3 text-sm text-white"
     >
       <div className="mx-auto flex max-w-[1440px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-between lg:px-8">
         <p className="flex items-start gap-2 sm:items-center">
-          <Globe className="mt-0.5 size-4 shrink-0 text-[#d4a017] sm:mt-0" />
+          <Globe className="mt-0.5 size-4 shrink-0 text-[#EBAD5B] sm:mt-0" />
           <span>
             {t("detection.message", {
               country: `${market.flag} ${t(`names.${market.id}`)}`,
@@ -33,7 +33,7 @@ export function MarketDetectionBanner() {
           <button
             type="button"
             onClick={confirmDetectedMarket}
-            className="inline-flex items-center gap-1.5 rounded-md bg-[#d4a017] px-3 py-1.5 text-xs font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
+            className="inline-flex items-center gap-1.5 rounded-md bg-[#EBAD5B] px-3 py-1.5 text-xs font-semibold text-[#1A1205] transition-colors hover:bg-[#D49A3F]"
           >
             <Check className="size-3.5" />
             {t("detection.confirm")}

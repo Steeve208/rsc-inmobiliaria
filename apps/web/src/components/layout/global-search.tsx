@@ -82,7 +82,7 @@ export function GlobalSearch({ className }: { className?: string }) {
         />
         <button
           type="submit"
-          className="inline-flex w-12 shrink-0 items-center justify-center rounded-r-full bg-[#E8A84A] text-[#070B14] transition hover:bg-[#F0B85A] sm:w-14"
+          className="inline-flex w-12 shrink-0 items-center justify-center rounded-r-full bg-[#EBAD5B] text-[#1A1205] transition hover:bg-[#F2C06E] sm:w-14"
           aria-label={t("submit")}
         >
           <Search className="size-5" strokeWidth={2.25} />

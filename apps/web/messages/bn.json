@@ -1,0 +1,3602 @@
+{
+  "metadata": {
+    "title": "REESKOVA — সম্পত্তি, যানবাহন ও পরিষেবার বাজার",
+    "description": "একটি বিশ্বব্যাপী বাজারে সম্পত্তি, যানবাহন, কোম্পানি ও পরিষেবা অন্বেষণ করুন।"
+  },
+  "nav": {
+    "home": "Home",
+    "properties": "Properties",
+    "vehicles": "যানবাহন",
+    "financing": "অর্থায়ন",
+    "investments": "Investments",
+    "credit": "Credit",
+    "services": "পরিষেবা",
+    "companies": "কোম্পানি",
+    "paraEmpresas": "For Business",
+    "help": "সাহায্য",
+    "signIn": "Sign in",
+    "signUp": "Register",
+    "signOut": "Sign out",
+    "wishlist": "প্রিয়",
+    "changeRegion": "দেশ পরিবর্তন",
+    "globalSearch": {
+      "categoryLabel": "Search category",
+      "properties": "Properties",
+      "propertiesPlaceholder": "Search homes...",
+      "vehicles": "Vehicles",
+      "vehiclesPlaceholder": "Search cars...",
+      "companies": "Companies",
+      "companiesPlaceholder": "Search companies...",
+      "submit": "Search"
+    },
+    "buy": "Buy",
+    "rent": "Rent",
+    "sell": "Sell",
+    "invest": "Invest",
+    "more": "আরও",
+    "publishListing": "Post a listing",
+    "clientArea": "Client Area",
+    "companyPortal": "Business Portal",
+    "explore": {
+      "title": "অন্বেষণ",
+      "houses": "বাড়ি",
+      "apartments": "অ্যাপার্টমেন্ট",
+      "land": "জমি",
+      "launches": "নতুন প্রকল্প",
+      "commercial": "বাণিজ্যিক",
+      "luxury": "বিলাসবহুল"
+    },
+    "exploreNav": "অন্বেষণ",
+    "categories": "বিভাগ",
+    "howItWorks": "যেভাবে কাজ করে",
+    "cat": {
+      "properties": "সম্পত্তি",
+      "vehicles": "যানবাহন",
+      "launches": "নতুন প্রকল্প",
+      "companies": "কোম্পানি",
+      "financing": "অর্থায়ন",
+      "services": "পরিষেবা"
+    },
+    "toggleMenu": "মেনু",
+    "changeLanguage": "ভাষা পরিবর্তন"
+  },
+  "favorites": {
+    "title": "My favorites",
+    "subtitle": "Properties and vehicles you saved",
+    "empty": "You haven't saved any favorites yet.",
+    "signIn": "Sign in",
+    "loading": "Loading favorites...",
+    "guestHint": "Sign in to sync your favorites across devices.",
+    "guestSyncBanner": "These favorites are saved on this device only.",
+    "syncedHint": "Synced with your account — available on all your devices."
+  },
+  "companyPresence": {
+    "title": "Company",
+    "cnpj": "CNPJ",
+    "address": "Address",
+    "phone": "Phone",
+    "hours": "Hours",
+    "closed": "Closed",
+    "noDetails": "This company has not published a location or hours yet.",
+    "days": {
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday"
+    }
+  },
+  "auth": {
+    "continueWithGoogle": "Continue with Google",
+    "orContinueWithEmail": "or continue with email",
+    "loading": "Loading...",
+    "fields": {
+      "name": "Full name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@email.com",
+      "password": "Password",
+      "passwordPlaceholder": "Minimum 8 characters",
+      "phone": "Phone number",
+      "phonePlaceholder": "15551234567",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm password"
+    },
+    "signIn": {
+      "title": "Sign in to your account",
+      "subtitle": "Access your favorites, chats and visits",
+      "submit": "Sign in",
+      "noAccount": "Don't have an account?",
+      "link": "Sign in"
+    },
+    "signUp": {
+      "title": "Create your account",
+      "subtitle": "Register with email or your Google account",
+      "submit": "Create account",
+      "hasAccount": "Already have an account?",
+      "link": "Register"
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "google": "Could not sign in with Google. Please try again."
+    },
+    "forgotPassword": {
+      "link": "Forgot password?",
+      "title": "Reset your password",
+      "subtitle": "Enter your email and we’ll send you a reset link.",
+      "submit": "Send reset link",
+      "success": "If an account exists for that email, we’ve sent a reset link. Check your inbox and spam folder.",
+      "backToSignIn": "Back to sign in"
+    },
+    "resetPassword": {
+      "title": "Choose a new password",
+      "subtitle": "Enter a new password for your account.",
+      "submit": "Update password",
+      "success": "Your password was updated. You can sign in with the new password.",
+      "goToSignIn": "Go to sign in",
+      "invalidToken": "This reset link is invalid or has expired.",
+      "requestNew": "Request a new reset link",
+      "mismatch": "Passwords do not match."
+    }
+  },
+  "markets": {
+    "regions": {
+      "latam": "লাতিন আমেরিকা",
+      "northAmerica": "উত্তর আমেরিকা",
+      "caribbean": "ক্যারিবিয়ান",
+      "europe": "ইউরোপ",
+      "africa": "আফ্রিকা",
+      "middleEast": "মধ্যপ্রাচ্য"
+    },
+    "languages": {
+      "en": "English",
+      "es": "Español",
+      "pt": "Português",
+      "fr": "Français",
+      "de": "Deutsch",
+      "it": "Italiano",
+      "ar": "العربية",
+      "zh": "中文",
+      "hi": "हिन्दी",
+      "bn": "বাংলা"
+    },
+    "names": {
+      "br": "ব্রাজিল",
+      "mx": "মেক্সিকো",
+      "ar": "আর্জেন্টিনা",
+      "co": "কলম্বিয়া",
+      "cl": "চিলি",
+      "pe": "পেরু",
+      "uy": "উরুগুয়ে",
+      "ec": "ইকুয়েডর",
+      "ve": "ভেনেজুয়েলা",
+      "bo": "বলিভিয়া",
+      "py": "প্যারাগুয়ে",
+      "cr": "কোস্টা রিকা",
+      "pa": "পানামা",
+      "gt": "গুয়াতেমালা",
+      "do": "ডোমিনিকান প্রজাতন্ত্র",
+      "cu": "কিউবা",
+      "hn": "হন্ডুরাস",
+      "sv": "এল সালভাদোর",
+      "ni": "নিকারাগুয়া",
+      "us": "যুক্তরাষ্ট্র",
+      "ca": "কানাডা",
+      "jm": "জামাইকা",
+      "pr": "পুয়ের্তো রিকো",
+      "tt": "ত্রিনিদাদ ও টোবাগো",
+      "ht": "হাইতি",
+      "bs": "বাহামা",
+      "bb": "বার্বাডোস",
+      "es": "স্পেন",
+      "pt": "পর্তুগাল",
+      "fr": "ফ্রান্স",
+      "de": "জার্মানি",
+      "it": "ইতালি",
+      "gb": "যুক্তরাজ্য",
+      "ie": "আয়ারল্যান্ড",
+      "nl": "নেদারল্যান্ডস",
+      "be": "বেলজিয়াম",
+      "ch": "সুইজারল্যান্ড",
+      "at": "অস্ট্রিয়া",
+      "pl": "পোল্যান্ড",
+      "se": "সুইডেন",
+      "no": "নরওয়ে",
+      "gr": "গ্রিস",
+      "cz": "চেক প্রজাতন্ত্র",
+      "ro": "রোমানিয়া",
+      "za": "দক্ষিণ আফ্রিকা",
+      "ng": "নাইজেরিয়া",
+      "ke": "কেনিয়া",
+      "gh": "ঘানা",
+      "eg": "মিশর",
+      "ma": "মরক্কো",
+      "ao": "অ্যাঙ্গোলা",
+      "mz": "মোজাম্বিক",
+      "sn": "সেনেগাল",
+      "ci": "কোত দিভোয়ার",
+      "tz": "তানজানিয়া",
+      "sa": "সৌদি আরব",
+      "ae": "সংযুক্ত আরব আমিরাত"
+    },
+    "searchLocation": {
+      "en": "City / ZIP",
+      "es": "Ciudad",
+      "pt": "Cidade",
+      "fr": "Ville",
+      "de": "Stadt / PLZ",
+      "it": "Città",
+      "ar": "المدينة"
+    },
+    "detection": {
+      "message": "আমরা দেখেছি আপনি {country}-এ আছেন। চালিয়ে যাবেন?",
+      "confirm": "নিশ্চিত",
+      "change": "পরিবর্তন",
+      "dismiss": "বন্ধ"
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "Find the right place for the next chapter of your life.",
+      "titleStart": "Find the right place for the",
+      "titleHighlight": "next chapter",
+      "titleEnd": "of your life.",
+      "subtitle": "Properties, vehicles, financing, and services in one ecosystem.",
+      "ctaExplore": "Explore marketplace",
+      "ctaProperty": "Buy a property",
+      "ctaVehicle": "Buy a vehicle",
+      "ctaPublish": "Business Portal",
+      "ctaCompanies": "Business Portal",
+      "ctaBuy": "Explore",
+      "ctaRent": "Browse vehicles",
+      "pillars": {
+        "buy": "Buy",
+        "sell": "Sell",
+        "finance": "Finance",
+        "list": "List"
+      },
+      "stats": {
+        "properties": {
+          "value": "+10k",
+          "label": "Properties"
+        },
+        "companies": {
+          "value": "+2k",
+          "label": "Companies"
+        },
+        "services": {
+          "value": "+5k",
+          "label": "Services"
+        },
+        "users": {
+          "value": "+100k",
+          "label": "Users"
+        }
+      },
+      "floating": {
+        "card1": {
+          "title": "Modern Home in Miami",
+          "place": "Miami, Florida"
+        },
+        "card2": {
+          "title": "Premium Apartment",
+          "place": "São Paulo, Brazil"
+        }
+      }
+    },
+    "ecosystem": {
+      "title": "Everything you need to buy a property.",
+      "subtitle": "A complete ecosystem around your next decision.",
+      "items": {
+        "properties": "Properties",
+        "vehicles": "Vehicles",
+        "financing": "Financing",
+        "insurance": "Insurance",
+        "renovation": "Renovation",
+        "moving": "Moving",
+        "furniture": "Interior design"
+      }
+    },
+    "search": {
+      "heading": "What are you looking for?",
+      "locationPlaceholder": "City, area, or keyword",
+      "propertyType": "Property type",
+      "priceRange": "Price range",
+      "bedrooms": "Bedrooms",
+      "submit": "Search",
+      "intentBuy": "Buy",
+      "intentRent": "Rent",
+      "intentAny": "Buy or rent",
+      "filters": {
+        "houses": "Houses",
+        "apartments": "Apartments",
+        "land": "Land",
+        "commercial": "Commercial",
+        "cars": "Cars",
+        "motorcycles": "Motorcycles",
+        "trucks": "Trucks"
+      },
+      "priceOptions": {
+        "0": "Up to USD 200k",
+        "1": "USD 200k – 500k",
+        "2": "USD 500k – 1M",
+        "3": "Over USD 1M"
+      },
+      "tabs": {
+        "properties": "Properties",
+        "vehicles": "Vehicles",
+        "launches": "Launches"
+      },
+      "queryPlaceholder": "What are you looking for?",
+      "labels": {
+        "location": "Location",
+        "type": "Type",
+        "price": "Price",
+        "bedrooms": "Bedrooms",
+        "condition": "Condition",
+        "intent": "Intent"
+      },
+      "priceUpTo": "Up to",
+      "priceFrom": "From",
+      "results": "available",
+      "resultsMobile": "{count} properties available",
+      "loadingResults": "Loading…",
+      "searching": "Searching…",
+      "vehicleType": "Vehicle type",
+      "submitVehicles": "Search",
+      "conditionAny": "New or used",
+      "conditionNew": "New",
+      "conditionUsed": "Used",
+      "resultsMobileVehicles": "{count} vehicles available"
+    },
+    "credit": {
+      "title": "Simulate your credit",
+      "benefits": {
+        "0": "Best market rates",
+        "1": "Approval in up to 24h",
+        "2": "Personalized support"
+      },
+      "cta": "Simulate now"
+    },
+    "stats": {
+      "marketplace": {
+        "value": "Marketplace",
+        "label": "Listing publication"
+      },
+      "direct": {
+        "value": "Direct",
+        "label": "Client ↔ Company"
+      },
+      "noPaper": {
+        "value": "No agency work",
+        "label": "RSC does no paperwork"
+      },
+      "publish": {
+        "value": "Publish",
+        "label": "Offers and products"
+      },
+      "companies": {
+        "value": "Companies",
+        "label": "List here"
+      },
+      "markets": {
+        "value": "Regional",
+        "label": "LATAM+ coverage"
+      },
+      "disclaimer": "Reeskova / RSC is a web platform for publishing and connecting. We do not intermediate contracts, payments or legal paperwork.",
+      "properties": {
+        "label": "Properties"
+      },
+      "countries": {
+        "label": "Countries"
+      },
+      "users": {
+        "label": "Users"
+      },
+      "agencies": {
+        "label": "Agencies"
+      },
+      "builders": {
+        "label": "Developers"
+      },
+      "volume": {
+        "label": "In transactions"
+      },
+      "dealerships": {
+        "label": "Partner dealerships"
+      },
+      "vehicles": {
+        "label": "Available vehicles"
+      },
+      "digital": {
+        "label": "Digital process"
+      },
+      "speed": {
+        "label": "Fast response"
+      },
+      "security": {
+        "label": "Fund protection"
+      },
+      "sign": {
+        "label": "Digital signature"
+      },
+      "credit": {
+        "label": "Integrated financing"
+      }
+    },
+    "featured": {
+      "eyebrow": "Featured selection",
+      "title": "নির্বাচিত সম্পত্তি",
+      "subtitle": "A curated selection of featured properties on Reeskova.",
+      "viewAll": "সব দেখুন",
+      "viewProperty": "View property",
+      "save": "Save",
+      "specs": {
+        "beds": "{count} bedrooms",
+        "baths": "{count} bathrooms",
+        "garage": "{count} parking"
+      },
+      "badges": {
+        "premium": "Premium",
+        "new": "New",
+        "featured": "Featured",
+        "sale": "Sale",
+        "rent": "Rent"
+      }
+    },
+    "services": {
+      "buy": {
+        "title": "Buy",
+        "description": "Find houses, apartments and land worldwide.",
+        "link": "Explore"
+      },
+      "rent": {
+        "title": "Rent",
+        "description": "Residential and commercial options ready to move in.",
+        "link": "Explore"
+      },
+      "sell": {
+        "title": "Sell",
+        "description": "List properties or vehicles and reach qualified buyers.",
+        "link": "Publish"
+      },
+      "invest": {
+        "title": "Invest",
+        "description": "Discover projects published by companies. Decisions and paperwork are between you and the advertiser.",
+        "link": "Explore"
+      },
+      "financing": {
+        "title": "Financing",
+        "description": "Browse listings with credit options offered by companies. The agreement is between you and them.",
+        "link": "View options"
+      },
+      "companies": {
+        "title": "Companies",
+        "description": "Solutions for agencies, builders and dealerships.",
+        "link": "Learn more"
+      },
+      "properties": {
+        "title": "Properties",
+        "description": "Find homes nationwide.",
+        "link": "View properties"
+      },
+      "vehicles": {
+        "title": "Vehicles",
+        "description": "Cars, SUVs, motorcycles and more from dealerships.",
+        "link": "Browse vehicles"
+      },
+      "insurance": {
+        "title": "Insurance",
+        "description": "Full protection for you and your assets.",
+        "link": "View insurance"
+      }
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "subtitle": "RSC only publishes listings and connects people. Everything else is handled directly with the company.",
+      "disclaimer": "Important: RSC does not do paperwork, sign contracts, hold funds or close deals. Negotiation, visits, documents and handover are exclusively between client and company.",
+      "steps": {
+        "search": {
+          "title": "Search",
+          "description": "Browse properties and vehicles published by companies on the marketplace."
+        },
+        "contact": {
+          "title": "Contact",
+          "description": "Message or request contact with the listing company from the platform."
+        },
+        "visit": {
+          "title": "Visit",
+          "description": "Schedule the visit directly with the company. RSC does not handle paperwork."
+        },
+        "negotiate": {
+          "title": "Negotiate",
+          "description": "Agree on price and terms with the company—no RSC intermediation."
+        },
+        "close": {
+          "title": "Close",
+          "description": "Contracts, payments and paperwork are handled by client and company."
+        },
+        "publish": {
+          "title": "Publish",
+          "description": "If you are a company, publish your offers and products to reach more buyers."
+        },
+        "find": {
+          "title": "Find",
+          "description": "Search properties or vehicles in your region."
+        },
+        "choose": {
+          "title": "Choose",
+          "description": "Pick the ideal option."
+        },
+        "simulate": {
+          "title": "Review",
+          "description": "Check options published by companies."
+        },
+        "approve": {
+          "title": "Contact",
+          "description": "Talk directly with the company."
+        },
+        "achieve": {
+          "title": "Agree",
+          "description": "Close the deal with the company."
+        },
+        "escrow": {
+          "title": "Contact",
+          "description": "The parties close the deal."
+        },
+        "sign": {
+          "title": "Contract",
+          "description": "Paperwork is between client and company."
+        },
+        "deliver": {
+          "title": "Handover",
+          "description": "Handover is managed by the company."
+        }
+      }
+    },
+    "investment": {
+      "title": "Investment marketplace",
+      "yield": "Annual yield",
+      "minInvest": "Minimum investment",
+      "cta": "Invest now",
+      "status": {
+        "funding": "Funding",
+        "open": "Open"
+      }
+    },
+    "ai": {
+      "badge": "Reeskova AI (BETA)",
+      "title": "Describe the property you want",
+      "subtitle": "Our AI understands your intent and finds relevant matches.",
+      "placeholder": "E.g.: I want a beachfront house under 300 thousand dollars.",
+      "cta": "Search with AI"
+    },
+    "testimonials": {
+      "title": "What our users say"
+    },
+    "partners": {
+      "title": "Our partners"
+    },
+    "footer": {
+      "tagline": "The marketplace where thousands of companies offer properties, vehicles, and services.",
+      "rights": "All rights reserved.",
+      "columns": {
+        "product": {
+          "title": "Product",
+          "links": {
+            "explore": "Explore",
+            "categories": "Categories",
+            "companies": "Companies",
+            "services": "Services",
+            "vehicles": "Vehicles",
+            "financing": "Financing"
+          }
+        },
+        "company": {
+          "title": "Company",
+          "links": {
+            "about": "About RSC Group",
+            "howItWorks": "How it works",
+            "partners": "Partners",
+            "careers": "Careers",
+            "portal": "Business Portal",
+            "join": "Request onboarding"
+          }
+        },
+        "help": {
+          "title": "Help",
+          "links": {
+            "center": "Help center",
+            "faq": "FAQ",
+            "guides": "Guides",
+            "contact": "Contact",
+            "security": "Security"
+          }
+        },
+        "legal": {
+          "title": "Legal",
+          "links": {
+            "terms": "Terms of use",
+            "privacy": "Privacy",
+            "cookies": "Cookies",
+            "compliance": "Compliance"
+          }
+        }
+      }
+    },
+    "partnerSpotlight": {
+      "eyebrow": "Powered by RSC Group",
+      "badge": "RSC Group",
+      "ctaSecondary": "For companies",
+      "ctaExplore": "Explore marketplace",
+      "ctaCredit": "View listings",
+      "ctaBusiness": "Publish offers",
+      "ctaInvest": "View projects",
+      "items": {
+        "ecosystem": {
+          "brand": "RSC Group",
+          "title": "A marketplace, not a paperwork service",
+          "description": "Reeskova publishes listings and connects people with companies. We do not handle procedures: negotiation and paperwork stay between the parties."
+        },
+        "credit": {
+          "brand": "RSC Marketplace",
+          "title": "Offers in one place",
+          "description": "Find properties and products published by companies. If financing is offered, it comes from the advertiser—RSC only shows the listing."
+        },
+        "business": {
+          "brand": "RSC Business",
+          "title": "Publish and get contacts",
+          "description": "Companies list here and receive leads. The commercial close and documentation are handled with the client."
+        },
+        "invest": {
+          "brand": "RSC Connect",
+          "title": "You decide with the company",
+          "description": "Explore published projects and talk directly with the advertiser. RSC does not intermediate contracts or payments."
+        }
+      }
+    },
+    "categories": {
+      "title": "বিভাগ অনুসারে অন্বেষণ",
+      "subtitle": "যা খুঁজছেন দ্রুত খুঁজে পান।",
+      "viewAll": "See all categories →",
+      "items": {
+        "properties": {
+          "title": "Properties",
+          "description": "Homes, apartments, and more"
+        },
+        "vehicles": {
+          "title": "Vehicles",
+          "description": "Cars, SUVs, and bikes"
+        },
+        "launches": {
+          "title": "New projects",
+          "description": "Launches and pre-sales"
+        },
+        "companies": {
+          "title": "Companies",
+          "description": "Agencies and dealerships"
+        },
+        "financing": {
+          "title": "Financing",
+          "description": "Credit for your plans"
+        },
+        "services": {
+          "title": "Insurance",
+          "description": "Protection and services"
+        }
+      }
+    },
+    "featuredVehicles": {
+      "title": "নির্বাচিত যানবাহন",
+      "subtitle": "A selection to move your next step forward.",
+      "viewAll": "সব দেখুন",
+      "viewVehicle": "View vehicle",
+      "save": "Save"
+    },
+    "verifiedCompanies": {
+      "title": "Verified companies",
+      "viewAll": "See all →"
+    },
+    "marketplaceServices": {
+      "title": "Everything you need to make it real",
+      "subtitle": "Financing, protection, and services for every step.",
+      "viewAll": "See all",
+      "items": {
+        "financing": {
+          "title": "Financing",
+          "description": "Simulate and compare options"
+        },
+        "insurance": {
+          "title": "Insurance",
+          "description": "Protect what matters"
+        },
+        "moving": {
+          "title": "Moving",
+          "description": "Relocate with ease"
+        },
+        "decor": {
+          "title": "Decoration",
+          "description": "Design for your space"
+        },
+        "inspection": {
+          "title": "Home inspection",
+          "description": "Verify before you buy"
+        },
+        "renovation": {
+          "title": "Renovation",
+          "description": "Update and improve the property"
+        }
+      }
+    },
+    "ecosystemJourney": {
+      "title": "Everything you need for your next plan.",
+      "steps": {
+        "find": {
+          "label": "Find",
+          "description": "Properties, vehicles, and opportunities."
+        },
+        "finance": {
+          "label": "Finance",
+          "description": "Find solutions to make your purchase possible."
+        },
+        "protect": {
+          "label": "Protect",
+          "description": "Insurance and complementary services."
+        },
+        "transform": {
+          "label": "Transform",
+          "description": "Moving, decoration, energy, internet, and more."
+        }
+      }
+    },
+    "whyReeskova": {
+      "title": "A new way to find what you need.",
+      "items": {
+        "one": {
+          "number": "01",
+          "title": "Everything in one place",
+          "description": "Find products, properties, and connected services."
+        },
+        "two": {
+          "number": "02",
+          "title": "Verified opportunities",
+          "description": "Clear information so you can make better decisions."
+        },
+        "three": {
+          "number": "03",
+          "title": "More than a search",
+          "description": "From discovery to completion, Reeskova connects every step."
+        }
+      }
+    },
+    "sellCta": {
+      "title": "Have something to sell?",
+      "subtitle": "Reach people who are looking for exactly what you offer.",
+      "cta": "Advertise here",
+      "channels": {
+        "properties": "Properties",
+        "vehicles": "Vehicles",
+        "companies": "Companies",
+        "projects": "Projects"
+      }
+    },
+    "rscGroup": {
+      "eyebrow": "Brand architecture",
+      "title": "RSC Group is the group. Reeskova is the platform.",
+      "subtitle": "A clear hierarchy: the group ecosystem and the consumer marketplace.",
+      "brands": {
+        "group": {
+          "name": "RSC Group",
+          "role": "The ecosystem"
+        },
+        "reeskova": {
+          "name": "Reeskova",
+          "role": "Marketplace"
+        },
+        "bank": {
+          "name": "RSC Bank",
+          "role": "Financial solutions"
+        },
+        "capital": {
+          "name": "RSC Capital",
+          "role": "Investments"
+        },
+        "ora": {
+          "name": "Ora Technology",
+          "role": "Technology"
+        },
+        "chain": {
+          "name": "Reesk Chain",
+          "role": "Infrastructure"
+        }
+      }
+    },
+    "newsletter": {
+      "title": "Be the first to discover new opportunities",
+      "subtitle": "Get launches, premium vehicles, and selected opportunities from Reeskova.",
+      "cta": "Join the waitlist"
+    }
+  },
+  "search": {
+    "pageTitle": "Advanced search",
+    "pageSubtitle": "Find properties, vehicles and new launches with full filters.",
+    "advancedTitle": "Advanced filters",
+    "tabs": {
+      "properties": "Properties",
+      "vehicles": "Vehicles",
+      "launches": "New Launches"
+    },
+    "quick": {
+      "locationPlaceholder": "Where are you searching?",
+      "queryPlaceholder": "What are you looking for?",
+      "submit": "Search"
+    },
+    "views": {
+      "list": "List",
+      "map": "Map",
+      "gallery": "Gallery"
+    },
+    "filters": {
+      "title": "Filters",
+      "reset": "Clear",
+      "apply": "Apply filters",
+      "country": "Country",
+      "countryPlaceholder": "e.g. Brazil",
+      "state": "State",
+      "statePlaceholder": "e.g. SP",
+      "city": "City",
+      "cityPlaceholder": "e.g. São Paulo",
+      "neighborhood": "Neighborhood",
+      "neighborhoodPlaceholder": "e.g. Morumbi",
+      "priceMin": "Min price",
+      "priceMax": "Max price",
+      "type": "Type",
+      "typeAll": "All types",
+      "types": {
+        "house": "House",
+        "apartment": "Apartment",
+        "land": "Land",
+        "car": "Car",
+        "motorcycle": "Motorcycle",
+        "truck": "Truck"
+      },
+      "bedrooms": "Bedrooms",
+      "garage": "Garage",
+      "pool": "Pool",
+      "areaMin": "Min area (m²)",
+      "areaMax": "Max area (m²)",
+      "date": "Date",
+      "company": "Company",
+      "companyPlaceholder": "Company name",
+      "financingAvailable": "Financing available"
+    },
+    "results": {
+      "count": "{count} results found",
+      "empty": "No results found",
+      "emptyHint": "Try adjusting filters or broadening your search.",
+      "mapHint": "Showing {count} listings on the map",
+      "bedrooms": "bedrooms",
+      "garage": "spaces"
+    }
+  },
+  "map": {
+    "noToken": "Set NEXT_PUBLIC_MAPBOX_TOKEN to enable the interactive map.",
+    "fallbackListings": "listings in this area",
+    "noMarkers": "No listings with map coordinates in these results."
+  },
+  "paraEmpresas": {
+    "hero": {
+      "badge": "B2B Solutions",
+      "titleStart": "Sell more with the",
+      "titleHighlight": "RSC platform",
+      "subtitle": "Real estate agencies, dealerships and builders in one ecosystem. Publish listings, receive qualified leads and manage everything in the SaaS panel. Register for free and start selling.",
+      "ctaPrimary": "Register my business",
+      "imageAlt": "Corporate view of modern buildings representing partner businesses",
+      "bullets": {
+        "0": "No setup fee",
+        "1": "Leads straight to your panel",
+        "2": "Dedicated support"
+      }
+    },
+    "preview": {
+      "label": "Real-time dashboard",
+      "leads": "Leads this month",
+      "listings": "Active listings",
+      "conversion": "Conversion rate",
+      "insightTitle": "RSC AI insight",
+      "insightBody": "Hybrid SUVs saw +34% searches in your area. Feature 3 vehicles to capture more leads."
+    },
+    "audiences": {
+      "title": "Built for your business",
+      "subtitle": "If you run a business, RSC was built for you.",
+      "realEstate": {
+        "title": "Real estate agencies",
+        "description": "Publish properties, receive qualified contacts and close more deals with integrated credit."
+      },
+      "dealerships": {
+        "title": "Dealerships",
+        "description": "Online inventory, real-time leads and digital financing to accelerate sales."
+      },
+      "builders": {
+        "title": "Builders",
+        "description": "Launch developments, manage units and connect buyers to financing."
+      }
+    },
+    "howItWorks": {
+      "title": "How does registration work?",
+      "subtitle": "Three simple steps to start selling on RSC.",
+      "submit": {
+        "title": "Submit your request",
+        "description": "Fill out the form with your company details. It's quick and free."
+      },
+      "review": {
+        "title": "Team review",
+        "description": "Our team verifies your data within 24 hours to ensure security."
+      },
+      "access": {
+        "title": "Receive access",
+        "description": "You will receive an email with credentials to access your exclusive panel."
+      }
+    },
+    "features": {
+      "title": "Everything in the SaaS panel",
+      "subtitle": "A complete platform to publish, sell and grow.",
+      "listings": {
+        "title": "Listing management",
+        "description": "Publish, edit and feature properties or vehicles in bulk with a few clicks."
+      },
+      "leads": {
+        "title": "Lead CRM",
+        "description": "Receive and organize contacts, requests and visits in one place."
+      },
+      "chat": {
+        "title": "Integrated chat",
+        "description": "Talk to buyers without leaving the platform."
+      },
+      "analytics": {
+        "title": "Advanced analytics",
+        "description": "Views, conversions and performance by listing and region."
+      },
+      "trust": {
+        "title": "RSC verified badge",
+        "description": "Stand out with a verified profile and greater buyer trust."
+      },
+      "ai": {
+        "title": "AI for sales",
+        "description": "Pricing suggestions, highlights and insights to sell faster."
+      }
+    },
+    "plans": {
+      "title": "Plans for every stage",
+      "subtitle": "Start free and scale as your business grows.",
+      "popular": "Most popular",
+      "perMonth": "/mo",
+      "starter": {
+        "name": "Starter",
+        "description": "To start selling online",
+        "price": "Free",
+        "cta": "Start free",
+        "features": {
+          "0": "Up to 10 active listings",
+          "1": "Basic lead panel",
+          "2": "Business profile"
+        }
+      },
+      "growth": {
+        "name": "Growth",
+        "description": "For growing teams",
+        "price": "R$ 299",
+        "cta": "Try 14 days free",
+        "features": {
+          "0": "Unlimited listings",
+          "1": "Full CRM + chat",
+          "2": "Premium highlights"
+        }
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "For networks and large groups",
+        "price": "Custom",
+        "cta": "Talk to sales",
+        "features": {
+          "0": "Multi-branch",
+          "1": "API & integrations",
+          "2": "Dedicated account manager"
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to grow with RSC?",
+      "subtitle": "Join thousands of businesses already selling on the largest real estate and automotive ecosystem. Register for free and our team will contact you within 24 hours.",
+      "primary": "Register my business"
+    },
+    "panel": {
+      "title": "Business Panel",
+      "subtitle": "Sign in to manage listings, leads and your team.",
+      "email": "Business email",
+      "emailPlaceholder": "you@yourcompany.com",
+      "password": "Password",
+      "submit": "Sign in to panel",
+      "noAccount": "Don't have an account yet?",
+      "register": "Register your business",
+      "backToLanding": "Back to For Business"
+    },
+    "signup": {
+      "back": "Back",
+      "title": "Register your business",
+      "subtitle": "Fill in the details below to request your business registration. Our team will review your request and send access credentials within 24 hours.",
+      "company": "Company name",
+      "companyPlaceholder": "e.g. Vale Realty",
+      "cnpj": "Tax ID / Document",
+      "cnpjPlaceholder": "00.000.000/0001-00",
+      "email": "Business email",
+      "emailPlaceholder": "contact@yourcompany.com",
+      "phone": "Phone / WhatsApp",
+      "phonePlaceholder": "(51) 99999-0000",
+      "submit": "Request registration",
+      "submitting": "Sending...",
+      "successTitle": "Request sent!",
+      "successMessage": "We received your business details. Our team will review the request and send your panel access credentials within 24 hours.",
+      "error": "Could not send the request. Please try again.",
+      "duplicate": "A pending request already exists for this email.",
+      "noteLabel": "Important:",
+      "note": "After submitting your request, our team will review your details. You will receive an email with panel access credentials within 24 hours of approval."
+    }
+  },
+  "imoveis": {
+    "ai": {
+      "placeholder": "I want a modern house near a lake for under R$900,000...",
+      "submit": "Search with AI",
+      "searching": "Analyzing...",
+      "hint": "Describe your dream property in natural language"
+    },
+    "location": {
+      "useGps": "Use my location",
+      "gpsDenied": "Allow location access in your browser.",
+      "gpsFailed": "Could not detect your area.",
+      "gpsLowAccuracy": "Approximate location. For better accuracy, use a phone with GPS.",
+      "gpsUnsupported": "Your browser does not support geolocation.",
+      "osmAttribution": "Addresses via OpenStreetMap — free, no API key."
+    },
+    "search": {
+      "title": "What are you looking for?",
+      "filters": "Filters",
+      "clearAll": "Clear all",
+      "priceUpTo": "Up to",
+      "priceFrom": "From",
+      "buy": "Buy",
+      "rent": "Rent",
+      "allTypes": "House",
+      "house": "House",
+      "apartment": "Apartment",
+      "land": "Land",
+      "cityPlaceholder": "City",
+      "pricePlaceholder": "Price",
+      "bedroomsPlaceholder": "Bedrooms",
+      "submit": "Search"
+    },
+    "categories": {
+      "house": "Houses",
+      "apartment": "Apartments",
+      "land": "Land",
+      "commercial": "Commercial",
+      "launches": "New Launches",
+      "condo": "Condos",
+      "beach": "Beach houses",
+      "countryside": "Country houses"
+    },
+    "stats": {
+      "properties": "Properties",
+      "agencies": "Real Estate Agencies",
+      "builders": "Developers",
+      "countries": "Countries",
+      "countriesValue": "{count} countries"
+    },
+    "map": {
+      "location": "Location",
+      "selectRegion": "Select a region or use the search bar above",
+      "world": "World",
+      "back": "Back",
+      "listings": "{count} listings",
+      "exploreWorld": "Select a country to explore",
+      "exploreCountry": "States in {country}",
+      "exploreState": "Cities in {state}",
+      "exploreCity": "Neighborhoods in {city}",
+      "clickRegion": "Click a region to drill down"
+    },
+    "filters": {
+      "title": "Filters",
+      "subtitle": "Refine your search with the options below.",
+      "reset": "Clear",
+      "apply": "Apply filters",
+      "transaction": "Transaction",
+      "type": "Type",
+      "house": "House",
+      "apartment": "Apartment",
+      "land": "Land",
+      "commercial": "Commercial",
+      "state": "State",
+      "buy": "Buy",
+      "rent": "Rent",
+      "condition": "Condition",
+      "new": "New",
+      "used": "Used",
+      "price": "Price",
+      "priceMin": "Min",
+      "priceMax": "Max",
+      "area": "Area",
+      "areaMin": "Min m²",
+      "areaMax": "Max m²",
+      "bedrooms": "Bedrooms",
+      "features": "Features",
+      "garage": "Garage",
+      "pool": "Pool",
+      "pets": "Pets allowed",
+      "financing": "Financing available",
+      "rscCredit": "RSC Credit"
+    },
+    "views": {
+      "list": "List",
+      "gallery": "Gallery",
+      "map": "Map",
+      "satellite": "Satellite"
+    },
+    "results": {
+      "title": "Results",
+      "count": "{count} properties found",
+      "showingCount": "Showing {visible} of {total} properties",
+      "searchPrompt": "Set up your search and click Search",
+      "searchPromptHint": "Use filters to refine type, price, bedrooms and more.",
+      "empty": "No properties found",
+      "emptyHint": "Try adjusting filters or exploring another region.",
+      "sortLabel": "Sort",
+      "saveSearch": "Save search",
+      "searchSaved": "Search saved!",
+      "loadMore": "Load more ({remaining} remaining)",
+      "sort": {
+        "relevance": "Relevance",
+        "price_asc": "Lowest price",
+        "price_desc": "Highest price",
+        "area_desc": "Largest area",
+        "newest": "Newest"
+      }
+    },
+    "card": {
+      "verified": "Verified",
+      "favorite": "Favorite",
+      "compare": "Compare",
+      "buy": "Sale",
+      "rent": "Rent",
+      "bedrooms": "bedrooms",
+      "bathrooms": "bathrooms",
+      "simulateFinancing": "Simulate financing",
+      "viewProperty": "View property"
+    },
+    "detail": {
+      "back": "Back to properties",
+      "verified": "Verified listing",
+      "verifiedBadge": "Verified",
+      "favorite": "Favorite",
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "garage": "Parking",
+      "area": "Area",
+      "pool": "Pool",
+      "yes": "Yes",
+      "description": "Description",
+      "descriptionTitle": "Property description",
+      "descriptionText": "Excellent {type} located in {neighborhood}, {city}. RSC verified property with full documentation and financing options available.",
+      "readMore": "Read more",
+      "readLess": "Read less",
+      "noDescription": "No description available yet.",
+      "listedBy": "Listed by",
+      "published": "Published on {date}",
+      "contact": "Contact seller",
+      "simulateFinancing": "Simulate Financing",
+      "creditTitle": "RSC Credit",
+      "creditText": "Simulate your credit and get approval within 24 hours.",
+      "simulateNow": "Simulate now",
+      "breadcrumbHome": "Home",
+      "breadcrumbProperties": "Properties",
+      "breadcrumbProperty": "Property",
+      "neighborhoodLabel": "{neighborhood} neighborhood",
+      "viewOnMap": "View on map",
+      "share": "Share",
+      "shareCopied": "Link copied!",
+      "shareDone": "Shared!",
+      "save": "Save",
+      "report": "Report",
+      "prevPhoto": "Previous photo",
+      "nextPhoto": "Next photo",
+      "viewAllPhotos": "View all {count} photos",
+      "media": {
+        "photos": "Photos",
+        "video": "Video",
+        "tour": "360° Tour",
+        "floorPlan": "Floor plan",
+        "noVideo": "This property has no video yet.",
+        "tourPlaceholder": "Virtual tour coming soon for this property.",
+        "downloadFloorPlan": "Download floor plan"
+      },
+      "featuresTitle": "Features",
+      "builtArea": "Built area",
+      "landArea": "Land area",
+      "suites": "Suites",
+      "livingRooms": "Living rooms",
+      "kitchen": "Kitchen",
+      "laundry": "Laundry",
+      "heating": "Heating",
+      "yearBuilt": "Year built",
+      "locationTitle": "Location",
+      "simulatorTitle": "Simulate your financing",
+      "simulator": {
+        "propertyValue": "Property value",
+        "downPayment": "Down payment",
+        "term": "Term (months)",
+        "interestRate": "Interest rate (% p.m.)",
+        "estimatedInstallment": "Estimated installment:",
+        "perMonth": "/month"
+      },
+      "salePrice": "Sale price",
+      "condoFee": "Condo fee",
+      "iptu": "Property tax",
+      "downFrom": "Down payment from",
+      "installmentsFrom": "Installments from",
+      "whatsapp": "Chat on WhatsApp",
+      "sendMessage": "Send message",
+      "scheduleVisit": "Schedule visit",
+      "onlineNow": "Quick response — online now",
+      "agency": "Agency",
+      "yearsInMarket": "{years} years in market",
+      "activeListings": "Active",
+      "sold": "Sold",
+      "positiveReviews": "Positive reviews",
+      "reviews": "Reviews",
+      "agent": "Agent",
+      "viewProfile": "View profile",
+      "otherProperties": "Other properties",
+      "similarProperties": "See similar properties"
+    },
+    "companies": {
+      "title": "Premium Real Estate Agencies",
+      "subtitle": "RSC verified partners",
+      "adLabel": "Premium",
+      "listings": "{count} listings"
+    },
+    "sections": {
+      "launches": "New Launches",
+      "launchesSubtitle": "Selected new developments",
+      "new": "New",
+      "newListings": "New listings",
+      "newListingsSubtitle": "Just added to the catalog",
+      "premium": "Premium Homes",
+      "premiumBadge": "Premium",
+      "recommended": "Verified properties",
+      "recommendedSubtitle": "Listings from verified partner agencies",
+      "verifiedBadge": "Verified"
+    },
+    "footer": {
+      "tagline": "The world's largest real estate and automotive ecosystem.",
+      "properties": "Properties",
+      "services": "Services",
+      "company": "Company",
+      "countries": "Countries",
+      "states": "States in Brazil",
+      "more": "more",
+      "rights": "All rights reserved.",
+      "privacy": "Privacy",
+      "terms": "Terms of use"
+    },
+    "cityLanding": {
+      "metaTitle": "Properties in {city}, {state} | RSC Market",
+      "metaDescription": "Browse houses, apartments, land and commercial properties in {city}, {state}. Compare prices, schedule visits and simulate financing on RSC Market.",
+      "metaKeywords": "properties {city}, houses {city}, apartments {city}, land {city}, real estate {city} {state}, buy property {city}, rent {city}",
+      "breadcrumbHome": "Home",
+      "breadcrumbProperties": "Properties",
+      "hero": {
+        "badge": "City guide",
+        "title": "Properties in {city}, {state}",
+        "subtitle": "Discover verified listings from trusted agencies and developers. Search by neighborhood, property type, price range and financing options.",
+        "cta": "Search properties in {city}",
+        "faqLink": "Common questions"
+      },
+      "stats": {
+        "listings": "Active listings in {city}",
+        "region": "Metropolitan region · Brazil",
+        "financingTitle": "RSC Credit",
+        "financingBody": "Simulate installments and submit financing requests for properties in {city}."
+      },
+      "intro": {
+        "title": "Real estate market in {city}",
+        "p1": "{city} is one of Brazil's most active real estate markets in {state}. On RSC Market you can explore houses, apartments, land plots and commercial spaces with transparent pricing and direct contact with verified sellers.",
+        "p2": "Whether you are buying your first home, investing in rental income or relocating for work, filter listings by transaction type, bedrooms, area and neighborhood to find options that match your budget and lifestyle in {city}.",
+        "p3": "Use our interactive map, save favorite listings, compare properties side by side and schedule in-person visits — all without leaving the platform."
+      },
+      "categories": {
+        "title": "Browse by property type in {city}",
+        "subtitle": "Jump straight to the category you need with pre-applied city filters."
+      },
+      "featured": {
+        "title": "Featured properties in {city}",
+        "subtitle": "A selection of current listings available in {city}, {state}.",
+        "viewAll": "View all in {city}"
+      },
+      "faq": {
+        "title": "FAQ — buying property in {city}",
+        "items": {
+          "0": {
+            "question": "How do I search for properties in {city}?",
+            "answer": "Use the search button above or browse by property type. Filters for price, bedrooms, transaction (buy or rent) and neighborhood are applied automatically for {city}, {state}."
+          },
+          "1": {
+            "question": "Are the listings in {city} verified?",
+            "answer": "RSC Market works with verified agencies and developers. Listings marked as verified have been reviewed by our team. You can also report suspicious ads directly from the property page."
+          },
+          "2": {
+            "question": "Can I finance a property in {city}?",
+            "answer": "Yes. Use RSC Credit to simulate down payment, term and monthly installments. You can submit a financing request linked to a specific listing in {city} or run a general simulation."
+          },
+          "3": {
+            "question": "How do I schedule a visit in {city}?",
+            "answer": "Open any listing in {city} and click Schedule visit. Choose a date and time; the agency receives your request and confirms availability. Your visits are saved to your dashboard."
+          },
+          "4": {
+            "question": "Does RSC Market cover all neighborhoods in {city}?",
+            "answer": "Coverage grows as new agencies join. Search by neighborhood on the map or use the AI search bar to describe what you need — for example, a three-bedroom apartment near the city center of {city}."
+          }
+        }
+      },
+      "links": {
+        "title": "Useful links",
+        "buy": "Properties for sale in {city}",
+        "rent": "Properties for rent in {city}",
+        "financing": "Simulate financing",
+        "help": "Help center",
+        "services": "Services catalog"
+      },
+      "related": {
+        "title": "Explore other cities",
+        "viewAll": "All properties in Brazil"
+      }
+    },
+    "report": {
+      "title": "Report listing",
+      "reason": "Reason for report",
+      "email": "Your email (optional)",
+      "submit": "Submit report",
+      "submitting": "Submitting...",
+      "success": "Report received. Thank you for helping keep the platform safe.",
+      "error": "Could not submit. Please try again.",
+      "close": "Close"
+    }
+  },
+  "veiculos": {
+    "ai": {
+      "placeholder": "Looking for a hybrid SUV in Porto Alegre under R$250,000...",
+      "submit": "Search with AI",
+      "searching": "Analyzing..."
+    },
+    "search": {
+      "title": "What vehicle are you looking for?",
+      "filters": "Filters",
+      "clearAll": "Clear all",
+      "priceUpTo": "Up to",
+      "priceFrom": "From",
+      "cityPlaceholder": "City",
+      "submit": "Search"
+    },
+    "categories": {
+      "car": "Cars",
+      "suv": "SUV",
+      "sports": "Sports",
+      "van": "Vans",
+      "truck": "Trucks",
+      "motorcycle": "Motorcycles",
+      "machinery": "Machinery",
+      "electric": "Electric",
+      "hybrid": "Hybrid"
+    },
+    "stats": {
+      "vehicles": "Vehicles",
+      "dealerships": "Dealerships",
+      "brands": "Brands",
+      "countries": "Countries",
+      "countriesValue": "{count} countries"
+    },
+    "filters": {
+      "title": "Filters",
+      "reset": "Clear",
+      "make": "Brand",
+      "model": "Model",
+      "modelPlaceholder": "E.g. Corolla",
+      "year": "Year",
+      "yearMin": "From",
+      "yearMax": "To",
+      "price": "Price",
+      "priceMin": "Min.",
+      "priceMax": "Max.",
+      "mileage": "Mileage",
+      "mileageMax": "Max km",
+      "fuel": "Fuel",
+      "gasoline": "Gasoline",
+      "diesel": "Diesel",
+      "flex": "Flex",
+      "electric": "Electric",
+      "hybrid": "Hybrid",
+      "transmission": "Transmission",
+      "manual": "Manual",
+      "automatic": "Automatic",
+      "cvt": "CVT",
+      "color": "Color",
+      "colorPlaceholder": "E.g. Black",
+      "engine": "Engine",
+      "enginePlaceholder": "E.g. 2.0",
+      "drive": "Drive",
+      "fwd": "FWD",
+      "rwd": "RWD",
+      "awd": "AWD",
+      "4x4": "4x4",
+      "financing": "Financing",
+      "state": "State",
+      "city": "City",
+      "cityPlaceholder": "City",
+      "all": "All"
+    },
+    "views": {
+      "list": "List",
+      "gallery": "Gallery",
+      "map": "Map",
+      "satellite": "Satellite"
+    },
+    "results": {
+      "title": "Results",
+      "count": "{count} vehicles found",
+      "searchPrompt": "Set up your search and click Search",
+      "searchPromptHint": "Use filters to refine brand, price, year and more.",
+      "empty": "No vehicles found",
+      "emptyHint": "Try adjusting filters or exploring another region.",
+      "saveSearch": "Save search",
+      "searchSaved": "Search saved!",
+      "showingCount": "Showing {visible} of {total} vehicles",
+      "loadMore": "Load more ({remaining} remaining)"
+    },
+    "card": {
+      "verified": "Verified",
+      "favorite": "Favorite",
+      "compare": "Compare",
+      "installmentFrom": "Installment from",
+      "save": "Save",
+      "simulate": "Simulate"
+    },
+    "sections": {
+      "featured": "Featured vehicles",
+      "featuredSubtitle": "Most searched this week",
+      "featuredBadge": "Featured",
+      "premium": "Premium Vehicles",
+      "premiumBadge": "Premium",
+      "recommended": "Recommended for you",
+      "recommendedSubtitle": "AI-selected based on your profile",
+      "aiBadge": "AI"
+    },
+    "dealers": {
+      "title": "Premium Dealerships",
+      "subtitle": "RSC verified partners",
+      "badge": "Premium",
+      "verified": "Verified",
+      "listings": "{count} vehicles"
+    },
+    "cityLanding": {
+      "metaTitle": "Vehicles in {city}, {state} | RSC Market",
+      "metaDescription": "Explore cars, SUVs, motorcycles and electric vehicles in {city}, {state}. Compare prices, simulate financing and contact dealerships on RSC Market.",
+      "metaKeywords": "vehicles {city}, cars {city}, SUVs {city}, dealership {city} {state}, buy car {city}",
+      "breadcrumbHome": "Home",
+      "breadcrumbVehicles": "Vehicles",
+      "hero": {
+        "badge": "City guide",
+        "title": "Vehicles in {city}, {state}",
+        "subtitle": "Discover listings from verified dealerships. Search by brand, year, price and vehicle type with filters applied for {city}.",
+        "cta": "Search vehicles in {city}",
+        "faqLink": "Frequently asked questions"
+      },
+      "stats": {
+        "listings": "Active listings in {city}",
+        "region": "Metropolitan area · Brazil",
+        "financingTitle": "Financing",
+        "financingBody": "Simulate installments and submit requests for vehicles in {city}."
+      },
+      "intro": {
+        "title": "Automotive market in {city}",
+        "p1": "{city} offers a wide range of cars, SUVs, motorcycles and commercial vehicles. On RSC Market you compare prices, mileage and financing options transparently.",
+        "p2": "Filter by brand, year, fuel type and price range to find the right vehicle in {city}, {state}. Save searches and get email alerts when new matches appear.",
+        "p3": "Use the map, save favorites, compare up to three vehicles and chat with sellers — all in one place."
+      },
+      "categories": {
+        "title": "Browse by type in {city}",
+        "subtitle": "Jump to a category with city filters already applied."
+      },
+      "featured": {
+        "title": "Featured vehicles in {city}",
+        "subtitle": "A selection of listings available in {city}, {state}.",
+        "viewAll": "View all in {city}"
+      },
+      "faq": {
+        "title": "FAQ — buying a vehicle in {city}",
+        "items": {
+          "0": {
+            "question": "How do I search for vehicles in {city}?",
+            "answer": "Use the search button above or pick a vehicle type. Price, year, brand and fuel filters are applied for {city}, {state}."
+          },
+          "1": {
+            "question": "Are listings in {city} verified?",
+            "answer": "We work with partner dealerships. Verified listings are reviewed by our team. You can report suspicious ads on the vehicle page."
+          },
+          "2": {
+            "question": "Can I finance a vehicle in {city}?",
+            "answer": "Yes. Use the financing simulator on the vehicle page or visit Financing to estimate installments before submitting a request."
+          },
+          "3": {
+            "question": "How do I compare vehicles?",
+            "answer": "Click the compare icon on cards to add up to three vehicles. Your list is saved in the dashboard under Compare."
+          },
+          "4": {
+            "question": "Does coverage include the whole {city} area?",
+            "answer": "Inventory grows as new dealerships join. Use the map and city filters to refine results in {city} and nearby areas."
+          }
+        }
+      },
+      "links": {
+        "title": "Useful links",
+        "cars": "Cars in {city}",
+        "suvs": "SUVs in {city}",
+        "financing": "Simulate financing",
+        "help": "Help center",
+        "services": "Services catalog"
+      },
+      "related": {
+        "title": "Explore other cities",
+        "viewAll": "All vehicles in Brazil"
+      }
+    },
+    "detail": {
+      "breadcrumbHome": "Home",
+      "breadcrumbVehicles": "Vehicles",
+      "verifiedBadge": "Verified",
+      "share": "Share",
+      "shareCopied": "Link copied!",
+      "shareDone": "Shared!",
+      "save": "Save",
+      "report": "Report",
+      "prevPhoto": "Previous photo",
+      "nextPhoto": "Next photo",
+      "media": {
+        "photos": "Gallery",
+        "video": "Video",
+        "tour360": "360°"
+      },
+      "tour360Placeholder": "360° tour available — drag to explore",
+      "year": "Year",
+      "mileage": "Mileage",
+      "fuel": "Fuel",
+      "engine": "Engine",
+      "descriptionTitle": "Description",
+      "readMore": "Read more",
+      "readLess": "Read less",
+      "specsTitle": "Technical specs",
+      "historyTitle": "History",
+      "equipmentTitle": "Equipment",
+      "consumptionTitle": "Consumption",
+      "warrantyTitle": "Warranty",
+      "engineTitle": "Engine & transmission",
+      "locationTitle": "Location",
+      "simulatorTitle": "Simulate your financing",
+      "simulator": {
+        "vehicleValue": "Vehicle value",
+        "downPayment": "Down payment",
+        "term": "Term (months)",
+        "interestRate": "Interest rate (% monthly)",
+        "estimatedInstallment": "Estimated installment:",
+        "perMonth": "/month"
+      },
+      "similarVehicles": "Similar vehicles",
+      "otherVehicles": "More from this dealership",
+      "downFrom": "Down payment from",
+      "installmentsFrom": "Installments from",
+      "simulateFinancing": "Simulate financing",
+      "contactDealer": "Contact dealership",
+      "dealershipTitle": "Dealership",
+      "reviews": "reviews",
+      "years": "Years",
+      "active": "Active",
+      "sold": "Sold"
+    },
+    "footer": {
+      "tagline": "The world's largest real estate and automotive ecosystem.",
+      "vehicles": "Vehicles",
+      "services": "Services",
+      "company": "Company",
+      "countries": "Countries",
+      "states": "States in Brazil",
+      "rights": "All rights reserved.",
+      "privacy": "Privacy",
+      "terms": "Terms of use"
+    },
+    "dashboard": {
+      "title": "Buyer Dashboard",
+      "subtitle": "Manage favorites, requests and visits",
+      "favorites": "My favorites",
+      "requests": "Requests",
+      "chats": "Chats",
+      "visits": "Visits",
+      "compare": "Compare",
+      "favoritesTitle": "My favorite vehicles",
+      "favoritesEmpty": "You haven't saved any vehicles yet.",
+      "requestsTitle": "Financing requests",
+      "requestsEmpty": "You have no pending requests.",
+      "chatsTitle": "Dealership conversations",
+      "chatsEmpty": "You have no messages yet.",
+      "visitsTitle": "Scheduled visits",
+      "visitsEmpty": "You have no scheduled visits.",
+      "compareTitle": "Vehicle comparator",
+      "compareEmpty": "Add vehicles to compare them side by side.",
+      "browseVehicles": "Browse vehicles"
+    }
+  },
+  "contact": {
+    "panel": {
+      "chatRsc": "Chat on RSC",
+      "whatsapp": "WhatsApp",
+      "scheduleVisit": "Schedule visit",
+      "whatsappPrefill": "Hi! I'm interested in this listing: {title}"
+    },
+    "schedule": {
+      "title": "Schedule a visit",
+      "name": "Your name",
+      "phone": "Phone",
+      "email": "Email (optional)",
+      "date": "Preferred date",
+      "time": "Time",
+      "notes": "Notes",
+      "submit": "Confirm booking",
+      "submitting": "Submitting...",
+      "successTitle": "Visit requested!",
+      "successBody": "Your request has been processed. The agency will contact you as soon as possible.",
+      "close": "Close",
+      "error": "Could not schedule. Please try again.",
+      "dateUnavailable": "That date is not available. Choose another one.",
+      "timeUnavailable": "That time slot is already taken. Choose another one.",
+      "companySlotsHint": "The company marked available dates. Pick one of them.",
+      "freeDateHint": "Pick your preferred date. Dates already booked are unavailable."
+    },
+    "visitConfirmed": {
+      "loading": "Loading...",
+      "title": "Visit requested!",
+      "subtitle": "Your request was submitted successfully.",
+      "property": "Property",
+      "agency": "Agency",
+      "schedule": "Date and time",
+      "nextSteps": "The agency will contact you to confirm the visit details.",
+      "backToProperty": "Back to property",
+      "browseMore": "Browse more properties"
+    },
+    "chat": {
+      "title": "RSC Chat",
+      "namePrompt": "What should we call you in this conversation?",
+      "namePlaceholder": "Your name",
+      "defaultBuyerName": "Visitor",
+      "continue": "Continue",
+      "loading": "Opening conversation...",
+      "empty": "Send the first message to the agency.",
+      "placeholder": "Write your message...",
+      "refresh": "Refresh",
+      "close": "Close",
+      "errorOpen": "Could not open chat.",
+      "errorSend": "Could not send message."
+    },
+    "buyer": {
+      "chats": {
+        "loading": "Loading conversations...",
+        "emptyTitle": "No conversations yet",
+        "emptyBody": "Start a chat from a property or vehicle listing.",
+        "messages": "{count} messages",
+        "viewListing": "View listing",
+        "continueChat": "Continue conversation",
+        "backToList": "Back to conversations",
+        "loadingThread": "Loading conversation...",
+        "notFoundTitle": "Conversation not found",
+        "notFoundBody": "This chat may have been removed or the link is invalid.",
+        "forbiddenTitle": "Access denied",
+        "forbiddenBody": "This conversation belongs to another account."
+      },
+      "visits": {
+        "loading": "Loading visits...",
+        "emptyTitle": "No scheduled visits",
+        "emptyBody": "Schedule a visit from a property listing.",
+        "scheduledFor": "Requested for {date} at {time}",
+        "viewListing": "View listing",
+        "status": {
+          "pending": "Pending",
+          "confirmed": "Confirmed",
+          "cancelled": "Cancelled",
+          "reschedule_proposed": "New date proposed"
+        },
+        "companyReply": "Company reply",
+        "proposedFor": "New proposal: {date} at {time}",
+        "acceptReschedule": "Accept new date",
+        "keepOriginal": "Keep original date",
+        "actionError": "Could not update the visit.",
+        "timeUnavailable": "That time slot is no longer available."
+      }
+    },
+    "company": {
+      "title": "Leads dashboard",
+      "loading": "Loading...",
+      "tabs": {
+        "visits": "Scheduled visits",
+        "chats": "RSC chats",
+        "listings": "Listings",
+        "config": "WhatsApp"
+      },
+      "visits": {
+        "emptyTitle": "No scheduled visits",
+        "emptyBody": "When buyers schedule visits on your listings, they will appear here.",
+        "scheduledFor": "Requested for {date} at {time}",
+        "status": {
+          "pending": "Pending",
+          "confirmed": "Confirmed",
+          "cancelled": "Cancelled",
+          "reschedule_proposed": "Reschedule proposed"
+        }
+      },
+      "chats": {
+        "emptyTitle": "No chats yet",
+        "emptyBody": "Conversations started by buyers will appear here.",
+        "messages": "{count} messages",
+        "replyPlaceholder": "Reply to buyer...",
+        "reply": "Send"
+      },
+      "config": {
+        "title": "Company WhatsApp",
+        "subtitle": "This number will be used on the WhatsApp button in your listings.",
+        "whatsapp": "Number with country code (digits only)",
+        "hint": "Example: 5554999887766 for Brazil (+55 54 99988-7766)",
+        "save": "Save settings",
+        "saved": "Saved!"
+      },
+      "listings": {
+        "disabledTitle": "Listings in the backoffice",
+        "disabledBody": "Local listing management is disabled. Publish and edit properties or vehicles in the RSC backoffice.",
+        "disabledCta": "Open backoffice",
+        "loading": "Loading listings...",
+        "title": "Your properties",
+        "new": "New",
+        "emptyTitle": "No listings yet",
+        "emptyBody": "Create a listing and upload photos and videos to publish.",
+        "selectPrompt": "Select a listing to manage photos and videos.",
+        "createTitle": "New listing",
+        "createSubmit": "Create listing",
+        "createError": "Could not create listing.",
+        "uploadError": "Upload failed.",
+        "videoError": "Could not save video.",
+        "saving": "Saving...",
+        "back": "Back",
+        "viewPublic": "View listing",
+        "photosTitle": "Photos",
+        "addPhotos": "Add photos",
+        "noPhotos": "No photos uploaded yet.",
+        "removePhoto": "Remove photo",
+        "photoCount": "{count} photos",
+        "hasVideo": "with video",
+        "videoTitle": "Video",
+        "uploadVideo": "Upload video file (MP4, WebM)",
+        "videoUrlPlaceholder": "Or paste YouTube / Vimeo link",
+        "saveVideoUrl": "Save link",
+        "videoSaved": "Video configured",
+        "tourTitle": "Virtual tour",
+        "tourUrlPlaceholder": "Paste Matterport, Kuula or similar link",
+        "saveTourUrl": "Save tour",
+        "tourSaved": "Virtual tour configured",
+        "hasTour": "with 360° tour",
+        "tourError": "Could not save the virtual tour.",
+        "floorPlanTitle": "Floor plan",
+        "uploadFloorPlan": "Upload floor plan (JPG, PNG, WebP or PDF)",
+        "removeFloorPlan": "Remove floor plan",
+        "floorPlanSaved": "Floor plan configured",
+        "hasFloorPlan": "with floor plan",
+        "floorPlanError": "Could not save the floor plan.",
+        "fields": {
+          "title": "Title",
+          "type": "Type",
+          "transaction": "Transaction",
+          "price": "Price",
+          "city": "City",
+          "description": "Description"
+        },
+        "types": {
+          "house": "House",
+          "apartment": "Apartment",
+          "land": "Land",
+          "commercial": "Commercial"
+        },
+        "transactions": {
+          "buy": "Sale",
+          "rent": "Rent"
+        }
+      }
+    }
+  },
+  "dashboard": {
+    "title": "My account",
+    "subtitle": "Favorites, saved searches, visits and property compare",
+    "favorites": "Favorites",
+    "searches": "Saved searches",
+    "visits": "Visits",
+    "chats": "Chats",
+    "compareTab": "Compare",
+    "requests": "Financing",
+    "favoritesTitle": "My favorites",
+    "searchesTitle": "Saved searches",
+    "propertySearchesTitle": "Properties",
+    "vehicleSearchesTitle": "Vehicles",
+    "vehicleCompareTitle": "Vehicles",
+    "visitsTitle": "Scheduled visits",
+    "chatsTitle": "Agency conversations",
+    "requestsTitle": "Financing requests",
+    "requestsEmpty": "You have not started a credit simulation yet.",
+    "financingCta": "Simulate financing",
+    "comparePanel": {
+      "title": "Compare properties",
+      "loading": "Loading...",
+      "emptyTitle": "No properties to compare",
+      "emptyBody": "Use the compare icon on cards to add up to 3 properties.",
+      "browseProperties": "Browse properties",
+      "clear": "Clear all",
+      "remove": "Remove",
+      "bedrooms": "Bedrooms",
+      "area": "Area",
+      "garage": "Garage",
+      "type": "Type",
+      "signIn": "Sign in",
+      "guestHint": "Sign in to sync your comparison list across devices.",
+      "guestSyncBanner": "This comparison list is saved on this device only.",
+      "syncedHint": "Synced with your account — available on all your devices."
+    },
+    "vehicleComparePanel": {
+      "title": "Compare vehicles",
+      "loading": "Loading...",
+      "emptyTitle": "No vehicles to compare",
+      "emptyBody": "Use the compare icon on cards to add up to 3 vehicles.",
+      "browseVehicles": "Browse vehicles",
+      "clear": "Clear all",
+      "remove": "Remove",
+      "year": "Year",
+      "mileage": "Mileage",
+      "fuel": "Fuel",
+      "transmission": "Transmission",
+      "signIn": "Sign in",
+      "guestHint": "Sign in to sync your comparison list across devices.",
+      "guestSyncBanner": "This comparison list is saved on this device only.",
+      "syncedHint": "Synced with your account — available on all your devices."
+    },
+    "savedSearches": {
+      "emptyTitle": "No saved searches",
+      "emptyBody": "Save a search from results to access it quickly here.",
+      "browse": "Go to properties",
+      "open": "Open",
+      "remove": "Remove",
+      "loading": "Loading saved searches...",
+      "signIn": "Sign in",
+      "guestHint": "Sign in to sync your saved searches across devices.",
+      "guestSyncBanner": "These saved searches are stored on this device only.",
+      "syncedHint": "Synced with your account — available on all your devices.",
+      "alertsEnabled": "Email alerts enabled",
+      "alertsToggle": "Receive email alerts",
+      "alertsLoginRequired": "Sign in to enable email alerts.",
+      "alertFrequencyLabel": "Frequency",
+      "alertFrequency": {
+        "instant": "Immediate",
+        "daily": "Daily",
+        "weekly": "Weekly"
+      },
+      "lastAlertAt": "Last alert: {date}"
+    },
+    "savedVehicleSearches": {
+      "emptyTitle": "No saved searches",
+      "emptyBody": "Save a search from vehicle results to access it quickly here.",
+      "browse": "Go to vehicles",
+      "open": "Open",
+      "remove": "Remove",
+      "loading": "Loading saved searches...",
+      "signIn": "Sign in",
+      "guestHint": "Sign in to sync your saved searches across devices.",
+      "guestSyncBanner": "These saved searches are stored on this device only.",
+      "syncedHint": "Synced with your account — available on all your devices.",
+      "alertsEnabled": "Email alerts enabled",
+      "alertsToggle": "Receive email alerts",
+      "alertsLoginRequired": "Sign in to enable email alerts.",
+      "alertFrequencyLabel": "Frequency",
+      "alertFrequency": {
+        "instant": "Immediate",
+        "daily": "Daily",
+        "weekly": "Weekly"
+      },
+      "lastAlertAt": "Last alert: {date}"
+    },
+    "reviewTab": "My review",
+    "review": {
+      "title": "Rate Reeskova",
+      "subtitle": "Your review appears on the homepage when you publish it. RSC only publishes and connects; it does not handle paperwork.",
+      "rating": "Your rating",
+      "comment": "Your comment",
+      "commentPlaceholder": "Tell us about your marketplace experience…",
+      "location": "City (optional)",
+      "locationPlaceholder": "E.g.: São Paulo, Brazil",
+      "submit": "Publish review",
+      "saving": "Saving…",
+      "saved": "Done! Your review can now appear on the home page.",
+      "loading": "Loading…",
+      "error": "Could not save. Please try again."
+    }
+  },
+  "financing": {
+    "title": "Financing with RSC Crédit",
+    "subtitle": "Free financial consulting to unlock properties, vehicles, and credit in Brazil.",
+    "hero": {
+      "eyebrow": "RSC Crédit · Brazil",
+      "title": "Financial solutions to make your next plan real.",
+      "subtitle": "RSC Crédit is the financial consulting arm of the RSC ecosystem. We compare options across partner institutions and guide you at every step — with no consulting fee.",
+      "cta": "Go to RSC Crédit",
+      "ctaHint": "You will be directed to rsccredit.com.br"
+    },
+    "about": {
+      "title": "What is RSC Crédit?",
+      "body": "We are not a bank. We act as a consultancy and facilitator: we analyze your profile, compare proposals across our partner network, and guide you to the best choice with transparency.",
+      "guarantees": {
+        "free": {
+          "title": "100% free consulting",
+          "body": "We never charge registration, analysis, or advisory fees. Be wary of anyone asking for money in RSC Crédit's name."
+        },
+        "partners": {
+          "title": "Partner network",
+          "body": "Access to banks, lenders, and regulated institutions for credit, financing, and insurance."
+        },
+        "support": {
+          "title": "Full support",
+          "body": "From first contact through contracting with a partner, you get specialized support."
+        }
+      }
+    },
+    "services": {
+      "title": "How RSC Crédit can help",
+      "subtitle": "Solutions for individuals and companies, with guidance at every stage.",
+      "items": {
+        "home": {
+          "title": "Home financing",
+          "body": "Credit and contemplated letters for residential or commercial property purchases."
+        },
+        "vehicle": {
+          "title": "Vehicle financing",
+          "body": "Advisory to buy new or used vehicles with competitive conditions."
+        },
+        "personal": {
+          "title": "Personal credit",
+          "body": "Analysis and search for options tailored to your needs."
+        },
+        "business": {
+          "title": "Business credit",
+          "body": "Working capital, expansion, and business strengthening."
+        }
+      }
+    },
+    "steps": {
+      "title": "How it works",
+      "subtitle": "Consulting that compares the market for you.",
+      "items": {
+        "profile": {
+          "title": "Share your profile",
+          "body": "Amount, goal, and contact details on RSC Crédit — simulation or WhatsApp."
+        },
+        "compare": {
+          "title": "We compare partners",
+          "body": "We analyze options across financial institutions in the associated network."
+        },
+        "propose": {
+          "title": "Receive your proposal",
+          "body": "You choose the best option with support through contracting."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to continue with RSC Crédit?",
+      "body": "The full credit, financing, and consulting journey happens on the official RSC Crédit website — with transparency and zero consulting fees.",
+      "button": "Open rsccredit.com.br",
+      "disclaimer": "Final approval is up to the partner financial institutions."
+    },
+    "unavailable": {
+      "eyebrow": "Financing",
+      "title": "Available in Brazil only",
+      "body": "Financing via RSC Crédit is available for the Brazilian market. Your current market is {country}.",
+      "ctaProperties": "Browse properties",
+      "ctaHome": "Back to home"
+    }
+  },
+  "financingRequests": {
+    "loading": "Loading requests...",
+    "emptyTitle": "No financing requests yet",
+    "emptyBody": "Run a simulation and submit an RSC Credit request to see it here.",
+    "simulateCta": "Simulate financing",
+    "generalSimulation": "General simulation",
+    "propertyValue": "Property value",
+    "downPayment": "Down payment",
+    "term": "Term",
+    "months": "months",
+    "installment": "Estimated installment",
+    "perMonth": "/mo",
+    "viewListing": "View listing",
+    "phone": "Phone",
+    "status": {
+      "pending": "Pending",
+      "in_analysis": "In analysis",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    }
+  },
+  "adminFinancing": {
+    "loading": "Loading requests...",
+    "loadError": "Could not load financing requests.",
+    "saveError": "Could not update status.",
+    "emptyTitle": "No financing requests",
+    "apiHint": "External dashboards use GET /api/financing/requests and PATCH to update status.",
+    "generalSimulation": "General simulation",
+    "anonymous": "Anonymous",
+    "noEmail": "No email",
+    "propertyValue": "Value",
+    "downPayment": "Down payment",
+    "term": "Term",
+    "months": "months",
+    "installment": "Estimated installment",
+    "phone": "Phone",
+    "updateStatus": "Status",
+    "viewListing": "View listing",
+    "filters": {
+      "all": "All"
+    },
+    "status": {
+      "pending": "Pending",
+      "in_analysis": "In analysis",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    }
+  },
+  "adminReports": {
+    "loading": "Loading reports...",
+    "emptyTitle": "No reports",
+    "emptyBody": "User-submitted listing reports will appear here.",
+    "notFound": "Report not found.",
+    "backToList": "Back to reports",
+    "reason": "Report reason",
+    "reporterEmail": "Reporter email",
+    "anonymous": "Anonymous",
+    "listingId": "Listing ID",
+    "viewListing": "View listing",
+    "reviewTitle": "Moderation review",
+    "statusLabel": "Status",
+    "adminNotes": "Admin notes",
+    "adminNotesPlaceholder": "Internal notes about this report...",
+    "lastReviewed": "Last reviewed on {date}",
+    "saveReview": "Save review",
+    "saving": "Saving...",
+    "saveError": "Could not save. Please try again.",
+    "filters": {
+      "all": "All"
+    },
+    "listingKind": {
+      "property": "Property",
+      "vehicle": "Vehicle"
+    },
+    "status": {
+      "pending": "Pending",
+      "reviewing": "Under review",
+      "resolved": "Resolved",
+      "dismissed": "Dismissed"
+    }
+  },
+  "helpPage": {
+    "hero": {
+      "badge": "Help Center",
+      "title": "How can we help you?",
+      "subtitle": "Find answers, contact support, and open our full privacy and terms policies."
+    },
+    "quickLinks": {
+      "faq": "Frequently asked questions",
+      "contact": "Contact support",
+      "privacy": "Privacy policy",
+      "terms": "Terms of use"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "subtitle": "Quick answers to the most common questions about RSC Market.",
+      "categories": {
+        "account": {
+          "title": "Account & access",
+          "items": {
+            "0": {
+              "question": "How do I create an account?",
+              "answer": "Click Register in the header or go to the sign-in page. You can sign up with Google or email. Your account lets you save favorites, schedule visits, and chat with sellers."
+            },
+            "1": {
+              "question": "How do I recover my password?",
+              "answer": "On the sign-in page, use Forgot password? Enter your email and open the reset link we send you. If you signed up with Google, continue using Google to access your account."
+            },
+            "2": {
+              "question": "How do I manage my favorites?",
+              "answer": "Tap the heart icon on any property or vehicle card while signed in. Access all saved items from the Wishlist link in the header or your dashboard."
+            }
+          }
+        },
+        "search": {
+          "title": "Search & filters",
+          "items": {
+            "0": {
+              "question": "How do I search for properties or vehicles?",
+              "answer": "Use the global search in the header or browse Imóveis and Veículos sections. Apply filters for type, price, location, and more, then click Search to see results."
+            },
+            "1": {
+              "question": "Can I save a search?",
+              "answer": "Yes. After running a search on the properties page, use Save search in the results panel. Saved searches appear in your dashboard for quick access."
+            },
+            "2": {
+              "question": "How do I change my region or market?",
+              "answer": "Use the region switcher in the header to select your country or market. Listings, currency, and available services adapt to your selected region."
+            }
+          }
+        },
+        "listings": {
+          "title": "Listings & visits",
+          "items": {
+            "0": {
+              "question": "How do I contact a seller?",
+              "answer": "Open a listing detail page and use the chat or contact options. Sign in to send messages and receive replies directly on the platform."
+            },
+            "1": {
+              "question": "How do I schedule a visit?",
+              "answer": "On a property detail page, choose Schedule visit, pick an available time, and confirm. You will receive a confirmation and can track visits in your dashboard."
+            },
+            "2": {
+              "question": "How does property comparison work?",
+              "answer": "Use the compare icon on up to three property cards. Open Compare in your dashboard to review specs side by side before deciding."
+            }
+          }
+        },
+        "business": {
+          "title": "For business",
+          "items": {
+            "0": {
+              "question": "How can my company join RSC Market?",
+              "answer": "Visit For Business and complete the registration form. Our team reviews your application and grants access to the company dashboard once approved."
+            },
+            "1": {
+              "question": "What can I do in the company dashboard?",
+              "answer": "Manage listings, respond to leads, track analytics, and communicate with buyers — all from a single verified business panel."
+            },
+            "2": {
+              "question": "Is there a cost to list as a business?",
+              "answer": "Plans vary by size and market. See pricing on the For Business page or contact our team for enterprise options."
+            }
+          }
+        },
+        "security": {
+          "title": "Security & data",
+          "items": {
+            "0": {
+              "question": "Is my personal data protected?",
+              "answer": "Yes. We use industry-standard encryption and follow applicable privacy regulations. Read our Privacy policy for full details."
+            },
+            "1": {
+              "question": "How are listings verified?",
+              "answer": "Partner agencies and verified sellers go through a review process. Look for the Verified badge on listings and company profiles."
+            },
+            "2": {
+              "question": "How do I report suspicious activity?",
+              "answer": "Contact support@rscmarket.com with the listing link and details. Our trust and safety team reviews reports promptly."
+            }
+          }
+        }
+      }
+    },
+    "contact": {
+      "title": "Contact support",
+      "subtitle": "Our team is ready to help with account issues, listings, visits, and business inquiries.",
+      "emailLabel": "Email",
+      "hoursLabel": "Hours",
+      "hours": "Monday to Friday, 9:00–18:00 (local time)",
+      "ctaAccount": "Sign in to your account",
+      "ctaBrowse": "Browse listings"
+    },
+    "legalLinks": {
+      "title": "Legal documents",
+      "subtitle": "Review the full policies that govern privacy, platform use, cookies, and compliance on REESKOVA / RSC Market.",
+      "cookies": "Cookies",
+      "compliance": "Compliance"
+    }
+  },
+  "servicesPage": {
+    "hero": {
+      "badge": "RSC Services",
+      "titleStart": "Everything you need in",
+      "titleHighlight": "one marketplace",
+      "subtitle": "From finding your next home or vehicle to financing, insurance, and business tools — RSC Market brings it all together."
+    },
+    "catalog": {
+      "title": "Our services",
+      "subtitle": "Explore the full range of solutions available on the platform."
+    },
+    "insurance": {
+      "title": "Insurance & protection",
+      "subtitle": "Protect what matters most with coverage options designed for property owners, drivers, and families across our markets.",
+      "bullets": {
+        "0": "Partner insurers with competitive rates",
+        "1": "Home, vehicle, and life coverage options",
+        "2": "Guidance from RSC specialists"
+      },
+      "plansTitle": "Coverage types",
+      "plans": {
+        "home": {
+          "name": "Home insurance",
+          "description": "Protect your property against damage, theft, and liability."
+        },
+        "vehicle": {
+          "name": "Vehicle insurance",
+          "description": "Comprehensive and third-party coverage for cars and motorcycles."
+        },
+        "life": {
+          "name": "Life insurance",
+          "description": "Financial security for you and your family."
+        }
+      },
+      "cta": "Talk to a specialist"
+    },
+    "benefits": {
+      "title": "Why choose RSC Market",
+      "subtitle": "A trusted platform built for buyers, sellers, and businesses across Latin America and beyond.",
+      "items": {
+        "verified": {
+          "title": "Verified partners",
+          "description": "Agencies and dealerships reviewed by our team."
+        },
+        "digital": {
+          "title": "Digital experience",
+          "description": "Search, simulate, chat, and schedule visits online."
+        },
+        "support": {
+          "title": "Dedicated support",
+          "description": "Help center and specialists when you need them."
+        },
+        "regional": {
+          "title": "Multi-market",
+          "description": "Listings and services adapted to your region."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "subtitle": "Browse thousands of listings or register your business on RSC Market today.",
+      "primary": "Browse properties",
+      "secondary": "For business"
+    }
+  },
+  "comoFunciona": {
+    "hero": {
+      "badge": "Marketplace guide",
+      "title": "How REESKOVA works",
+      "subtitle": "Learn how to explore the marketplace, contact companies, and move forward with a purchase. RSC connects; negotiation and paperwork stay between the parties.",
+      "ctaExplore": "Explore marketplace",
+      "ctaHelp": "Help center"
+    },
+    "sections": {
+      "whatIs": {
+        "title": "What is Reeskova",
+        "body": "Reeskova is the technology marketplace where companies publish properties, vehicles, and services for millions of people to discover and explore."
+      },
+      "marketplace": {
+        "title": "How the Marketplace works",
+        "body": "Search, filter, and compare listings. When something stands out, contact the listing company directly from the platform."
+      },
+      "whoPublishes": {
+        "title": "Who publishes listings",
+        "body": "Only verified companies — agencies, builders, dealerships, banks, and partners — manage listings from the Backoffice. Consumers do not publish."
+      },
+      "purchase": {
+        "title": "Purchase process",
+        "body": "Explore, contact, visit, and negotiate directly with the company. Contracts, payments, and paperwork are handled by buyer and company."
+      },
+      "financing": {
+        "title": "Financing process",
+        "body": "Some listings show credit options offered by partner companies. Approval and agreements are between you and the financial institution."
+      },
+      "legal": {
+        "title": "Legal information",
+        "body": "RSC / Reeskova is a publishing and connection platform. We do not intermediate contracts, custody funds, or handle legal paperwork."
+      }
+    },
+    "flow": {
+      "title": "The journey in 6 steps",
+      "subtitle": "RSC only publishes offers and connects. Everything else you resolve directly with the company.",
+      "disclaimer": "Important: RSC does not handle paperwork, sign contracts, custody money, or close deals. Negotiation, visits, documentation, and delivery are exclusively between client and company.",
+      "steps": {
+        "search": {
+          "title": "Search",
+          "description": "Explore properties and vehicles published by companies in the marketplace."
+        },
+        "contact": {
+          "title": "Contact",
+          "description": "Message or request contact with the listing company from the platform."
+        },
+        "visit": {
+          "title": "Visit",
+          "description": "Coordinate the visit directly with the company. RSC does not organize paperwork."
+        },
+        "negotiate": {
+          "title": "Negotiate",
+          "description": "Agree on price and terms between you and the company, without RSC intermediating."
+        },
+        "close": {
+          "title": "Close",
+          "description": "Contracts, payments, and paperwork are managed by client and company."
+        },
+        "publish": {
+          "title": "Companies publish",
+          "description": "Companies manage their listings from the Business Portal / Backoffice."
+        }
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": {
+        "0": {
+          "q": "Can I publish a listing as an individual?",
+          "a": "No. Listings are managed only by partner companies from the Backoffice."
+        },
+        "1": {
+          "q": "Does RSC intermediate the purchase?",
+          "a": "No. Reeskova connects buyers with companies. Negotiation and closing stay between the parties."
+        },
+        "2": {
+          "q": "How do I contact a company?",
+          "a": "From any listing you can request contact, chat, or a visit directly with the advertiser."
+        },
+        "3": {
+          "q": "Is financing integrated?",
+          "a": "Some companies publish credit options. The financial agreement is between you and that institution."
+        },
+        "4": {
+          "q": "Where can I find institutional information?",
+          "a": "In Help, About RSC Group, and the legal pages linked from the footer."
+        }
+      }
+    }
+  },
+  "brand": {
+    "tagline": "Marketplace I by RSC Group",
+    "poweredBy": "পরিচালিত দ্বারা",
+    "poweredByBrand": "RSC Group"
+  },
+  "legalPages": {
+    "common": {
+      "badge": "Legal & company",
+      "contactTitle": "Questions about this page?",
+      "contactBody": "Write to our support team at",
+      "contactCta": "Contact support",
+      "helpCta": "Help center",
+      "relatedLabel": "Related pages",
+      "links": {
+        "privacy": "Privacy",
+        "terms": "Terms of use",
+        "cookies": "Cookies",
+        "compliance": "Compliance",
+        "about": "About RSC Group",
+        "careers": "Careers",
+        "guides": "Guides",
+        "security": "Security"
+      }
+    },
+    "privacy": {
+      "title": "Privacy policy",
+      "updated": "Last updated: July 18, 2026",
+      "intro": "This policy explains how REESKOVA (RSC Market), operated within the RSC Group ecosystem, collects, uses, and protects personal data when you use our marketplace for properties, vehicles, and services.",
+      "sections": {
+        "0": {
+          "title": "1. Who is responsible",
+          "paragraphs": {
+            "0": "REESKOVA / RSC Market acts as the controller of personal data processed through the platform for account management, publishing, discovery, messaging, visits, and related marketplace features.",
+            "1": "For privacy requests, contact support@rscmarket.com. We respond within the timeframes required by applicable law (including LGPD in Brazil and GDPR where it applies)."
+          }
+        },
+        "1": {
+          "title": "2. Data we collect",
+          "paragraphs": {
+            "0": "We collect only what is needed to operate the marketplace and the features you choose to use."
+          },
+          "bullets": {
+            "0": "Account data: name, email, authentication identifiers, and profile preferences.",
+            "1": "Usage data: searches, saved listings, region/market selection, device and log information.",
+            "2": "Communications: messages with sellers, visit requests, and support tickets.",
+            "3": "Business data (companies): legal/trade name, tax ID where required, contact persons, and listing content you publish."
+          }
+        },
+        "2": {
+          "title": "3. How we use data",
+          "paragraphs": {
+            "0": "We process personal data to provide and improve the platform, keep accounts secure, enable contact between buyers and verified advertisers, personalize region/currency experiences, and comply with legal obligations.",
+            "1": "We do not sell personal data. We share information with verified partners or service providers only when necessary to deliver a feature you requested (for example, routing a lead to an advertiser) or when required by law."
+          }
+        },
+        "3": {
+          "title": "4. Platform role and third parties",
+          "paragraphs": {
+            "0": "REESKOVA is a publishing and connection platform. Contracts, payments, financing agreements, and legal paperwork are handled directly between you and the company or institution involved—not by RSC as an intermediary.",
+            "1": "Advertisers and partner institutions are independent controllers of data they receive from you outside our systems. Review their privacy notices when you share information directly with them."
+          }
+        },
+        "4": {
+          "title": "5. Cookies and similar technologies",
+          "paragraphs": {
+            "0": "We use cookies and similar technologies for authentication, preferences (such as region), security, and performance. Details are described in our Cookies policy."
+          }
+        },
+        "5": {
+          "title": "6. Retention and security",
+          "paragraphs": {
+            "0": "We retain data only as long as necessary for the purposes above, legitimate business needs, or legal retention duties. We apply industry-standard technical and organizational measures, including encryption in transit and access controls."
+          }
+        },
+        "6": {
+          "title": "7. Your rights",
+          "paragraphs": {
+            "0": "Subject to applicable law, you may request access, correction, deletion, portability, restriction, or objection to certain processing. You may also withdraw consent where processing is based on consent.",
+            "1": "To exercise these rights, email support@rscmarket.com with enough detail for us to verify your request. You may also contact your local data protection authority if you believe your rights were not respected."
+          }
+        },
+        "7": {
+          "title": "8. International transfers and updates",
+          "paragraphs": {
+            "0": "Because RSC Market serves LATAM+ markets, data may be processed in countries other than your own. Where required, we use appropriate safeguards for cross-border transfers.",
+            "1": "We may update this policy to reflect product or legal changes. The “Last updated” date at the top will change when we do. Material changes may also be communicated in-product or by email when appropriate."
+          }
+        }
+      }
+    },
+    "terms": {
+      "title": "Terms of use",
+      "updated": "Last updated: July 18, 2026",
+      "intro": "These terms govern access to and use of REESKOVA / RSC Market. By creating an account or using the platform, you agree to this agreement.",
+      "sections": {
+        "0": {
+          "title": "1. What the platform is",
+          "paragraphs": {
+            "0": "REESKOVA is a premium marketplace where verified companies publish properties, vehicles, and services, and buyers discover, contact, and advance their purchase journey.",
+            "1": "RSC / REESKOVA is a publishing and connection platform. We do not intermediate contracts, custody funds, or handle legal paperwork between parties."
+          }
+        },
+        "1": {
+          "title": "2. Eligibility and accounts",
+          "paragraphs": {
+            "0": "You must provide accurate information and keep your credentials secure. Businesses must complete onboarding and maintain truthful company and listing data. We may suspend or terminate accounts that violate these terms or applicable law."
+          }
+        },
+        "2": {
+          "title": "3. Listings and content",
+          "paragraphs": {
+            "0": "Listing content, prices, availability, photos, and descriptions are provided by advertisers. Always confirm material details directly with the company before purchasing, renting, financing, or visiting.",
+            "1": "You may not publish unlawful, misleading, infringing, or abusive content. We may remove content or restrict access to protect users and platform integrity."
+          }
+        },
+        "3": {
+          "title": "4. Transactions and third-party services",
+          "paragraphs": {
+            "0": "Any sale, rental, financing, insurance, or service agreement is solely between you and the relevant company or institution. RSC is not a party to those agreements and does not guarantee third-party performance or listing condition.",
+            "1": "Optional tools (for example financing simulations or partner services) may redirect you to independent providers with their own terms."
+          }
+        },
+        "4": {
+          "title": "5. Acceptable use",
+          "bullets": {
+            "0": "Do not scrape, attack, or overload the service beyond normal use.",
+            "1": "Do not harass users, spoof identity, or attempt unauthorized access.",
+            "2": "Do not use the platform for fraud, money laundering, or other illegal activity."
+          }
+        },
+        "5": {
+          "title": "6. Intellectual property",
+          "paragraphs": {
+            "0": "The REESKOVA / RSC Market brand, interface, and software are owned by RSC Group or its licensors. Advertisers retain rights to their listing content and grant us a license to host and display it on the platform."
+          }
+        },
+        "6": {
+          "title": "7. Disclaimers and liability",
+          "paragraphs": {
+            "0": "The platform is provided on an “as available” basis. To the fullest extent permitted by law, RSC is not liable for indirect, incidental, or consequential damages arising from use of the marketplace or from dealings with third parties.",
+            "1": "Nothing in these terms limits rights that cannot be waived under consumer or data-protection law in your jurisdiction."
+          }
+        },
+        "7": {
+          "title": "8. Changes and contact",
+          "paragraphs": {
+            "0": "We may update these terms periodically. Continued use after changes become effective constitutes acceptance. For questions, contact support@rscmarket.com."
+          }
+        }
+      }
+    },
+    "cookies": {
+      "title": "Cookies policy",
+      "updated": "Last updated: July 18, 2026",
+      "intro": "This policy describes how REESKOVA / RSC Market uses cookies and similar technologies on the website and related apps.",
+      "sections": {
+        "0": {
+          "title": "1. What cookies are",
+          "paragraphs": {
+            "0": "Cookies are small files stored on your device. They help the site remember preferences, keep sessions secure, and understand how the product is used."
+          }
+        },
+        "1": {
+          "title": "2. Cookies we use",
+          "bullets": {
+            "0": "Essential: authentication and session continuity (for example sign-in cookies).",
+            "1": "Preferences: region/market selection and similar UX settings.",
+            "2": "Security and integrity: fraud prevention and abuse detection signals.",
+            "3": "Performance (when enabled): aggregated metrics to improve reliability and speed."
+          }
+        },
+        "2": {
+          "title": "3. Managing cookies",
+          "paragraphs": {
+            "0": "You can control cookies through your browser settings (block, delete, or alert on new cookies). Blocking essential cookies may prevent sign-in or other core features from working.",
+            "1": "Where required by law, we will present additional consent choices before non-essential cookies are set."
+          }
+        },
+        "3": {
+          "title": "4. More information",
+          "paragraphs": {
+            "0": "For how we process personal data more broadly, see our Privacy policy. Questions: support@rscmarket.com."
+          }
+        }
+      }
+    },
+    "compliance": {
+      "title": "Compliance",
+      "updated": "Last updated: July 18, 2026",
+      "intro": "REESKOVA operates a marketplace that prioritizes verified business participation, transparent publishing, and responsible use across LATAM+ markets.",
+      "sections": {
+        "0": {
+          "title": "1. Business verification",
+          "paragraphs": {
+            "0": "Companies requesting access undergo onboarding review. We may request corporate identification (such as tax IDs where applicable), contact validation, and listing quality checks before or during publication."
+          }
+        },
+        "1": {
+          "title": "2. Platform integrity",
+          "paragraphs": {
+            "0": "We work to detect fraudulent listings, misuse of messaging, and policy violations. Users can report suspicious activity to support@rscmarket.com with listing links and relevant details."
+          }
+        },
+        "2": {
+          "title": "3. Regulatory alignment",
+          "paragraphs": {
+            "0": "We design product practices to align with applicable privacy, consumer, and electronic commerce rules in the markets we serve. Because RSC does not intermediate contracts or payments, regulated financial or notarial acts remain with licensed third parties."
+          }
+        },
+        "3": {
+          "title": "4. Partner ecosystem",
+          "paragraphs": {
+            "0": "REESKOVA is part of the RSC Group ecosystem. Optional connections to financing or other partner services are presented clearly; those partners remain responsible for their own licensed activities and compliance programs."
+          }
+        }
+      }
+    },
+    "about": {
+      "title": "About RSC Group & REESKOVA",
+      "updated": "Last updated: July 18, 2026",
+      "intro": "REESKOVA is the premium marketplace brand for properties, vehicles, and services—powered by RSC Group.",
+      "sections": {
+        "0": {
+          "title": "What we build",
+          "paragraphs": {
+            "0": "We connect verified companies with buyers across LATAM+ through a single digital marketplace. Our model combines B2B SaaS tools for advertisers with a B2B2C discovery experience for buyers.",
+            "1": "We monetize software and distribution—not commissions on closed deals. Publishing and connection are our core jobs."
+          }
+        },
+        "1": {
+          "title": "What we are not",
+          "paragraphs": {
+            "0": "We are not a brokerage desk, escrow agent, or law firm. We do not intermediate contracts, custody funds, or replace the legal process between buyer and seller."
+          }
+        },
+        "2": {
+          "title": "Ecosystem",
+          "paragraphs": {
+            "0": "RSC Group brings together technology and complementary services so companies can publish inventory, manage leads, and offer related experiences (such as financing options when available) without fragmenting the buyer journey across unrelated portals."
+          }
+        },
+        "3": {
+          "title": "Contact",
+          "paragraphs": {
+            "0": "General support: support@rscmarket.com. Companies can request onboarding from the For Business flow or the Business Portal."
+          }
+        }
+      }
+    },
+    "careers": {
+      "title": "Careers",
+      "updated": "Last updated: July 18, 2026",
+      "intro": "We build marketplace infrastructure for real-economy assets. If you care about product craft, trust, and LATAM+ scale, we want to hear from you.",
+      "sections": {
+        "0": {
+          "title": "How we work",
+          "paragraphs": {
+            "0": "Small, senior-leaning teams. Clear ownership. Product decisions grounded in how agencies, dealerships, and buyers actually operate—not vanity metrics alone."
+          }
+        },
+        "1": {
+          "title": "Areas we hire for",
+          "bullets": {
+            "0": "Product engineering (web platforms, marketplace systems).",
+            "1": "Design and brand experiences.",
+            "2": "Go-to-market, partner success, and trust & safety operations."
+          }
+        },
+        "2": {
+          "title": "How to apply",
+          "paragraphs": {
+            "0": "Email careers@rscmarket.com (or support@rscmarket.com with subject “Careers”) including your CV/portfolio, preferred role, and location/timezone. We review applications on a rolling basis and respond when there is a potential match.",
+            "1": "We do not charge candidates fees and we do not ask for payments during recruitment."
+          }
+        }
+      }
+    },
+    "guides": {
+      "title": "Guides",
+      "updated": "Last updated: July 18, 2026",
+      "intro": "Practical starting points to use RSC Market as a buyer or as a company.",
+      "sections": {
+        "0": {
+          "title": "For buyers",
+          "bullets": {
+            "0": "Browse properties and vehicles, apply filters, and save favorites while signed in.",
+            "1": "Open a listing to chat with the advertiser or request a visit.",
+            "2": "Confirm price, documents, and conditions directly with the company before any commitment."
+          }
+        },
+        "1": {
+          "title": "For companies",
+          "bullets": {
+            "0": "Request onboarding from For Business, then manage listings and leads in the Business Portal.",
+            "1": "Keep inventory accurate—photos, price, and availability drive conversion.",
+            "2": "Respond quickly to chats and visit requests to protect your reputation on the marketplace."
+          }
+        },
+        "2": {
+          "title": "Deeper resources",
+          "paragraphs": {
+            "0": "Read How it works for the end-to-end journey, visit the Help center FAQ for common questions, and review Privacy and Terms for legal details."
+          }
+        }
+      }
+    },
+    "security": {
+      "title": "Security",
+      "updated": "Last updated: July 18, 2026",
+      "intro": "Protecting accounts, listings integrity, and personal data is foundational to REESKOVA.",
+      "sections": {
+        "0": {
+          "title": "How we protect the platform",
+          "bullets": {
+            "0": "Encryption in transit and controlled access to production systems.",
+            "1": "Authenticated sessions and secure cookie practices for sign-in.",
+            "2": "Monitoring for abuse, spam, and suspicious listing patterns."
+          }
+        },
+        "1": {
+          "title": "How you can stay safe",
+          "bullets": {
+            "0": "Use a unique password and keep your email account secure.",
+            "1": "Never send payment to individuals claiming to “hold funds for RSC”—we do not custody buyer funds.",
+            "2": "Confirm company identity on verified profiles and report anomalies to support."
+          }
+        },
+        "2": {
+          "title": "Report a security issue",
+          "paragraphs": {
+            "0": "Email support@rscmarket.com with “Security” in the subject. Include steps to reproduce, affected URLs, and whether personal data may be involved. Please do not publicly disclose vulnerabilities before we can assess and remediate."
+          }
+        }
+      }
+    }
+  },
+  "marketplace": {
+    "save": "Save",
+    "seeAll": "See all",
+    "deals": "Today's deals",
+    "featuredProperties": "Featured properties",
+    "newListings": "New listings — Just added",
+    "continueExploring": "Continue exploring",
+    "popularVehicles": "Most popular vehicles",
+    "featuredIn": "Featured in {city}",
+    "badges": {
+      "premium": "Premium",
+      "new": "New",
+      "featured": "Featured",
+      "deal": "Deal"
+    },
+    "types": {
+      "property": {
+        "house": "House",
+        "apartment": "Apartment",
+        "land": "Land",
+        "commercial": "Commercial",
+        "condominium": "Condominium",
+        "penthouse": "Penthouse",
+        "studio": "Studio"
+      },
+      "vehicle": {
+        "car": "Car",
+        "suv": "SUV",
+        "motorcycle": "Motorcycle",
+        "truck": "Truck",
+        "van": "Van",
+        "electric": "Electric",
+        "hybrid": "Hybrid"
+      }
+    },
+    "specs": {
+      "beds": "{count} beds",
+      "baths": "{count} baths",
+      "area": "{area} m²"
+    },
+    "header": {
+      "deliverTo": "Deliver to",
+      "saved": "Saved",
+      "cart": "Cart",
+      "downloadApp": "Download App",
+      "listCta": "List on Reeskova",
+      "nav": {
+        "home": "Home",
+        "properties": "Properties",
+        "vehicles": "Vehicles",
+        "projects": "Projects",
+        "businesses": "Businesses",
+        "services": "Services",
+        "deals": "Deals",
+        "newListings": "New listings",
+        "brokers": "Brokers",
+        "premium": "Premium",
+        "magazines": "Magazine",
+        "visits": "Free visits"
+      }
+    },
+    "headerSearch": {
+      "categoryLabel": "Search category",
+      "placeholder": "Search properties, vehicles, projects or property services...",
+      "placeholders": {
+        "all": "Search properties, vehicles, projects or property services...",
+        "properties": "Search city, neighborhood or code COD-00001...",
+        "vehicles": "Search car, motorcycle, dealer or code COD-00001...",
+        "projects": "Search project, developer, city or code COD-00001...",
+        "businesses": "Search business, franchise, company or code COD-00001...",
+        "services": "Search service, professional or company..."
+      },
+      "submit": "Search",
+      "categories": {
+        "all": "All categories",
+        "properties": "Properties",
+        "vehicles": "Vehicles",
+        "projects": "Projects",
+        "businesses": "Businesses",
+        "services": "Services"
+      }
+    },
+    "hero": {
+      "titleStart": "Find your next",
+      "titleHighlight": "opportunity",
+      "subtitle": "Properties, vehicles, projects and services from verified businesses."
+    },
+    "search": {
+      "tabs": {
+        "properties": "Properties",
+        "vehicles": "Vehicles",
+        "projects": "Projects",
+        "businesses": "Businesses",
+        "services": "Services"
+      },
+      "query": "What are you looking for?",
+      "queryPlaceholder": "e.g. Apartment, House, BMW X5...",
+      "location": "Location",
+      "locationPlaceholder": "City, state or country",
+      "type": "Type",
+      "anyType": "Any type",
+      "price": "Price",
+      "anyPrice": "Any price",
+      "moreFilters": "More filters",
+      "submit": "Search",
+      "popular": "Popular searches:"
+    },
+    "quickPicks": {
+      "title": "Quick picks",
+      "viewAll": "View all categories",
+      "propertiesUnder": {
+        "title": "Properties",
+        "subtitle": "Under $500K"
+      },
+      "luxury": {
+        "title": "Luxury properties",
+        "subtitle": "Premium selection"
+      },
+      "rentals": {
+        "title": "Rentals",
+        "subtitle": "Apartments & houses"
+      },
+      "carsUnder": {
+        "title": "Cars",
+        "subtitle": "Under $30K"
+      },
+      "projects": {
+        "title": "New projects",
+        "subtitle": "Launching soon"
+      },
+      "commercial": {
+        "title": "Commercial",
+        "subtitle": "Offices & shops"
+      },
+      "land": {
+        "title": "Land",
+        "subtitle": "Investment land"
+      }
+    },
+    "promos": {
+      "premium": {
+        "title": "Premium Properties",
+        "subtitle": "Curated selection just for you"
+      },
+      "projects": {
+        "title": "New Projects",
+        "subtitle": "Discover upcoming developments"
+      },
+      "vehicles": {
+        "title": "Vehicle Deals",
+        "subtitle": "The best offers on premium vehicles"
+      },
+      "hot": {
+        "title": "Hot Opportunities",
+        "subtitle": "Limited-time deals"
+      },
+      "cta": {
+        "explore": "Explore",
+        "deals": "See deals"
+      }
+    },
+    "categories": {
+      "apartments": "Apartments",
+      "houses": "Houses",
+      "land": "Land",
+      "commercial": "Commercial",
+      "rentals": "Rentals",
+      "cars": "Cars",
+      "motorcycles": "Motorcycles",
+      "trucks": "Trucks",
+      "projects": "New Projects",
+      "businesses": "Businesses",
+      "services": "Services",
+      "more": "More"
+    },
+    "trust": {
+      "verified": {
+        "title": "Verified businesses",
+        "text": "Only trusted and verified advertisers."
+      },
+      "secure": {
+        "title": "Secure platform",
+        "text": "Your safety is our top priority."
+      },
+      "global": {
+        "title": "Global reach",
+        "text": "Opportunities in the best locations."
+      },
+      "connect": {
+        "title": "Easy to connect",
+        "text": "Contact directly with the advertiser."
+      },
+      "search": {
+        "title": "Smart search",
+        "text": "Advanced filters to find exactly what you want."
+      }
+    },
+    "footer": {
+      "tagline": "The marketplace to discover properties, vehicles, projects, businesses and services.",
+      "portal": "Business Portal",
+      "rights": "All rights reserved.",
+      "reeskova": {
+        "title": "Reeskova",
+        "about": "About us",
+        "how": "How it works",
+        "blog": "Blog",
+        "careers": "Careers",
+        "contact": "Contact"
+      },
+      "support": {
+        "title": "Support",
+        "help": "Help Center",
+        "safety": "Safety Tips",
+        "terms": "Terms of Use",
+        "privacy": "Privacy Policy",
+        "cookies": "Cookies"
+      },
+      "business": {
+        "title": "For Businesses",
+        "property": "List your property",
+        "vehicle": "List your vehicle",
+        "advertise": "Advertise your business",
+        "partner": "Partner with us"
+      },
+      "newsletter": {
+        "title": "Stay updated",
+        "text": "Get the best opportunities straight to your inbox.",
+        "placeholder": "Your email",
+        "submit": "Subscribe"
+      },
+      "app": {
+        "title": "Download the app"
+      }
+    },
+    "listing": {
+      "breadcrumbHome": "Home",
+      "breadcrumbProperties": "Properties",
+      "title": "Properties for sale & rent",
+      "subtitle": "Find your perfect property from verified businesses.",
+      "promoTitle": "List your property on Reeskova",
+      "promoCta": "List your property",
+      "count": "{count} properties found",
+      "status": "Show results for",
+      "statusOptions": {
+        "all": "All properties",
+        "sale": "For sale",
+        "rent": "For rent"
+      },
+      "propertyType": "Property type",
+      "types": {
+        "apartment": "Apartment",
+        "house": "House",
+        "condominium": "Condominium",
+        "penthouse": "Penthouse",
+        "studio": "Studio",
+        "commercial": "Commercial",
+        "land": "Land"
+      },
+      "priceRange": "Price range",
+      "minPrice": "Min price",
+      "maxPrice": "Max price",
+      "location": "Location",
+      "locationPlaceholder": "Enter city, neighborhood or region",
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "any": "Any",
+      "roomsPlus": "{count}+",
+      "moreFilters": "More filters",
+      "filters": "Filters",
+      "sortLabel": "Sort",
+      "sortBy": "Sort by:",
+      "reset": "Reset",
+      "close": "Close",
+      "back": "Back",
+      "save": "Save",
+      "forSale": "for sale",
+      "forRent": "for rent",
+      "priceMonth": "{price} / month",
+      "showResults": "Show {count} results",
+      "empty": "No properties found",
+      "emptyHint": "Try adjusting filters or exploring another area.",
+      "pagination": "Pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "expandMap": "Expand map",
+      "searchAsMove": "Search as I move the map",
+      "popularAreas": "Explore popular areas",
+      "insights": "Market overview",
+      "avgPrice": "Avg. price (last 30 days)",
+      "pills": {
+        "verified": "Verified only",
+        "photos": "With photos",
+        "tour": "With virtual tour",
+        "reduced": "Price reduced",
+        "newWeek": "New this week"
+      },
+      "views": {
+        "grid": "Grid view",
+        "list": "List view",
+        "map": "Map view"
+      },
+      "sort": {
+        "newest": "Newest",
+        "relevance": "Relevance",
+        "price_asc": "Lowest price",
+        "price_desc": "Highest price",
+        "area_desc": "Largest area"
+      }
+    },
+    "vehicles": {
+      "breadcrumbHome": "Home",
+      "breadcrumbVehicles": "Vehicles",
+      "title": "Vehicles for sale",
+      "subtitle": "Find the perfect vehicle from verified dealers.",
+      "promoTitle": "Sell your vehicle on Reeskova",
+      "promoCta": "List your vehicle",
+      "count": "{count} vehicles found",
+      "vehicleType": "Vehicle type",
+      "types": {
+        "all": "All",
+        "car": "Cars",
+        "motorcycle": "Motorcycles",
+        "truck": "Trucks",
+        "van": "Vans"
+      },
+      "make": "Make",
+      "model": "Model",
+      "priceRange": "Price range",
+      "minPrice": "Min price",
+      "maxPrice": "Max price",
+      "location": "Location",
+      "locationPlaceholder": "Enter city, neighborhood or region",
+      "year": "Year",
+      "kilometers": "Kilometers",
+      "transmission": "Transmission",
+      "fuel": "Fuel type",
+      "min": "Min",
+      "max": "Max",
+      "any": "Any",
+      "moreFilters": "More filters",
+      "filters": "Filters",
+      "sortLabel": "Sort",
+      "sortBy": "Sort by:",
+      "reset": "Reset",
+      "close": "Close",
+      "back": "Back",
+      "save": "Save",
+      "showResults": "Show {count} results",
+      "empty": "No vehicles found",
+      "emptyHint": "Try adjusting filters or exploring another area.",
+      "expandMap": "Expand map",
+      "searchAsMove": "Search as I move the map",
+      "popularAreas": "Popular areas",
+      "insights": "Market insights",
+      "avgPrice": "Average price (last 30 days)",
+      "mostSearched": "Most searched",
+      "transmissions": {
+        "automatic": "Automatic",
+        "manual": "Manual",
+        "cvt": "CVT"
+      },
+      "fuels": {
+        "flex": "Flex",
+        "gasoline": "Gasoline",
+        "diesel": "Diesel",
+        "hybrid": "Hybrid",
+        "electric": "Electric"
+      },
+      "pills": {
+        "verified": "Verified dealers only",
+        "photos": "With photos",
+        "lowKm": "Low mileage",
+        "reduced": "Price reduced",
+        "newWeek": "New this week"
+      },
+      "views": {
+        "grid": "Grid view",
+        "list": "List view",
+        "map": "Map view"
+      },
+      "sort": {
+        "newest": "Newest",
+        "price_asc": "Lowest price",
+        "price_desc": "Highest price",
+        "mileage_asc": "Lowest mileage"
+      }
+    },
+    "projects": {
+      "breadcrumbHome": "Home",
+      "breadcrumbProjects": "Projects",
+      "title": "Real estate projects",
+      "subtitle": "Discover new developments from top developers.",
+      "promoTitle": "Launch your project on Reeskova",
+      "promoCta": "List your project",
+      "count": "{count} projects found",
+      "propertyType": "Property type",
+      "types": {
+        "all": "All",
+        "residential": "Residential",
+        "commercial": "Commercial",
+        "mixed": "Mixed-use",
+        "industrial": "Industrial",
+        "hospitality": "Hospitality"
+      },
+      "status": "Project status",
+      "statuses": {
+        "prelaunch": "Pre-launch",
+        "construction": "Under construction",
+        "ready": "Ready to move"
+      },
+      "priceRange": "Price range",
+      "minPrice": "Min price",
+      "maxPrice": "Max price",
+      "location": "Location",
+      "locationPlaceholder": "Enter city, neighborhood or region",
+      "deliveryDate": "Delivery date",
+      "from": "From",
+      "to": "To",
+      "any": "Any",
+      "moreFilters": "More filters",
+      "filters": "Filters",
+      "sortLabel": "Sort",
+      "sortBy": "Sort by:",
+      "reset": "Reset",
+      "close": "Close",
+      "back": "Back",
+      "save": "Save",
+      "developer": "Developer",
+      "showResults": "Show {count} projects",
+      "empty": "No projects found",
+      "emptyHint": "Try adjusting filters or exploring another destination.",
+      "expandMap": "Expand map",
+      "searchAsMove": "Search as I move the map",
+      "popularAreas": "Explore popular destinations",
+      "insights": "Market insights",
+      "newProjects": "New projects (last 30 days)",
+      "avgPrice": "Average price",
+      "priceFrom": "From {price}",
+      "delivery": "Expected delivery: {date}",
+      "bedsRange": "{range} beds",
+      "units": {
+        "apartments": "Apartments",
+        "houses": "Houses",
+        "studios": "Studios",
+        "offices": "Offices",
+        "villas": "Villas"
+      },
+      "badges": {
+        "prelaunch": "Pre-launch",
+        "construction": "Under construction",
+        "ready": "Ready",
+        "new": "New",
+        "featured": "Featured",
+        "highRoi": "High ROI",
+        "paymentPlan": "Payment plan",
+        "luxury": "Luxury",
+        "sustainable": "Sustainable"
+      },
+      "pills": {
+        "verified": "Verified developers only",
+        "plan": "With payment plan",
+        "roi": "High ROI potential",
+        "prelaunch": "Pre-launch",
+        "luxury": "Luxury",
+        "eco": "Sustainable",
+        "amenities": "With amenities"
+      },
+      "views": {
+        "grid": "Grid view",
+        "list": "List view",
+        "map": "Map view"
+      },
+      "sort": {
+        "newest": "Newest",
+        "price_asc": "Lowest price",
+        "price_desc": "Highest price",
+        "delivery_asc": "Earliest delivery"
+      },
+      "trust": {
+        "verified": {
+          "title": "Verified developers",
+          "text": "Only trusted and verified developers."
+        },
+        "secure": {
+          "title": "Secure payments",
+          "text": "Safe and transparent transactions."
+        },
+        "opportunities": {
+          "title": "Best opportunities",
+          "text": "Access exclusive and pre-launch projects."
+        },
+        "global": {
+          "title": "Global reach",
+          "text": "Projects in the best locations worldwide."
+        },
+        "support": {
+          "title": "Expert support",
+          "text": "Our team is here to help you."
+        }
+      }
+    },
+    "businesses": {
+      "breadcrumbHome": "Home",
+      "breadcrumbBusinesses": "Businesses",
+      "title": "Businesses for sale",
+      "subtitle": "Find profitable businesses and acquisition opportunities.",
+      "promoTitle": "Sell your business on Reeskova",
+      "promoCta": "List your business",
+      "count": "{count} businesses found",
+      "category": "Business category",
+      "types": {
+        "all": "All",
+        "food": "Food & Beverage",
+        "retail": "Retail",
+        "services": "Services",
+        "beauty": "Health & Beauty",
+        "education": "Education",
+        "hospitality": "Hospitality"
+      },
+      "priceRange": "Price range",
+      "revenueRange": "Annual revenue",
+      "minPrice": "Min price",
+      "maxPrice": "Max price",
+      "minRevenue": "Min revenue",
+      "maxRevenue": "Max revenue",
+      "location": "Location",
+      "locationPlaceholder": "Enter city, neighborhood or region",
+      "any": "Any",
+      "moreFilters": "More filters",
+      "filters": "Filters",
+      "sortLabel": "Sort",
+      "sortBy": "Sort by:",
+      "reset": "Reset",
+      "close": "Close",
+      "back": "Back",
+      "save": "Save",
+      "broker": "Broker",
+      "revenue": "Annual revenue",
+      "cashFlow": "Cash flow",
+      "showResults": "Show {count} businesses",
+      "empty": "No businesses found",
+      "emptyHint": "Try adjusting filters or exploring another city.",
+      "expandMap": "Expand map",
+      "popularCategories": "Popular categories",
+      "insights": "Market insights",
+      "activeListings": "Active listings",
+      "avgPrice": "Average asking price",
+      "avgRevenue": "Average revenue",
+      "badges": {
+        "profitable": "Profitable",
+        "franchise": "Franchise",
+        "equipment": "With equipment",
+        "reduced": "Price reduced"
+      },
+      "pills": {
+        "verified": "Verified businesses only",
+        "profit": "Profitable",
+        "equipment": "With equipment",
+        "franchise": "Franchise available",
+        "financing": "Seller financing",
+        "reduced": "Price reduced"
+      },
+      "views": {
+        "grid": "Grid view",
+        "list": "List view",
+        "map": "Map view"
+      },
+      "sort": {
+        "newest": "Newest",
+        "price_asc": "Lowest price",
+        "price_desc": "Highest price",
+        "revenue_desc": "Highest revenue"
+      },
+      "trust": {
+        "verified": {
+          "title": "Verified businesses",
+          "text": "Listings reviewed with verified brokers."
+        },
+        "secure": {
+          "title": "Secure transactions",
+          "text": "Safe and transparent acquisitions."
+        },
+        "opportunities": {
+          "title": "Best opportunities",
+          "text": "Profitable businesses and franchises."
+        },
+        "global": {
+          "title": "Global reach",
+          "text": "Businesses in key markets worldwide."
+        },
+        "support": {
+          "title": "Expert support",
+          "text": "Specialists to guide your acquisition."
+        }
+      }
+    },
+    "services": {
+      "breadcrumbHome": "Home",
+      "breadcrumbServices": "Services",
+      "title": "Professional services",
+      "subtitle": "Find verified companies for inspection, financing, insurance, design, maintenance and more.",
+      "promoTitle": "Grow your service company on Reeskova. Reach clients looking for verified professionals.",
+      "promoCta": "List your service",
+      "count": "{count} services found",
+      "popular": "Popular services",
+      "category": "Service category",
+      "types": {
+        "all": "All",
+        "agents": "Real Estate Agents",
+        "management": "Property Management",
+        "inspection": "Home Inspection",
+        "appraisal": "Appraisal / Valuation",
+        "architecture": "Architecture",
+        "interior": "Interior Design",
+        "renovation": "Renovation & Remodeling",
+        "construction": "Construction",
+        "landscaping": "Landscaping",
+        "cleaning": "Cleaning",
+        "moving": "Moving & Relocation",
+        "security": "Security",
+        "maintenance": "Maintenance & Repairs",
+        "photography": "Photography / Virtual Tours",
+        "legal": "Legal Services",
+        "financing": "Mortgage / Financing",
+        "insurance": "Insurance",
+        "staging": "Home Staging"
+      },
+      "cycle": {
+        "buy": "Buy",
+        "finance": "Finance",
+        "inspect": "Inspect",
+        "renovate": "Renovate",
+        "manage": "Manage",
+        "sell": "Sell / Rent"
+      },
+      "priceRange": "Price range",
+      "minPrice": "Min price",
+      "maxPrice": "Max price",
+      "location": "Location",
+      "selectCountry": "Select country",
+      "selectRegion": "Select region",
+      "selectCity": "Select city",
+      "country": "Country",
+      "region": "Region",
+      "city": "City",
+      "locationPlaceholder": "Select country, region and city",
+      "any": "Any",
+      "availability": "Availability",
+      "filters": "Filters",
+      "sortLabel": "Sort",
+      "sortBy": "Sort by:",
+      "reset": "Reset",
+      "close": "Close",
+      "back": "Back",
+      "save": "Save",
+      "provider": "Provider",
+      "verifiedProvider": "Verified provider",
+      "priceFrom": "From",
+      "perMonth": "/ month",
+      "requestQuote": "Request quote",
+      "showResults": "Show {count} services",
+      "empty": "No services found",
+      "emptyHint": "Try another category or location.",
+      "expandMap": "Expand map",
+      "popularCategories": "Popular categories",
+      "insights": "Market insights",
+      "activeListings": "Active services",
+      "avgRating": "Average rating",
+      "responseTime": "Response time",
+      "responseValue": "2.3h",
+      "badges": {
+        "topRated": "Top rated",
+        "verified": "Verified",
+        "today": "Available today"
+      },
+      "pills": {
+        "today": "Available today",
+        "week": "Available this week",
+        "online": "Online services",
+        "verified": "Verified providers"
+      },
+      "views": {
+        "grid": "Grid view",
+        "list": "List view",
+        "map": "Map view"
+      },
+      "sort": {
+        "recommended": "Recommended",
+        "newest": "Newest",
+        "price_asc": "Lowest price"
+      },
+      "trust": {
+        "verified": {
+          "title": "Verified professionals",
+          "text": "Companies reviewed before they can publish."
+        },
+        "quality": {
+          "title": "Quality guaranteed",
+          "text": "Top-rated providers with proven work."
+        },
+        "support": {
+          "title": "24/7 support",
+          "text": "Our team is here to help you anytime."
+        },
+        "global": {
+          "title": "Global reach",
+          "text": "Find trusted professionals in every market."
+        }
+      }
+    },
+    "mobileNav": {
+      "home": "Home",
+      "explore": "Explore",
+      "list": "List",
+      "saved": "Saved",
+      "account": "Account",
+      "listTitle": "List on Reeskova",
+      "close": "Close",
+      "listActions": {
+        "property": "Property",
+        "vehicle": "Vehicle",
+        "project": "Project",
+        "business": "Business",
+        "service": "Service"
+      }
+    }
+  },
+  "corredores": {
+    "breadcrumbHome": "Home",
+    "breadcrumb": "Brokers",
+    "title": "Brokers directory",
+    "subtitle": "Meet verified real estate brokers and contact them directly.",
+    "count": "{count} brokers",
+    "searchPlaceholder": "Search by name, agency, city or license...",
+    "allCities": "All cities",
+    "allSpecialties": "All specialties",
+    "empty": "No brokers found",
+    "emptyHint": "Try another name, city or specialty.",
+    "viewProfile": "View profile",
+    "contact": "Contact",
+    "whatsapp": "WhatsApp",
+    "call": "Call",
+    "email": "Email",
+    "listings": "{count} listings",
+    "years": "{count} yrs",
+    "sold": "{count} sold",
+    "reviews": "{count} reviews",
+    "statListings": "Listings",
+    "statYears": "Experience",
+    "statSold": "Sold",
+    "statRating": "Rating",
+    "verified": "Verified",
+    "license": "License",
+    "about": "About",
+    "specialties": "Specialties",
+    "languages": "Languages",
+    "agency": "Agency",
+    "activeListings": "Active listings",
+    "noListings": "This broker has no public listings yet.",
+    "seeAllListings": "See all listings",
+    "joinTitle": "Are you a broker?",
+    "joinText": "Create your profile, showcase your listings and receive contacts from buyers.",
+    "joinCta": "Join Reeskova",
+    "whatsappPrefill": "Hi {name}, I found your profile on Reeskova and would like to talk.",
+    "emailSubject": "Contact from Reeskova — {name}",
+    "online": "Available now",
+    "specialty": {
+      "residential": "Residential",
+      "luxury": "Luxury",
+      "commercial": "Commercial",
+      "investment": "Investment",
+      "newDevelopments": "New developments",
+      "rentals": "Rentals"
+    }
+  },
+  "revistas": {
+    "breadcrumbHome": "Home",
+    "breadcrumb": "Magazine",
+    "channelTag": "Reeskova Media",
+    "title": "Reeskova Magazine",
+    "subtitle": "The marketplace newsroom — market, luxury, investment and lifestyle stories that connect readers to real opportunities.",
+    "count": "{count} stories",
+    "searchPlaceholder": "Search stories, cities or desks...",
+    "allCategories": "Top stories",
+    "empty": "No stories found",
+    "emptyHint": "Try another topic or search.",
+    "readIssue": "Read story",
+    "openPdf": "Open PDF",
+    "publishCta": "Publish story",
+    "topStories": "Top stories",
+    "resultsTitle": "Results",
+    "moreStories": "More stories",
+    "latest": "Latest",
+    "seeAllInCategory": "See all",
+    "related": "More from the channel",
+    "backToChannel": "Back to Magazine",
+    "category": {
+      "market": "Market",
+      "luxury": "Luxury",
+      "investment": "Investment",
+      "architecture": "Architecture",
+      "lifestyle": "Lifestyle"
+    },
+    "sponsor": {
+      "label": "Sponsored opportunities",
+      "propertiesTitle": "Featured properties",
+      "propertiesBody": "Premium homes curated for Magazine readers.",
+      "propertiesCta": "Browse properties",
+      "vehiclesTitle": "Vehicles desk",
+      "vehiclesBody": "Dealers and cars linked to the same marketplace.",
+      "vehiclesCta": "Browse vehicles",
+      "projectsTitle": "New projects",
+      "projectsBody": "Launches and off-plan with verified partners.",
+      "projectsCta": "See projects"
+    },
+    "advertise": {
+      "eyebrow": "Advertise with us",
+      "title": "Turn editorial attention into qualified leads",
+      "body": "Reeskova Magazine is the brand channel for brokers, developers and dealers — native stories, sponsored rails and CTAs that open directly into the marketplace.",
+      "cta": "Become an advertiser",
+      "secondary": "Meet brokers",
+      "statReaders": "Monthly editorial reach",
+      "statReadersValue": "Channel+",
+      "statMarkets": "Markets covered",
+      "statMarketsValue": "BR · US · EU · UAE",
+      "statFormats": "Formats",
+      "statFormatsValue": "Cover · Rails · Native"
+    },
+    "article": {
+      "sponsorTitle": "Explore listings from this story",
+      "sponsorBody": "Jump from editorial to verified inventory on Reeskova.",
+      "sidebarTitle": "Advertise in Magazine",
+      "sidebarBody": "Place your brand next to market, luxury and investment desks."
+    }
+  },
+  "adminMagazines": {
+    "pageTitle": "Magazines",
+    "pageSubtitle": "Publish Reeskova editorial issues. Published editions appear in the public Magazines tab.",
+    "createTitle": "New issue",
+    "editTitle": "Edit issue",
+    "formHint": "Cover, title, issue number and editorial text. Optional PDF for the full flipbook.",
+    "title": "Title",
+    "issue": "Issue",
+    "issuePlaceholder": "Year 1 · No. 04",
+    "date": "Date",
+    "category": "Topic",
+    "status": "Status",
+    "statusPublished": "Published",
+    "statusDraft": "Draft",
+    "cover": "Cover image URL",
+    "excerpt": "Standfirst",
+    "body": "Editorial",
+    "bodyHint": "Separate paragraphs with a blank line.",
+    "author": "Author",
+    "pdf": "PDF URL (optional)",
+    "save": "Publish",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "listTitle": "Issues",
+    "loading": "Loading...",
+    "empty": "No issues yet.",
+    "edit": "Edit",
+    "view": "View",
+    "delete": "Delete",
+    "loadError": "Could not load magazines.",
+    "saveError": "Could not save. Check the fields and try again."
+  },
+  "errors": {
+    "notFound": {
+      "title": "Page not found",
+      "description": "The page you requested does not exist or was moved.",
+      "home": "Go home",
+      "help": "Help center"
+    },
+    "error": {
+      "badge": "Error",
+      "title": "Something went wrong",
+      "description": "An unexpected error occurred. Try again or return to the home page.",
+      "retry": "Try again",
+      "home": "Go home"
+    }
+  },
+  "footer": {
+    "rights": "সর্বস্বত্ব সংরক্ষিত।",
+    "tagline": "যে বাজারে হাজার হাজার কোম্পানি সম্পত্তি, যানবাহন ও পরিষেবা দেয়।"
+  }
+}

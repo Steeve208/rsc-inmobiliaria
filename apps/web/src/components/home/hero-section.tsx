@@ -12,7 +12,7 @@ export function HeroSection() {
   const t = useTranslations("landing");
 
   return (
-    <section className="relative bg-[#F7F5F0] pb-0">
+    <section className="relative bg-[#F4F7FA] pb-0">
       <div className="relative h-[340px] overflow-hidden sm:h-[360px] lg:h-[380px]">
         <Image
           src="/hero-bg.png"
@@ -72,7 +72,7 @@ export function HeroSection() {
             </motion.div>
 
             <motion.p
-              className="mt-5 text-[11px] font-semibold tracking-[0.22em] text-[#D4A62A]/90 uppercase sm:text-xs"
+              className="mt-5 text-[11px] font-semibold tracking-[0.22em] text-[#1E9B8C]/90 uppercase sm:text-xs"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.45, delay: 0.18 }}

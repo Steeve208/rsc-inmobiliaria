@@ -57,7 +57,7 @@ function VehicleCard({
           className={cn(
             "absolute right-3 top-3 z-10 inline-flex size-9 items-center justify-center rounded-full backdrop-blur-md transition-colors",
             active
-              ? "bg-[#D4A62A] text-[#070B14]"
+              ? "bg-[#1E9B8C] text-[#070B14]"
               : "bg-white/90 text-[#1A1F2B] hover:bg-white",
           )}
           aria-label={t("save")}
@@ -70,11 +70,11 @@ function VehicleCard({
           {item.title}
         </h3>
         <p className="mt-1.5 flex items-center gap-1.5 text-sm text-[#6B7285]">
-          <Gauge className="size-3.5 text-[#D4A62A]" strokeWidth={1.75} />
+          <Gauge className="size-3.5 text-[#1E9B8C]" strokeWidth={1.75} />
           {item.year} · {item.mileageLabel}
         </p>
         <p className="mt-4 text-lg font-bold text-[#0B1220]">{item.priceLabel}</p>
-        <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#D4A62A] opacity-0 transition-all duration-300 group-hover:opacity-100">
+        <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#1E9B8C] opacity-0 transition-all duration-300 group-hover:opacity-100">
           {t("viewVehicle")}
           <ArrowRight className="size-4" />
         </span>
@@ -89,7 +89,7 @@ export function FeaturedVehicles({ items }: Props) {
   if (items.length === 0) return null;
 
   return (
-    <section className="bg-[#F7F5F0] pt-14 sm:pt-16">
+    <section className="bg-[#F4F7FA] pt-14 sm:pt-16">
       <div className="rk-container">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
@@ -100,7 +100,7 @@ export function FeaturedVehicles({ items }: Props) {
           </div>
           <Link
             href="/veiculos"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#0B1220] transition-colors duration-300 hover:text-[#D4A62A]"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#0B1220] transition-colors duration-300 hover:text-[#1E9B8C]"
           >
             {t("viewAll")}
             <ArrowRight className="size-4" />

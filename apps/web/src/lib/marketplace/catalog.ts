@@ -28,14 +28,15 @@ export const HERO_SEARCH_TABS = [
 export type HeroSearchTab = (typeof HERO_SEARCH_TABS)[number];
 
 export const SECONDARY_NAV = [
+  { href: "/", labelKey: "home" as const, icon: "home" as const },
   { href: "/imoveis", labelKey: "properties" as const, icon: "properties" as const },
   { href: "/veiculos", labelKey: "vehicles" as const, icon: "vehicles" as const },
   { href: "/projetos", labelKey: "projects" as const, icon: "projects" as const },
   { href: "/negocios", labelKey: "businesses" as const, icon: "businesses" as const },
   { href: "/services", labelKey: "services" as const, icon: "services" as const },
   { href: "/imoveis?featured=1", labelKey: "deals" as const, icon: "deals" as const },
-  { href: "/imoveis", labelKey: "newListings" as const, icon: "newListings" as const },
-  { href: "/imoveis?featured=1", labelKey: "premium" as const, icon: "premium" as const },
+  { href: "/corredores", labelKey: "brokers" as const, icon: "brokers" as const },
+  { href: "/revistas", labelKey: "magazines" as const, icon: "magazines" as const },
 ] as const;
 
 export type QuickPickId =
@@ -146,11 +147,12 @@ export const CATEGORY_SHORTCUTS = [
 ] as const;
 
 export const POPULAR_SEARCHES = [
-  { label: "São Paulo", href: "/imoveis?city=S%C3%A3o%20Paulo&locationLabel=S%C3%A3o%20Paulo" },
-  { label: "Rio de Janeiro", href: "/imoveis?city=Rio%20de%20Janeiro&locationLabel=Rio%20de%20Janeiro" },
   { label: "Miami", href: "/imoveis?city=Miami&locationLabel=Miami" },
+  { label: "São Paulo", href: "/imoveis?city=S%C3%A3o%20Paulo&locationLabel=S%C3%A3o%20Paulo" },
   { label: "Lisbon", href: "/imoveis?city=Lisbon&locationLabel=Lisbon" },
   { label: "Dubai", href: "/imoveis?city=Dubai&locationLabel=Dubai" },
+  { label: "New York", href: "/imoveis?city=New%20York&locationLabel=New%20York" },
+  { label: "Orlando", href: "/imoveis?city=Orlando&locationLabel=Orlando" },
 ] as const;
 
 export const LIST_ACTIONS = [

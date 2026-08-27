@@ -20,18 +20,18 @@ export async function TrustBar() {
   const t = await getTranslations("marketplace.trust");
 
   return (
-    <section className="border-y border-[#E8E2D4] bg-[#F7F5F0]">
-      <div className="rk-container grid gap-6 py-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-4 lg:py-7">
+    <section className="border-y border-[#E2E8F0] bg-[#F4F7FA]">
+      <div className="rk-container grid h-[60px] grid-cols-2 items-center gap-3 lg:grid-cols-5 lg:gap-4">
         {TRUST_ITEMS.map((id) => {
           const Icon = icons[id];
           return (
-            <div key={id} className="flex items-start gap-3">
-              <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-white text-[#E8A84A] shadow-sm">
-                <Icon className="size-5" strokeWidth={1.75} />
+            <div key={id} className="flex items-center gap-2.5">
+              <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-white text-[#EBAD5B] shadow-sm">
+                <Icon className="size-4" strokeWidth={1.75} />
               </span>
-              <div>
-                <p className="text-sm font-bold text-[#0B1220]">{t(`${id}.title`)}</p>
-                <p className="mt-0.5 text-xs leading-relaxed text-[#6B7285]">
+              <div className="min-w-0">
+                <p className="text-[13px] font-bold leading-tight text-[#0B1220]">{t(`${id}.title`)}</p>
+                <p className="mt-0.5 line-clamp-1 text-[11px] leading-tight text-[#6B7285]">
                   {t(`${id}.text`)}
                 </p>
               </div>

@@ -10,6 +10,8 @@ import {
   listingLocation,
 } from "@/lib/marketplace/format";
 import { cn } from "@/lib/utils";
+import { ListingCodeBadge } from "@/components/marketplace/listing-code-badge";
+import { CountryFlag } from "@/components/marketplace/country-flag";
 import type { BusinessListing } from "@/features/negocios/types";
 import { initials } from "./listing-utils";
 
@@ -87,6 +89,19 @@ export function ListingBusinessCard({
           </span>
         ))}
       </div>
+      <ListingCodeBadge
+        id={item.id}
+        code={item.code}
+        kind="business"
+        className="absolute bottom-2 left-2"
+      />
+      <CountryFlag
+        country={item.country}
+        className={cn(
+          "absolute bottom-2 right-2 drop-shadow-[0_1px_2px_rgba(0,0,0,.7)]",
+          compact ? "text-[12px]" : "text-[15px]",
+        )}
+      />
       <button
         type="button"
         onClick={(event) => {
@@ -97,7 +112,7 @@ export function ListingBusinessCard({
         className={cn(
           "absolute right-2 top-2 inline-flex items-center justify-center rounded-full backdrop-blur-md",
           compact ? "size-7" : "size-8",
-          active ? "bg-[#E8A84A] text-[#070B14]" : "bg-white/90 text-[#1A1F2B]",
+          active ? "bg-[#2BB8A8] text-[#070B14]" : "bg-white/90 text-[#1A1F2B]",
         )}
         aria-label={t("save")}
       >
@@ -118,7 +133,8 @@ export function ListingBusinessCard({
         {item.title}
       </h3>
       <p className="mt-1 flex items-center gap-1 text-xs text-[#6B7285]">
-        <MapPin className="size-3 shrink-0 text-[#E8A84A]" />
+        <CountryFlag country={item.country} className="text-[13px]" />
+        <MapPin className="size-3 shrink-0 text-[#2BB8A8]" />
         <span className="line-clamp-1">{location}</span>
       </p>
       {!compact ? (
@@ -146,7 +162,7 @@ export function ListingBusinessCard({
       ) : null}
       {item.broker ? (
         <p className="mt-3 flex items-center gap-2 border-t border-[#F0EBE0] pt-2.5 text-xs text-[#4B5563]">
-          <span className="inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-[#0B1220] text-[9px] font-bold text-[#E8A84A]">
+          <span className="inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-[#0B1220] text-[9px] font-bold text-[#2BB8A8]">
             {initials(item.broker)}
           </span>
           <span className="line-clamp-1 font-medium">{item.broker}</span>
@@ -163,7 +179,7 @@ export function ListingBusinessCard({
           "group h-full overflow-hidden bg-white ring-1 ring-black/[0.05] transition hover:-translate-y-0.5 hover:shadow-[0_16px_32px_rgba(15,23,42,.1)]",
           compact ? "flex rounded-xl" : "rounded-lg",
           variant === "list" && "flex flex-col sm:flex-row",
-          highlighted && "ring-2 ring-[#E8A84A]",
+          highlighted && "ring-2 ring-[#2BB8A8]",
         )}
         onMouseEnter={onHover}
         onMouseLeave={onLeave}

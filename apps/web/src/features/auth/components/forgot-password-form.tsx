@@ -64,7 +64,7 @@ export function ForgotPasswordForm() {
           <p className="text-center text-sm text-white/60">
             <Link
               href="/entrar"
-              className="font-medium text-[#fbbf24] hover:text-[#fcd34d]"
+              className="font-medium text-[#3DCCBC] hover:text-[#fcd34d]"
             >
               {t("forgotPassword.backToSignIn")}
             </Link>
@@ -98,7 +98,7 @@ export function ForgotPasswordForm() {
 
             <Button
               type="submit"
-              className="h-11 w-full bg-[#d4a017] font-semibold text-[#000a1a] hover:bg-[#c39216]"
+              className="h-11 w-full bg-[#2BB8A8] font-semibold text-[#000a1a] hover:bg-[#1E9B8C]"
               disabled={isLoading}
             >
               {isLoading ? t("loading") : t("forgotPassword.submit")}
@@ -108,7 +108,7 @@ export function ForgotPasswordForm() {
           <p className="mt-6 text-center text-sm text-white/60">
             <Link
               href="/entrar"
-              className="font-medium text-[#fbbf24] hover:text-[#fcd34d]"
+              className="font-medium text-[#3DCCBC] hover:text-[#fcd34d]"
             >
               {t("forgotPassword.backToSignIn")}
             </Link>

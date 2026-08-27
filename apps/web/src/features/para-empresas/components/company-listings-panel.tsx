@@ -35,7 +35,7 @@ export function CompanyListingsPanel({ companyId }: Props) {
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-6 inline-flex h-9 items-center justify-center gap-2 rounded-lg bg-[#d4a017] px-3 text-sm font-medium text-[#000a1a] transition-colors hover:bg-[#e0b020]"
+          className="mt-6 inline-flex h-9 items-center justify-center gap-2 rounded-lg bg-[#2BB8A8] px-3 text-sm font-medium text-[#000a1a] transition-colors hover:bg-[#3DCCBC]"
         >
           {t("disabledCta")}
           <ExternalLink className="size-4" />

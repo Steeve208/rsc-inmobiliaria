@@ -1,6 +1,7 @@
 import type { PropertyDetail, PropertyListing, CompanyPublicInfo } from "@/features/imoveis/types";
 import type { VehicleDetail, VehicleListing } from "@/features/veiculos/types";
 import type { BackofficePublicListing } from "@/lib/backoffice/types";
+import { listingCodeValue } from "@/lib/listings/listing-code";
 import { listingImageUrl } from "@/lib/listings/listing-image";
 
 function num(value: unknown, fallback = 0): number {
@@ -144,6 +145,11 @@ export function mapBackofficeToPropertyListing(
     lng: num(meta.lng),
     publishedAt: publishedDate(listing),
     videoUrl: str(meta.videoUrl) || undefined,
+    code: listingCodeValue(
+      listing.id,
+      str(meta.code) || str(meta.reference) || str(meta.listingCode) || undefined,
+      "property",
+    ),
   };
 }
 
@@ -221,6 +227,11 @@ export function mapBackofficeToVehicleListing(
     lat: num(meta.lat),
     lng: num(meta.lng),
     publishedAt: publishedDate(listing),
+    code: listingCodeValue(
+      listing.id,
+      str(meta.code) || str(meta.reference) || str(meta.listingCode) || undefined,
+      "vehicle",
+    ),
   };
 }
 

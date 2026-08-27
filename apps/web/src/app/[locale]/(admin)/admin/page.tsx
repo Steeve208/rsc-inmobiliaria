@@ -27,12 +27,12 @@ export default async function AdminPage({ params }: Props) {
         </p>
       </Link>
       <Link
-        href="/admin/financing"
+        href="/admin/revistas"
         className="block max-w-md rounded-lg border border-border/60 bg-card p-4 transition-colors hover:border-primary/40"
       >
-        <p className="font-medium">RSC Credit</p>
+        <p className="font-medium">Magazines</p>
         <p className="mt-1 text-sm text-muted-foreground">
-          Review financing requests and update status via the admin panel or API.
+          Publish Reeskova editorial issues for the public magazines section.
         </p>
       </Link>
     </div>

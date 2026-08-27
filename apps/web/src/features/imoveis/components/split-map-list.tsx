@@ -1,24 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { marketplace } from "@/lib/layout/marketplace";
 import { PROPERTY_PAGE_SIZE } from "@/lib/listings/sort-properties";
 import type { ImoveisFilters, ImoveisView, PropertyListing, PropertySort } from "../types";
 import { PropertyCard } from "./property-card";
+import { PropertyMapLazy } from "./property-map-lazy";
 import { ResultsToolbar } from "./results-toolbar";
 import { ViewSwitcher } from "./view-switcher";
-
-const PropertyMap = dynamic(
-  () => import("./property-map").then((m) => m.PropertyMap),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="min-h-[520px] animate-pulse rounded-xl bg-[#081128]/60" />
-    ),
-  },
-);
 
 type Props = {
   results: PropertyListing[];
@@ -100,7 +90,7 @@ export function SplitMapList({
               ))}
             </div>
             <div className="sticky top-24 hidden lg:block">
-              <PropertyMap
+              <PropertyMapLazy
                 items={results}
                 highlightedId={highlightedId}
                 onHighlight={onHighlight}
@@ -124,7 +114,7 @@ export function SplitMapList({
 
         {view === "list" && results.length > 0 ? (
           <div className="mt-4 lg:hidden">
-            <PropertyMap
+            <PropertyMapLazy
               items={results}
               highlightedId={highlightedId}
               onHighlight={onHighlight}

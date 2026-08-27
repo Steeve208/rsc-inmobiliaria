@@ -75,7 +75,7 @@ export function ListingAside({
           </button>
         </div>
         <label className="flex items-center gap-2 px-3 py-2.5 text-xs text-[#4B5563]">
-          <input type="checkbox" className="size-3.5 accent-[#E8A84A]" />
+          <input type="checkbox" className="size-3.5 accent-[#2BB8A8]" />
           {t("searchAsMove")}
         </label>
       </div>
@@ -88,7 +88,7 @@ export function ListingAside({
               key={place.city}
               type="button"
               onClick={() => onSelectCity(place.city, place.country, place.state)}
-              className="rounded-full bg-[#F3F4F6] px-3 py-1.5 text-xs font-semibold text-[#0B1220] hover:bg-[#E8A84A]/20"
+              className="rounded-full bg-[#F3F4F6] px-3 py-1.5 text-xs font-semibold text-[#0B1220] hover:bg-[#2BB8A8]/20"
             >
               {place.city}
             </button>
@@ -114,7 +114,7 @@ export function ListingAside({
           <path
             d="M0 28 C16 26 20 18 32 20 C44 22 48 10 64 12 C80 14 84 8 96 10 C108 12 112 6 120 8"
             fill="none"
-            stroke="#E8A84A"
+            stroke="#2BB8A8"
             strokeWidth="2.5"
           />
         </svg>

@@ -22,7 +22,11 @@ export function MobileBottomNav() {
     pathname === "/negocios" ||
     pathname.startsWith("/negocios/") ||
     pathname === "/services" ||
-    pathname.startsWith("/services/");
+    pathname.startsWith("/services/") ||
+    pathname === "/corredores" ||
+    pathname.startsWith("/corredores/") ||
+    pathname === "/revistas" ||
+    pathname.startsWith("/revistas/");
 
   return (
     <>
@@ -42,7 +46,7 @@ export function MobileBottomNav() {
                   key={action.id}
                   href={action.href}
                   onClick={() => setListOpen(false)}
-                  className="rounded-xl border border-[#EDE8DC] px-4 py-3 text-sm font-semibold text-[#0B1220] hover:border-[#D4A62A]"
+                  className="rounded-xl border border-[#E5EAF0] px-4 py-3 text-sm font-semibold text-[#0B1220] hover:border-[#D49A3F]"
                 >
                   {t(`listActions.${action.id}`)}
                 </Link>
@@ -58,7 +62,7 @@ export function MobileBottomNav() {
             href="/"
             className={cn(
               "flex flex-col items-center gap-0.5 py-2 text-[10px] font-semibold",
-              isHome ? "text-[#D4A62A]" : "text-[#6B7285]",
+              isHome ? "text-[#D49A3F]" : "text-[#6B7285]",
             )}
           >
             <Home className="size-5" />
@@ -68,7 +72,7 @@ export function MobileBottomNav() {
             href="/imoveis"
             className={cn(
               "flex flex-col items-center gap-0.5 py-2 text-[10px] font-semibold",
-              isExplore ? "text-[#D4A62A]" : "text-[#6B7285]",
+              isExplore ? "text-[#D49A3F]" : "text-[#6B7285]",
             )}
           >
             <Search className="size-5" />
@@ -77,9 +81,9 @@ export function MobileBottomNav() {
           <button
             type="button"
             onClick={() => setListOpen((open) => !open)}
-            className="-mt-4 flex flex-col items-center gap-0.5 text-[10px] font-bold text-[#070B14]"
+            className="-mt-4 flex flex-col items-center gap-0.5 text-[10px] font-bold text-[#1A1205]"
           >
-            <span className="inline-flex size-12 items-center justify-center rounded-full bg-[#D4A62A] shadow-lg">
+            <span className="inline-flex size-12 items-center justify-center rounded-full bg-[#D49A3F] shadow-lg">
               <Plus className="size-6" />
             </span>
             {t("list")}

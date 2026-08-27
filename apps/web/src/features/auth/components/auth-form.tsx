@@ -172,7 +172,7 @@ export function AuthForm({ mode }: Props) {
             {!isSignUp ? (
               <Link
                 href="/recuperar-senha"
-                className="text-xs font-medium text-[#fbbf24] hover:text-[#fcd34d]"
+                className="text-xs font-medium text-[#3DCCBC] hover:text-[#fcd34d]"
               >
                 {t("forgotPassword.link")}
               </Link>
@@ -200,7 +200,7 @@ export function AuthForm({ mode }: Props) {
 
         <Button
           type="submit"
-          className="h-11 w-full bg-[#d4a017] font-semibold text-[#000a1a] hover:bg-[#c39216]"
+          className="h-11 w-full bg-[#2BB8A8] font-semibold text-[#000a1a] hover:bg-[#1E9B8C]"
           disabled={isLoading || isGoogleLoading}
         >
           {isLoading
@@ -215,7 +215,7 @@ export function AuthForm({ mode }: Props) {
         {isSignUp ? t("signUp.hasAccount") : t("signIn.noAccount")}{" "}
         <Link
           href={isSignUp ? "/entrar" : "/cadastrar"}
-          className="font-medium text-[#fbbf24] hover:text-[#fcd34d]"
+          className="font-medium text-[#3DCCBC] hover:text-[#fcd34d]"
         >
           {isSignUp ? t("signIn.link") : t("signUp.link")}
         </Link>

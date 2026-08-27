@@ -111,7 +111,7 @@ export async function CityLandingPage({ entry, listings, relatedCities }: Props)
           </nav>
 
           <div className="max-w-3xl">
-            <span className="inline-flex items-center gap-2 rounded-full bg-[#d4a017]/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#fbbf24]">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#2BB8A8]/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#3DCCBC]">
               <Building2 className="size-3.5" />
               {t("hero.badge")}
             </span>
@@ -124,7 +124,7 @@ export async function CityLandingPage({ entry, listings, relatedCities }: Props)
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href={buildCitySearchHref(city, state)}
-                className="inline-flex items-center gap-2 rounded-lg bg-[#d4a017] px-5 py-2.5 text-sm font-semibold text-[#000a1a] transition-opacity hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded-lg bg-[#2BB8A8] px-5 py-2.5 text-sm font-semibold text-[#000a1a] transition-opacity hover:opacity-90"
               >
                 {t("hero.cta", labels)}
                 <ArrowRight className="size-4" />
@@ -144,7 +144,7 @@ export async function CityLandingPage({ entry, listings, relatedCities }: Props)
         <div className={marketplace.container}>
           <div className="grid gap-4 sm:grid-cols-3">
             <div className="rounded-xl border border-white/8 bg-white/[0.02] p-5">
-              <p className="text-2xl font-bold text-[#fbbf24]">{listings.length}</p>
+              <p className="text-2xl font-bold text-[#3DCCBC]">{listings.length}</p>
               <p className="mt-1 text-sm text-white/55">{t("stats.listings", labels)}</p>
             </div>
             <div className="rounded-xl border border-white/8 bg-white/[0.02] p-5">
@@ -182,12 +182,12 @@ export async function CityLandingPage({ entry, listings, relatedCities }: Props)
               <Link
                 key={type}
                 href={buildCitySearchHref(city, state, { type })}
-                className="group flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.02] p-4 transition-colors hover:border-[#d4a017]/30 hover:bg-white/[0.04]"
+                className="group flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.02] p-4 transition-colors hover:border-[#2BB8A8]/30 hover:bg-white/[0.04]"
               >
                 <span className="flex size-10 items-center justify-center rounded-lg bg-[#1d4ed8]/20 text-[#60a5fa]">
                   <Icon className="size-5" />
                 </span>
-                <span className="text-sm font-medium text-white group-hover:text-[#fbbf24]">
+                <span className="text-sm font-medium text-white group-hover:text-[#3DCCBC]">
                   {tc(type)} — {city}
                 </span>
               </Link>
@@ -206,7 +206,7 @@ export async function CityLandingPage({ entry, listings, relatedCities }: Props)
               </div>
               <Link
                 href={buildCitySearchHref(city, state)}
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-[#fbbf24] hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-[#3DCCBC] hover:underline"
               >
                 {t("featured.viewAll", labels)}
                 <ArrowRight className="size-4" />
@@ -232,7 +232,7 @@ export async function CityLandingPage({ entry, listings, relatedCities }: Props)
                 <li>
                   <Link
                     href={buildCitySearchHref(city, state, { transaction: "buy" })}
-                    className="text-white/65 hover:text-[#fbbf24]"
+                    className="text-white/65 hover:text-[#3DCCBC]"
                   >
                     {t("links.buy", labels)}
                   </Link>
@@ -240,25 +240,25 @@ export async function CityLandingPage({ entry, listings, relatedCities }: Props)
                 <li>
                   <Link
                     href={buildCitySearchHref(city, state, { transaction: "rent" })}
-                    className="text-white/65 hover:text-[#fbbf24]"
+                    className="text-white/65 hover:text-[#3DCCBC]"
                   >
                     {t("links.rent", labels)}
                   </Link>
                 </li>
                 {market.creditAvailable ? (
                   <li>
-                    <Link href="/financing" className="text-white/65 hover:text-[#fbbf24]">
+                    <Link href="/financing" className="text-white/65 hover:text-[#3DCCBC]">
                       {t("links.financing")}
                     </Link>
                   </li>
                 ) : null}
                 <li>
-                  <Link href="/help" className="text-white/65 hover:text-[#fbbf24]">
+                  <Link href="/help" className="text-white/65 hover:text-[#3DCCBC]">
                     {t("links.help")}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services" className="text-white/65 hover:text-[#fbbf24]">
+                  <Link href="/services" className="text-white/65 hover:text-[#3DCCBC]">
                     {t("links.services")}
                   </Link>
                 </li>
@@ -273,7 +273,7 @@ export async function CityLandingPage({ entry, listings, relatedCities }: Props)
                     <li key={related.slug}>
                       <Link
                         href={`/imoveis/cidade/${related.slug}`}
-                        className="text-white/65 hover:text-[#fbbf24]"
+                        className="text-white/65 hover:text-[#3DCCBC]"
                       >
                         {related.city}, {related.state}
                       </Link>
@@ -282,7 +282,7 @@ export async function CityLandingPage({ entry, listings, relatedCities }: Props)
                 </ul>
                 <Link
                   href="/imoveis"
-                  className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[#fbbf24] hover:underline"
+                  className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[#3DCCBC] hover:underline"
                 >
                   {t("related.viewAll")}
                   <ArrowRight className="size-4" />

@@ -8,6 +8,7 @@ import {
 } from "@/lib/db/schema";
 import type { PropertyDetail, PropertyListing } from "@/features/imoveis/types";
 import { listingImageUrl } from "@/lib/listings/constants";
+import { listingCodeValue } from "@/lib/listings/listing-code";
 import { slugifyCompanyId } from "@/lib/leads/utils";
 import {
   fetchAllBackofficeListingsResult,
@@ -72,6 +73,7 @@ function mapListing(row: PropertyRow, companyName: string): PropertyListing {
     lat: num(row.lat),
     lng: num(row.lng),
     publishedAt: row.publishedAt?.toISOString().slice(0, 10) ?? "",
+    code: listingCodeValue(row.id, undefined, "property"),
   };
 }
 

@@ -49,7 +49,7 @@ export function ComoFuncionaPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#D4A62A]">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#1E9B8C]">
               {t("hero.badge")}
             </p>
             <h1 className="rk-display mt-4 text-3xl font-bold text-white sm:text-5xl">
@@ -90,7 +90,7 @@ export function ComoFuncionaPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.35, delay: index * 0.04 }}
                 >
-                  <span className="inline-flex size-11 items-center justify-center rounded-xl bg-[#D4A62A]/12 text-[#D4A62A]">
+                  <span className="inline-flex size-11 items-center justify-center rounded-xl bg-[#1E9B8C]/12 text-[#1E9B8C]">
                     <Icon className="size-5" strokeWidth={1.75} />
                   </span>
                   <h2 className="mt-4 text-xl font-semibold text-white">
@@ -127,10 +127,10 @@ export function ComoFuncionaPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
-                  <div className="flex size-14 items-center justify-center rounded-full border border-[#D4A62A]/45 bg-[#111827] text-[#D4A62A]">
+                  <div className="flex size-14 items-center justify-center rounded-full border border-[#1E9B8C]/45 bg-[#111827] text-[#1E9B8C]">
                     <Icon className="size-5" strokeWidth={1.75} />
                   </div>
-                  <p className="mt-3 text-xs font-semibold text-[#D4A62A]">
+                  <p className="mt-3 text-xs font-semibold text-[#1E9B8C]">
                     {index + 1}
                   </p>
                   <h3 className="mt-1 text-base font-semibold text-white">
@@ -153,7 +153,7 @@ export function ComoFuncionaPage() {
       <section className="pt-16">
         <div className="rk-container">
           <div className="mb-8 flex items-center gap-3">
-            <HelpCircle className="size-6 text-[#D4A62A]" />
+            <HelpCircle className="size-6 text-[#1E9B8C]" />
             <h2 className="rk-section-title text-3xl">{t("faq.title")}</h2>
           </div>
           <div className="space-y-3">

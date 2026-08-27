@@ -78,5 +78,10 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/dashboard", "/dashboard/:path*", "/(en|es|pt|fr|de|it|ar)/:path*"],
+  matcher: [
+    "/",
+    "/dashboard",
+    "/dashboard/:path*",
+    "/(en|es|pt|fr|de|it|ar|zh|hi|bn)/:path*",
+  ],
 };

@@ -10,7 +10,7 @@ export function EcosystemJourney() {
   const t = useTranslations("landing.ecosystemJourney");
 
   return (
-    <section className="bg-[#F7F5F0] pt-16 sm:pt-20">
+    <section className="bg-[#F4F7FA] pt-16 sm:pt-20">
       <div className="rk-container">
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <h2 className="rk-display text-3xl font-bold tracking-tight text-[#121826] lg:text-[2.35rem]">
@@ -29,7 +29,7 @@ export function EcosystemJourney() {
               className="relative"
             >
               <div className="rounded-[20px] bg-white px-6 py-7 shadow-[0_6px_24px_rgba(15,20,30,.05)] ring-1 ring-black/[0.04] sm:px-8">
-                <p className="text-xs font-bold tracking-[0.2em] text-[#D4A62A] uppercase">
+                <p className="text-xs font-bold tracking-[0.2em] text-[#1E9B8C] uppercase">
                   {t(`steps.${step}.label`)}
                 </p>
                 <p className="mt-2 text-base leading-relaxed text-[#4B5565] sm:text-[17px]">
@@ -37,7 +37,7 @@ export function EcosystemJourney() {
                 </p>
               </div>
               {index < steps.length - 1 ? (
-                <div className="flex justify-center py-3 text-[#D4A62A]" aria-hidden>
+                <div className="flex justify-center py-3 text-[#1E9B8C]" aria-hidden>
                   <ArrowDown className="size-5" strokeWidth={1.75} />
                 </div>
               ) : null}

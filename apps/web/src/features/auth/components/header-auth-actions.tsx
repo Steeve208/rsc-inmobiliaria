@@ -26,7 +26,12 @@ export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
   const t = useTranslations("nav");
   const { data: session, isPending } = authClient.useSession();
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -39,7 +44,8 @@ export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
     return () => document.removeEventListener("mousedown", onPointerDown);
   }, [open]);
 
-  if (isPending) {
+  // Keep SSR + first client paint identical; session is only known after mount.
+  if (!mounted || isPending) {
     return (
       <div
         className={cn(
@@ -48,7 +54,13 @@ export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
           className,
         )}
       >
-        <div className="hidden size-10 animate-pulse rounded-full bg-white/10 sm:block" />
+        <div
+          className={cn(
+            "hidden animate-pulse rounded-full bg-white/10 sm:block",
+            variant === "compact" ? "h-9 w-20 rounded-md" : "size-10",
+          )}
+          aria-hidden
+        />
       </div>
     );
   }
@@ -71,7 +83,7 @@ export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
                 className="size-7 rounded-full object-cover"
               />
             ) : (
-              <span className="flex size-7 items-center justify-center rounded-full bg-[#D4A62A]/15 text-[#D4A62A]">
+              <span className="flex size-7 items-center justify-center rounded-full bg-[#1E9B8C]/15 text-[#1E9B8C]">
                 <User className="size-3.5" />
               </span>
             )}
@@ -113,7 +125,7 @@ export function HeaderAuthActions({ className, variant = "desktop" }: Props) {
               className="size-8 rounded-full object-cover"
             />
           ) : (
-            <span className="flex size-8 items-center justify-center rounded-full bg-[#D4A62A]/15 text-[#D4A62A]">
+            <span className="flex size-8 items-center justify-center rounded-full bg-[#1E9B8C]/15 text-[#1E9B8C]">
               <User className="size-4" />
             </span>
           )}

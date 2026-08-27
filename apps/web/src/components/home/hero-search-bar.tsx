@@ -319,7 +319,7 @@ export function HeroSearchBar() {
   };
 
   const fieldClass =
-    "group relative flex min-h-[60px] flex-1 flex-col justify-center gap-0.5 px-4 py-2.5 transition-colors duration-300 hover:bg-[#F7F4EC]/80 lg:min-h-[68px] lg:border-r lg:border-[#EDE8DC]";
+    "group relative flex min-h-[60px] flex-1 flex-col justify-center gap-0.5 px-4 py-2.5 transition-colors duration-300 hover:bg-[#F4F7FA]/80 lg:min-h-[68px] lg:border-r lg:border-[#E5EAF0]";
 
   const selectClass =
     "w-full appearance-none bg-transparent pr-7 text-sm font-medium text-[#1A1F2B] outline-none";
@@ -337,7 +337,7 @@ export function HeroSearchBar() {
   return (
     <div className="rk-container relative z-30 -mt-10 pb-0">
       <motion.div
-        className="overflow-hidden rounded-[22px] border border-[#E8E2D4] bg-white shadow-[0_20px_50px_rgba(0,0,0,.18)]"
+        className="overflow-hidden rounded-[22px] border border-[#E2E8F0] bg-white shadow-[0_20px_50px_rgba(0,0,0,.18)]"
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.12 }}
@@ -405,7 +405,7 @@ export function HeroSearchBar() {
               </span>
               <div className="relative flex items-center gap-2">
                 <TypeIcon
-                  className="size-4 shrink-0 text-[#D4A62A]"
+                  className="size-4 shrink-0 text-[#1E9B8C]"
                   strokeWidth={1.75}
                 />
                 {category === "properties" ? (

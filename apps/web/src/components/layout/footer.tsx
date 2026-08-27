@@ -117,7 +117,7 @@ export function Footer() {
                       : undefined
                   }
                   aria-label={social.label}
-                  className="inline-flex size-10 items-center justify-center rounded-full border border-[rgba(255,255,255,.08)] text-[#C8D0DD] transition-all duration-300 hover:border-[#D4A62A]/50 hover:text-[#D4A62A]"
+                  className="inline-flex size-10 items-center justify-center rounded-full border border-[rgba(255,255,255,.08)] text-[#C8D0DD] transition-all duration-300 hover:border-[#1E9B8C]/50 hover:text-[#1E9B8C]"
                 >
                   <svg
                     viewBox="0 0 24 24"
@@ -148,7 +148,7 @@ export function Footer() {
                       `columns.${column.key}.links.${link.labelKey}`,
                     );
                     const className =
-                      "text-sm text-[#C8D0DD] transition-colors duration-300 hover:text-[#D4A62A]";
+                      "text-sm text-[#C8D0DD] transition-colors duration-300 hover:text-[#1E9B8C]";
                     const isExternal =
                       "external" in link && link.external === true;
 

@@ -186,7 +186,7 @@ export function FinancingSimulator({
 
       <section
         id="rsc-credit"
-        className="rounded-2xl border border-[#d4a017]/30 bg-[#d4a017]/10 p-6"
+        className="rounded-2xl border border-[#2BB8A8]/30 bg-[#2BB8A8]/10 p-6"
       >
         <h2 className="text-xl font-bold text-white">{t("rscCreditTitle")}</h2>
         <p className="mt-2 text-sm text-white/65">{t("rscCreditBody")}</p>
@@ -202,7 +202,7 @@ export function FinancingSimulator({
             <p className="mt-1 text-xs text-white/50">{t("requestId", { id: submittedId })}</p>
             <Link
               href="/dashboard/requests"
-              className="mt-3 inline-flex items-center justify-center rounded-md bg-[#d4a017] px-4 py-2 text-sm font-semibold text-[#0a111f] transition-colors hover:bg-[#eebc49]"
+              className="mt-3 inline-flex items-center justify-center rounded-md bg-[#2BB8A8] px-4 py-2 text-sm font-semibold text-[#0a111f] transition-colors hover:bg-[#3DCCBC]"
             >
               {t("viewRequests")}
             </Link>
@@ -259,7 +259,7 @@ export function FinancingSimulator({
               <Button
                 type="submit"
                 disabled={submitting}
-                className="bg-[#d4a017] text-[#0a111f] hover:bg-[#eebc49]"
+                className="bg-[#2BB8A8] text-[#0a111f] hover:bg-[#3DCCBC]"
               >
                 {submitting ? t("submitting") : t("submitRequest")}
               </Button>

@@ -31,7 +31,7 @@ export function MarketplaceCategories() {
   );
 
   return (
-    <section id="categorias" className="scroll-mt-28 bg-[#F7F5F0] pt-14 sm:pt-16">
+    <section id="categorias" className="scroll-mt-28 bg-[#F4F7FA] pt-14 sm:pt-16">
       <div className="rk-container">
         <div className="mb-8 max-w-xl">
           <h2 className="rk-display text-3xl font-bold tracking-tight text-[#121826] lg:text-[2.1rem]">
@@ -53,9 +53,9 @@ export function MarketplaceCategories() {
               >
                 <Link
                   href={category.href}
-                  className="group flex h-full flex-col items-center gap-3 rounded-[18px] bg-white px-3 py-6 text-center shadow-[0_4px_20px_rgba(15,20,30,.04)] ring-1 ring-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(15,20,30,.08)] hover:ring-[#D4A62A]/35"
+                  className="group flex h-full flex-col items-center gap-3 rounded-[18px] bg-white px-3 py-6 text-center shadow-[0_4px_20px_rgba(15,20,30,.04)] ring-1 ring-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(15,20,30,.08)] hover:ring-[#1E9B8C]/35"
                 >
-                  <span className="flex size-12 items-center justify-center rounded-2xl bg-[#0B1220] text-[#D4A62A] transition-colors group-hover:bg-[#121A2B]">
+                  <span className="flex size-12 items-center justify-center rounded-2xl bg-[#0B1220] text-[#1E9B8C] transition-colors group-hover:bg-[#121A2B]">
                     <Icon className="size-5" strokeWidth={1.6} />
                   </span>
                   <span className="text-sm font-semibold text-[#121826]">

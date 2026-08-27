@@ -2,8 +2,11 @@ import type {
   ServiceCategory,
   ServiceCycle,
   ServiceListing,
+  ServicesFilters,
 } from "@/features/services/types";
+import { brazilStates } from "@/lib/listings/regions";
 import { formatMarketplacePrice } from "@/lib/marketplace/format";
+import { marketList } from "@/lib/markets/config";
 
 export const SERVICE_CATEGORIES: ServiceCategory[] = [
   "agents",
@@ -55,13 +58,112 @@ export const CYCLE_TYPES: Record<ServiceCycle, ServiceCategory[]> = {
   sell: ["agents", "photography", "staging", "moving"],
 };
 
-export const POPULAR_SERVICE_CITIES = [
-  { city: "São Paulo", country: "Brasil", state: "SP" },
-  { city: "Rio de Janeiro", country: "Brasil", state: "RJ" },
-  { city: "Lisbon", country: "Portugal", state: "Lisboa" },
-  { city: "Miami", country: "United States", state: "FL" },
-  { city: "Dubai", country: "United Arab Emirates", state: "DU" },
-] as const;
+export type LocationOption = { value: string; label: string };
+
+function uniqueSorted(values: string[]) {
+  return [...new Set(values.map((value) => value.trim()).filter(Boolean))].sort((a, b) =>
+    a.localeCompare(b, undefined, { sensitivity: "base" }),
+  );
+}
+
+function matchesCountry(item: ServiceListing, country: string) {
+  return item.country.toLowerCase() === country.toLowerCase();
+}
+
+function matchesState(item: ServiceListing, state: string) {
+  if (!state) return true;
+  const region = brazilStates.find(
+    (entry) => entry.id === state || entry.name.toLowerCase() === state.toLowerCase(),
+  );
+  const aliases = [state, region?.id, region?.name].filter(Boolean) as string[];
+  return aliases.some((alias) => item.state.toLowerCase() === alias.toLowerCase());
+}
+
+export function serviceLocationCountries(catalog: ServiceListing[]): LocationOption[] {
+  const fromCatalog = uniqueSorted(catalog.map((item) => item.country));
+  const fromMarkets = marketList
+    .map((market) => market.countryName)
+    .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+  const seen = new Set<string>();
+  const options: LocationOption[] = [];
+
+  for (const name of [...fromCatalog, ...fromMarkets]) {
+    const key = name.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const market = marketList.find((entry) => entry.countryName === name);
+    options.push({
+      value: name,
+      label: market?.flag ? `${market.flag} ${name}` : name,
+    });
+  }
+
+  return options;
+}
+
+export function serviceLocationRegions(
+  catalog: ServiceListing[],
+  country: string,
+): LocationOption[] {
+  if (!country) return [];
+  const fromCatalog = uniqueSorted(
+    catalog.filter((item) => matchesCountry(item, country)).map((item) => item.state),
+  );
+
+  if (country === "Brasil") {
+    const seen = new Set<string>();
+    const options: LocationOption[] = [];
+    for (const region of brazilStates) {
+      seen.add(region.id.toLowerCase());
+      seen.add(region.name.toLowerCase());
+      options.push({ value: region.id, label: region.name });
+    }
+    for (const state of fromCatalog) {
+      if (seen.has(state.toLowerCase())) continue;
+      seen.add(state.toLowerCase());
+      options.push({ value: state, label: state });
+    }
+    return options;
+  }
+
+  return fromCatalog.map((state) => {
+    const region = brazilStates.find(
+      (entry) => entry.id === state || entry.name.toLowerCase() === state.toLowerCase(),
+    );
+    return { value: state, label: region?.name ?? state };
+  });
+}
+
+export function serviceLocationCities(
+  catalog: ServiceListing[],
+  country: string,
+  state: string,
+): LocationOption[] {
+  if (!country || !state) return [];
+  return uniqueSorted(
+    catalog
+      .filter((item) => matchesCountry(item, country) && matchesState(item, state))
+      .map((item) => item.city),
+  ).map((city) => ({ value: city, label: city }));
+}
+
+export function serviceLocationPatch(next: {
+  country?: string;
+  state?: string;
+  city?: string;
+}): Partial<ServicesFilters> {
+  const country = next.country ?? "";
+  const state = country ? (next.state ?? "") : "";
+  const city = country && state ? (next.city ?? "") : "";
+  return {
+    country,
+    state,
+    city,
+    locationLabel: [city, state, country].filter(Boolean).join(", "),
+    lat: null,
+    lng: null,
+  };
+}
 
 export function countByType(items: ServiceListing[], type: ServiceCategory | "") {
   if (!type) return items.length;

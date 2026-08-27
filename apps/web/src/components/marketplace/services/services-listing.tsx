@@ -3,12 +3,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
-import { Globe2, Handshake, ShieldCheck, Sparkles, Wallet } from "lucide-react";
+import { Award, BadgeCheck, Globe, Headphones } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { MarketplaceFooter } from "@/components/marketplace/marketplace-footer";
 import { ListingPagination } from "@/components/marketplace/properties/listing-pagination";
 import type {
-  ServiceCycle,
   ServiceListing,
   ServicesFilters,
   ServicesView,
@@ -22,8 +21,6 @@ import {
 } from "./listing-mobile";
 import { ListingServiceCard } from "./listing-card";
 import { ListingToolbar } from "./listing-toolbar";
-import { SERVICE_CYCLES } from "./listing-utils";
-import { cn } from "@/lib/utils";
 
 const ServiceMap = dynamic(
   () =>
@@ -36,11 +33,10 @@ const ServiceMap = dynamic(
 
 const PAGE_SIZE = 12;
 const TRUST_ITEMS = [
-  ["verified", ShieldCheck],
-  ["secure", Wallet],
-  ["quality", Sparkles],
-  ["support", Handshake],
-  ["global", Globe2],
+  ["verified", BadgeCheck],
+  ["quality", Award],
+  ["support", Headphones],
+  ["global", Globe],
 ] as const;
 
 type Props = {
@@ -94,24 +90,17 @@ export function ServicesListing({
     return results.slice(start, start + PAGE_SIZE);
   }, [page, results]);
 
-  const selectCycle = (cycle: ServiceCycle) => {
-    onChange({
-      cycle: filters.cycle === cycle ? "" : cycle,
-      type: "",
-    });
-  };
-
   return (
-    <div className="bg-[#F4F4F5] text-[#0B1220]">
+    <div className="bg-[#F4F7FA] text-[#0B1220]">
       <div className="rk-container py-4">
         <div className="grid items-start gap-4 lg:grid-cols-[240px_minmax(0,1fr)] xl:grid-cols-[240px_minmax(0,1fr)_260px]">
-          <aside className="sticky top-24 hidden rounded-xl bg-white px-3 lg:block">
+          <aside className="sticky top-24 hidden self-start rounded-xl bg-white px-3 lg:block">
             <ListingFilters filters={filters} catalog={catalog} onChange={onChange} />
           </aside>
 
           <section className="min-w-0">
             <nav className="text-xs text-[#6B7285]">
-              <Link href="/" className="hover:text-[#E8A84A]">
+              <Link href="/" className="hover:text-[#2BB8A8]">
                 {t("breadcrumbHome")}
               </Link>
               <span className="mx-1.5">›</span>
@@ -138,31 +127,11 @@ export function ServicesListing({
                 />
                 <div className="relative flex h-full flex-col justify-center p-3">
                   <p className="text-xs font-bold leading-snug text-white">{t("promoTitle")}</p>
-                  <span className="mt-1.5 inline-flex w-fit rounded-md bg-[#E8A84A] px-2 py-1 text-[10px] font-bold text-[#070B14]">
+                  <span className="mt-1.5 inline-flex w-fit rounded-md bg-[#2BB8A8] px-2 py-1 text-[10px] font-bold text-[#070B14]">
                     {t("promoCta")}
                   </span>
                 </div>
               </Link>
-            </div>
-
-            <div className="mt-3 hidden items-center gap-1 overflow-x-auto text-xs font-semibold text-[#6B7285] lg:flex">
-              {SERVICE_CYCLES.map((cycle, index) => (
-                <span key={cycle} className="inline-flex items-center gap-1">
-                  {index > 0 ? <span className="mx-0.5 text-[#D1D5DB]">→</span> : null}
-                  <button
-                    type="button"
-                    onClick={() => selectCycle(cycle)}
-                    className={cn(
-                      "rounded-full px-2.5 py-1 transition",
-                      filters.cycle === cycle
-                        ? "bg-[#0B1220] text-white"
-                        : "hover:bg-white hover:text-[#0B1220]",
-                    )}
-                  >
-                    {t(`cycle.${cycle}`)}
-                  </button>
-                </span>
-              ))}
             </div>
 
             <p className="mt-3 text-sm font-semibold">{t("count", { count: results.length })}</p>
@@ -180,6 +149,7 @@ export function ServicesListing({
               />
               <ListingToolbar
                 filters={filters}
+                catalog={catalog}
                 view={view}
                 onChange={onChange}
                 onViewChange={(next) => {
@@ -268,18 +238,27 @@ export function ServicesListing({
           </div>
         </div>
 
-        <section className="mt-8 grid gap-4 rounded-xl bg-white px-4 py-5 sm:grid-cols-2 lg:grid-cols-5">
-          {TRUST_ITEMS.map(([key, Icon]) => (
-            <div key={key} className="flex items-start gap-3">
-              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-[#F8F4EA] text-[#C9972A]">
-                <Icon className="size-4" />
-              </span>
-              <div>
-                <p className="text-sm font-bold">{t(`trust.${key}.title`)}</p>
-                <p className="mt-0.5 text-xs text-[#6B7285]">{t(`trust.${key}.text`)}</p>
+        <section className="mt-8 overflow-hidden rounded-2xl bg-white ring-1 ring-black/[0.06]">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4">
+            {TRUST_ITEMS.map(([key, Icon]) => (
+              <div
+                key={key}
+                className="flex items-start gap-3.5 border-b border-[#EFECE4] px-5 py-5 last:border-b-0 sm:[&:nth-last-child(-n+2)]:border-b-0 lg:border-b-0 lg:border-r lg:last:border-r-0 lg:[&:nth-last-child(-n+2)]:border-b-0"
+              >
+                <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-2xl bg-[#0B1220] text-[#2BB8A8] shadow-[0_8px_18px_rgba(11,18,32,.12)]">
+                  <Icon className="size-5" strokeWidth={1.75} />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-sm font-bold tracking-tight text-[#0B1220]">
+                    {t(`trust.${key}.title`)}
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-[#6B7285]">
+                    {t(`trust.${key}.text`)}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </section>
       </div>
 

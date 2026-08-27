@@ -157,7 +157,7 @@ export function IconTrucks({ className }: IconProps) {
 export function IconBusinesses({ className }: IconProps) {
   return (
     <Svg className={className}>
-      <rect x="8" y="18" width="32" height="22" rx="3" fill="#D4A62A" />
+      <rect x="8" y="18" width="32" height="22" rx="3" fill="#1E9B8C" />
       <path d="M16 18v-4a8 8 0 0 1 16 0v4" stroke="#B45309" strokeWidth="4" />
       <rect x="20" y="26" width="8" height="6" rx="1" fill="#FEF3C7" />
     </Svg>

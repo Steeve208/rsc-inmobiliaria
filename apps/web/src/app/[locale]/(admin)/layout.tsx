@@ -34,6 +34,9 @@ export default async function AdminLayout({ children, params }: Props) {
           <Link href="/admin/financing" className="hover:text-foreground">
             RSC Credit
           </Link>
+          <Link href="/admin/revistas" className="hover:text-foreground">
+            Magazines
+          </Link>
         </nav>
       </aside>
       <main className="flex-1 px-4 py-8 sm:px-6">{children}</main>

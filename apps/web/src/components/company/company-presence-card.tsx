@@ -76,7 +76,7 @@ export function CompanyPresenceCard({
         <div className="mt-4 space-y-3 text-sm text-white/70">
           {companyInfo.cnpj ? (
             <div className="flex items-start gap-2">
-              <Building2 className="mt-0.5 size-4 shrink-0 text-[#d4a017]" />
+              <Building2 className="mt-0.5 size-4 shrink-0 text-[#2BB8A8]" />
               <div>
                 <p className="text-xs uppercase tracking-wide text-white/40">{t("cnpj")}</p>
                 <p className="text-white">{companyInfo.cnpj}</p>
@@ -86,7 +86,7 @@ export function CompanyPresenceCard({
 
           {location ? (
             <div className="flex items-start gap-2">
-              <MapPin className="mt-0.5 size-4 shrink-0 text-[#d4a017]" />
+              <MapPin className="mt-0.5 size-4 shrink-0 text-[#2BB8A8]" />
               <div>
                 <p className="text-xs uppercase tracking-wide text-white/40">{t("address")}</p>
                 <p className="text-white">{location}</p>
@@ -96,7 +96,7 @@ export function CompanyPresenceCard({
 
           {companyInfo.phone ? (
             <div className="flex items-start gap-2">
-              <Phone className="mt-0.5 size-4 shrink-0 text-[#d4a017]" />
+              <Phone className="mt-0.5 size-4 shrink-0 text-[#2BB8A8]" />
               <div>
                 <p className="text-xs uppercase tracking-wide text-white/40">{t("phone")}</p>
                 <p className="text-white">{companyInfo.phone}</p>
@@ -106,7 +106,7 @@ export function CompanyPresenceCard({
 
           {hasHours ? (
             <div className="flex items-start gap-2">
-              <Clock3 className="mt-0.5 size-4 shrink-0 text-[#d4a017]" />
+              <Clock3 className="mt-0.5 size-4 shrink-0 text-[#2BB8A8]" />
               <div className="min-w-0 flex-1">
                 <p className="text-xs uppercase tracking-wide text-white/40">{t("hours")}</p>
                 <ul className="mt-1 space-y-1">

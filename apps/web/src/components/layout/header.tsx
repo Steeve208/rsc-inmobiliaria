@@ -2,17 +2,18 @@
 
 import { useTranslations } from "next-intl";
 import {
+  BookOpen,
   Briefcase,
   Building2,
   Car,
-  Clock,
-  Crown,
   Heart,
+  Home,
   Menu,
   ShoppingCart,
   Smartphone,
   Sparkles,
   Tag,
+  Users,
   Wrench,
   X,
 } from "lucide-react";
@@ -28,14 +29,15 @@ import { useFavorites } from "@/hooks/use-favorites";
 import { SECONDARY_NAV } from "@/lib/marketplace/catalog";
 
 const navIcons = {
+  home: Home,
   properties: Building2,
   vehicles: Car,
   projects: Sparkles,
   businesses: Briefcase,
   services: Wrench,
   deals: Tag,
-  newListings: Clock,
-  premium: Crown,
+  brokers: Users,
+  magazines: BookOpen,
 } as const;
 
 export function Header() {
@@ -51,7 +53,7 @@ export function Header() {
       <MarketDetectionBanner />
       <header className="sticky top-0 z-50">
         <div className="bg-[#0B0F19]">
-          <div className="rk-container flex h-16 items-center gap-3">
+          <div className="rk-container flex h-[52px] items-center gap-3">
             <Logo className="shrink-0" compact />
 
             <GlobalSearch
@@ -63,13 +65,13 @@ export function Header() {
               <LocaleSwitcher key="header-locale" />
 
               <Link
-                href={isLoggedIn ? "/dashboard" : "/favoritos"}
-                className="relative inline-flex items-center gap-1.5 rounded-md px-2 py-1.5 text-xs font-semibold text-white/90 hover:text-[#E8A84A]"
+                href={isLoggedIn ? "/dashboard" : "/saved"}
+                className="relative inline-flex items-center gap-1.5 rounded-md px-2 py-1.5 text-xs font-semibold text-white/90 hover:text-[#EBAD5B]"
               >
                 <Heart className="size-4" />
                 <span className="hidden lg:inline">{t("saved")}</span>
                 {count > 0 ? (
-                  <span className="absolute -right-0.5 -top-0.5 flex size-4 items-center justify-center rounded-full bg-[#E8A84A] text-[10px] font-bold text-[#070B14]">
+                  <span className="absolute -right-0.5 -top-0.5 flex size-4 items-center justify-center rounded-full bg-[#EBAD5B] text-[10px] font-bold text-[#1A1205]">
                     {count > 9 ? "9+" : count}
                   </span>
                 ) : null}
@@ -79,14 +81,14 @@ export function Header() {
 
               <Link
                 href="/para-empresas"
-                className="hidden h-9 items-center rounded-md bg-[#E8A84A] px-3.5 text-xs font-bold text-[#070B14] hover:bg-[#F0B85A] lg:inline-flex"
+                className="hidden h-9 items-center rounded-md bg-[#EBAD5B] px-3.5 text-xs font-bold text-[#1A1205] hover:bg-[#F2C06E] lg:inline-flex"
               >
                 {t("listCta")}
               </Link>
 
               <Link
                 href="/favoritos"
-                className="hidden size-9 items-center justify-center rounded-md text-white/90 hover:text-[#E8A84A] lg:inline-flex"
+                className="hidden size-9 items-center justify-center rounded-md text-white/90 hover:text-[#EBAD5B] lg:inline-flex"
                 aria-label={t("cart")}
               >
                 <ShoppingCart className="size-5" />
@@ -109,10 +111,11 @@ export function Header() {
         </div>
 
         <nav className="bg-[#111827]">
-          <div className="rk-container flex h-11 items-center gap-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="rk-container flex h-9 items-center gap-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {SECONDARY_NAV.map((link) => {
               const Icon = navIcons[link.icon];
               const active =
+                (link.labelKey === "home" && pathname === "/") ||
                 (link.labelKey === "properties" &&
                   (pathname === "/imoveis" || pathname.startsWith("/imoveis/"))) ||
                 (link.labelKey === "vehicles" &&
@@ -122,25 +125,31 @@ export function Header() {
                 (link.labelKey === "businesses" &&
                   (pathname === "/negocios" || pathname.startsWith("/negocios/"))) ||
                 (link.labelKey === "services" &&
-                  (pathname === "/services" || pathname.startsWith("/services/")));
+                  (pathname === "/services" || pathname.startsWith("/services/"))) ||
+                (link.labelKey === "brokers" &&
+                  (pathname === "/corredores" || pathname.startsWith("/corredores/"))) ||
+                (link.labelKey === "magazines" &&
+                  (pathname === "/revistas" || pathname.startsWith("/revistas/")));
               return (
                 <Link
                   key={link.labelKey}
                   href={link.href}
                   className={
                     active
-                      ? "inline-flex shrink-0 items-center gap-1.5 border-b-2 border-[#E8A84A] text-[13px] font-medium text-[#E8A84A]"
-                      : "inline-flex shrink-0 items-center gap-1.5 text-[13px] font-medium text-white/85 hover:text-[#E8A84A]"
+                      ? "inline-flex shrink-0 items-center gap-1.5 border-b-2 border-[#EBAD5B] text-[13px] font-medium text-[#EBAD5B]"
+                      : "inline-flex shrink-0 items-center gap-1.5 text-[13px] font-medium text-white/85 hover:text-[#EBAD5B]"
                   }
                 >
                   <Icon className="size-3.5 opacity-80" strokeWidth={1.8} />
-                  {t(`nav.${link.labelKey}`)}
+                  {link.labelKey === "home"
+                    ? tNav("home")
+                    : t(`nav.${link.labelKey}`)}
                 </Link>
               );
             })}
             <Link
               href="/help"
-              className="ms-auto hidden shrink-0 items-center gap-1.5 text-[13px] font-medium text-white/85 hover:text-[#E8A84A] lg:inline-flex"
+              className="ms-auto hidden shrink-0 items-center gap-1.5 text-[13px] font-medium text-white/85 hover:text-[#EBAD5B] lg:inline-flex"
             >
               <Smartphone className="size-3.5" strokeWidth={1.8} />
               {t("downloadApp")}
@@ -161,11 +170,13 @@ export function Header() {
                   <Link
                     key={link.labelKey}
                     href={link.href}
-                    className="inline-flex items-center gap-2 rounded-xl px-2 py-2.5 text-sm font-medium text-[#AEB7C5] hover:bg-[#161F31] hover:text-[#E8A84A]"
+                    className="inline-flex items-center gap-2 rounded-xl px-2 py-2.5 text-sm font-medium text-[#AEB7C5] hover:bg-[#161F31] hover:text-[#EBAD5B]"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <Icon className="size-4" />
-                    {t(`nav.${link.labelKey}`)}
+                    {link.labelKey === "home"
+                      ? tNav("home")
+                      : t(`nav.${link.labelKey}`)}
                   </Link>
                 );
               })}
@@ -173,7 +184,7 @@ export function Header() {
             <div className="mt-4 flex flex-col gap-3 border-t border-white/10 pt-4">
               <Link
                 href="/para-empresas"
-                className="inline-flex h-12 items-center justify-center rounded-2xl bg-[#E8A84A] text-sm font-bold text-[#070B14]"
+                className="inline-flex h-12 items-center justify-center rounded-2xl bg-[#EBAD5B] text-sm font-bold text-[#1A1205]"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {t("listCta")}

@@ -7,6 +7,7 @@ import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
 import { useFavoriteButton } from "@/hooks/use-favorites";
 import { useVehicleCompare } from "@/hooks/use-vehicle-compare-state";
+import { ListingCodeBadge } from "@/components/marketplace/listing-code-badge";
 import type { VehicleListing } from "../types";
 
 type Props = {
@@ -86,7 +87,7 @@ export function VehicleCard({
             className={cn(
               "flex size-8 items-center justify-center rounded-full backdrop-blur-sm transition-colors",
               active
-                ? "bg-[#d4a017] text-[#000a1a]"
+                ? "bg-[#2BB8A8] text-[#000a1a]"
                 : "bg-black/40 text-white hover:bg-black/60",
             )}
             aria-label={t("favorite")}
@@ -100,6 +101,12 @@ export function VehicleCard({
             {t("verified")}
           </span>
         )}
+        <ListingCodeBadge
+          id={item.id}
+          code={item.code}
+          kind="vehicle"
+          className="absolute bottom-3 left-3"
+        />
       </div>
 
       <div className={cn("p-5", variant === "list" && "flex flex-1 flex-col justify-between")}>

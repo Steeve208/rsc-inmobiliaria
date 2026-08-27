@@ -6,7 +6,7 @@ export default async function NotFoundPage() {
 
   return (
     <div className="flex min-h-[calc(100vh-72px)] flex-col items-center justify-center px-6 py-16 text-center">
-      <p className="text-xs font-semibold uppercase tracking-wider text-[#d4a017]">
+      <p className="text-xs font-semibold uppercase tracking-wider text-[#2BB8A8]">
         404
       </p>
       <h1 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
@@ -18,7 +18,7 @@ export default async function NotFoundPage() {
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
         <Link
           href="/"
-          className="inline-flex h-11 items-center justify-center rounded-lg bg-[#d4a017] px-5 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
+          className="inline-flex h-11 items-center justify-center rounded-lg bg-[#2BB8A8] px-5 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#1E9B8C]"
         >
           {t("home")}
         </Link>

@@ -4,6 +4,8 @@ import { ListingImage } from "@/components/listing-image";
 import { useTranslations } from "next-intl";
 import { Bath, BedDouble, Car, GitCompare, Heart, MapPin, ShieldCheck } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
+import { ListingCodeBadge } from "@/components/marketplace/listing-code-badge";
+import { CountryFlag } from "@/components/marketplace/country-flag";
 import { cn } from "@/lib/utils";
 import { useFavoriteButton } from "@/hooks/use-favorites";
 import { usePropertyCompare } from "@/hooks/use-property-compare-state";
@@ -72,6 +74,16 @@ export function PropertyCard({
           </span>
         )}
       </div>
+      <ListingCodeBadge
+        id={item.id}
+        code={item.code}
+        kind="property"
+        className="absolute bottom-3 left-3"
+      />
+      <CountryFlag
+        country={item.country}
+        className="absolute bottom-3 right-3 text-[15px] drop-shadow-[0_1px_2px_rgba(0,0,0,.7)]"
+      />
       <div className="absolute right-3 top-3 flex gap-2">
         <button
           type="button"
@@ -100,7 +112,7 @@ export function PropertyCard({
         className={cn(
           "absolute right-3 top-3 flex size-8 items-center justify-center rounded-full backdrop-blur-sm transition-colors",
           active
-            ? "bg-[#d4a017] text-[#000a1a]"
+            ? "bg-[#2BB8A8] text-[#000a1a]"
             : "bg-black/40 text-white hover:bg-black/60",
         )}
         aria-label={t("favorite")}

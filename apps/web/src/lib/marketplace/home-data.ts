@@ -5,6 +5,7 @@ import {
   listingLocation,
 } from "@/lib/marketplace/format";
 import { getMockMarketplaceHomeData } from "@/lib/marketplace/mock-home";
+import { listingCodeValue } from "@/lib/listings/listing-code";
 import type {
   MarketplaceBadge,
   MarketplaceHomeData,
@@ -41,6 +42,8 @@ export function mapPropertyListing(item: PropertyListing): MarketplaceListing {
     bathrooms: item.bathrooms,
     area: item.area,
     garage: item.garage,
+    code: listingCodeValue(item.id, item.code, "property"),
+    country: item.country,
   };
 }
 
@@ -71,6 +74,8 @@ export function mapVehicleListing(
     mileage: item.mileage,
     make: item.make,
     model: item.model,
+    code: listingCodeValue(item.id, item.code, "vehicle"),
+    country: item.country,
   };
 }
 

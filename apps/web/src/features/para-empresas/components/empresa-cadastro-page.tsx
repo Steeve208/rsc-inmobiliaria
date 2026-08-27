@@ -70,9 +70,9 @@ export function EmpresaCadastroPage() {
         </Link>
 
         {status === "success" ? (
-          <div className="mt-10 rounded-2xl border border-[#d4a017]/20 bg-[#d4a017]/5 p-8 text-center">
-            <div className="mx-auto flex size-12 items-center justify-center rounded-xl bg-[#d4a017]/10">
-              <CheckCircle2 className="size-6 text-[#d4a017]" />
+          <div className="mt-10 rounded-2xl border border-[#2BB8A8]/20 bg-[#2BB8A8]/5 p-8 text-center">
+            <div className="mx-auto flex size-12 items-center justify-center rounded-xl bg-[#2BB8A8]/10">
+              <CheckCircle2 className="size-6 text-[#2BB8A8]" />
             </div>
             <h1 className="mt-6 text-2xl font-bold text-white">
               {t("successTitle")}
@@ -82,15 +82,15 @@ export function EmpresaCadastroPage() {
             </p>
             <Link
               href="/para-empresas"
-              className="mt-8 inline-flex h-11 items-center justify-center rounded-lg bg-[#d4a017] px-6 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
+              className="mt-8 inline-flex h-11 items-center justify-center rounded-lg bg-[#2BB8A8] px-6 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#1E9B8C]"
             >
               {t("back")}
             </Link>
           </div>
         ) : (
           <>
-            <div className="mt-8 flex size-12 items-center justify-center rounded-xl bg-[#d4a017]/10">
-              <Building2 className="size-6 text-[#d4a017]" />
+            <div className="mt-8 flex size-12 items-center justify-center rounded-xl bg-[#2BB8A8]/10">
+              <Building2 className="size-6 text-[#2BB8A8]" />
             </div>
             <h1 className="mt-6 text-2xl font-bold text-white sm:text-3xl">
               {t("title")}
@@ -117,7 +117,7 @@ export function EmpresaCadastroPage() {
                       setValues((prev) => ({ ...prev, [field]: e.target.value }))
                     }
                     placeholder={t(`${field}Placeholder`)}
-                    className="h-11 w-full rounded-lg bg-white/5 px-4 text-sm text-white outline-none placeholder:text-white/30 focus:bg-white/[0.08] focus:ring-2 focus:ring-[#d4a017]/40"
+                    className="h-11 w-full rounded-lg bg-white/5 px-4 text-sm text-white outline-none placeholder:text-white/30 focus:bg-white/[0.08] focus:ring-2 focus:ring-[#2BB8A8]/40"
                   />
                 </div>
               ))}
@@ -131,15 +131,15 @@ export function EmpresaCadastroPage() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="mt-2 flex h-12 w-full items-center justify-center rounded-lg bg-[#d4a017] text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216] disabled:opacity-60"
+                className="mt-2 flex h-12 w-full items-center justify-center rounded-lg bg-[#2BB8A8] text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#1E9B8C] disabled:opacity-60"
               >
                 {status === "loading" ? t("submitting") : t("submit")}
               </button>
             </form>
 
-            <div className="mt-8 rounded-xl bg-[#d4a017]/5 p-5">
+            <div className="mt-8 rounded-xl bg-[#2BB8A8]/5 p-5">
               <p className="text-sm text-white/70">
-                <strong className="text-[#d4a017]">{t("noteLabel")}</strong>{" "}
+                <strong className="text-[#2BB8A8]">{t("noteLabel")}</strong>{" "}
                 {t("note")}
               </p>
             </div>

@@ -25,7 +25,7 @@ export function RscGroupSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
         >
-          <p className="text-xs font-semibold tracking-[0.22em] text-[#D4A62A] uppercase">
+          <p className="text-xs font-semibold tracking-[0.22em] text-[#1E9B8C] uppercase">
             {t("eyebrow")}
           </p>
           <h2 className="rk-display mt-3 text-3xl font-bold text-white lg:text-[2.2rem]">
@@ -48,7 +48,7 @@ export function RscGroupSection() {
               key={brand.key}
               className={
                 brand.emphasis
-                  ? "rounded-[18px] border border-[#D4A62A]/25 bg-[#101725] px-5 py-6 text-center"
+                  ? "rounded-[18px] border border-[#1E9B8C]/25 bg-[#101725] px-5 py-6 text-center"
                   : "rounded-[18px] border border-white/[0.06] bg-[#0E1422] px-5 py-6 text-center"
               }
             >

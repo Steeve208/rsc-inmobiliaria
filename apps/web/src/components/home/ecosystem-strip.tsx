@@ -56,9 +56,9 @@ export function EcosystemStrip() {
               >
                 <Link
                   href={item.href}
-                  className="group flex h-full flex-col items-center gap-3 rounded-2xl border border-white/[0.08] bg-[#111827]/80 px-3 py-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-[#D4A62A]/50 hover:bg-[#161F31] hover:shadow-[0_18px_40px_rgba(0,0,0,.35)]"
+                  className="group flex h-full flex-col items-center gap-3 rounded-2xl border border-white/[0.08] bg-[#111827]/80 px-3 py-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-[#1E9B8C]/50 hover:bg-[#161F31] hover:shadow-[0_18px_40px_rgba(0,0,0,.35)]"
                 >
-                  <span className="flex size-11 items-center justify-center rounded-xl bg-[#D4A62A]/10 text-[#D4A62A] transition-colors group-hover:bg-[#D4A62A]/18">
+                  <span className="flex size-11 items-center justify-center rounded-xl bg-[#1E9B8C]/10 text-[#1E9B8C] transition-colors group-hover:bg-[#1E9B8C]/18">
                     <Icon className="size-5" strokeWidth={1.75} />
                   </span>
                   <span className="text-[13px] font-medium leading-snug text-white">

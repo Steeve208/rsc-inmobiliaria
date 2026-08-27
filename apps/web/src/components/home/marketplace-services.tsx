@@ -27,7 +27,7 @@ export function MarketplaceServices() {
   const visibleServices = services;
 
   return (
-    <section className="bg-[#F7F5F0] pt-16 sm:pt-20">
+    <section className="bg-[#F4F7FA] pt-16 sm:pt-20">
       <div className="rk-container">
         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-xl">
@@ -38,7 +38,7 @@ export function MarketplaceServices() {
           </div>
           <Link
             href="/services"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#0B1220] transition-colors duration-300 hover:text-[#D4A62A]"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#0B1220] transition-colors duration-300 hover:text-[#1E9B8C]"
           >
             {t("viewAll")}
             <ArrowRight className="size-4" />
@@ -58,9 +58,9 @@ export function MarketplaceServices() {
               >
                 <Link
                   href={service.href}
-                  className="group flex h-full flex-col rounded-[18px] bg-white px-4 py-5 shadow-[0_4px_20px_rgba(15,20,30,.04)] ring-1 ring-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(15,20,30,.08)] hover:ring-[#D4A62A]/30"
+                  className="group flex h-full flex-col rounded-[18px] bg-white px-4 py-5 shadow-[0_4px_20px_rgba(15,20,30,.04)] ring-1 ring-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(15,20,30,.08)] hover:ring-[#1E9B8C]/30"
                 >
-                  <span className="mb-3 flex size-10 items-center justify-center rounded-xl bg-[#0B1220] text-[#D4A62A]">
+                  <span className="mb-3 flex size-10 items-center justify-center rounded-xl bg-[#0B1220] text-[#1E9B8C]">
                     <Icon className="size-4" strokeWidth={1.7} />
                   </span>
                   <h3 className="text-sm font-semibold text-[#121826]">

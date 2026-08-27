@@ -68,6 +68,7 @@ export type PropertyListing = ListingItem & {
   virtualTour?: boolean;
   originalPrice?: number;
   discountPercent?: number;
+  code?: string;
 };
 
 export type PropertyAgent = {

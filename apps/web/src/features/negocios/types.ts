@@ -62,6 +62,7 @@ export type BusinessListing = {
   lat: number;
   lng: number;
   publishedAt: string;
+  code?: string;
 };
 
 export const defaultNegociosFilters: NegociosFilters = {

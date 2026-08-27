@@ -72,6 +72,7 @@ export type ProjectListing = {
   lng: number;
   publishedAt: string;
   propertyId?: string;
+  code?: string;
 };
 
 export const defaultProjetosFilters: ProjetosFilters = {

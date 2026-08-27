@@ -5,8 +5,10 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
 import { MarketplaceFooter } from "@/components/marketplace/marketplace-footer";
 import type { ImoveisFilters, ImoveisView, PropertyListing } from "@/features/imoveis/types";
+import { pickNewProperties, pickPremiumProperties } from "@/lib/listings/property-sections";
 import { ListingAside } from "./listing-aside";
 import { ListingFilters } from "./listing-filters";
+import { PropertyListingSections } from "./listing-sections";
 import {
   ListingMobileBar,
   ListingMobileFilters,
@@ -15,16 +17,7 @@ import {
 import { ListingPagination } from "./listing-pagination";
 import { ListingPropertyCard } from "./listing-card";
 import { ListingToolbar } from "./listing-toolbar";
-import dynamic from "next/dynamic";
-
-const PropertyMap = dynamic(
-  () =>
-    import("@/features/imoveis/components/property-map").then((mod) => mod.PropertyMap),
-  {
-    ssr: false,
-    loading: () => <div className="h-[640px] animate-pulse rounded-xl bg-[#E5E7EB]" />,
-  },
-);
+import { PropertyMapLazy } from "@/features/imoveis/components/property-map-lazy";
 
 const PAGE_SIZE = 12;
 
@@ -79,6 +72,15 @@ export function PropertiesListing({
     return results.slice(start, start + PAGE_SIZE);
   }, [page, results]);
 
+  const premiumItems = useMemo(
+    () => pickPremiumProperties(catalog, 8),
+    [catalog],
+  );
+  const newItems = useMemo(() => pickNewProperties(catalog, 8), [catalog]);
+  const showDiscovery = view !== "map" && catalog.length > 0;
+  const showPremium = showDiscovery && !filters.featuredOnly;
+  const showNew = showDiscovery && !filters.newThisWeek;
+
   const selectCity = (city: string, country: string, state: string) => {
     onChange({
       city,
@@ -92,10 +94,10 @@ export function PropertiesListing({
   };
 
   return (
-    <div className="bg-[#F4F4F5] text-[#0B1220]">
+    <div className="bg-[#F4F7FA] text-[#0B1220]">
       <div className="rk-container py-4">
         <div className="grid items-start gap-4 lg:grid-cols-[240px_minmax(0,1fr)] xl:grid-cols-[240px_minmax(0,1fr)_260px]">
-          <aside className="sticky top-24 hidden rounded-xl bg-white px-3 lg:block">
+          <aside className="sticky top-24 hidden self-start rounded-xl bg-white px-3 lg:block">
             <ListingFilters
               filters={filters}
               catalog={catalog}
@@ -105,7 +107,7 @@ export function PropertiesListing({
 
           <section className="min-w-0">
             <nav className="text-xs text-[#6B7285]">
-              <Link href="/" className="hover:text-[#E8A84A]">
+              <Link href="/" className="hover:text-[#2BB8A8]">
                 {t("breadcrumbHome")}
               </Link>
               <span className="mx-1.5">›</span>
@@ -134,12 +136,19 @@ export function PropertiesListing({
                   <p className="text-xs font-bold leading-snug text-white">
                     {t("promoTitle")}
                   </p>
-                  <span className="mt-1.5 inline-flex w-fit rounded-md bg-[#E8A84A] px-2 py-1 text-[10px] font-bold text-[#070B14]">
+                  <span className="mt-1.5 inline-flex w-fit rounded-md bg-[#2BB8A8] px-2 py-1 text-[10px] font-bold text-[#070B14]">
                     {t("promoCta")}
                   </span>
                 </div>
               </Link>
             </div>
+
+            <PropertyListingSections
+              premiumItems={premiumItems}
+              newItems={newItems}
+              showPremium={showPremium}
+              showNew={showNew}
+            />
 
             <p className="mt-3 text-sm font-semibold text-[#0B1220]">
               {t("count", { count: results.length })}
@@ -187,7 +196,7 @@ export function PropertiesListing({
                     />
                   ))}
                 </div>
-                <PropertyMap
+                <PropertyMapLazy
                   items={results}
                   highlightedId={highlightedId}
                   onHighlight={onHighlight}

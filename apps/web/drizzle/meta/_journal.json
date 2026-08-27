@@ -148,6 +148,13 @@
       "when": 1782702000000,
       "tag": "0018_api_rate_limit",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1782703000000,
+      "tag": "0019_magazine",
+      "breakpoints": true
     }
   ]
 }

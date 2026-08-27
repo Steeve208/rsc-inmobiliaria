@@ -23,7 +23,7 @@ import { Link } from "@/lib/i18n/routing";
 import { marketplace } from "@/lib/layout/marketplace";
 import { cn } from "@/lib/utils";
 
-const accent = "#d4a017";
+const accent = "#2BB8A8";
 
 const audiences = [
   { key: "realEstate", icon: Home, color: "text-[#60a5fa]", bg: "bg-[#1d4ed8]/15" },
@@ -42,7 +42,7 @@ const features = [
 
 const howItWorks = [
   { key: "submit", icon: Send, color: "text-[#60a5fa]", bg: "bg-[#1d4ed8]/15" },
-  { key: "review", icon: ClipboardCheck, color: "text-[#fbbf24]", bg: "bg-[#d4a017]/15" },
+  { key: "review", icon: ClipboardCheck, color: "text-[#3DCCBC]", bg: "bg-[#2BB8A8]/15" },
   { key: "access", icon: Mail, color: "text-[#4ade80]", bg: "bg-[#22c55e]/15" },
 ] as const;
 
@@ -103,7 +103,7 @@ export function ParaEmpresasPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-[#d4a017]/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#fbbf24]">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#2BB8A8]/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#3DCCBC]">
               <Building2 className="size-3.5" />
               {t("hero.badge")}
             </span>
@@ -118,7 +118,7 @@ export function ParaEmpresasPage() {
             <div className="mt-10">
               <Link
                 href="/empresa/cadastro"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-[#d4a017] px-6 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-[#2BB8A8] px-6 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#1E9B8C]"
               >
                 {t("hero.ctaPrimary")}
                 <ArrowRight className="size-4" />
@@ -128,7 +128,7 @@ export function ParaEmpresasPage() {
             <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
               {[0, 1, 2].map((i) => (
                 <li key={i} className="flex items-center gap-2 text-sm text-white/65">
-                  <Check className="size-4 shrink-0 text-[#d4a017]" />
+                  <Check className="size-4 shrink-0 text-[#2BB8A8]" />
                   {t(`hero.bullets.${i}`)}
                 </li>
               ))}
@@ -174,13 +174,13 @@ export function ParaEmpresasPage() {
             {features.map(({ key, icon: Icon }, i) => (
               <motion.div
                 key={key}
-                className="group rounded-xl bg-white/[0.02] p-6 transition-colors hover:bg-[#d4a017]/5"
+                className="group rounded-xl bg-white/[0.02] p-6 transition-colors hover:bg-[#2BB8A8]/5"
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
               >
-                <Icon className="size-5 text-[#d4a017]" strokeWidth={1.5} />
+                <Icon className="size-5 text-[#2BB8A8]" strokeWidth={1.5} />
                 <h3 className="mt-4 font-semibold text-white">{t(`features.${key}.title`)}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/50">
                   {t(`features.${key}.description`)}
@@ -193,7 +193,7 @@ export function ParaEmpresasPage() {
 
       <section className="market-section">
         <div className={marketplace.container}>
-          <div className="rounded-2xl bg-gradient-to-br from-[#d4a017]/8 via-[#0a1628]/50 to-[#020617]/50 p-8 sm:p-10 lg:p-12">
+          <div className="rounded-2xl bg-gradient-to-br from-[#2BB8A8]/8 via-[#0a1628]/50 to-[#020617]/50 p-8 sm:p-10 lg:p-12">
             <SectionHeader
               centered
               title={t("howItWorks.title")}
@@ -213,7 +213,7 @@ export function ParaEmpresasPage() {
                     <Icon className={cn("size-6", color)} />
                   </div>
                   <div className="mt-5 flex items-center gap-2">
-                    <span className="flex size-6 items-center justify-center rounded-full bg-[#d4a017]/20 text-xs font-bold text-[#d4a017]">
+                    <span className="flex size-6 items-center justify-center rounded-full bg-[#2BB8A8]/20 text-xs font-bold text-[#2BB8A8]">
                       {i + 1}
                     </span>
                     <h3 className="text-lg font-semibold text-white">{t(`howItWorks.${key}.title`)}</h3>
@@ -237,11 +237,11 @@ export function ParaEmpresasPage() {
                 key={plan}
                 className={cn(
                   "relative flex flex-col rounded-2xl p-6 lg:p-7",
-                  plan === "growth" ? "bg-[#d4a017]/5" : "bg-[#0a1628]/40",
+                  plan === "growth" ? "bg-[#2BB8A8]/5" : "bg-[#0a1628]/40",
                 )}
               >
                 {plan === "growth" && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#d4a017] px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#000a1a]">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#2BB8A8] px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#000a1a]">
                     {t("plans.popular")}
                   </span>
                 )}
@@ -256,7 +256,7 @@ export function ParaEmpresasPage() {
                 <ul className="mt-6 flex-1 space-y-3">
                   {[0, 1, 2].map((j) => (
                     <li key={j} className="flex items-start gap-2 text-sm text-white/60">
-                      <Check className="mt-0.5 size-4 shrink-0 text-[#d4a017]" />
+                      <Check className="mt-0.5 size-4 shrink-0 text-[#2BB8A8]" />
                       {t(`plans.${plan}.features.${j}`)}
                     </li>
                   ))}
@@ -266,7 +266,7 @@ export function ParaEmpresasPage() {
                   className={cn(
                     "mt-8 inline-flex h-11 items-center justify-center rounded-lg text-sm font-semibold transition-colors",
                     plan === "growth"
-                      ? "bg-[#d4a017] text-[#000a1a] hover:bg-[#c39216]"
+                      ? "bg-[#2BB8A8] text-[#000a1a] hover:bg-[#1E9B8C]"
                       : "bg-white/10 text-white hover:bg-white/15",
                   )}
                 >
@@ -280,7 +280,7 @@ export function ParaEmpresasPage() {
 
       <section className="pb-10 pt-2 lg:pb-14 lg:pt-4">
         <div className={marketplace.container}>
-          <div className="rounded-2xl bg-gradient-to-br from-[#d4a017]/10 via-[#0a1628] to-[#020617] px-8 py-10 text-center sm:px-10 sm:py-12">
+          <div className="rounded-2xl bg-gradient-to-br from-[#2BB8A8]/10 via-[#0a1628] to-[#020617] px-8 py-10 text-center sm:px-10 sm:py-12">
             <h2 className="text-2xl font-bold text-white sm:text-3xl">{t("cta.title")}</h2>
             <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-white/55 sm:text-base">
               {t("cta.subtitle")}
@@ -288,7 +288,7 @@ export function ParaEmpresasPage() {
             <div className="mt-10 flex justify-center">
               <Link
                 href="/empresa/cadastro"
-                className="inline-flex h-12 min-w-[220px] items-center justify-center rounded-lg bg-[#d4a017] px-6 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
+                className="inline-flex h-12 min-w-[220px] items-center justify-center rounded-lg bg-[#2BB8A8] px-6 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#1E9B8C]"
               >
                 {t("cta.primary")}
               </Link>

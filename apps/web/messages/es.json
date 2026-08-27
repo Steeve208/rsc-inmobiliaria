@@ -157,7 +157,10 @@
       "fr": "Francés",
       "de": "Alemán",
       "it": "Italiano",
-      "ar": "Árabe"
+      "ar": "Árabe",
+      "zh": "Chino",
+      "hi": "Hindi",
+      "bn": "Bengalí"
     },
     "names": {
       "br": "Brasil",
@@ -1239,22 +1242,52 @@
       "salePrice": "Precio de venta",
       "condoFee": "Condominio",
       "iptu": "Impuesto predial",
+      "perMonth": "mes",
       "downFrom": "Entrada desde",
       "installmentsFrom": "Cuotas desde",
       "whatsapp": "Chatear en WhatsApp",
       "sendMessage": "Enviar mensaje",
       "scheduleVisit": "Agendar visita",
-      "onlineNow": "Respuesta rápida — en línea ahora",
+      "contactAdvertiser": "Contactar anunciante",
+      "requestInformation": "Solicitar información",
+      "onlineNow": "Suele responder en 1 hora",
       "agency": "Inmobiliaria",
-      "yearsInMarket": "{years} años en el mercado",
+      "yearsInMarket": "Miembro desde hace {years} años",
       "activeListings": "Activos",
+      "activeListingsCount": "{count} anuncios",
       "sold": "Vendidos",
       "positiveReviews": "Reseñas positivas",
       "reviews": "Reseñas",
       "agent": "Responsable",
       "viewProfile": "Ver perfil",
+      "viewAllListings": "Ver todos los anuncios",
+      "viewAll": "Ver todos",
       "otherProperties": "Otros inmuebles",
-      "similarProperties": "Ver inmuebles similares"
+      "similarProperties": "Propiedades similares",
+      "topRated": "Top rated",
+      "showMore": "Mostrar más",
+      "amenitiesTitle": "Características y amenities",
+      "aboutAdvertiser": "Sobre el anunciante",
+      "mortgageTitle": "Estimación de hipoteca",
+      "loanTerm": "Plazo",
+      "loanTermYears": "{years} años",
+      "viewFinancingOptions": "Ver opciones de financiación",
+      "viewLargerMap": "Ver mapa ampliado",
+      "viewsLabel": "{count} visitas",
+      "amenities": {
+        "ac": "Aire acondicionado",
+        "balcony": "Balcón",
+        "wardrobes": "Armarios empotrados",
+        "pool": "Piscina",
+        "gym": "Gimnasio",
+        "parking": "Estacionamiento",
+        "wifi": "Wi-Fi de alta velocidad",
+        "security": "Seguridad 24h",
+        "garden": "Jardín",
+        "kitchen": "Cocina equipada",
+        "furnished": "Amueblado",
+        "laundry": "Lavandería"
+      }
     },
     "companies": {
       "title": "Inmobiliarias Premium",
@@ -1266,6 +1299,8 @@
       "launches": "Lanzamientos",
       "launchesSubtitle": "Emprendimientos nuevos seleccionados",
       "new": "Nuevo",
+      "newListings": "Nuevos anuncios",
+      "newListingsSubtitle": "Recién añadidos al catálogo",
       "premium": "Casas Premium",
       "premiumBadge": "Premium",
       "recommended": "Inmuebles verificados",
@@ -1643,6 +1678,12 @@
       "chatRsc": "Chatear en RSC",
       "whatsapp": "WhatsApp",
       "scheduleVisit": "Agendar visita",
+      "contactAdvertiser": "Contactar anunciante",
+      "requestInformation": "Solicitar información",
+      "requestQuote": "Pedir presupuesto",
+      "contactProvider": "Contactar proveedor",
+      "bookInspection": "Reservar inspección",
+      "askFinancing": "Consultar financiación",
       "whatsappPrefill": "¡Hola! Me interesa este anuncio: {title}"
     },
     "schedule": {
@@ -2755,6 +2796,7 @@
       "downloadApp": "Descargar App",
       "listCta": "Publicar en Reeskova",
       "nav": {
+        "home": "Inicio",
         "properties": "Propiedades",
         "vehicles": "Vehículos",
         "projects": "Proyectos",
@@ -2762,7 +2804,9 @@
         "services": "Servicios",
         "deals": "Ofertas",
         "newListings": "Nuevos anuncios",
+        "brokers": "Corredores",
         "premium": "Premium",
+        "magazines": "Magazines",
         "visits": "Visitas gratis"
       }
     },
@@ -2771,10 +2815,10 @@
       "placeholder": "Buscar propiedades, vehículos, proyectos o servicios inmobiliarios...",
       "placeholders": {
         "all": "Buscar propiedades, vehículos, proyectos o servicios inmobiliarios...",
-        "properties": "Buscar propiedad, barrio o ciudad...",
-        "vehicles": "Buscar auto, moto o concesionario...",
-        "projects": "Buscar proyecto, desarrollador o ciudad...",
-        "businesses": "Buscar negocio, franquicia o empresa...",
+        "properties": "Buscar ciudad, barrio o código COD-00001...",
+        "vehicles": "Buscar auto, moto, concesionario o código COD-00001...",
+        "projects": "Buscar proyecto, desarrollador, ciudad o código COD-00001...",
+        "businesses": "Buscar negocio, franquicia, empresa o código COD-00001...",
         "services": "Buscar servicio, profesional o empresa..."
       },
       "submit": "Buscar",
@@ -2801,9 +2845,9 @@
         "services": "Servicios"
       },
       "query": "¿Qué estás buscando?",
-      "queryPlaceholder": "Apartamento, Honda Civic, oficina...",
+      "queryPlaceholder": "ej. Apartamento, Casa, BMW X5...",
       "location": "Ubicación",
-      "locationPlaceholder": "Ciudad o barrio",
+      "locationPlaceholder": "Ciudad, estado o país",
       "type": "Tipo",
       "anyType": "Cualquier tipo",
       "price": "Precio",
@@ -3304,9 +3348,9 @@
     "services": {
       "breadcrumbHome": "Inicio",
       "breadcrumbServices": "Servicios",
-      "title": "Servicios para tu propiedad",
-      "subtitle": "Encuentra profesionales verificados para comprar, vender, alquilar, reformar y gestionar tu propiedad.",
-      "promoTitle": "Haz crecer tu negocio de servicios en Reeskova. Llega a miles de propietarios e inversores.",
+      "title": "Servicios profesionales",
+      "subtitle": "Encuentra empresas verificadas de inspección, financiación, seguros, diseño, mantenimiento y más.",
+      "promoTitle": "Haz crecer tu empresa de servicios en Reeskova. Llega a clientes que buscan profesionales verificados.",
       "promoCta": "Publica tu servicio",
       "count": "{count} servicios encontrados",
       "popular": "Servicios populares",
@@ -3344,7 +3388,13 @@
       "minPrice": "Precio mín.",
       "maxPrice": "Precio máx.",
       "location": "Ubicación",
-      "locationPlaceholder": "Ciudad o barrio",
+      "selectCountry": "Selecciona el país",
+      "selectRegion": "Selecciona la región",
+      "selectCity": "Selecciona la ciudad",
+      "country": "País",
+      "region": "Región",
+      "city": "Ciudad",
+      "locationPlaceholder": "Selecciona país, región y ciudad",
       "any": "Cualquiera",
       "availability": "Disponibilidad",
       "filters": "Filtros",
@@ -3360,8 +3410,8 @@
       "perMonth": "/ mes",
       "requestQuote": "Pedir presupuesto",
       "showResults": "Mostrar {count} servicios",
-      "empty": "No se encontraron servicios inmobiliarios",
-      "emptyHint": "Prueba otra categoría o ciudad. Aquí solo aparecen servicios ligados a la propiedad.",
+      "empty": "No se encontraron servicios",
+      "emptyHint": "Prueba otra categoría o ubicación.",
       "expandMap": "Ampliar mapa",
       "popularCategories": "Categorías populares",
       "insights": "Datos del mercado",
@@ -3393,15 +3443,11 @@
       "trust": {
         "verified": {
           "title": "Profesionales verificados",
-          "text": "Proveedores revisados para el trabajo inmobiliario."
-        },
-        "secure": {
-          "title": "Pagos seguros",
-          "text": "Paga con protección de depósito en garantía."
+          "text": "Empresas revisadas antes de poder publicar."
         },
         "quality": {
           "title": "Calidad garantizada",
-          "text": "Servicios ligados a tu transacción inmobiliaria."
+          "text": "Proveedores mejor valorados, con trabajo comprobado."
         },
         "support": {
           "title": "Soporte 24/7",
@@ -3409,7 +3455,7 @@
         },
         "global": {
           "title": "Alcance global",
-          "text": "Encuentra profesionales inmobiliarios de confianza en el mundo."
+          "text": "Encuentra profesionales de confianza en cada mercado."
         }
       }
     },
@@ -3429,6 +3475,177 @@
         "service": "Servicio"
       }
     }
+  },
+  "corredores": {
+    "breadcrumbHome": "Inicio",
+    "breadcrumb": "Corredores",
+    "title": "Directorio de corredores",
+    "subtitle": "Conoce a los corredores verificados y contáctalos de forma directa.",
+    "count": "{count} corredores",
+    "searchPlaceholder": "Buscar por nombre, inmobiliaria, ciudad o matrícula...",
+    "allCities": "Todas las ciudades",
+    "allSpecialties": "Todas las especialidades",
+    "empty": "No se encontraron corredores",
+    "emptyHint": "Prueba con otro nombre, ciudad o especialidad.",
+    "viewProfile": "Ver perfil",
+    "contact": "Contactar",
+    "whatsapp": "WhatsApp",
+    "call": "Llamar",
+    "email": "Email",
+    "listings": "{count} anuncios",
+    "years": "{count} años",
+    "sold": "{count} vendidos",
+    "reviews": "{count} reseñas",
+    "statListings": "Anuncios",
+    "statYears": "Experiencia",
+    "statSold": "Vendidos",
+    "statRating": "Valoración",
+    "verified": "Verificado",
+    "license": "Matrícula",
+    "about": "Sobre el corredor",
+    "specialties": "Especialidades",
+    "languages": "Idiomas",
+    "agency": "Inmobiliaria",
+    "activeListings": "Anuncios activos",
+    "noListings": "Este corredor aún no tiene anuncios públicos.",
+    "seeAllListings": "Ver todos los anuncios",
+    "joinTitle": "¿Eres corredor?",
+    "joinText": "Crea tu perfil, muestra tus inmuebles y recibe contactos de compradores.",
+    "joinCta": "Unirme a Reeskova",
+    "whatsappPrefill": "Hola {name}, vi tu perfil en Reeskova y me gustaría hablar contigo.",
+    "emailSubject": "Contacto desde Reeskova — {name}",
+    "online": "Disponible ahora",
+    "specialty": {
+      "residential": "Residencial",
+      "luxury": "Lujo",
+      "commercial": "Comercial",
+      "investment": "Inversión",
+      "newDevelopments": "Lanzamientos",
+      "rentals": "Alquileres"
+    }
+  },
+  "revistas": {
+    "breadcrumbHome": "Inicio",
+    "breadcrumb": "Magazines",
+    "channelTag": "Reeskova Media",
+    "title": "Reeskova Magazines",
+    "subtitle": "Ediciones editoriales sobre inmobiliaria, lujo e inversión.",
+    "count": "{count} ediciones",
+    "searchPlaceholder": "Buscar una edición o tema...",
+    "allCategories": "Todos los temas",
+    "empty": "No hay revistas",
+    "emptyHint": "Prueba con otro tema o búsqueda.",
+    "readIssue": "Leer edición",
+    "openPdf": "Descargar PDF",
+    "publishCta": "Publicar edición",
+    "latestIssues": "Últimas ediciones",
+    "viewAllIssues": "Ver todas las ediciones",
+    "featuredLabel": "Edición destacada",
+    "statPages": "Páginas",
+    "statProperties": "Propiedades destacadas",
+    "statCities": "Ciudades globales",
+    "popularTitle": "Populares del mes",
+    "exploreTopics": "Explorar temas",
+    "topicCount": "{count} ediciones",
+    "topicPremium": "Premium",
+    "topicPremiumHint": "Selección del marketplace",
+    "archiveTitle": "Archivo por año",
+    "viewAllArchive": "Ver archivo completo",
+    "topStories": "Destacados",
+    "resultsTitle": "Resultados",
+    "moreStories": "Más notas",
+    "latest": "Últimas",
+    "seeAllInCategory": "Ver todas",
+    "related": "Más del canal",
+    "backToChannel": "Volver a Magazines",
+    "category": {
+      "market": "Mercado",
+      "luxury": "Lujo",
+      "investment": "Inversión",
+      "architecture": "Arquitectura",
+      "lifestyle": "Estilo de vida"
+    },
+    "trust": {
+      "curated": {
+        "title": "Contenido curado",
+        "text": "Insights y análisis de expertos"
+      },
+      "global": {
+        "title": "Perspectiva global",
+        "text": "Mercados en varios continentes"
+      },
+      "premium": {
+        "title": "Calidad premium",
+        "text": "Estándar editorial y de diseño"
+      },
+      "updated": {
+        "title": "Siempre actualizado",
+        "text": "Nuevas ediciones cada mes"
+      }
+    },
+    "sponsor": {
+      "label": "Oportunidades patrocinadas",
+      "propertiesTitle": "Propiedades destacadas",
+      "propertiesBody": "Hogares premium curados para lectores del Magazine.",
+      "propertiesCta": "Ver propiedades",
+      "vehiclesTitle": "Desk vehículos",
+      "vehiclesBody": "Concesionarios y autos en el mismo marketplace.",
+      "vehiclesCta": "Ver vehículos",
+      "projectsTitle": "Nuevos proyectos",
+      "projectsBody": "Lanzamientos y off-plan con partners verificados.",
+      "projectsCta": "Ver proyectos"
+    },
+    "advertise": {
+      "eyebrow": "Anuncia con nosotros",
+      "title": "Convierte atención editorial en leads calificados",
+      "body": "Reeskova Magazine es el canal de marca para brokers, desarrolladores y dealers — notas nativas, rieles patrocinados y CTAs que abren directo al marketplace.",
+      "cta": "Quiero anunciar",
+      "secondary": "Conocer brokers",
+      "statReaders": "Alcance editorial",
+      "statReadersValue": "Canal+",
+      "statMarkets": "Mercados",
+      "statMarketsValue": "BR · US · EU · UAE",
+      "statFormats": "Formatos",
+      "statFormatsValue": "Portada · Rieles · Nativo"
+    },
+    "article": {
+      "sponsorTitle": "Explora avisos de esta nota",
+      "sponsorBody": "Sal del editorial y entra al inventario verificado de Reeskova.",
+      "sidebarTitle": "Anuncia en Magazine",
+      "sidebarBody": "Coloca tu marca junto a los desks de mercado, lujo e inversión."
+    }
+  },
+  "adminMagazines": {
+    "pageTitle": "Revistas",
+    "pageSubtitle": "Publica las ediciones editoriales de Reeskova. Las publicadas aparecen en la pestaña Revistas.",
+    "createTitle": "Nueva edición",
+    "editTitle": "Editar edición",
+    "formHint": "Portada, título, número y texto editorial. PDF opcional para el flipbook completo.",
+    "title": "Título",
+    "issue": "Edición",
+    "issuePlaceholder": "Año 1 · Nº 04",
+    "date": "Fecha",
+    "category": "Tema",
+    "status": "Estado",
+    "statusPublished": "Publicada",
+    "statusDraft": "Borrador",
+    "cover": "URL de la portada",
+    "excerpt": "Entradilla",
+    "body": "Editorial",
+    "bodyHint": "Separa los párrafos con una línea en blanco.",
+    "author": "Autor",
+    "pdf": "URL del PDF (opcional)",
+    "save": "Publicar",
+    "saving": "Guardando...",
+    "cancel": "Cancelar",
+    "listTitle": "Ediciones",
+    "loading": "Cargando...",
+    "empty": "Aún no hay ediciones.",
+    "edit": "Editar",
+    "view": "Ver",
+    "delete": "Eliminar",
+    "loadError": "No se pudieron cargar las revistas.",
+    "saveError": "No se pudo guardar. Revisa los campos e inténtalo de nuevo."
   },
   "errors": {
     "notFound": {

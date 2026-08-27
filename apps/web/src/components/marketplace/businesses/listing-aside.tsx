@@ -70,7 +70,7 @@ export function ListingAside({
               key={type}
               type="button"
               onClick={() => onSelectType(type)}
-              className="rounded-full bg-[#F3F4F6] px-3 py-1.5 text-xs font-semibold text-[#0B1220] hover:bg-[#E8A84A]/20"
+              className="rounded-full bg-[#F3F4F6] px-3 py-1.5 text-xs font-semibold text-[#0B1220] hover:bg-[#2BB8A8]/20"
             >
               {t(`types.${type}`)}
             </button>

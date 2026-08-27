@@ -51,7 +51,7 @@ export function InvestmentMarketplace() {
     <section id="inversion" className="scroll-mt-28 pt-[80px]">
       <div className="rk-container">
         <div className="mb-8 flex items-center gap-3">
-          <span className="h-8 w-1 rounded-full bg-[#D4A62A]" />
+          <span className="h-8 w-1 rounded-full bg-[#1E9B8C]" />
           <h2 className="rk-section-title text-3xl lg:text-4xl">{t("title")}</h2>
         </div>
 

@@ -1,4 +1,17 @@
-export type Locale = "en" | "es" | "pt" | "fr" | "de" | "it" | "ar";
+export type Locale =
+  | "en"
+  | "es"
+  | "pt"
+  | "fr"
+  | "de"
+  | "it"
+  | "ar"
+  | "zh"
+  | "hi"
+  | "bn";
+
+/** Idiomas más hablados mundialmente (por hablantes totales), mostrados en el selector. */
+export const TOP_LOCALES: Locale[] = ["en", "zh", "hi", "es", "fr", "ar", "bn"];
 
 export type MarketRegion =
   | "latam"

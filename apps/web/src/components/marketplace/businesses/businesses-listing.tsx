@@ -92,16 +92,16 @@ export function BusinessesListing({
   }, [page, results]);
 
   return (
-    <div className="bg-[#F4F4F5] text-[#0B1220]">
+    <div className="bg-[#F4F7FA] text-[#0B1220]">
       <div className="rk-container py-4">
         <div className="grid items-start gap-4 lg:grid-cols-[240px_minmax(0,1fr)] xl:grid-cols-[240px_minmax(0,1fr)_260px]">
-          <aside className="sticky top-24 hidden rounded-xl bg-white px-3 lg:block">
+          <aside className="sticky top-24 hidden self-start rounded-xl bg-white px-3 lg:block">
             <ListingFilters filters={filters} catalog={catalog} onChange={onChange} />
           </aside>
 
           <section className="min-w-0">
             <nav className="text-xs text-[#6B7285]">
-              <Link href="/" className="hover:text-[#E8A84A]">
+              <Link href="/" className="hover:text-[#2BB8A8]">
                 {t("breadcrumbHome")}
               </Link>
               <span className="mx-1.5">›</span>
@@ -128,7 +128,7 @@ export function BusinessesListing({
                 />
                 <div className="relative flex h-full flex-col justify-center p-3">
                   <p className="text-xs font-bold leading-snug text-white">{t("promoTitle")}</p>
-                  <span className="mt-1.5 inline-flex w-fit rounded-md bg-[#E8A84A] px-2 py-1 text-[10px] font-bold text-[#070B14]">
+                  <span className="mt-1.5 inline-flex w-fit rounded-md bg-[#2BB8A8] px-2 py-1 text-[10px] font-bold text-[#070B14]">
                     {t("promoCta")}
                   </span>
                 </div>

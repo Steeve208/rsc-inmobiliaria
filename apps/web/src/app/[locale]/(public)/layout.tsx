@@ -9,7 +9,7 @@ export default function PublicLayout({
   return (
     <>
       <Header />
-      <main className="flex-1 bg-[#F4F4F5] pb-16 md:pb-0">{children}</main>
+      <main className="flex-1 bg-[#F4F7FA] pb-16 md:pb-0">{children}</main>
       <MobileBottomNav />
     </>
   );

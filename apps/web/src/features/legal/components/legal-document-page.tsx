@@ -47,7 +47,7 @@ export function LegalDocumentPage({ slug }: { slug: LegalSlug }) {
       <section className="border-b border-white/8 bg-gradient-to-b from-[#0a1628]/80 to-[#000810]">
         <div className={cn(marketplace.container, "py-12 lg:py-16")}>
           <div className="mx-auto max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-wider text-[#d4a017]">
+            <p className="text-xs font-semibold uppercase tracking-wider text-[#2BB8A8]">
               {tCommon("badge")}
             </p>
             <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
@@ -109,7 +109,7 @@ export function LegalDocumentPage({ slug }: { slug: LegalSlug }) {
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link
                   href="/help#contact"
-                  className="inline-flex h-10 items-center justify-center rounded-lg bg-[#d4a017] px-4 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#c39216]"
+                  className="inline-flex h-10 items-center justify-center rounded-lg bg-[#2BB8A8] px-4 text-sm font-semibold text-[#000a1a] transition-colors hover:bg-[#1E9B8C]"
                 >
                   {tCommon("contactCta")}
                 </Link>
@@ -131,7 +131,7 @@ export function LegalDocumentPage({ slug }: { slug: LegalSlug }) {
                   <li key={item}>
                     <Link
                       href={`/${item}`}
-                      className="inline-flex rounded-full border border-white/10 px-3 py-1.5 text-xs text-white/60 transition-colors hover:border-[#d4a017]/40 hover:text-[#fbbf24]"
+                      className="inline-flex rounded-full border border-white/10 px-3 py-1.5 text-xs text-white/60 transition-colors hover:border-[#2BB8A8]/40 hover:text-[#3DCCBC]"
                     >
                       {tCommon(`links.${item}`)}
                     </Link>

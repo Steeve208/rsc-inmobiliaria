@@ -91,7 +91,7 @@ export function ListingServiceCard({
         className={cn(
           "absolute right-2 top-2 inline-flex items-center justify-center rounded-full backdrop-blur-md",
           compact ? "size-7" : "size-8",
-          active ? "bg-[#E8A84A] text-[#070B14]" : "bg-white/90 text-[#1A1F2B]",
+          active ? "bg-[#2BB8A8] text-[#070B14]" : "bg-white/90 text-[#1A1F2B]",
         )}
         aria-label={t("save")}
       >
@@ -111,11 +111,11 @@ export function ListingServiceCard({
         {item.title}
       </h3>
       <p className="mt-1 flex items-center gap-1 text-xs text-[#6B7285]">
-        <MapPin className="size-3 shrink-0 text-[#E8A84A]" />
+        <MapPin className="size-3 shrink-0 text-[#2BB8A8]" />
         <span className="line-clamp-1">{location}</span>
       </p>
       <p className="mt-1.5 flex items-center gap-1 text-xs font-semibold text-[#0B1220]">
-        <Star className="size-3.5 fill-[#E8A84A] text-[#E8A84A]" />
+        <Star className="size-3.5 fill-[#2BB8A8] text-[#2BB8A8]" />
         {item.rating.toFixed(1)}
         {!compact ? (
           <span className="font-normal text-[#6B7285]">({item.reviews})</span>
@@ -129,7 +129,7 @@ export function ListingServiceCard({
       </p>
       {item.provider ? (
         <p className="mt-3 flex items-center gap-2 border-t border-[#F0EBE0] pt-2.5 text-xs text-[#4B5563]">
-          <span className="inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-[#0B1220] text-[9px] font-bold text-[#E8A84A]">
+          <span className="inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-[#0B1220] text-[9px] font-bold text-[#2BB8A8]">
             {initials(item.provider)}
           </span>
           <span className="line-clamp-1 font-medium">{item.provider}</span>
@@ -153,7 +153,7 @@ export function ListingServiceCard({
           "group h-full overflow-hidden bg-white ring-1 ring-black/[0.05] transition hover:-translate-y-0.5 hover:shadow-[0_16px_32px_rgba(15,23,42,.1)]",
           compact ? "flex rounded-xl" : "rounded-lg",
           variant === "list" && "flex flex-col sm:flex-row",
-          highlighted && "ring-2 ring-[#E8A84A]",
+          highlighted && "ring-2 ring-[#2BB8A8]",
         )}
         onMouseEnter={onHover}
         onMouseLeave={onLeave}

@@ -19,7 +19,7 @@ export function ReeskovaMark({ className }: { className?: string }) {
     >
       {/* Outer R */}
       <path
-        stroke="#D4A62A"
+        stroke="#D49A3F"
         strokeWidth="3.4"
         strokeLinejoin="round"
         strokeLinecap="round"
@@ -27,13 +27,13 @@ export function ReeskovaMark({ className }: { className?: string }) {
       />
       {/* Inner bowl */}
       <path
-        stroke="#D4A62A"
+        stroke="#D49A3F"
         strokeWidth="3.4"
         strokeLinejoin="round"
         d="M26.4 13.5V36h7.6c3.2 0 5.2-1.85 5.2-5s-2-5-5.2-5h-7.6"
       />
       {/* Skyline bars */}
-      <g stroke="#D4A62A" strokeWidth="2.3" strokeLinecap="round">
+      <g stroke="#D49A3F" strokeWidth="2.3" strokeLinecap="round">
         <path d="M21.2 39.2V31.4" />
         <path d="M24.8 39.2V27.2" />
         <path d="M28.4 39.2V29.6" />
@@ -58,28 +58,32 @@ export function Logo({
   const t = useTranslations("brand");
 
   return (
-    <Link href="/" className={cn("flex items-center gap-3", className)}>
+    <Link
+      href="/"
+      aria-label="Reeskova home"
+      className={cn("flex items-center gap-3", className)}
+    >
       <ReeskovaMark className={compact ? "size-8" : "size-11"} />
       <div className="flex flex-col leading-none">
         <span
           className={cn(
             "font-bold tracking-[0.12em] uppercase",
-            compact ? "text-[17px] text-[#E8A84A]" : "text-[18px] text-white",
+            compact ? "text-[17px] text-[#EBAD5B]" : "text-[18px] text-white",
           )}
         >
           REESKOVA
         </span>
         {compact ? null : (
-          <span className="mt-1.5 max-w-[11rem] text-[9px] font-medium leading-snug tracking-[0.04em] text-[#D4A62A]">
+          <span className="mt-1.5 max-w-[11rem] text-[9px] font-medium leading-snug tracking-[0.04em] text-[#D49A3F]">
             {t("tagline")}
           </span>
         )}
         {showPoweredBy ? (
           <span className="mt-2 flex items-center gap-2 text-[9px] text-[#AEB7C5]">
-            <span className="h-px w-4 bg-[#D4A62A]/50" aria-hidden />
+            <span className="h-px w-4 bg-[#D49A3F]/50" aria-hidden />
             {t("poweredBy")}{" "}
-            <span className="text-[#D4A62A]">{t("poweredByBrand")}</span>
-            <span className="h-px w-4 bg-[#D4A62A]/50" aria-hidden />
+            <span className="text-[#D49A3F]">{t("poweredByBrand")}</span>
+            <span className="h-px w-4 bg-[#D49A3F]/50" aria-hidden />
           </span>
         ) : null}
       </div>

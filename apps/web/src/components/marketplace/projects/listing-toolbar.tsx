@@ -130,7 +130,7 @@ export function ListingToolbar({
               "shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold",
               filters.status === "prelaunch"
                 ? "bg-[#0B1220] text-white"
-                : "bg-white text-[#4B5563] ring-1 ring-[#E5E7EB] hover:ring-[#E8A84A]",
+                : "bg-white text-[#4B5563] ring-1 ring-[#E5E7EB] hover:ring-[#2BB8A8]",
             )}
           >
             {t("pills.prelaunch")}
@@ -152,7 +152,7 @@ export function ListingToolbar({
                 "shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold",
                 filters[field]
                   ? "bg-[#0B1220] text-white"
-                  : "bg-white text-[#4B5563] ring-1 ring-[#E5E7EB] hover:ring-[#E8A84A]",
+                  : "bg-white text-[#4B5563] ring-1 ring-[#E5E7EB] hover:ring-[#2BB8A8]",
               )}
             >
               {t(`pills.${key}`)}
@@ -229,7 +229,7 @@ function FilterSelect({
         className={cn(
           "inline-flex h-9 items-center gap-1.5 rounded-md border bg-white px-3 text-sm font-medium",
           value
-            ? "border-[#E8A84A] text-[#0B1220]"
+            ? "border-[#2BB8A8] text-[#0B1220]"
             : "border-[#E5E7EB] text-[#0B1220]",
         )}
       >

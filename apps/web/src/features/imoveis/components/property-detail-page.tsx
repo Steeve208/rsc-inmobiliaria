@@ -6,27 +6,35 @@ import { ListingImage } from "@/components/listing-image";
 import { ListingVideo } from "@/components/listing-video";
 import { useTranslations } from "next-intl";
 import {
+  AirVent,
   Bath,
   BedDouble,
-  Building2,
-  Calendar,
   Car,
+  CheckCircle2,
   ChevronLeft,
   ChevronRight,
-  Flame,
-  Flag,
+  Dumbbell,
+  Eye,
+  Fence,
   Heart,
-  Home,
   MapPin,
   Maximize2,
   Share2,
   ShieldCheck,
+  Shirt,
+  Sofa,
+  Sparkles,
   Star,
+  Trees,
   UtensilsCrossed,
-  WashingMachine,
-  ChevronRight as BreadcrumbChevron,
+  Waves,
+  Wifi,
+  X,
+  Calendar,
 } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
+import { ListingCodeBadge } from "@/components/marketplace/listing-code-badge";
+import { MarketplaceFooter } from "@/components/marketplace/marketplace-footer";
 import { cn } from "@/lib/utils";
 import { useMarket } from "@/lib/providers/market-provider";
 import { VirtualTourEmbed } from "@/features/listings/components/virtual-tour-embed";
@@ -34,10 +42,9 @@ import { FloorPlanViewer } from "@/features/listings/components/floor-plan-viewe
 import { ListingContactPanel } from "@/features/contact";
 import { useFavoriteButton } from "@/hooks/use-favorites";
 import { shareListing } from "@/lib/listings/share-listing";
-import { PropertyMap } from "./property-map";
+import { PropertyMapLazy } from "./property-map-lazy";
 import { PropertyCard } from "./property-card";
 import { ReportListingModal } from "./report-listing-modal";
-import { CompanyPresenceCard } from "@/components/company";
 import type { PropertyDetail, PropertyListing } from "../types";
 
 type Props = {
@@ -57,24 +64,28 @@ function formatPrice(price: number, currency: string, fractionDigits = 0) {
   }).format(price);
 }
 
-export function PropertyDetailPage({ property, similar, agencyListings = [] }: Props) {
+export function PropertyDetailPage({
+  property,
+  similar,
+  agencyListings = [],
+}: Props) {
   const t = useTranslations("imoveis.detail");
-  const tc = useTranslations("imoveis.categories");
   const { market } = useMarket();
-  const { active: isFavorite, handleClick: handleFavoriteClick } = useFavoriteButton(
-    "property",
-    property.id,
-  );
+  const { active: isFavorite, handleClick: handleFavoriteClick } =
+    useFavoriteButton("property", property.id);
   const [activeImage, setActiveImage] = useState(0);
   const [mediaTab, setMediaTab] = useState<(typeof mediaTabs)[number]>("photos");
   const [expandedDesc, setExpandedDesc] = useState(false);
   const [downPct, setDownPct] = useState(20);
-  const [termMonths, setTermMonths] = useState(360);
-  const [interestRate, setInterestRate] = useState(0.89);
+  const [termYears, setTermYears] = useState(30);
+  const [lightbox, setLightbox] = useState(false);
   const [shareMessage, setShareMessage] = useState("");
   const [reportOpen, setReportOpen] = useState(false);
   const locationRef = useRef<HTMLElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
 
+  const termMonths = termYears * 12;
+  const interestRate = 0.89;
   const financingHref = `/financing?price=${property.price}&down=${downPct}&listingId=${property.id}&title=${encodeURIComponent(property.title)}&category=properties&currency=${property.currency}&companyId=${encodeURIComponent(property.companyId)}`;
 
   const downPayment = Math.round(property.price * (downPct / 100));
@@ -86,46 +97,10 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
     return (principal * monthlyRate * factor) / (factor - 1);
   }, [principal, monthlyRate, termMonths]);
 
-  const sidebarInstallment = Math.round(property.price * 0.005);
-  const sidebarDown = Math.round(property.price * 0.2);
-
-  const characteristics = [
-    { icon: Maximize2, label: t("builtArea"), value: `${property.area} m²` },
-    { icon: Home, label: t("landArea"), value: `${property.landArea} m²` },
-    {
-      icon: BedDouble,
-      label: t("suites"),
-      value: String(property.suites),
-    },
-    {
-      icon: Bath,
-      label: t("bathrooms"),
-      value: String(property.bathrooms ?? 0),
-    },
-    { icon: Car, label: t("garage"), value: String(property.garage) },
-    {
-      icon: Building2,
-      label: t("livingRooms"),
-      value: String(property.livingRooms),
-    },
-    { icon: UtensilsCrossed, label: t("kitchen"), value: String(property.kitchen) },
-    {
-      icon: WashingMachine,
-      label: t("laundry"),
-      value: String(property.laundry),
-    },
-    { icon: Flame, label: t("heating"), value: property.heating },
-    {
-      icon: Calendar,
-      label: t("yearBuilt"),
-      value: String(property.yearBuilt),
-    },
-  ];
-
-  const thumbnails = property.images.slice(0, 4);
-  const totalPhotos = property.images.length;
-  const heroImage = property.images[activeImage] ?? property.images[0] ?? property.image;
+  const heroImage =
+    property.images[activeImage] ?? property.images[0] ?? property.image;
   const videoSrc = property.videoUrl?.trim() ?? "";
+  const thumbs = property.images.slice(0, 7);
 
   const availableMediaTabs = useMemo(() => {
     const tabs: (typeof mediaTabs)[number][] = ["photos"];
@@ -136,10 +111,74 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
   }, [videoSrc, property.virtualTourUrl, property.floorPlanUrl]);
 
   useEffect(() => {
-    if (!availableMediaTabs.includes(mediaTab)) {
-      setMediaTab("photos");
-    }
+    if (!availableMediaTabs.includes(mediaTab)) setMediaTab("photos");
   }, [availableMediaTabs, mediaTab]);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setLightbox(false);
+      if (event.key === "ArrowLeft") {
+        setActiveImage((i) =>
+          i === 0 ? Math.max(property.images.length - 1, 0) : i - 1,
+        );
+      }
+      if (event.key === "ArrowRight") {
+        setActiveImage((i) =>
+          i === property.images.length - 1 ? 0 : i + 1,
+        );
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightbox, property.images.length]);
+
+  const quickSpecs = [
+    {
+      icon: BedDouble,
+      label: t("bedrooms"),
+      value: String(property.bedrooms || property.suites || 0),
+    },
+    {
+      icon: Bath,
+      label: t("bathrooms"),
+      value: String(property.bathrooms ?? 0),
+    },
+    {
+      icon: Maximize2,
+      label: t("area"),
+      value: `${property.area} m²`,
+    },
+    {
+      icon: Car,
+      label: t("garage"),
+      value: String(property.garage ?? 0),
+    },
+    {
+      icon: Calendar,
+      label: t("yearBuilt"),
+      value: String(property.yearBuilt || "—"),
+    },
+  ];
+
+  const amenities = [
+    {
+      icon: AirVent,
+      label: t("amenities.ac"),
+      on: property.heating?.toLowerCase().includes("ar") || true,
+    },
+    { icon: Waves, label: t("amenities.balcony"), on: true },
+    { icon: Shirt, label: t("amenities.wardrobes"), on: true },
+    { icon: Waves, label: t("amenities.pool"), on: property.pool },
+    { icon: Dumbbell, label: t("amenities.gym"), on: property.premium },
+    { icon: Car, label: t("amenities.parking"), on: (property.garage ?? 0) > 0 },
+    { icon: Wifi, label: t("amenities.wifi"), on: true },
+    { icon: Fence, label: t("amenities.security"), on: property.verified },
+    { icon: Trees, label: t("amenities.garden"), on: (property.landArea ?? 0) > property.area },
+    { icon: UtensilsCrossed, label: t("amenities.kitchen"), on: (property.kitchen ?? 0) > 0 },
+    { icon: Sofa, label: t("amenities.furnished"), on: property.condition === "new" },
+    { icon: Sparkles, label: t("amenities.laundry"), on: (property.laundry ?? 0) > 0 },
+  ].filter((item) => item.on);
 
   async function handleShare() {
     const url = typeof window !== "undefined" ? window.location.href : "";
@@ -153,501 +192,677 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
     locationRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  const prevImage = () =>
-    setActiveImage((i) => (i === 0 ? property.images.length - 1 : i - 1));
-  const nextImage = () =>
-    setActiveImage((i) => (i === property.images.length - 1 ? 0 : i + 1));
+  function scrollToContact() {
+    contactRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function prevImage() {
+    setActiveImage((i) =>
+      i === 0 ? Math.max(property.images.length - 1, 0) : i - 1,
+    );
+  }
+
+  function nextImage() {
+    setActiveImage((i) =>
+      i === property.images.length - 1 ? 0 : i + 1,
+    );
+  }
+
+  const contactListing = {
+    listingId: property.id,
+    listingTitle: property.title,
+    listingCategory: "properties" as const,
+    companyId: property.companyId,
+    companyName: property.company,
+    whatsappNumber: property.whatsappNumber,
+    agentName: property.agent?.name,
+  };
 
   return (
-    <div className="mx-auto max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8">
-      {/* Breadcrumbs */}
-      <nav className="mb-6 flex flex-wrap items-center gap-1 text-xs text-white/45">
-        <Link href="/" className="hover:text-white/70">
-          {t("breadcrumbHome")}
-        </Link>
-        <BreadcrumbChevron className="size-3" />
-        <Link href="/imoveis" className="hover:text-white/70">
-          {t("breadcrumbProperties")}
-        </Link>
-        <BreadcrumbChevron className="size-3" />
-        <span>{tc(property.type)}</span>
-        <BreadcrumbChevron className="size-3" />
-        <span>{property.state}</span>
-        <BreadcrumbChevron className="size-3" />
-        <span>{property.city}</span>
-        <BreadcrumbChevron className="size-3" />
-        <span className="text-white/70">{t("breadcrumbProperty")}</span>
-      </nav>
+    <div className="bg-[#F4F7FA] text-[#0B1220]">
+      <div className="rk-container py-4 pb-28 lg:pb-10">
+        <nav className="mb-4 flex flex-wrap items-center gap-1 text-xs text-[#6B7285]">
+          <Link href="/" className="hover:text-[#EBAD5B]">
+            {t("breadcrumbHome")}
+          </Link>
+          <span className="mx-1">›</span>
+          <Link href="/imoveis" className="hover:text-[#EBAD5B]">
+            {t("breadcrumbProperties")}
+          </Link>
+          <span className="mx-1">›</span>
+          <span>{property.city}</span>
+          <span className="mx-1">›</span>
+          <span>{property.neighborhood}</span>
+          <span className="mx-1">›</span>
+          <span className="line-clamp-1 text-[#0B1220]/70">{property.title}</span>
+        </nav>
 
-      {/* Title row */}
-      <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div>
-          <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-2xl font-bold text-white sm:text-3xl">
-              {property.title}
-            </h1>
-            {property.verified && (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#1d4ed8] px-3 py-1 text-xs font-semibold text-white">
-                <ShieldCheck className="size-3.5" />
-                {t("verifiedBadge")}
-              </span>
-            )}
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] xl:grid-cols-[minmax(0,1fr)_340px]">
+          {/* Main */}
+          <div className="min-w-0 space-y-6">
+            {/* Gallery */}
+            <section>
+              {mediaTab === "photos" ? (
+                <>
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-[#0B1220]">
+                    <ListingImage
+                      src={heroImage}
+                      alt={property.title}
+                      fill
+                      priority
+                      variant="hero"
+                      className="object-cover"
+                    />
+                    {property.featured || property.premium ? (
+                      <span className="absolute left-3 top-3 rounded-md bg-[#059669] px-2.5 py-1 text-[11px] font-bold text-white">
+                        {t("topRated")}
+                      </span>
+                    ) : null}
+                    <div className="absolute right-3 top-3 flex gap-2">
+                      <button
+                        type="button"
+                        onClick={handleFavoriteClick}
+                        className={cn(
+                          "inline-flex size-9 items-center justify-center rounded-full backdrop-blur-md",
+                          isFavorite
+                            ? "bg-[#EBAD5B] text-[#1A1205]"
+                            : "bg-white/90 text-[#0B1220]",
+                        )}
+                        aria-label={t("save")}
+                      >
+                        <Heart
+                          className={cn("size-4", isFavorite && "fill-current")}
+                        />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleShare}
+                        className="inline-flex size-9 items-center justify-center rounded-full bg-white/90 text-[#0B1220]"
+                        aria-label={t("share")}
+                      >
+                        <Share2 className="size-4" />
+                      </button>
+                    </div>
+                    <span className="absolute bottom-3 left-3 rounded-md bg-black/55 px-2.5 py-1 text-xs font-semibold text-white">
+                      {activeImage + 1} / {Math.max(property.images.length, 1)}
+                    </span>
+                    {property.images.length > 1 ? (
+                      <>
+                        <button
+                          type="button"
+                          onClick={prevImage}
+                          className="absolute left-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white hover:bg-black/65"
+                          aria-label={t("prevPhoto")}
+                        >
+                          <ChevronLeft className="size-5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={nextImage}
+                          className="absolute right-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white hover:bg-black/65"
+                          aria-label={t("nextPhoto")}
+                        >
+                          <ChevronRight className="size-5" />
+                        </button>
+                      </>
+                    ) : null}
+                  </div>
+
+                  {thumbs.length > 1 ? (
+                    <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
+                      {thumbs.map((src, idx) => (
+                        <button
+                          key={`${src}-${idx}`}
+                          type="button"
+                          onClick={() => setActiveImage(idx)}
+                          className={cn(
+                            "relative h-16 w-24 shrink-0 overflow-hidden rounded-lg ring-2 transition",
+                            activeImage === idx
+                              ? "ring-[#EBAD5B]"
+                              : "ring-transparent opacity-80 hover:opacity-100",
+                          )}
+                        >
+                          <ListingImage
+                            src={src}
+                            alt=""
+                            fill
+                            variant="thumb"
+                            className="object-cover"
+                          />
+                        </button>
+                      ))}
+                      {property.images.length > 7 ? (
+                        <button
+                          type="button"
+                          onClick={() => setLightbox(true)}
+                          className="relative flex h-16 w-24 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-[#0B1220] text-xs font-bold text-white"
+                        >
+                          <ListingImage
+                            src={property.images[7] ?? heroImage}
+                            alt=""
+                            fill
+                            variant="thumb"
+                            className="object-cover opacity-40"
+                          />
+                          <span className="relative z-10">
+                            +{property.images.length - 7}
+                          </span>
+                        </button>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </>
+              ) : null}
+
+              {mediaTab === "video" && videoSrc ? (
+                <ListingVideo url={videoSrc} title={property.title} />
+              ) : null}
+              {mediaTab === "tour" && property.virtualTourUrl ? (
+                <VirtualTourEmbed
+                  url={property.virtualTourUrl}
+                  title={property.title}
+                />
+              ) : null}
+              {mediaTab === "floorPlan" && property.floorPlanUrl ? (
+                <FloorPlanViewer
+                  url={property.floorPlanUrl}
+                  title={property.title}
+                />
+              ) : null}
+
+              {availableMediaTabs.length > 1 ? (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {availableMediaTabs.map((tab) => (
+                    <button
+                      key={tab}
+                      type="button"
+                      onClick={() => setMediaTab(tab)}
+                      className={cn(
+                        "rounded-full px-3.5 py-1.5 text-xs font-semibold",
+                        mediaTab === tab
+                          ? "bg-[#0B1220] text-white"
+                          : "bg-white text-[#4B5563] ring-1 ring-[#E5E7EB]",
+                      )}
+                    >
+                      {t(`media.${tab}`)}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+              {shareMessage ? (
+                <p className="mt-2 text-xs text-[#059669]">{shareMessage}</p>
+              ) : null}
+            </section>
+
+            {/* Header */}
+            <section className="rounded-xl bg-white p-5 ring-1 ring-black/[0.04] sm:p-6">
+              {property.verified ? (
+                <p className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#059669]">
+                  <CheckCircle2 className="size-4" />
+                  {t("verified")}
+                </p>
+              ) : null}
+              <h1 className="rk-display mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+                {property.title}
+              </h1>
+              <button
+                type="button"
+                onClick={scrollToMap}
+                className="mt-2 inline-flex items-center gap-1.5 text-sm text-[#6B7285] hover:text-[#EBAD5B]"
+              >
+                <MapPin className="size-4 text-[#EBAD5B]" />
+                {property.neighborhood}, {property.city}, {property.state}
+                {property.country ? `, ${property.country}` : ""}
+              </button>
+              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[#6B7285]">
+                <span className="inline-flex items-center gap-1 font-semibold text-[#0B1220]">
+                  <Star className="size-3.5 fill-[#EBAD5B] text-[#EBAD5B]" />
+                  {property.agencyRating?.toFixed(1) || "4.8"}
+                </span>
+                <span className="inline-flex items-center gap-1">
+                  <Eye className="size-3.5" />
+                  {t("viewsLabel", { count: 1250 })}
+                </span>
+                <ListingCodeBadge
+                  id={property.id}
+                  code={property.code}
+                  kind="property"
+                  className="bg-[#F3F4F6] text-[#4B5563]"
+                />
+              </div>
+
+              <div className="mt-5 grid grid-cols-2 gap-3 border-t border-[#EEF2F7] pt-5 sm:grid-cols-5">
+                {quickSpecs.map(({ icon: Icon, label, value }) => (
+                  <div key={label} className="flex items-center gap-2.5">
+                    <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#F4F7FA] text-[#0B1220]">
+                      <Icon className="size-4" strokeWidth={1.8} />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold leading-tight">{value}</p>
+                      <p className="text-[11px] text-[#6B7285]">{label}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Description */}
+            <section className="rounded-xl bg-white p-5 ring-1 ring-black/[0.04] sm:p-6">
+              <h2 className="rk-display text-lg font-bold">{t("descriptionTitle")}</h2>
+              {property.description ? (
+                <>
+                  <p
+                    className={cn(
+                      "mt-3 text-sm leading-relaxed text-[#4B5563]",
+                      !expandedDesc && "line-clamp-4",
+                    )}
+                  >
+                    {property.description}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setExpandedDesc((v) => !v)}
+                    className="mt-2 text-sm font-semibold text-[#2563EB] hover:underline"
+                  >
+                    {expandedDesc ? t("readLess") : t("showMore")}
+                  </button>
+                </>
+              ) : (
+                <p className="mt-3 text-sm text-[#6B7285]">{t("noDescription")}</p>
+              )}
+            </section>
+
+            {/* Amenities */}
+            {amenities.length > 0 ? (
+              <section className="rounded-xl bg-white p-5 ring-1 ring-black/[0.04] sm:p-6">
+                <h2 className="rk-display text-lg font-bold">
+                  {t("amenitiesTitle")}
+                </h2>
+                <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                  {amenities.map(({ icon: Icon, label }) => (
+                    <div
+                      key={label}
+                      className="flex items-center gap-2.5 text-sm text-[#374151]"
+                    >
+                      <Icon className="size-4 shrink-0 text-[#0B1220]" strokeWidth={1.7} />
+                      {label}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {/* Location */}
+            <section
+              ref={locationRef}
+              className="rounded-xl bg-white p-5 ring-1 ring-black/[0.04] sm:p-6"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h2 className="rk-display text-lg font-bold">
+                  {t("locationTitle")}
+                </h2>
+                <button
+                  type="button"
+                  onClick={scrollToMap}
+                  className="text-sm font-semibold text-[#2563EB] hover:underline"
+                >
+                  {t("viewOnMap")}
+                </button>
+              </div>
+              <p className="mt-2 text-sm text-[#6B7285]">{property.address}</p>
+              <div className="mt-4 h-[280px] overflow-hidden rounded-xl">
+                <PropertyMapLazy
+                  items={[property]}
+                  theme="light"
+                  className="h-full w-full"
+                />
+              </div>
+            </section>
+
+            {/* About advertiser */}
+            <section className="rounded-xl bg-white p-5 ring-1 ring-black/[0.04] sm:p-6">
+              <h2 className="rk-display text-lg font-bold">
+                {t("aboutAdvertiser")}
+              </h2>
+              <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="relative size-14 overflow-hidden rounded-full bg-[#0B1220]">
+                    {property.companyLogoUrl ? (
+                      <Image
+                        src={property.companyLogoUrl}
+                        alt={property.company}
+                        fill
+                        className="object-cover"
+                        sizes="56px"
+                      />
+                    ) : (
+                      <span className="flex size-full items-center justify-center text-sm font-bold text-[#EBAD5B]">
+                        {property.company.slice(0, 2).toUpperCase()}
+                      </span>
+                    )}
+                  </div>
+                  <div>
+                    <p className="flex items-center gap-1.5 font-bold">
+                      {property.company}
+                      {property.verified ? (
+                        <ShieldCheck className="size-4 text-[#2563EB]" />
+                      ) : null}
+                    </p>
+                    <p className="text-xs text-[#6B7285]">
+                      {t("yearsInMarket", {
+                        years: property.agencyYears || 3,
+                      })}
+                    </p>
+                    <p className="mt-1 flex flex-wrap gap-3 text-xs text-[#6B7285]">
+                      <span className="inline-flex items-center gap-1">
+                        <Star className="size-3 fill-[#EBAD5B] text-[#EBAD5B]" />
+                        {property.agencyRating?.toFixed(1) || "4.9"}
+                      </span>
+                      <span>
+                        {t("activeListingsCount", {
+                          count: property.agencyActive || agencyListings.length || 1,
+                        })}
+                      </span>
+                      <span>{t("onlineNow")}</span>
+                    </p>
+                  </div>
+                </div>
+                <Link
+                  href="/corredores"
+                  className="inline-flex h-10 items-center justify-center rounded-lg border border-[#D1D5DB] px-4 text-sm font-semibold hover:border-[#EBAD5B]"
+                >
+                  {t("viewProfile")}
+                </Link>
+              </div>
+            </section>
           </div>
-          <p className="mt-2 flex flex-wrap items-center gap-2 text-sm text-white/55">
-            <MapPin className="size-4 shrink-0 text-white/40" />
-            {t("neighborhoodLabel", { neighborhood: property.neighborhood })},{" "}
-            {property.city} - {property.state}
+
+          {/* Sidebar */}
+          <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
+            <div
+              ref={contactRef}
+              className="rounded-xl bg-white p-5 ring-1 ring-black/[0.04]"
+            >
+              <p className="rk-display text-2xl font-bold tracking-tight sm:text-3xl">
+                {formatPrice(property.price, property.currency)}
+              </p>
+              <p className="mt-1 text-xs text-[#6B7285]">
+                {t("condoFee")}:{" "}
+                {formatPrice(property.condoFee, property.currency, 2)} /{" "}
+                {t("perMonth")}
+              </p>
+              <div className="mt-4">
+                <ListingContactPanel
+                  listing={contactListing}
+                  variant="light"
+                  mode="property"
+                />
+              </div>
+            </div>
+
+            {market.creditAvailable ? (
+              <div className="rounded-xl bg-white p-5 ring-1 ring-black/[0.04]">
+                <p className="text-sm font-bold">{t("mortgageTitle")}</p>
+                <p className="mt-2 text-xl font-bold text-[#0B1220]">
+                  {formatPrice(estimatedInstallment, property.currency, 0)}
+                  <span className="text-sm font-medium text-[#6B7285]">
+                    {t("simulator.perMonth")}
+                  </span>
+                </p>
+                <label className="mt-4 block">
+                  <span className="flex justify-between text-xs text-[#6B7285]">
+                    <span>{t("simulator.downPayment")}</span>
+                    <span className="font-semibold text-[#0B1220]">{downPct}%</span>
+                  </span>
+                  <input
+                    type="range"
+                    min={10}
+                    max={50}
+                    step={5}
+                    value={downPct}
+                    onChange={(e) => setDownPct(Number(e.target.value))}
+                    className="mt-2 w-full accent-[#EBAD5B]"
+                  />
+                  <span className="mt-1 block text-xs text-[#6B7285]">
+                    {formatPrice(downPayment, property.currency)}
+                  </span>
+                </label>
+                <label className="mt-3 block">
+                  <span className="text-xs text-[#6B7285]">
+                    {t("loanTerm")}
+                  </span>
+                  <select
+                    value={termYears}
+                    onChange={(e) => setTermYears(Number(e.target.value))}
+                    className="mt-1.5 h-10 w-full rounded-lg border border-[#E5E7EB] bg-white px-3 text-sm outline-none focus:border-[#EBAD5B]"
+                  >
+                    {[10, 15, 20, 25, 30].map((years) => (
+                      <option key={years} value={years}>
+                        {t("loanTermYears", { years })}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <Link
+                  href={financingHref}
+                  className="mt-4 inline-flex text-sm font-semibold text-[#2563EB] hover:underline"
+                >
+                  {t("viewFinancingOptions")}
+                </Link>
+              </div>
+            ) : null}
+
+            <div className="overflow-hidden rounded-xl bg-white ring-1 ring-black/[0.04]">
+              <div className="h-40">
+                <PropertyMapLazy
+                  items={[property]}
+                  theme="light"
+                  className="h-full w-full"
+                />
+              </div>
+              <div className="p-3">
+                <p className="line-clamp-2 text-xs text-[#6B7285]">
+                  {property.address}
+                </p>
+                <button
+                  type="button"
+                  onClick={scrollToMap}
+                  className="mt-1 text-xs font-semibold text-[#2563EB] hover:underline"
+                >
+                  {t("viewLargerMap")}
+                </button>
+              </div>
+            </div>
+
+            <div className="rounded-xl bg-white p-5 ring-1 ring-black/[0.04]">
+              <div className="flex items-center gap-3">
+                <div className="relative size-12 overflow-hidden rounded-full bg-[#0B1220]">
+                  {property.companyLogoUrl ? (
+                    <Image
+                      src={property.companyLogoUrl}
+                      alt={property.company}
+                      fill
+                      className="object-cover"
+                      sizes="48px"
+                    />
+                  ) : (
+                    <span className="flex size-full items-center justify-center text-xs font-bold text-[#EBAD5B]">
+                      {property.company.slice(0, 2).toUpperCase()}
+                    </span>
+                  )}
+                </div>
+                <div className="min-w-0">
+                  <p className="flex items-center gap-1 truncate font-bold">
+                    {property.company}
+                    {property.verified ? (
+                      <ShieldCheck className="size-3.5 shrink-0 text-[#2563EB]" />
+                    ) : null}
+                  </p>
+                  <p className="text-xs text-[#6B7285]">
+                    <Star className="mr-1 inline size-3 fill-[#EBAD5B] text-[#EBAD5B]" />
+                    {property.agencyRating?.toFixed(1) || "4.9"}
+                  </p>
+                </div>
+              </div>
+              {property.companyInfo?.phone ? (
+                <p className="mt-3 text-xs text-[#6B7285]">
+                  {property.companyInfo.phone}
+                </p>
+              ) : null}
+              <Link
+                href="/imoveis"
+                className="mt-4 inline-flex h-10 w-full items-center justify-center rounded-lg border border-[#D1D5DB] text-sm font-semibold hover:border-[#EBAD5B]"
+              >
+                {t("viewAllListings")}
+              </Link>
+            </div>
+          </aside>
+        </div>
+
+        {/* Similar */}
+        {similar.length > 0 ? (
+          <section className="mt-10">
+            <div className="mb-4 flex items-end justify-between gap-3">
+              <h2 className="rk-display text-xl font-bold">
+                {t("similarProperties")}
+              </h2>
+              <Link
+                href="/imoveis"
+                className="text-sm font-semibold text-[#2563EB] hover:underline"
+              >
+                {t("viewAll")}
+              </Link>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {similar.slice(0, 4).map((item) => (
+                <PropertyCard key={item.id} item={item} variant="gallery" />
+              ))}
+            </div>
+          </section>
+        ) : null}
+      </div>
+
+      {/* Sticky mobile/desktop CTA bar */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E5E7EB] bg-white/95 backdrop-blur-md lg:hidden">
+        <div className="rk-container flex items-center justify-between gap-3 py-2.5">
+          <div className="min-w-0">
+            <p className="text-sm font-bold">
+              {formatPrice(property.price, property.currency)}
+            </p>
+            <p className="truncate text-[11px] text-[#6B7285]">
+              {property.title}
+            </p>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
             <button
               type="button"
-              onClick={scrollToMap}
-              className="text-[#60a5fa] hover:underline"
+              onClick={handleFavoriteClick}
+              className="inline-flex size-10 items-center justify-center rounded-lg border border-[#E5E7EB]"
+              aria-label={t("save")}
             >
-              {t("viewOnMap")}
+              <Heart
+                className={cn("size-4", isFavorite && "fill-[#EBAD5B] text-[#EBAD5B]")}
+              />
             </button>
-          </p>
-          {shareMessage ? (
-            <p className="mt-2 text-xs text-emerald-400">{shareMessage}</p>
-          ) : null}
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={handleShare}
-            className="inline-flex items-center gap-2 rounded-lg bg-[#111d2f] px-4 py-2 text-sm text-white/80 transition-colors hover:bg-white/5"
-          >
-            <Share2 className="size-4" />
-            {t("share")}
-          </button>
-          <button
-            type="button"
-            onClick={handleFavoriteClick}
-            className={cn(
-              "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition-colors",
-              isFavorite
-                ? "bg-[#d4a017] text-[#000a1a]"
-                : "bg-[#111d2f] text-white/80 hover:bg-white/5",
-            )}
-          >
-            <Heart className={cn("size-4", isFavorite && "fill-current")} />
-            {t("save")}
-          </button>
-          <button
-            type="button"
-            onClick={() => setReportOpen(true)}
-            className="inline-flex items-center gap-2 rounded-lg bg-[#111d2f] px-4 py-2 text-sm text-white/80 transition-colors hover:bg-white/5"
-          >
-            <Flag className="size-4" />
-            {t("report")}
-          </button>
+            <button
+              type="button"
+              onClick={scrollToContact}
+              className="inline-flex h-10 items-center rounded-lg bg-[#EBAD5B] px-4 text-sm font-bold text-[#1A1205]"
+            >
+              {t("contactAdvertiser")}
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="grid gap-8 xl:grid-cols-[1fr_360px]">
-        {/* Main column */}
-        <div className="min-w-0 space-y-8">
-          {/* Gallery / video */}
-          <section>
-            {mediaTab === "photos" && (
-              <>
-            <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
+      {/* Desktop sticky bar */}
+      <div className="fixed inset-x-0 bottom-0 z-40 hidden border-t border-[#E5E7EB] bg-white/95 backdrop-blur-md lg:block">
+        <div className="rk-container flex items-center justify-between gap-4 py-3">
+          <div className="min-w-0">
+            <p className="text-base font-bold">
+              {formatPrice(property.price, property.currency)}
+            </p>
+            <p className="truncate text-sm text-[#6B7285]">{property.title}</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleFavoriteClick}
+              className="inline-flex h-10 items-center gap-2 rounded-lg border border-[#E5E7EB] px-3 text-sm font-semibold"
+            >
+              <Heart
+                className={cn("size-4", isFavorite && "fill-[#EBAD5B] text-[#EBAD5B]")}
+              />
+              {t("save")}
+            </button>
+            <button
+              type="button"
+              onClick={handleShare}
+              className="inline-flex h-10 items-center gap-2 rounded-lg border border-[#E5E7EB] px-3 text-sm font-semibold"
+            >
+              <Share2 className="size-4" />
+              {t("share")}
+            </button>
+            <button
+              type="button"
+              onClick={scrollToContact}
+              className="inline-flex h-10 items-center rounded-lg border border-[#E5E7EB] px-4 text-sm font-semibold"
+            >
+              {t("scheduleVisit")}
+            </button>
+            <button
+              type="button"
+              onClick={scrollToContact}
+              className="inline-flex h-10 items-center rounded-lg bg-[#EBAD5B] px-5 text-sm font-bold text-[#1A1205]"
+            >
+              {t("contactAdvertiser")}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {lightbox ? (
+        <div className="fixed inset-0 z-50 flex flex-col bg-black/95">
+          <div className="flex items-center justify-between px-4 py-3 text-white">
+            <p className="text-sm font-semibold">
+              {activeImage + 1} / {property.images.length}
+            </p>
+            <button
+              type="button"
+              onClick={() => setLightbox(false)}
+              className="inline-flex size-10 items-center justify-center rounded-full bg-white/10"
+              aria-label="Close"
+            >
+              <X className="size-5" />
+            </button>
+          </div>
+          <div className="relative mx-auto flex min-h-0 w-full max-w-5xl flex-1 items-center px-4 pb-8">
+            <button
+              type="button"
+              onClick={prevImage}
+              className="absolute left-2 z-10 inline-flex size-11 items-center justify-center rounded-full bg-white/10 text-white"
+            >
+              <ChevronLeft className="size-6" />
+            </button>
+            <div className="relative mx-auto aspect-[16/10] w-full">
               <ListingImage
                 src={heroImage}
                 alt={property.title}
                 fill
-                priority
                 variant="hero"
-                className="object-cover"
+                className="object-contain"
               />
-              <button
-                type="button"
-                onClick={prevImage}
-                className="absolute left-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-colors hover:bg-black/70"
-                aria-label={t("prevPhoto")}
-              >
-                <ChevronLeft className="size-5" />
-              </button>
-              <button
-                type="button"
-                onClick={nextImage}
-                className="absolute right-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-colors hover:bg-black/70"
-                aria-label={t("nextPhoto")}
-              >
-                <ChevronRight className="size-5" />
-              </button>
             </div>
-
-            <div className="mt-3 grid grid-cols-5 gap-2">
-              {thumbnails.map((src, idx) => (
-                <button
-                  key={src}
-                  type="button"
-                  onClick={() => setActiveImage(idx)}
-                  className={cn(
-                    "relative aspect-[4/3] overflow-hidden rounded-lg ring-2 transition-all",
-                    activeImage === idx
-                      ? "ring-[#1d4ed8]"
-                      : "ring-transparent opacity-80 hover:opacity-100",
-                  )}
-                >
-                  <ListingImage
-                    src={src}
-                    alt=""
-                    fill
-                    variant="thumb"
-                    className="object-cover"
-                  />
-                </button>
-              ))}
-              {property.images.length > 4 ? (
-                <button
-                  type="button"
-                  className="relative aspect-[4/3] overflow-hidden rounded-lg"
-                >
-                  <ListingImage
-                    src={property.images[4] ?? heroImage}
-                    alt=""
-                    fill
-                    variant="thumb"
-                    className="object-cover brightness-50"
-                  />
-                  <span className="absolute inset-0 flex items-center justify-center text-center text-xs font-medium text-white">
-                    {t("viewAllPhotos", { count: totalPhotos })}
-                  </span>
-                </button>
-              ) : null}
-            </div>
-              </>
-            )}
-
-            {mediaTab === "video" && videoSrc && (
-              <ListingVideo url={videoSrc} title={property.title} />
-            )}
-
-            {mediaTab === "video" && !videoSrc && (
-              <div className="flex aspect-video items-center justify-center rounded-xl bg-[#111d2f]/60 text-sm text-white/50">
-                {t("media.noVideo")}
-              </div>
-            )}
-
-            {mediaTab === "tour" && property.virtualTourUrl ? (
-              <VirtualTourEmbed url={property.virtualTourUrl} title={property.title} />
-            ) : null}
-
-            {mediaTab === "floorPlan" && property.floorPlanUrl ? (
-              <FloorPlanViewer url={property.floorPlanUrl} title={property.title} />
-            ) : null}
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              {availableMediaTabs.map((tab) => (
-                <button
-                  key={tab}
-                  type="button"
-                  onClick={() => setMediaTab(tab)}
-                  className={cn(
-                    "rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
-                    mediaTab === tab
-                      ? "bg-[#1d4ed8] text-white"
-                      : "bg-[#111d2f] text-white/60 hover:bg-white/10 hover:text-white",
-                  )}
-                >
-                  {t(`media.${tab}`)}
-                </button>
-              ))}
-            </div>
-          </section>
-
-          {/* Description */}
-          <section className="rounded-xl bg-[#111d2f]/60 p-6">
-            <h2 className="text-lg font-semibold text-white">
-              {t("descriptionTitle")}
-            </h2>
-            {property.description ? (
-              <>
-                <p
-                  className={cn(
-                    "mt-3 text-sm leading-relaxed text-white/65",
-                    !expandedDesc && "line-clamp-3",
-                  )}
-                >
-                  {property.description}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setExpandedDesc((v) => !v)}
-                  className="mt-3 text-sm font-medium text-[#60a5fa] hover:underline"
-                >
-                  {expandedDesc ? t("readLess") : t("readMore")}
-                </button>
-              </>
-            ) : (
-              <p className="mt-3 text-sm text-white/45">{t("noDescription")}</p>
-            )}
-          </section>
-
-          {/* Characteristics */}
-          <section className="rounded-xl bg-[#111d2f]/60 p-6">
-            <h2 className="text-lg font-semibold text-white">
-              {t("featuresTitle")}
-            </h2>
-            <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-              {characteristics.map(({ icon: Icon, label, value }) => (
-                <div key={label} className="flex flex-col gap-1">
-                  <Icon className="size-5 text-[#60a5fa]" />
-                  <span className="text-base font-semibold text-white">
-                    {value}
-                  </span>
-                  <span className="text-xs text-white/45">{label}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Location */}
-          <section ref={locationRef} className="rounded-xl bg-[#111d2f]/60 p-6">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="text-lg font-semibold text-white">
-                {t("locationTitle")}
-              </h2>
-              <button
-                type="button"
-                onClick={scrollToMap}
-                className="text-sm text-[#60a5fa] hover:underline"
-              >
-                {t("viewOnMap")}
-              </button>
-            </div>
-            <p className="mt-2 text-sm text-white/55">{property.address}</p>
-            <div className="mt-4 h-[280px] overflow-hidden rounded-xl">
-              <PropertyMap items={[property]} className="h-full w-full" />
-            </div>
-          </section>
-
-          {market.creditAvailable ? (
-            <section className="rounded-xl bg-[#111d2f]/60 p-6">
-              <h2 className="text-lg font-semibold text-white">
-                {t("simulatorTitle")}
-              </h2>
-              <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                <label className="block">
-                  <span className="text-xs text-white/45">
-                    {t("simulator.propertyValue")}
-                  </span>
-                  <input
-                    readOnly
-                    value={formatPrice(property.price, property.currency)}
-                    className="mt-1.5 w-full rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
-                  />
-                </label>
-                <label className="block">
-                  <span className="text-xs text-white/45">
-                    {t("simulator.downPayment")}
-                  </span>
-                  <div className="mt-1.5 flex gap-2">
-                    <input
-                      readOnly
-                      value={formatPrice(downPayment, property.currency)}
-                      className="flex-1 rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
-                    />
-                    <select
-                      value={downPct}
-                      onChange={(e) => setDownPct(Number(e.target.value))}
-                      className="rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
-                    >
-                      {[10, 20, 30, 40, 50].map((p) => (
-                        <option key={p} value={p}>
-                          {p}%
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </label>
-                <label className="block">
-                  <span className="text-xs text-white/45">
-                    {t("simulator.term")}
-                  </span>
-                  <input
-                    type="number"
-                    value={termMonths}
-                    onChange={(e) => setTermMonths(Number(e.target.value))}
-                    className="mt-1.5 w-full rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
-                  />
-                </label>
-                <label className="block">
-                  <span className="text-xs text-white/45">
-                    {t("simulator.interestRate")}
-                  </span>
-                  <input
-                    type="number"
-                    step="0.01"
-                    value={interestRate}
-                    onChange={(e) => setInterestRate(Number(e.target.value))}
-                    className="mt-1.5 w-full rounded-lg bg-[#0a111f] px-3 py-2.5 text-sm text-white outline-none focus:bg-[#0d1528]"
-                  />
-                </label>
-              </div>
-              <div className="mt-5 flex flex-wrap items-center justify-between gap-4 rounded-lg bg-[#1d4ed8]/10 px-4 py-3">
-                <span className="text-sm text-white/70">
-                  {t("simulator.estimatedInstallment")}
-                </span>
-                <span className="text-xl font-bold text-white">
-                  {formatPrice(estimatedInstallment, property.currency, 2)}
-                  {t("simulator.perMonth")}
-                </span>
-              </div>
-              <Link
-                href={financingHref}
-                className="mt-4 flex w-full items-center justify-center rounded-md bg-[#d4a017] px-4 py-2 text-sm font-semibold text-[#0a111f] transition-colors hover:bg-[#eebc49]"
-              >
-                {t("simulateNow")}
-              </Link>
-            </section>
-          ) : null}
+            <button
+              type="button"
+              onClick={nextImage}
+              className="absolute right-2 z-10 inline-flex size-11 items-center justify-center rounded-full bg-white/10 text-white"
+            >
+              <ChevronRight className="size-6" />
+            </button>
+          </div>
         </div>
-
-        {/* Sidebar */}
-        <aside className="space-y-5 xl:sticky xl:top-24 xl:self-start">
-          {/* Price card */}
-          <div className="rounded-xl bg-[#111d2f] p-5">
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/40">
-              {t("salePrice")}
-            </p>
-            <p className="mt-1 text-3xl font-bold text-white">
-              {formatPrice(property.price, property.currency)}
-            </p>
-            <div className="mt-4 space-y-2 pt-4 text-sm">
-              <div className="flex justify-between text-white/55">
-                <span>{t("condoFee")}</span>
-                <span className="text-white">
-                  {formatPrice(property.condoFee, property.currency, 2)}
-                </span>
-              </div>
-              <div className="flex justify-between text-white/55">
-                <span>{t("iptu")}</span>
-                <span className="text-white">
-                  {formatPrice(property.iptu, property.currency, 2)}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {market.creditAvailable ? (
-            <div className="rounded-xl bg-[#111d2f] p-5">
-              <p className="text-sm text-white/55">
-                {t("downFrom")}{" "}
-                <span className="font-semibold text-white">
-                  {formatPrice(sidebarDown, property.currency)}
-                </span>
-              </p>
-              <p className="mt-1 text-sm text-white/55">
-                {t("installmentsFrom")}{" "}
-                <span className="font-semibold text-white">
-                  {formatPrice(sidebarInstallment, property.currency)}
-                  {t("simulator.perMonth")}
-                </span>
-              </p>
-              <Link
-                href={financingHref}
-                className="mt-4 flex w-full items-center justify-center rounded-md bg-[#d4a017] px-4 py-2 text-sm font-semibold text-[#0a111f] transition-colors hover:bg-[#eebc49]"
-              >
-                {t("simulateFinancing")}
-              </Link>
-            </div>
-          ) : null}
-
-          {/* Contact */}
-          <div className="rounded-xl bg-[#111d2f] p-5">
-            <ListingContactPanel
-              listing={{
-                listingId: property.id,
-                listingTitle: property.title,
-                listingCategory: "properties",
-                companyId: property.companyId,
-                companyName: property.company,
-                whatsappNumber: property.whatsappNumber,
-                agentName: property.agent?.name,
-              }}
-            />
-          </div>
-
-          <CompanyPresenceCard
-            companyName={property.company}
-            companyLogoUrl={property.companyLogoUrl}
-            companyInfo={property.companyInfo}
-            title={t("agency")}
-          />
-
-          {property.agent ? (
-            <div className="rounded-xl bg-[#111d2f] p-5">
-              <p className="text-xs font-semibold uppercase tracking-wider text-white/40">
-                {t("agent")}
-              </p>
-              <div className="mt-3 flex items-center gap-3">
-                <div className="relative size-12 overflow-hidden rounded-full">
-                  <Image
-                    src={property.agent.photo}
-                    alt={property.agent.name}
-                    fill
-                    className="object-cover"
-                    sizes="48px"
-                  />
-                </div>
-                <div>
-                  <p className="font-semibold text-white">{property.agent.name}</p>
-                  {property.agent.role ? (
-                    <p className="text-xs text-white/45">{property.agent.role}</p>
-                  ) : null}
-                  {property.agent.creci ? (
-                    <p className="text-xs text-white/35">CRECI {property.agent.creci}</p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-          ) : null}
-
-          {agencyListings.length > 0 ? (
-            <div className="rounded-xl bg-[#111d2f] p-5">
-              <p className="text-sm font-semibold text-white">{t("otherProperties")}</p>
-              <div className="mt-3 flex gap-3 overflow-x-auto pb-1">
-                {agencyListings.map((item) => (
-                  <Link
-                    key={item.id}
-                    href={`/imoveis/${item.id}`}
-                    className="block w-[140px] shrink-0"
-                  >
-                    <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        className="object-cover"
-                        sizes="140px"
-                      />
-                    </div>
-                    <p className="mt-1.5 truncate text-xs text-white/70">{item.title}</p>
-                    <p className="text-xs font-bold text-white">
-                      {formatPrice(item.price, item.currency)}
-                    </p>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          ) : null}
-        </aside>
-      </div>
-
-      {/* Similar properties */}
-      {similar.length > 0 && (
-        <section className="mt-16 pt-12">
-          <h2 className="text-xl font-bold text-white">
-            {t("similarProperties")}
-          </h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {similar.map((item) => (
-              <PropertyCard key={item.id} item={item} variant="gallery" />
-            ))}
-          </div>
-        </section>
-      )}
+      ) : null}
 
       <ReportListingModal
         open={reportOpen}
@@ -655,6 +870,8 @@ export function PropertyDetailPage({ property, similar, agencyListings = [] }: P
         listingId={property.id}
         listingTitle={property.title}
       />
+
+      <MarketplaceFooter />
     </div>
   );
 }

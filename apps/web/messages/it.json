@@ -157,7 +157,10 @@
       "fr": "Français",
       "de": "Deutsch",
       "it": "Italiano",
-      "ar": "العربية"
+      "ar": "العربية",
+      "zh": "中文",
+      "hi": "हिन्दी",
+      "bn": "বাংলা"
     },
     "names": {
       "br": "Brasile",
@@ -242,10 +245,18 @@
       "titleEnd": "of your life.",
       "subtitle": "Properties, vehicles, financing, and services in one ecosystem.",
       "ctaExplore": "Explore marketplace",
+      "ctaProperty": "Buy a property",
+      "ctaVehicle": "Buy a vehicle",
       "ctaPublish": "Business Portal",
       "ctaCompanies": "Business Portal",
       "ctaBuy": "Explore",
       "ctaRent": "Browse vehicles",
+      "pillars": {
+        "buy": "Buy",
+        "sell": "Sell",
+        "finance": "Finance",
+        "list": "List"
+      },
       "stats": {
         "properties": {
           "value": "+10k",
@@ -273,14 +284,6 @@
           "title": "Premium Apartment",
           "place": "São Paulo, Brazil"
         }
-      },
-      "ctaProperty": "Buy a property",
-      "ctaVehicle": "Buy a vehicle",
-      "pillars": {
-        "buy": "Buy",
-        "sell": "Sell",
-        "finance": "Finance",
-        "list": "List"
       }
     },
     "ecosystem": {
@@ -291,9 +294,9 @@
         "vehicles": "Vehicles",
         "financing": "Financing",
         "insurance": "Insurance",
-        "solar": "Solar energy",
+        "renovation": "Renovation",
         "moving": "Moving",
-        "furniture": "Furniture"
+        "furniture": "Interior design"
       }
     },
     "search": {
@@ -425,9 +428,9 @@
     },
     "featured": {
       "eyebrow": "Featured selection",
-      "title": "Find your next place.",
+      "title": "Immobili in evidenza",
       "subtitle": "A curated selection of featured properties on Reeskova.",
-      "viewAll": "See all",
+      "viewAll": "Vedi tutti",
       "viewProperty": "View property",
       "save": "Save",
       "specs": {
@@ -655,8 +658,8 @@
       }
     },
     "categories": {
-      "title": "Find more on Reeskova",
-      "subtitle": "Explore by category and keep discovering.",
+      "title": "Esplora per categorie",
+      "subtitle": "Trova rapidamente ciò che cerchi.",
       "viewAll": "See all categories →",
       "items": {
         "properties": {
@@ -686,9 +689,9 @@
       }
     },
     "featuredVehicles": {
-      "title": "Featured vehicles",
+      "title": "Veicoli in evidenza",
       "subtitle": "A selection to move your next step forward.",
-      "viewAll": "See all",
+      "viewAll": "Vedi tutti",
       "viewVehicle": "View vehicle",
       "save": "Save"
     },
@@ -717,20 +720,15 @@
           "title": "Decoration",
           "description": "Design for your space"
         },
-        "solar": {
-          "title": "Energy",
-          "description": "Efficiency for your home"
+        "inspection": {
+          "title": "Home inspection",
+          "description": "Verify before you buy"
         },
-        "internet": {
-          "title": "Internet",
-          "description": "Premium connectivity"
+        "renovation": {
+          "title": "Renovation",
+          "description": "Update and improve the property"
         }
       }
-    },
-    "newsletter": {
-      "title": "Sii il primo a scoprire nuove opportunità",
-      "subtitle": "Ricevi lanci, veicoli premium e opportunità selezionate da Reeskova.",
-      "cta": "Entra nella lista d'attesa"
     },
     "ecosystemJourney": {
       "title": "Everything you need for your next plan.",
@@ -814,6 +812,11 @@
           "role": "Infrastructure"
         }
       }
+    },
+    "newsletter": {
+      "title": "Be the first to discover new opportunities",
+      "subtitle": "Get launches, premium vehicles, and selected opportunities from Reeskova.",
+      "cta": "Join the waitlist"
     }
   },
   "search": {
@@ -1266,6 +1269,8 @@
       "launches": "New Launches",
       "launchesSubtitle": "Selected new developments",
       "new": "New",
+      "newListings": "New listings",
+      "newListingsSubtitle": "Just added to the catalog",
       "premium": "Premium Homes",
       "premiumBadge": "Premium",
       "recommended": "Verified properties",
@@ -2707,6 +2712,873 @@
         }
       }
     }
+  },
+  "marketplace": {
+    "save": "Save",
+    "seeAll": "See all",
+    "deals": "Today's deals",
+    "featuredProperties": "Featured properties",
+    "newListings": "New listings — Just added",
+    "continueExploring": "Continue exploring",
+    "popularVehicles": "Most popular vehicles",
+    "featuredIn": "Featured in {city}",
+    "badges": {
+      "premium": "Premium",
+      "new": "New",
+      "featured": "Featured",
+      "deal": "Deal"
+    },
+    "types": {
+      "property": {
+        "house": "House",
+        "apartment": "Apartment",
+        "land": "Land",
+        "commercial": "Commercial",
+        "condominium": "Condominium",
+        "penthouse": "Penthouse",
+        "studio": "Studio"
+      },
+      "vehicle": {
+        "car": "Car",
+        "suv": "SUV",
+        "motorcycle": "Motorcycle",
+        "truck": "Truck",
+        "van": "Van",
+        "electric": "Electric",
+        "hybrid": "Hybrid"
+      }
+    },
+    "specs": {
+      "beds": "{count} beds",
+      "baths": "{count} baths",
+      "area": "{area} m²"
+    },
+    "header": {
+      "deliverTo": "Deliver to",
+      "saved": "Saved",
+      "cart": "Cart",
+      "downloadApp": "Download App",
+      "listCta": "List on Reeskova",
+      "nav": {
+        "home": "Home",
+        "properties": "Properties",
+        "vehicles": "Vehicles",
+        "projects": "Projects",
+        "businesses": "Businesses",
+        "services": "Services",
+        "deals": "Deals",
+        "newListings": "New listings",
+        "brokers": "Brokers",
+        "premium": "Premium",
+        "magazines": "Magazine",
+        "visits": "Free visits"
+      }
+    },
+    "headerSearch": {
+      "categoryLabel": "Search category",
+      "placeholder": "Search properties, vehicles, projects or property services...",
+      "placeholders": {
+        "all": "Search properties, vehicles, projects or property services...",
+        "properties": "Search city, neighborhood or code COD-00001...",
+        "vehicles": "Search car, motorcycle, dealer or code COD-00001...",
+        "projects": "Search project, developer, city or code COD-00001...",
+        "businesses": "Search business, franchise, company or code COD-00001...",
+        "services": "Search service, professional or company..."
+      },
+      "submit": "Search",
+      "categories": {
+        "all": "All categories",
+        "properties": "Properties",
+        "vehicles": "Vehicles",
+        "projects": "Projects",
+        "businesses": "Businesses",
+        "services": "Services"
+      }
+    },
+    "hero": {
+      "titleStart": "Find your next",
+      "titleHighlight": "opportunity",
+      "subtitle": "Properties, vehicles, projects and services from verified businesses."
+    },
+    "search": {
+      "tabs": {
+        "properties": "Properties",
+        "vehicles": "Vehicles",
+        "projects": "Projects",
+        "businesses": "Businesses",
+        "services": "Services"
+      },
+      "query": "What are you looking for?",
+      "queryPlaceholder": "e.g. Apartment, House, BMW X5...",
+      "location": "Location",
+      "locationPlaceholder": "City, state or country",
+      "type": "Type",
+      "anyType": "Any type",
+      "price": "Price",
+      "anyPrice": "Any price",
+      "moreFilters": "More filters",
+      "submit": "Search",
+      "popular": "Popular searches:"
+    },
+    "quickPicks": {
+      "title": "Quick picks",
+      "viewAll": "View all categories",
+      "propertiesUnder": {
+        "title": "Properties",
+        "subtitle": "Under $500K"
+      },
+      "luxury": {
+        "title": "Luxury properties",
+        "subtitle": "Premium selection"
+      },
+      "rentals": {
+        "title": "Rentals",
+        "subtitle": "Apartments & houses"
+      },
+      "carsUnder": {
+        "title": "Cars",
+        "subtitle": "Under $30K"
+      },
+      "projects": {
+        "title": "New projects",
+        "subtitle": "Launching soon"
+      },
+      "commercial": {
+        "title": "Commercial",
+        "subtitle": "Offices & shops"
+      },
+      "land": {
+        "title": "Land",
+        "subtitle": "Investment land"
+      }
+    },
+    "promos": {
+      "premium": {
+        "title": "Premium Properties",
+        "subtitle": "Curated selection just for you"
+      },
+      "projects": {
+        "title": "New Projects",
+        "subtitle": "Discover upcoming developments"
+      },
+      "vehicles": {
+        "title": "Vehicle Deals",
+        "subtitle": "The best offers on premium vehicles"
+      },
+      "hot": {
+        "title": "Hot Opportunities",
+        "subtitle": "Limited-time deals"
+      },
+      "cta": {
+        "explore": "Explore",
+        "deals": "See deals"
+      }
+    },
+    "categories": {
+      "apartments": "Apartments",
+      "houses": "Houses",
+      "land": "Land",
+      "commercial": "Commercial",
+      "rentals": "Rentals",
+      "cars": "Cars",
+      "motorcycles": "Motorcycles",
+      "trucks": "Trucks",
+      "projects": "New Projects",
+      "businesses": "Businesses",
+      "services": "Services",
+      "more": "More"
+    },
+    "trust": {
+      "verified": {
+        "title": "Verified businesses",
+        "text": "Only trusted and verified advertisers."
+      },
+      "secure": {
+        "title": "Secure platform",
+        "text": "Your safety is our top priority."
+      },
+      "global": {
+        "title": "Global reach",
+        "text": "Opportunities in the best locations."
+      },
+      "connect": {
+        "title": "Easy to connect",
+        "text": "Contact directly with the advertiser."
+      },
+      "search": {
+        "title": "Smart search",
+        "text": "Advanced filters to find exactly what you want."
+      }
+    },
+    "footer": {
+      "tagline": "The marketplace to discover properties, vehicles, projects, businesses and services.",
+      "portal": "Business Portal",
+      "rights": "All rights reserved.",
+      "reeskova": {
+        "title": "Reeskova",
+        "about": "About us",
+        "how": "How it works",
+        "blog": "Blog",
+        "careers": "Careers",
+        "contact": "Contact"
+      },
+      "support": {
+        "title": "Support",
+        "help": "Help Center",
+        "safety": "Safety Tips",
+        "terms": "Terms of Use",
+        "privacy": "Privacy Policy",
+        "cookies": "Cookies"
+      },
+      "business": {
+        "title": "For Businesses",
+        "property": "List your property",
+        "vehicle": "List your vehicle",
+        "advertise": "Advertise your business",
+        "partner": "Partner with us"
+      },
+      "newsletter": {
+        "title": "Stay updated",
+        "text": "Get the best opportunities straight to your inbox.",
+        "placeholder": "Your email",
+        "submit": "Subscribe"
+      },
+      "app": {
+        "title": "Download the app"
+      }
+    },
+    "listing": {
+      "breadcrumbHome": "Home",
+      "breadcrumbProperties": "Properties",
+      "title": "Properties for sale & rent",
+      "subtitle": "Find your perfect property from verified businesses.",
+      "promoTitle": "List your property on Reeskova",
+      "promoCta": "List your property",
+      "count": "{count} properties found",
+      "status": "Show results for",
+      "statusOptions": {
+        "all": "All properties",
+        "sale": "For sale",
+        "rent": "For rent"
+      },
+      "propertyType": "Property type",
+      "types": {
+        "apartment": "Apartment",
+        "house": "House",
+        "condominium": "Condominium",
+        "penthouse": "Penthouse",
+        "studio": "Studio",
+        "commercial": "Commercial",
+        "land": "Land"
+      },
+      "priceRange": "Price range",
+      "minPrice": "Min price",
+      "maxPrice": "Max price",
+      "location": "Location",
+      "locationPlaceholder": "Enter city, neighborhood or region",
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "any": "Any",
+      "roomsPlus": "{count}+",
+      "moreFilters": "More filters",
+      "filters": "Filters",
+      "sortLabel": "Sort",
+      "sortBy": "Sort by:",
+      "reset": "Reset",
+      "close": "Close",
+      "back": "Back",
+      "save": "Save",
+      "forSale": "for sale",
+      "forRent": "for rent",
+      "priceMonth": "{price} / month",
+      "showResults": "Show {count} results",
+      "empty": "No properties found",
+      "emptyHint": "Try adjusting filters or exploring another area.",
+      "pagination": "Pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "expandMap": "Expand map",
+      "searchAsMove": "Search as I move the map",
+      "popularAreas": "Explore popular areas",
+      "insights": "Market overview",
+      "avgPrice": "Avg. price (last 30 days)",
+      "pills": {
+        "verified": "Verified only",
+        "photos": "With photos",
+        "tour": "With virtual tour",
+        "reduced": "Price reduced",
+        "newWeek": "New this week"
+      },
+      "views": {
+        "grid": "Grid view",
+        "list": "List view",
+        "map": "Map view"
+      },
+      "sort": {
+        "newest": "Newest",
+        "relevance": "Relevance",
+        "price_asc": "Lowest price",
+        "price_desc": "Highest price",
+        "area_desc": "Largest area"
+      }
+    },
+    "vehicles": {
+      "breadcrumbHome": "Home",
+      "breadcrumbVehicles": "Vehicles",
+      "title": "Vehicles for sale",
+      "subtitle": "Find the perfect vehicle from verified dealers.",
+      "promoTitle": "Sell your vehicle on Reeskova",
+      "promoCta": "List your vehicle",
+      "count": "{count} vehicles found",
+      "vehicleType": "Vehicle type",
+      "types": {
+        "all": "All",
+        "car": "Cars",
+        "motorcycle": "Motorcycles",
+        "truck": "Trucks",
+        "van": "Vans"
+      },
+      "make": "Make",
+      "model": "Model",
+      "priceRange": "Price range",
+      "minPrice": "Min price",
+      "maxPrice": "Max price",
+      "location": "Location",
+      "locationPlaceholder": "Enter city, neighborhood or region",
+      "year": "Year",
+      "kilometers": "Kilometers",
+      "transmission": "Transmission",
+      "fuel": "Fuel type",
+      "min": "Min",
+      "max": "Max",
+      "any": "Any",
+      "moreFilters": "More filters",
+      "filters": "Filters",
+      "sortLabel": "Sort",
+      "sortBy": "Sort by:",
+      "reset": "Reset",
+      "close": "Close",
+      "back": "Back",
+      "save": "Save",
+      "showResults": "Show {count} results",
+      "empty": "No vehicles found",
+      "emptyHint": "Try adjusting filters or exploring another area.",
+      "expandMap": "Expand map",
+      "searchAsMove": "Search as I move the map",
+      "popularAreas": "Popular areas",
+      "insights": "Market insights",
+      "avgPrice": "Average price (last 30 days)",
+      "mostSearched": "Most searched",
+      "transmissions": {
+        "automatic": "Automatic",
+        "manual": "Manual",
+        "cvt": "CVT"
+      },
+      "fuels": {
+        "flex": "Flex",
+        "gasoline": "Gasoline",
+        "diesel": "Diesel",
+        "hybrid": "Hybrid",
+        "electric": "Electric"
+      },
+      "pills": {
+        "verified": "Verified dealers only",
+        "photos": "With photos",
+        "lowKm": "Low mileage",
+        "reduced": "Price reduced",
+        "newWeek": "New this week"
+      },
+      "views": {
+        "grid": "Grid view",
+        "list": "List view",
+        "map": "Map view"
+      },
+      "sort": {
+        "newest": "Newest",
+        "price_asc": "Lowest price",
+        "price_desc": "Highest price",
+        "mileage_asc": "Lowest mileage"
+      }
+    },
+    "projects": {
+      "breadcrumbHome": "Home",
+      "breadcrumbProjects": "Projects",
+      "title": "Real estate projects",
+      "subtitle": "Discover new developments from top developers.",
+      "promoTitle": "Launch your project on Reeskova",
+      "promoCta": "List your project",
+      "count": "{count} projects found",
+      "propertyType": "Property type",
+      "types": {
+        "all": "All",
+        "residential": "Residential",
+        "commercial": "Commercial",
+        "mixed": "Mixed-use",
+        "industrial": "Industrial",
+        "hospitality": "Hospitality"
+      },
+      "status": "Project status",
+      "statuses": {
+        "prelaunch": "Pre-launch",
+        "construction": "Under construction",
+        "ready": "Ready to move"
+      },
+      "priceRange": "Price range",
+      "minPrice": "Min price",
+      "maxPrice": "Max price",
+      "location": "Location",
+      "locationPlaceholder": "Enter city, neighborhood or region",
+      "deliveryDate": "Delivery date",
+      "from": "From",
+      "to": "To",
+      "any": "Any",
+      "moreFilters": "More filters",
+      "filters": "Filters",
+      "sortLabel": "Sort",
+      "sortBy": "Sort by:",
+      "reset": "Reset",
+      "close": "Close",
+      "back": "Back",
+      "save": "Save",
+      "developer": "Developer",
+      "showResults": "Show {count} projects",
+      "empty": "No projects found",
+      "emptyHint": "Try adjusting filters or exploring another destination.",
+      "expandMap": "Expand map",
+      "searchAsMove": "Search as I move the map",
+      "popularAreas": "Explore popular destinations",
+      "insights": "Market insights",
+      "newProjects": "New projects (last 30 days)",
+      "avgPrice": "Average price",
+      "priceFrom": "From {price}",
+      "delivery": "Expected delivery: {date}",
+      "bedsRange": "{range} beds",
+      "units": {
+        "apartments": "Apartments",
+        "houses": "Houses",
+        "studios": "Studios",
+        "offices": "Offices",
+        "villas": "Villas"
+      },
+      "badges": {
+        "prelaunch": "Pre-launch",
+        "construction": "Under construction",
+        "ready": "Ready",
+        "new": "New",
+        "featured": "Featured",
+        "highRoi": "High ROI",
+        "paymentPlan": "Payment plan",
+        "luxury": "Luxury",
+        "sustainable": "Sustainable"
+      },
+      "pills": {
+        "verified": "Verified developers only",
+        "plan": "With payment plan",
+        "roi": "High ROI potential",
+        "prelaunch": "Pre-launch",
+        "luxury": "Luxury",
+        "eco": "Sustainable",
+        "amenities": "With amenities"
+      },
+      "views": {
+        "grid": "Grid view",
+        "list": "List view",
+        "map": "Map view"
+      },
+      "sort": {
+        "newest": "Newest",
+        "price_asc": "Lowest price",
+        "price_desc": "Highest price",
+        "delivery_asc": "Earliest delivery"
+      },
+      "trust": {
+        "verified": {
+          "title": "Verified developers",
+          "text": "Only trusted and verified developers."
+        },
+        "secure": {
+          "title": "Secure payments",
+          "text": "Safe and transparent transactions."
+        },
+        "opportunities": {
+          "title": "Best opportunities",
+          "text": "Access exclusive and pre-launch projects."
+        },
+        "global": {
+          "title": "Global reach",
+          "text": "Projects in the best locations worldwide."
+        },
+        "support": {
+          "title": "Expert support",
+          "text": "Our team is here to help you."
+        }
+      }
+    },
+    "businesses": {
+      "breadcrumbHome": "Home",
+      "breadcrumbBusinesses": "Businesses",
+      "title": "Businesses for sale",
+      "subtitle": "Find profitable businesses and acquisition opportunities.",
+      "promoTitle": "Sell your business on Reeskova",
+      "promoCta": "List your business",
+      "count": "{count} businesses found",
+      "category": "Business category",
+      "types": {
+        "all": "All",
+        "food": "Food & Beverage",
+        "retail": "Retail",
+        "services": "Services",
+        "beauty": "Health & Beauty",
+        "education": "Education",
+        "hospitality": "Hospitality"
+      },
+      "priceRange": "Price range",
+      "revenueRange": "Annual revenue",
+      "minPrice": "Min price",
+      "maxPrice": "Max price",
+      "minRevenue": "Min revenue",
+      "maxRevenue": "Max revenue",
+      "location": "Location",
+      "locationPlaceholder": "Enter city, neighborhood or region",
+      "any": "Any",
+      "moreFilters": "More filters",
+      "filters": "Filters",
+      "sortLabel": "Sort",
+      "sortBy": "Sort by:",
+      "reset": "Reset",
+      "close": "Close",
+      "back": "Back",
+      "save": "Save",
+      "broker": "Broker",
+      "revenue": "Annual revenue",
+      "cashFlow": "Cash flow",
+      "showResults": "Show {count} businesses",
+      "empty": "No businesses found",
+      "emptyHint": "Try adjusting filters or exploring another city.",
+      "expandMap": "Expand map",
+      "popularCategories": "Popular categories",
+      "insights": "Market insights",
+      "activeListings": "Active listings",
+      "avgPrice": "Average asking price",
+      "avgRevenue": "Average revenue",
+      "badges": {
+        "profitable": "Profitable",
+        "franchise": "Franchise",
+        "equipment": "With equipment",
+        "reduced": "Price reduced"
+      },
+      "pills": {
+        "verified": "Verified businesses only",
+        "profit": "Profitable",
+        "equipment": "With equipment",
+        "franchise": "Franchise available",
+        "financing": "Seller financing",
+        "reduced": "Price reduced"
+      },
+      "views": {
+        "grid": "Grid view",
+        "list": "List view",
+        "map": "Map view"
+      },
+      "sort": {
+        "newest": "Newest",
+        "price_asc": "Lowest price",
+        "price_desc": "Highest price",
+        "revenue_desc": "Highest revenue"
+      },
+      "trust": {
+        "verified": {
+          "title": "Verified businesses",
+          "text": "Listings reviewed with verified brokers."
+        },
+        "secure": {
+          "title": "Secure transactions",
+          "text": "Safe and transparent acquisitions."
+        },
+        "opportunities": {
+          "title": "Best opportunities",
+          "text": "Profitable businesses and franchises."
+        },
+        "global": {
+          "title": "Global reach",
+          "text": "Businesses in key markets worldwide."
+        },
+        "support": {
+          "title": "Expert support",
+          "text": "Specialists to guide your acquisition."
+        }
+      }
+    },
+    "services": {
+      "breadcrumbHome": "Home",
+      "breadcrumbServices": "Services",
+      "title": "Professional services",
+      "subtitle": "Find verified companies for inspection, financing, insurance, design, maintenance and more.",
+      "promoTitle": "Grow your service company on Reeskova. Reach clients looking for verified professionals.",
+      "promoCta": "List your service",
+      "count": "{count} services found",
+      "popular": "Popular services",
+      "category": "Service category",
+      "types": {
+        "all": "All",
+        "agents": "Real Estate Agents",
+        "management": "Property Management",
+        "inspection": "Home Inspection",
+        "appraisal": "Appraisal / Valuation",
+        "architecture": "Architecture",
+        "interior": "Interior Design",
+        "renovation": "Renovation & Remodeling",
+        "construction": "Construction",
+        "landscaping": "Landscaping",
+        "cleaning": "Cleaning",
+        "moving": "Moving & Relocation",
+        "security": "Security",
+        "maintenance": "Maintenance & Repairs",
+        "photography": "Photography / Virtual Tours",
+        "legal": "Legal Services",
+        "financing": "Mortgage / Financing",
+        "insurance": "Insurance",
+        "staging": "Home Staging"
+      },
+      "cycle": {
+        "buy": "Buy",
+        "finance": "Finance",
+        "inspect": "Inspect",
+        "renovate": "Renovate",
+        "manage": "Manage",
+        "sell": "Sell / Rent"
+      },
+      "priceRange": "Price range",
+      "minPrice": "Min price",
+      "maxPrice": "Max price",
+      "location": "Location",
+      "selectCountry": "Select country",
+      "selectRegion": "Select region",
+      "selectCity": "Select city",
+      "country": "Country",
+      "region": "Region",
+      "city": "City",
+      "locationPlaceholder": "Select country, region and city",
+      "any": "Any",
+      "availability": "Availability",
+      "filters": "Filters",
+      "sortLabel": "Sort",
+      "sortBy": "Sort by:",
+      "reset": "Reset",
+      "close": "Close",
+      "back": "Back",
+      "save": "Save",
+      "provider": "Provider",
+      "verifiedProvider": "Verified provider",
+      "priceFrom": "From",
+      "perMonth": "/ month",
+      "requestQuote": "Request quote",
+      "showResults": "Show {count} services",
+      "empty": "No services found",
+      "emptyHint": "Try another category or location.",
+      "expandMap": "Expand map",
+      "popularCategories": "Popular categories",
+      "insights": "Market insights",
+      "activeListings": "Active services",
+      "avgRating": "Average rating",
+      "responseTime": "Response time",
+      "responseValue": "2.3h",
+      "badges": {
+        "topRated": "Top rated",
+        "verified": "Verified",
+        "today": "Available today"
+      },
+      "pills": {
+        "today": "Available today",
+        "week": "Available this week",
+        "online": "Online services",
+        "verified": "Verified providers"
+      },
+      "views": {
+        "grid": "Grid view",
+        "list": "List view",
+        "map": "Map view"
+      },
+      "sort": {
+        "recommended": "Recommended",
+        "newest": "Newest",
+        "price_asc": "Lowest price"
+      },
+      "trust": {
+        "verified": {
+          "title": "Verified professionals",
+          "text": "Companies reviewed before they can publish."
+        },
+        "quality": {
+          "title": "Quality guaranteed",
+          "text": "Top-rated providers with proven work."
+        },
+        "support": {
+          "title": "24/7 support",
+          "text": "Our team is here to help you anytime."
+        },
+        "global": {
+          "title": "Global reach",
+          "text": "Find trusted professionals in every market."
+        }
+      }
+    },
+    "mobileNav": {
+      "home": "Home",
+      "explore": "Explore",
+      "list": "List",
+      "saved": "Saved",
+      "account": "Account",
+      "listTitle": "List on Reeskova",
+      "close": "Close",
+      "listActions": {
+        "property": "Property",
+        "vehicle": "Vehicle",
+        "project": "Project",
+        "business": "Business",
+        "service": "Service"
+      }
+    }
+  },
+  "corredores": {
+    "breadcrumbHome": "Home",
+    "breadcrumb": "Brokers",
+    "title": "Brokers directory",
+    "subtitle": "Meet verified real estate brokers and contact them directly.",
+    "count": "{count} brokers",
+    "searchPlaceholder": "Search by name, agency, city or license...",
+    "allCities": "All cities",
+    "allSpecialties": "All specialties",
+    "empty": "No brokers found",
+    "emptyHint": "Try another name, city or specialty.",
+    "viewProfile": "View profile",
+    "contact": "Contact",
+    "whatsapp": "WhatsApp",
+    "call": "Call",
+    "email": "Email",
+    "listings": "{count} listings",
+    "years": "{count} yrs",
+    "sold": "{count} sold",
+    "reviews": "{count} reviews",
+    "statListings": "Listings",
+    "statYears": "Experience",
+    "statSold": "Sold",
+    "statRating": "Rating",
+    "verified": "Verified",
+    "license": "License",
+    "about": "About",
+    "specialties": "Specialties",
+    "languages": "Languages",
+    "agency": "Agency",
+    "activeListings": "Active listings",
+    "noListings": "This broker has no public listings yet.",
+    "seeAllListings": "See all listings",
+    "joinTitle": "Are you a broker?",
+    "joinText": "Create your profile, showcase your listings and receive contacts from buyers.",
+    "joinCta": "Join Reeskova",
+    "whatsappPrefill": "Hi {name}, I found your profile on Reeskova and would like to talk.",
+    "emailSubject": "Contact from Reeskova — {name}",
+    "online": "Available now",
+    "specialty": {
+      "residential": "Residential",
+      "luxury": "Luxury",
+      "commercial": "Commercial",
+      "investment": "Investment",
+      "newDevelopments": "New developments",
+      "rentals": "Rentals"
+    }
+  },
+  "revistas": {
+    "breadcrumbHome": "Home",
+    "breadcrumb": "Magazine",
+    "channelTag": "Reeskova Media",
+    "title": "Reeskova Magazine",
+    "subtitle": "The marketplace newsroom — market, luxury, investment and lifestyle stories that connect readers to real opportunities.",
+    "count": "{count} stories",
+    "searchPlaceholder": "Search stories, cities or desks...",
+    "allCategories": "Top stories",
+    "empty": "No stories found",
+    "emptyHint": "Try another topic or search.",
+    "readIssue": "Read story",
+    "openPdf": "Open PDF",
+    "publishCta": "Publish story",
+    "topStories": "Top stories",
+    "resultsTitle": "Results",
+    "moreStories": "More stories",
+    "latest": "Latest",
+    "seeAllInCategory": "See all",
+    "related": "More from the channel",
+    "backToChannel": "Back to Magazine",
+    "category": {
+      "market": "Market",
+      "luxury": "Luxury",
+      "investment": "Investment",
+      "architecture": "Architecture",
+      "lifestyle": "Lifestyle"
+    },
+    "sponsor": {
+      "label": "Sponsored opportunities",
+      "propertiesTitle": "Featured properties",
+      "propertiesBody": "Premium homes curated for Magazine readers.",
+      "propertiesCta": "Browse properties",
+      "vehiclesTitle": "Vehicles desk",
+      "vehiclesBody": "Dealers and cars linked to the same marketplace.",
+      "vehiclesCta": "Browse vehicles",
+      "projectsTitle": "New projects",
+      "projectsBody": "Launches and off-plan with verified partners.",
+      "projectsCta": "See projects"
+    },
+    "advertise": {
+      "eyebrow": "Advertise with us",
+      "title": "Turn editorial attention into qualified leads",
+      "body": "Reeskova Magazine is the brand channel for brokers, developers and dealers — native stories, sponsored rails and CTAs that open directly into the marketplace.",
+      "cta": "Become an advertiser",
+      "secondary": "Meet brokers",
+      "statReaders": "Monthly editorial reach",
+      "statReadersValue": "Channel+",
+      "statMarkets": "Markets covered",
+      "statMarketsValue": "BR · US · EU · UAE",
+      "statFormats": "Formats",
+      "statFormatsValue": "Cover · Rails · Native"
+    },
+    "article": {
+      "sponsorTitle": "Explore listings from this story",
+      "sponsorBody": "Jump from editorial to verified inventory on Reeskova.",
+      "sidebarTitle": "Advertise in Magazine",
+      "sidebarBody": "Place your brand next to market, luxury and investment desks."
+    }
+  },
+  "adminMagazines": {
+    "pageTitle": "Magazines",
+    "pageSubtitle": "Publish Reeskova editorial issues. Published editions appear in the public Magazines tab.",
+    "createTitle": "New issue",
+    "editTitle": "Edit issue",
+    "formHint": "Cover, title, issue number and editorial text. Optional PDF for the full flipbook.",
+    "title": "Title",
+    "issue": "Issue",
+    "issuePlaceholder": "Year 1 · No. 04",
+    "date": "Date",
+    "category": "Topic",
+    "status": "Status",
+    "statusPublished": "Published",
+    "statusDraft": "Draft",
+    "cover": "Cover image URL",
+    "excerpt": "Standfirst",
+    "body": "Editorial",
+    "bodyHint": "Separate paragraphs with a blank line.",
+    "author": "Author",
+    "pdf": "PDF URL (optional)",
+    "save": "Publish",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "listTitle": "Issues",
+    "loading": "Loading...",
+    "empty": "No issues yet.",
+    "edit": "Edit",
+    "view": "View",
+    "delete": "Delete",
+    "loadError": "Could not load magazines.",
+    "saveError": "Could not save. Check the fields and try again."
   },
   "errors": {
     "notFound": {

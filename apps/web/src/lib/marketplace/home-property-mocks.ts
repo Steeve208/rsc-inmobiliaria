@@ -5,6 +5,7 @@ import {
   MOCK_FEATURED_PROPERTIES,
   MOCK_NEW_LISTINGS,
 } from "@/lib/marketplace/mock-home";
+import { listingCodeValue } from "@/lib/listings/listing-code";
 import type { MarketplaceListing } from "@/lib/marketplace/types";
 
 /** Preview-only home mocks. Drop this file and its import before production. */
@@ -101,6 +102,7 @@ function mapHomeListing(item: MarketplaceListing, index: number): PropertyListin
     publishedAt: new Date(Date.now() - index * 36 * 60 * 60 * 1000)
       .toISOString()
       .slice(0, 10),
+    code: listingCodeValue(item.id, item.code, "property"),
   };
 }
 

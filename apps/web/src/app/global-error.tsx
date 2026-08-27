@@ -26,7 +26,7 @@ export default function GlobalError({
         }}
       >
         <div>
-          <p style={{ color: "#d4a017", letterSpacing: "0.12em", fontSize: 12 }}>
+          <p style={{ color: "#2BB8A8", letterSpacing: "0.12em", fontSize: 12 }}>
             ERROR
           </p>
           <h1 style={{ margin: "12px 0 0", fontSize: 32 }}>
@@ -57,7 +57,7 @@ export default function GlobalError({
                 padding: "0 20px",
                 borderRadius: 8,
                 border: 0,
-                background: "#d4a017",
+                background: "#2BB8A8",
                 color: "#000a1a",
                 fontWeight: 600,
                 cursor: "pointer",

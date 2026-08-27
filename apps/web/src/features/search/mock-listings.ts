@@ -1,4 +1,9 @@
 import type { ListingItem } from "./types";
+import {
+  isListingCodeQuery,
+  listingCodeKindFrom,
+  matchesListingCode,
+} from "@/lib/listings/listing-code";
 
 export const mockListings: ListingItem[] = [
   {
@@ -191,11 +196,22 @@ export function filterListings(
   listings: ListingItem[],
   filters: import("./types").SearchFilters,
 ): ListingItem[] {
+  if (isListingCodeQuery(filters.query)) {
+    return listings.filter((item) =>
+      matchesListingCode(item, filters.query, listingCodeKindFrom(item.category)),
+    );
+  }
+
   return listings.filter((item) => {
     if (filters.category && item.category !== filters.category) return false;
     if (filters.query) {
       const q = filters.query.toLowerCase();
       if (
+        !matchesListingCode(
+          item,
+          filters.query,
+          listingCodeKindFrom(item.category),
+        ) &&
         !item.title.toLowerCase().includes(q) &&
         !item.city.toLowerCase().includes(q) &&
         !item.neighborhood.toLowerCase().includes(q)

@@ -29,14 +29,14 @@ export function RegionSwitcher({ variant = "default" }: Props) {
         <button
           type="button"
           onClick={toggle}
-          className="inline-flex h-9 items-center gap-1.5 rounded-[14px] px-2 text-sm font-medium text-[#C8D0DD] transition-colors duration-300 hover:bg-white/5 hover:text-[#D4A62A]"
+          className="inline-flex h-9 items-center gap-1.5 rounded-[14px] px-2 text-sm font-medium text-[#C8D0DD] transition-colors duration-300 hover:bg-white/5 hover:text-[#D49A3F]"
           aria-label={tNav("changeRegion")}
           aria-expanded={open}
           aria-haspopup="menu"
         >
           {variant === "location" ? (
             <>
-              <MapPin className="size-4 shrink-0 text-[#D4A62A]" />
+              <MapPin className="size-4 shrink-0 text-[#D49A3F]" />
               <span className="leading-tight text-left">
                 <span className="block text-[10px] text-white/55">
                   {tHeader("deliverTo")}

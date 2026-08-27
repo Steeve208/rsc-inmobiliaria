@@ -30,6 +30,8 @@ export type MarketplaceListing = {
   mileage?: number;
   make?: string;
   model?: string;
+  code?: string;
+  country?: string;
 };
 
 export type FeaturedCityBlock = {

@@ -10,7 +10,7 @@ export function SellCta() {
   const t = useTranslations("landing.sellCta");
 
   return (
-    <section className="bg-[#F7F5F0] py-16 sm:py-20">
+    <section className="bg-[#F4F7FA] py-16 sm:py-20">
       <div className="rk-container">
         <motion.div
           className="relative overflow-hidden rounded-[28px] bg-[#0B1220] px-6 py-12 sm:px-10 lg:px-14 lg:py-14"
@@ -23,7 +23,7 @@ export function SellCta() {
             className="pointer-events-none absolute inset-0 opacity-40"
             style={{
               background:
-                "radial-gradient(circle at 85% 20%, rgba(212,166,42,.22), transparent 40%), radial-gradient(circle at 10% 80%, rgba(255,255,255,.06), transparent 35%)",
+                "radial-gradient(circle at 85% 20%, rgba(43,184,168,.22), transparent 40%), radial-gradient(circle at 10% 80%, rgba(255,255,255,.06), transparent 35%)",
             }}
           />
           <div className="relative z-10 mx-auto max-w-2xl text-center">

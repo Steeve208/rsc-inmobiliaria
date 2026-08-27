@@ -43,6 +43,9 @@ next-env.d.ts
 # local leads store (dev/demo)
 apps/web/.data/
 
+# local magazines published in admin when the DB table is not migrated yet
+apps/web/data/
+
 # private local promo / documentary media
 apps/web/public/promo/
 

@@ -119,9 +119,9 @@ export function VehicleMap({
       el.style.transform = active ? "scale(1.12)" : "scale(1)";
       el.style.zIndex = active ? "10" : "1";
       if (!pricePins) {
-        el.style.backgroundColor = active ? "#E8A84A" : "#2563EB";
+        el.style.backgroundColor = active ? "#2BB8A8" : "#2563EB";
       } else {
-        el.style.backgroundColor = active ? "#E8A84A" : "#ffffff";
+        el.style.backgroundColor = active ? "#2BB8A8" : "#ffffff";
       }
     });
   }, [highlightedId, pricePins]);
@@ -143,7 +143,7 @@ export function VehicleMap({
               className={cn(
                 "absolute -translate-x-1/2 -translate-y-1/2 rounded-md px-1.5 py-0.5 text-[10px] font-bold shadow-sm",
                 highlightedId === item.id
-                  ? "bg-[#E8A84A] text-[#070B14]"
+                  ? "bg-[#2BB8A8] text-[#070B14]"
                   : "bg-white text-[#0B1220]",
               )}
               style={{

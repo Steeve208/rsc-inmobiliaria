@@ -65,7 +65,7 @@ function PropertyCard({
             {transactionLabel}
           </span>
           {item.badge ? (
-            <span className="rounded-md bg-[#D4A62A] px-2.5 py-1 text-[10px] font-bold tracking-[0.1em] text-[#070B14] uppercase">
+            <span className="rounded-md bg-[#1E9B8C] px-2.5 py-1 text-[10px] font-bold tracking-[0.1em] text-[#070B14] uppercase">
               {t(`badges.${item.badge}`)}
             </span>
           ) : null}
@@ -77,7 +77,7 @@ function PropertyCard({
           className={cn(
             "absolute right-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur-md transition-colors",
             active
-              ? "bg-[#D4A62A] text-[#070B14]"
+              ? "bg-[#1E9B8C] text-[#070B14]"
               : "bg-white/90 text-[#1A1F2B] hover:bg-white",
           )}
           aria-label={t("save")}
@@ -92,7 +92,7 @@ function PropertyCard({
           {item.title}
         </h3>
         <p className="mt-1.5 flex items-center gap-1.5 text-sm text-[#6B7285]">
-          <MapPin className="size-3.5 shrink-0 text-[#D4A62A]" strokeWidth={1.75} />
+          <MapPin className="size-3.5 shrink-0 text-[#1E9B8C]" strokeWidth={1.75} />
           <span className="line-clamp-1">{item.place}</span>
         </p>
 
@@ -127,7 +127,7 @@ function PropertyCard({
           ) : null}
         </p>
 
-        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#D4A62A] opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100">
+        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#1E9B8C] opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100">
           {t("viewProperty")}
           <ArrowRight className="size-4" strokeWidth={2} />
         </span>
@@ -142,11 +142,11 @@ export function FeaturedProperties({ items }: Props) {
   if (items.length === 0) return null;
 
   return (
-    <section className="bg-[#F7F5F0] pt-6 pb-4 sm:pt-8">
+    <section className="bg-[#F4F7FA] pt-6 pb-4 sm:pt-8">
       <div className="rk-container">
         <div className="mb-9 flex flex-col gap-3 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-xl">
-            <p className="text-xs font-semibold tracking-[0.18em] text-[#D4A62A] uppercase">
+            <p className="text-xs font-semibold tracking-[0.18em] text-[#1E9B8C] uppercase">
               {t("eyebrow")}
             </p>
             <h2 className="rk-display mt-2 text-3xl font-bold tracking-tight text-[#121826] lg:text-[2.35rem]">
@@ -158,7 +158,7 @@ export function FeaturedProperties({ items }: Props) {
           </div>
           <Link
             href="/imoveis?featured=1"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#0B1220] transition-colors duration-300 hover:text-[#D4A62A]"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#0B1220] transition-colors duration-300 hover:text-[#1E9B8C]"
           >
             {t("viewAll")}
             <ArrowRight className="size-4" />

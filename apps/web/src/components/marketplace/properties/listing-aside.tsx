@@ -1,20 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { Maximize2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { ImoveisFilters, PropertyListing } from "@/features/imoveis/types";
+import { PropertyMapLazy } from "@/features/imoveis/components/property-map-lazy";
 import { formatMarketplacePrice } from "@/lib/marketplace/format";
 import { EXPLORE_AREAS, averagePrice, insightCity } from "./listing-utils";
-
-const PropertyMap = dynamic(
-  () =>
-    import("@/features/imoveis/components/property-map").then((mod) => mod.PropertyMap),
-  {
-    ssr: false,
-    loading: () => <div className="h-[220px] animate-pulse rounded-lg bg-[#E5E7EB]" />,
-  },
-);
 
 type Props = {
   results: PropertyListing[];
@@ -47,7 +38,7 @@ export function ListingAside({
     <aside className="space-y-4">
       <div className="overflow-hidden rounded-xl bg-white ring-1 ring-black/[0.05]">
         <div className="relative">
-          <PropertyMap
+          <PropertyMapLazy
             items={results}
             highlightedId={highlightedId}
             onHighlight={onHighlight}

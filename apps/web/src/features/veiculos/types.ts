@@ -82,6 +82,7 @@ export type VehicleListing = {
   lat: number;
   lng: number;
   publishedAt: string;
+  code?: string;
 };
 
 export type DealershipAgent = {

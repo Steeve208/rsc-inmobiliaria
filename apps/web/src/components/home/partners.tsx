@@ -37,7 +37,7 @@ export function Partners() {
           {partners.map((name) => (
             <span
               key={name}
-              className="rk-display text-lg font-bold tracking-[0.06em] text-[#8C97A8]/45 transition-colors duration-300 hover:text-[#D4A62A] sm:text-xl"
+              className="rk-display text-lg font-bold tracking-[0.06em] text-[#8C97A8]/45 transition-colors duration-300 hover:text-[#1E9B8C] sm:text-xl"
             >
               {name}
             </span>

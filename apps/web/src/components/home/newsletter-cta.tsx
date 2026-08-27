@@ -22,7 +22,7 @@ export function NewsletterCta() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(circle at 12% 30%, rgba(212,166,42,.18), transparent 42%), radial-gradient(circle at 88% 70%, rgba(255,255,255,.05), transparent 36%)",
+                "radial-gradient(circle at 12% 30%, rgba(43,184,168,.18), transparent 42%), radial-gradient(circle at 88% 70%, rgba(255,255,255,.05), transparent 36%)",
             }}
           />
           <div

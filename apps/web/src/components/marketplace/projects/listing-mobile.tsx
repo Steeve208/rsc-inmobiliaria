@@ -187,7 +187,7 @@ export function ListingMobileFilters({
         <button
           type="button"
           onClick={onReset}
-          className="text-sm font-semibold text-[#E8A84A]"
+          className="text-sm font-semibold text-[#2BB8A8]"
         >
           {t("reset")}
         </button>
@@ -199,7 +199,7 @@ export function ListingMobileFilters({
         <button
           type="button"
           onClick={onClose}
-          className="flex h-12 w-full items-center justify-center rounded-xl bg-[#E8A84A] text-sm font-bold text-[#070B14]"
+          className="flex h-12 w-full items-center justify-center rounded-xl bg-[#2BB8A8] text-sm font-bold text-[#070B14]"
         >
           {t("showResults", { count: resultCount })}
         </button>
@@ -221,7 +221,7 @@ export function ListingMobileMap({
   const t = useTranslations("marketplace.projects");
 
   return (
-    <div className="fixed inset-0 z-[70] bg-[#F4F4F5] lg:hidden">
+    <div className="fixed inset-0 z-[70] bg-[#F4F7FA] lg:hidden">
       <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between bg-white px-4 py-3 shadow-sm">
         <button type="button" onClick={onClose} aria-label={t("back")}>
           <ArrowLeft className="size-5 text-[#0B1220]" />
@@ -230,7 +230,7 @@ export function ListingMobileMap({
         <button
           type="button"
           onClick={onClose}
-          className="text-sm font-semibold text-[#E8A84A]"
+          className="text-sm font-semibold text-[#2BB8A8]"
         >
           {t("views.list")}
         </button>

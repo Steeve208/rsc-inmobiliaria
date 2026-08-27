@@ -575,3 +575,30 @@ export const platformReview = pgTable(
   ],
 );
 
+export const magazine = pgTable(
+  "magazine",
+  {
+    id: text("id").primaryKey(),
+    slug: text("slug").notNull().unique(),
+    title: text("title").notNull(),
+    issueLabel: text("issue_label").notNull(),
+    excerpt: text("excerpt").notNull(),
+    body: text("body").notNull(),
+    coverImage: text("cover_image").notNull(),
+    category: text("category").default("market").notNull(),
+    author: text("author").default("Reeskova").notNull(),
+    pdfUrl: text("pdf_url"),
+    status: text("status").default("published").notNull(),
+    publishedAt: timestamp("published_at").defaultNow().notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index("magazine_status_idx").on(table.status),
+    index("magazine_published_idx").on(table.publishedAt),
+  ],
+);
+

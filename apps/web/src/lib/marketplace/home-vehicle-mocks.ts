@@ -7,6 +7,7 @@ import {
 } from "@/lib/marketplace/mock-home";
 import type { MarketplaceListing } from "@/lib/marketplace/types";
 import { vehicleListings } from "@/features/veiculos/mock-data";
+import { listingCodeValue } from "@/lib/listings/listing-code";
 
 /** Preview-only home mocks. Drop this file and its import before production. */
 export const INCLUDE_HOME_VEHICLE_MOCKS = process.env.NODE_ENV !== "production";
@@ -125,6 +126,7 @@ function mapHomeVehicle(item: MarketplaceListing, index: number): VehicleListing
     publishedAt: new Date(Date.now() - index * 28 * 60 * 60 * 1000)
       .toISOString()
       .slice(0, 10),
+    code: listingCodeValue(item.id, item.code, "vehicle"),
   };
 }
 
