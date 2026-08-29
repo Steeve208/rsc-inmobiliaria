@@ -1,5 +1,5 @@
 import type { VeiculosFilters } from "../types";
-import { brazilStates } from "../mock-data";
+import { brazilStates } from "@/lib/listings/regions";
 
 type Tag = {
   id: string;

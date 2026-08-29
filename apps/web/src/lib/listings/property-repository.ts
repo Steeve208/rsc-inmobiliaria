@@ -206,8 +206,9 @@ export async function listPropertiesByIds(ids: string[]): Promise<PropertyListin
 export async function getPropertyById(id: string): Promise<PropertyListing | undefined> {
   if (isBackofficeConfigured()) {
     const listing = await fetchBackofficeListingById(id);
-    if (!listing || listing.category !== "real_estate") return undefined;
-    return mapBackofficeToPropertyListing(listing);
+    if (listing && listing.category === "real_estate") {
+      return mapBackofficeToPropertyListing(listing);
+    }
   }
   try {
     const [row] = await db
@@ -217,19 +218,20 @@ export async function getPropertyById(id: string): Promise<PropertyListing | und
       .where(eq(propertyListing.id, id))
       .limit(1);
 
-    if (!row) return undefined;
-    return mapListing(row.property, row.company?.name ?? "");
+    if (row) return mapListing(row.property, row.company?.name ?? "");
   } catch {
     return undefined;
   }
+  return undefined;
 }
 
 export async function getPropertyDetail(id: string): Promise<PropertyDetail | undefined> {
   if (isBackofficeConfigured()) {
     const listing = await fetchBackofficeListingById(id);
-    if (!listing || listing.category !== "real_estate") return undefined;
-    void incrementBackofficeListingViews(id);
-    return mapBackofficeToPropertyDetail(listing);
+    if (listing && listing.category === "real_estate") {
+      void incrementBackofficeListingViews(id);
+      return mapBackofficeToPropertyDetail(listing);
+    }
   }
   try {
     const [row] = await db
@@ -240,69 +242,70 @@ export async function getPropertyDetail(id: string): Promise<PropertyDetail | un
       .where(eq(propertyListing.id, id))
       .limit(1);
 
-    if (!row) return undefined;
+    if (row) {
+      const base = mapListing(row.property, row.company?.name ?? "");
+      const images = await fetchImages(id);
+      const cover = row.property.coverImage?.trim();
+      const gallery =
+        images.length > 0 ? images : cover ? [listingImageUrl(cover)] : [];
+      const co = row.company;
+      const ag = row.agent;
 
-    const base = mapListing(row.property, row.company?.name ?? "");
-    const images = await fetchImages(id);
-    const cover = row.property.coverImage?.trim();
-    const gallery =
-      images.length > 0 ? images : cover ? [listingImageUrl(cover)] : [];
-    const co = row.company;
-    const ag = row.agent;
-
-    return {
-      ...base,
-      companyId: row.property.companyId ?? slugifyCompanyId(base.company),
-      companyLogoUrl: co?.logoUrl ?? undefined,
-      whatsappNumber:
-        row.property.whatsappNumber?.trim() ||
-        co?.whatsappNumber?.trim() ||
-        co?.phone?.replace(/\D/g, "") ||
-        "",
-      images: gallery,
-      featured: row.property.featured,
-      address: formatAddress(row.property),
-      condoFee: num(row.property.condoFee),
-      iptu: num(row.property.iptu),
-      landArea: num(row.property.landArea),
-      suites: row.property.suites,
-      livingRooms: row.property.livingRooms,
-      kitchen: row.property.kitchen,
-      laundry: row.property.laundry,
-      heating: row.property.heating ?? "",
-      yearBuilt: row.property.yearBuilt ?? 0,
-      description: row.property.description?.trim() ?? "",
-      videoUrl: row.property.videoUrl ?? undefined,
-      virtualTourUrl: row.property.virtualTourUrl ?? undefined,
-      floorPlanUrl: row.property.floorPlanUrl ?? undefined,
-      agent: ag
-        ? {
-            name: ag.name,
-            role: ag.role ?? "",
-            creci: ag.creci ?? "",
-            photo: listingImageUrl(ag.photoUrl),
-          }
-        : null,
-      agencyRating: num(co?.rating),
-      agencyYears: co?.yearsActive ?? 0,
-      agencyActive: co?.activeListings ?? 0,
-      agencySold: co?.soldCount ?? 0,
-      agencyReviews: co?.reviewsCount ?? 0,
-      companyInfo: {
-        cnpj: null,
-        phone: co?.whatsappNumber ?? null,
-        website: null,
-        address: row.property.address ?? null,
-        city: base.city,
-        state: base.state,
-        postalCode: null,
-        branchName: co?.name ?? base.company,
-        businessHours: [],
-      },
-    };
+      return {
+        ...base,
+        companyId: row.property.companyId ?? slugifyCompanyId(base.company),
+        companyLogoUrl: co?.logoUrl ?? undefined,
+        whatsappNumber:
+          row.property.whatsappNumber?.trim() ||
+          co?.whatsappNumber?.trim() ||
+          co?.phone?.replace(/\D/g, "") ||
+          "",
+        images: gallery,
+        featured: row.property.featured,
+        address: formatAddress(row.property),
+        condoFee: num(row.property.condoFee),
+        iptu: num(row.property.iptu),
+        landArea: num(row.property.landArea),
+        suites: row.property.suites,
+        livingRooms: row.property.livingRooms,
+        kitchen: row.property.kitchen,
+        laundry: row.property.laundry,
+        heating: row.property.heating ?? "",
+        yearBuilt: row.property.yearBuilt ?? 0,
+        description: row.property.description?.trim() ?? "",
+        videoUrl: row.property.videoUrl ?? undefined,
+        virtualTourUrl: row.property.virtualTourUrl ?? undefined,
+        floorPlanUrl: row.property.floorPlanUrl ?? undefined,
+        agent: ag
+          ? {
+              name: ag.name,
+              role: ag.role ?? "",
+              creci: ag.creci ?? "",
+              photo: listingImageUrl(ag.photoUrl),
+            }
+          : null,
+        agencyRating: num(co?.rating),
+        agencyYears: co?.yearsActive ?? 0,
+        agencyActive: co?.activeListings ?? 0,
+        agencySold: co?.soldCount ?? 0,
+        agencyReviews: co?.reviewsCount ?? 0,
+        companyInfo: {
+          cnpj: null,
+          phone: co?.whatsappNumber ?? null,
+          website: null,
+          address: row.property.address ?? null,
+          city: base.city,
+          state: base.state,
+          postalCode: null,
+          branchName: co?.name ?? base.company,
+          businessHours: [],
+        },
+      };
+    }
   } catch {
     return undefined;
   }
+  return undefined;
 }
 
 export async function getSimilarProperties(

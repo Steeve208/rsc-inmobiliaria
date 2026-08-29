@@ -41,6 +41,14 @@ export function isCronConfigured() {
   return isSet(process.env.CRON_SECRET);
 }
 
+export function isAiConfigured() {
+  const provider = process.env.AI_PROVIDER?.trim().toLowerCase();
+  if (provider === "rule_based") return true;
+  if (provider === "openai") return isSet(process.env.OPENAI_API_KEY);
+  if (provider === "anthropic") return isSet(process.env.ANTHROPIC_API_KEY);
+  return isSet(process.env.GEMINI_API_KEY);
+}
+
 export function getProductionEnvWarnings(options?: {
   assumeProduction?: boolean;
 }): EnvWarning[] {

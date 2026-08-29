@@ -1,19 +1,30 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   defaultServicesFilters,
+  type ServiceListing,
   type ServicesFilters,
   type ServicesView,
 } from "../types";
-import { serviceListings } from "../mock-data";
 import { filterServices, sortServices } from "@/lib/listings/filters";
 
 export function useServicesState() {
   const [filters, setFilters] = useState<ServicesFilters>(defaultServicesFilters);
   const [view, setView] = useState<ServicesView>("grid");
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
-  const catalog = serviceListings;
+  const [catalog, setCatalog] = useState<ServiceListing[]>([]);
+
+  useEffect(() => {
+    fetch("/api/listings/services")
+      .then((r) => r.json())
+      .then((data: ServiceListing[]) => {
+        setCatalog(Array.isArray(data) ? data : []);
+      })
+      .catch(() => {
+        setCatalog([]);
+      });
+  }, []);
 
   const results = useMemo(
     () => sortServices(filterServices(catalog, filters), filters.sort),

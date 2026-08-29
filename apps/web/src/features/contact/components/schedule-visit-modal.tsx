@@ -117,7 +117,14 @@ export function ScheduleVisitModal({ open, onClose, listing, onSuccess }: Props)
         buyerEmail: email.trim() || undefined,
         preferredDate: date,
         preferredTime: time,
-        notes: notes.trim() || undefined,
+        notes: [
+          notes.trim(),
+          listing.matchContext
+            ? `MATCH ${listing.matchContext.matchScore}% · ${listing.matchContext.requirementsSummary.join(", ")}`
+            : "",
+        ]
+          .filter(Boolean)
+          .join("\n") || undefined,
       });
 
       const params = new URLSearchParams({

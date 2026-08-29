@@ -7,9 +7,10 @@ import type { MarketplaceListing } from "@/lib/marketplace/types";
 
 type Props = {
   items: MarketplaceListing[];
+  href?: string;
 };
 
-export function VehicleCarousel({ items }: Props) {
+export function VehicleCarousel({ items, href = "/veiculos" }: Props) {
   const t = useTranslations("marketplace");
   if (items.length === 0) return null;
 
@@ -19,7 +20,7 @@ export function VehicleCarousel({ items }: Props) {
     <>
       <MarketplaceCarousel
         title={t("popularVehicles")}
-        href="/veiculos"
+        href={href}
         hrefLabel={t("seeAll")}
         columns={5}
         className="hidden min-w-0 lg:block"
@@ -30,7 +31,7 @@ export function VehicleCarousel({ items }: Props) {
       </MarketplaceCarousel>
       <MarketplaceCarousel
         title={t("popularVehicles")}
-        href="/veiculos"
+        href={href}
         hrefLabel={t("seeAll")}
         className="lg:hidden"
       >

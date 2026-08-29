@@ -898,7 +898,8 @@
         "0": "No setup fee",
         "1": "Leads straight to your panel",
         "2": "Dedicated support"
-      }
+      },
+      "disclaimer": "RSC does not close the sale, sign contracts or move money. The company does that with the client."
     },
     "preview": {
       "label": "Real-time dashboard",
@@ -1042,7 +1043,36 @@
       "error": "Could not send the request. Please try again.",
       "duplicate": "A pending request already exists for this email.",
       "noteLabel": "Important:",
-      "note": "After submitting your request, our team will review your details. You will receive an email with panel access credentials within 24 hours of approval."
+      "note": "After submitting your request, our team will review your details. You will receive an email with panel access credentials within 24 hours of approval.",
+      "accountType": "Account type",
+      "accountTypeHint": "An agency manages properties, brokers and leads. A developer manages developments, units and pre-sale inquiries.",
+      "types": {
+        "real_estate": "Real estate agency",
+        "real_estateHint": "Properties on /imoveis, broker team and leads.",
+        "project": "Developer / builder",
+        "projectHint": "Developments on /projetos, linked units and pre-sale.",
+        "automotive": "Dealership",
+        "automotiveHint": "Vehicle stock and automotive leads."
+      }
+    },
+    "roles": {
+      "title": "Who does what",
+      "subtitle": "This site is the marketplace. The portal is the company backoffice.",
+      "marketplaceTitle": "On this site (marketplace)",
+      "portalTitle": "In the portal (backoffice)",
+      "marketplace": {
+        "0": "Request registration at /para-empresas",
+        "1": "The buyer sees the listing",
+        "2": "The buyer writes, books a visit or asks for information",
+        "3": "Public profile: logo, phone and hours"
+      },
+      "portal": {
+        "0": "Receive credentials and sign in",
+        "1": "Create, edit, feature and archive listings",
+        "2": "Receive and reply to leads, chats and visits",
+        "3": "Edit profile, branches and team"
+      },
+      "disclaimer": "RSC does not close the sale, sign contracts or move money. /dashboard on this site is buyer-only (favorites, chats, visits)."
     }
   },
   "imoveis": {
@@ -3212,7 +3242,9 @@
           "title": "Expert support",
           "text": "Our team is here to help you."
         }
-      }
+      },
+      "linkedUnits": "Units on /imoveis",
+      "viewUnit": "View unit"
     },
     "businesses": {
       "breadcrumbHome": "Home",

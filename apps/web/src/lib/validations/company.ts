@@ -1,6 +1,7 @@
 import { z } from "zod";
+import { COMPANY_ACCOUNT_TYPES } from "@/lib/company/kinds";
 
-export const companyTypes = ["real_estate", "dealership", "builder"] as const;
+export const companyTypes = COMPANY_ACCOUNT_TYPES;
 
 export const companyRegistrationSchema = z.object({
   company: z.string().trim().min(2).max(120),

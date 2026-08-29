@@ -7,9 +7,13 @@ import type { MarketplaceListing } from "@/lib/marketplace/types";
 
 type Props = {
   items: MarketplaceListing[];
+  href?: string;
 };
 
-export function FeaturedPropertyCarousel({ items }: Props) {
+export function FeaturedPropertyCarousel({
+  items,
+  href = "/imoveis?featured=1",
+}: Props) {
   const t = useTranslations("marketplace");
   if (items.length === 0) return null;
 
@@ -19,7 +23,7 @@ export function FeaturedPropertyCarousel({ items }: Props) {
     <>
       <MarketplaceCarousel
         title={t("featuredProperties")}
-        href="/imoveis?featured=1"
+        href={href}
         hrefLabel={t("seeAll")}
         columns={5}
         className="hidden min-w-0 lg:block"
@@ -30,7 +34,7 @@ export function FeaturedPropertyCarousel({ items }: Props) {
       </MarketplaceCarousel>
       <MarketplaceCarousel
         title={t("featuredProperties")}
-        href="/imoveis?featured=1"
+        href={href}
         hrefLabel={t("seeAll")}
         className="lg:hidden"
       >

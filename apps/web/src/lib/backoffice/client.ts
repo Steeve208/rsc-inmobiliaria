@@ -3,6 +3,7 @@ import {
   isBackofficeConfigured,
 } from "@/lib/backoffice/config";
 import type {
+  BackofficeHomeResponse,
   BackofficeListingResponse,
   BackofficeListingsQuery,
   BackofficeListingsResponse,
@@ -75,7 +76,7 @@ async function backofficeFetch<T>(
     if (isAbortOrTimeout(error)) {
       logBackofficeOnce(
         `timeout:${path}`,
-        `${path} timed out after ${timeoutMs}ms (backoffice cold/slow). Using fallback when available.`,
+        `${path} timed out after ${timeoutMs}ms (backoffice cold/slow).`
       );
       return null;
     }
@@ -288,3 +289,75 @@ export async function recordBackofficeListingEvent(
 }
 
 export { isBackofficeConfigured };
+
+const HOME_CACHE_TTL_MS = 60_000;
+const homeCache = new Map<string, CacheEntry<BackofficeHomeResponse["data"] | null>>();
+const homeInflight = new Map<string, Promise<BackofficeHomeResponse["data"] | null>>();
+
+export async function fetchBackofficeHome(
+  locale = "en",
+): Promise<BackofficeHomeResponse["data"] | null> {
+  if (!isBackofficeConfigured()) return null;
+
+  const lang = locale.trim() || "en";
+  const cached = homeCache.get(lang);
+  if (cached && cached.expires > Date.now()) {
+    return cached.value;
+  }
+
+  const pending = homeInflight.get(lang);
+  if (pending) return pending;
+
+  const request = (async () => {
+    const base = getBackofficeBaseUrl();
+    if (!base) return null;
+
+    const path = `/api/marketplace/v1/home?locale=${encodeURIComponent(lang)}`;
+
+    try {
+      const response = await fetch(`${base}${path}`, {
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+        signal: AbortSignal.timeout(LISTINGS_TIMEOUT_MS),
+      });
+
+      if (response.status === 404) {
+        return null;
+      }
+
+      if (!response.ok) {
+        logBackofficeOnce(
+          `status:${path}:${response.status}`,
+          `${path} failed: ${response.status}`,
+        );
+        return null;
+      }
+
+      const payload = (await response.json()) as BackofficeHomeResponse;
+      return payload?.data ?? null;
+    } catch (error) {
+      if (isAbortOrTimeout(error)) {
+        logBackofficeOnce(
+          `timeout:${path}`,
+          `${path} timed out after ${LISTINGS_TIMEOUT_MS}ms (backoffice cold/slow).`
+        );
+      } else {
+        logBackofficeOnce(
+          `unreachable:${path}`,
+          `${path} unreachable: ${error instanceof Error ? error.message : String(error)}`,
+        );
+      }
+      return null;
+    }
+  })().then((payload) => {
+    homeCache.set(lang, {
+      expires: Date.now() + HOME_CACHE_TTL_MS,
+      value: payload,
+    });
+    homeInflight.delete(lang);
+    return payload;
+  });
+
+  homeInflight.set(lang, request);
+  return request;
+}

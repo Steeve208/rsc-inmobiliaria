@@ -20,7 +20,10 @@ export function FeaturedCity({ block }: Props) {
           {t("featuredIn", { city: block.city })}
         </h2>
         <Link
-          href={`/imoveis?city=${encodeURIComponent(block.city)}&locationLabel=${encodeURIComponent(block.city)}`}
+          href={
+            block.seeAllHref ??
+            `/imoveis?city=${encodeURIComponent(block.city)}&locationLabel=${encodeURIComponent(block.city)}`
+          }
           className="shrink-0 text-[12px] font-semibold text-[#2563EB] hover:text-[#1D4ED8]"
         >
           {t("seeAll")}

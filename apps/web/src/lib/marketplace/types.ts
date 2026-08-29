@@ -38,13 +38,53 @@ export type FeaturedCityBlock = {
   city: string;
   state: string;
   country: string;
+  seeAllHref?: string;
   items: MarketplaceListing[];
 };
 
+export type MarketplaceHeroContent = {
+  imageUrl: string;
+  title?: string;
+  titleHighlight?: string;
+  subtitle?: string;
+  popularSearches: Array<{ label: string; href: string }>;
+};
+
+export type MarketplaceQuickPick = {
+  id: string;
+  href: string;
+  title?: string;
+  subtitle?: string;
+};
+
+export type MarketplacePromoPanel = {
+  id: string;
+  href: string;
+  imageUrl?: string | null;
+  title?: string;
+  subtitle?: string;
+  cta?: string;
+  graphic?: "tags" | null;
+};
+
+export type MarketplaceCategoryShortcut = {
+  id: string;
+  href: string;
+  label?: string;
+};
+
 export type MarketplaceHomeData = {
+  hero: MarketplaceHeroContent;
+  quickPicks: MarketplaceQuickPick[];
+  promoPanels: MarketplacePromoPanel[];
+  categoryShortcuts: MarketplaceCategoryShortcut[];
   deals: MarketplaceListing[];
+  dealsSeeAllHref?: string;
   featuredProperties: MarketplaceListing[];
+  featuredPropertiesSeeAllHref?: string;
   newListings: MarketplaceListing[];
+  newListingsSeeAllHref?: string;
   popularVehicles: MarketplaceListing[];
+  popularVehiclesSeeAllHref?: string;
   featuredCity: FeaturedCityBlock | null;
 };

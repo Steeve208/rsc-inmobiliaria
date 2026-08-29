@@ -176,6 +176,12 @@ export const scheduledVisit = pgTable(
   ],
 );
 
+export type ChatMatchContext = {
+  sessionId: string;
+  matchScore: number;
+  requirementsSummary: string[];
+};
+
 export const chatThread = pgTable(
   "chat_thread",
   {
@@ -187,6 +193,7 @@ export const chatThread = pgTable(
     companyName: text("company_name").notNull(),
     buyerId: text("buyer_id").notNull(),
     buyerName: text("buyer_name").notNull(),
+    matchContext: jsonb("match_context").$type<ChatMatchContext>(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at")
       .defaultNow()
@@ -572,6 +579,180 @@ export const platformReview = pgTable(
     unique("platform_review_user_uidx").on(table.userId),
     index("platform_review_status_idx").on(table.status),
     index("platform_review_created_idx").on(table.createdAt),
+  ],
+);
+
+export type MatchScoringWeights = {
+  budget: number;
+  location: number;
+  propertyType: number;
+  bedrooms: number;
+  size: number;
+  preferences: number;
+};
+
+export type StoredSearchRequirements = Record<string, unknown>;
+
+export const matchScoringConfig = pgTable("match_scoring_config", {
+  id: text("id").primaryKey(),
+  weights: jsonb("weights").$type<MatchScoringWeights>().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+});
+
+export const aiConversation = pgTable(
+  "ai_conversation",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id").references(() => user.id, { onDelete: "set null" }),
+    guestId: text("guest_id"),
+    locale: text("locale").default("en").notNull(),
+    status: text("status").default("gathering").notNull(),
+    source: text("source").default("hero").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index("ai_conversation_user_idx").on(table.userId),
+    index("ai_conversation_guest_idx").on(table.guestId),
+    index("ai_conversation_status_idx").on(table.status),
+  ],
+);
+
+export const searchProfile = pgTable(
+  "search_profile",
+  {
+    id: text("id").primaryKey(),
+    conversationId: text("conversation_id")
+      .notNull()
+      .references(() => aiConversation.id, { onDelete: "cascade" })
+      .unique(),
+    userId: text("user_id").references(() => user.id, { onDelete: "set null" }),
+    guestId: text("guest_id"),
+    status: text("status").default("draft").notNull(),
+    requirements: jsonb("requirements")
+      .$type<StoredSearchRequirements>()
+      .notNull(),
+    rawIntent: text("raw_intent"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index("search_profile_user_idx").on(table.userId),
+    index("search_profile_guest_idx").on(table.guestId),
+    index("search_profile_status_idx").on(table.status),
+  ],
+);
+
+export const searchPreference = pgTable(
+  "search_preference",
+  {
+    id: text("id").primaryKey(),
+    profileId: text("profile_id")
+      .notNull()
+      .references(() => searchProfile.id, { onDelete: "cascade" }),
+    kind: text("kind").notNull(),
+    type: text("type").notNull(),
+    importance: text("importance").default("medium").notNull(),
+    value: jsonb("value").$type<Record<string, unknown>>(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("search_preference_profile_idx").on(table.profileId),
+    index("search_preference_type_idx").on(table.type, table.kind),
+  ],
+);
+
+export const aiMessage = pgTable(
+  "ai_message",
+  {
+    id: text("id").primaryKey(),
+    conversationId: text("conversation_id")
+      .notNull()
+      .references(() => aiConversation.id, { onDelete: "cascade" }),
+    role: text("role").notNull(),
+    content: text("content").notNull(),
+    metadata: jsonb("metadata").$type<Record<string, unknown>>(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("ai_message_conversation_idx").on(table.conversationId, table.createdAt),
+  ],
+);
+
+export const propertyMatchScore = pgTable(
+  "property_match_score",
+  {
+    id: text("id").primaryKey(),
+    conversationId: text("conversation_id")
+      .notNull()
+      .references(() => aiConversation.id, { onDelete: "cascade" }),
+    profileId: text("profile_id")
+      .notNull()
+      .references(() => searchProfile.id, { onDelete: "cascade" }),
+    propertyId: text("property_id").notNull(),
+    totalScore: integer("total_score").notNull(),
+    opportunityScore: integer("opportunity_score"),
+    breakdown: jsonb("breakdown").$type<Record<string, unknown>>().notNull(),
+    reasons: jsonb("reasons").$type<string[]>().default([]).notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    unique("property_match_score_unique").on(table.conversationId, table.propertyId),
+    index("property_match_score_property_idx").on(table.propertyId),
+    index("property_match_score_total_idx").on(table.conversationId, table.totalScore),
+  ],
+);
+
+export const userPropertyEvent = pgTable(
+  "user_property_event",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id").references(() => user.id, { onDelete: "set null" }),
+    guestId: text("guest_id"),
+    conversationId: text("conversation_id").references(() => aiConversation.id, {
+      onDelete: "set null",
+    }),
+    propertyId: text("property_id").notNull(),
+    eventType: text("event_type").notNull(),
+    metadata: jsonb("metadata").$type<Record<string, unknown>>(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("user_property_event_user_idx").on(table.userId, table.propertyId),
+    index("user_property_event_guest_idx").on(table.guestId, table.propertyId),
+    index("user_property_event_type_idx").on(table.eventType),
+    index("user_property_event_conversation_idx").on(table.conversationId),
+  ],
+);
+
+export const aiUsage = pgTable(
+  "ai_usage",
+  {
+    id: text("id").primaryKey(),
+    conversationId: text("conversation_id").references(() => aiConversation.id, {
+      onDelete: "set null",
+    }),
+    provider: text("provider").notNull(),
+    model: text("model"),
+    operation: text("operation").notNull(),
+    inputTokens: integer("input_tokens"),
+    outputTokens: integer("output_tokens"),
+    latencyMs: integer("latency_ms"),
+    success: boolean("success").default(true).notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("ai_usage_conversation_idx").on(table.conversationId),
+    index("ai_usage_created_idx").on(table.createdAt),
   ],
 );
 

@@ -1,12 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, Building2, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Building2, CheckCircle2, Home, Landmark } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
+import {
+  COMPANY_ACCOUNT_TYPES,
+  type CompanyAccountType,
+} from "@/lib/company/kinds";
+import { cn } from "@/lib/utils";
 
 type Field = "company" | "cnpj" | "email" | "phone";
 const FIELDS: Field[] = ["company", "cnpj", "email", "phone"];
+
+const ACCOUNT_ICONS = {
+  real_estate: Home,
+  project: Landmark,
+  automotive: Building2,
+} as const;
 
 export function EmpresaCadastroPage() {
   const t = useTranslations("paraEmpresas.signup");
@@ -16,6 +27,7 @@ export function EmpresaCadastroPage() {
     email: "",
     phone: "",
   });
+  const [accountType, setAccountType] = useState<CompanyAccountType>("real_estate");
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
   const [error, setError] = useState<string | null>(null);
 
@@ -33,7 +45,7 @@ export function EmpresaCadastroPage() {
           contactName: values.company,
           contactEmail: values.email,
           contactPhone: values.phone,
-          category: "real_estate",
+          category: accountType,
           cnpj: values.cnpj,
         }),
       });
@@ -100,6 +112,50 @@ export function EmpresaCadastroPage() {
             </p>
 
             <form className="mt-10 space-y-5" onSubmit={handleSubmit}>
+              <fieldset>
+                <legend className="mb-2 block text-xs font-medium text-white/50">
+                  {t("accountType")}
+                </legend>
+                <p className="mb-3 text-xs leading-relaxed text-white/40">
+                  {t("accountTypeHint")}
+                </p>
+                <div className="grid gap-2">
+                  {COMPANY_ACCOUNT_TYPES.map((type) => {
+                    const Icon = ACCOUNT_ICONS[type];
+                    const selected = accountType === type;
+                    return (
+                      <label
+                        key={type}
+                        className={cn(
+                          "flex cursor-pointer items-start gap-3 rounded-xl px-4 py-3 transition-colors",
+                          selected
+                            ? "bg-[#2BB8A8]/15 ring-1 ring-[#2BB8A8]/40"
+                            : "bg-white/5 hover:bg-white/[0.08]",
+                        )}
+                      >
+                        <input
+                          type="radio"
+                          name="accountType"
+                          value={type}
+                          checked={selected}
+                          onChange={() => setAccountType(type)}
+                          className="mt-1 accent-[#2BB8A8]"
+                        />
+                        <Icon className="mt-0.5 size-4 shrink-0 text-[#2BB8A8]" />
+                        <span>
+                          <span className="block text-sm font-medium text-white">
+                            {t(`types.${type}`)}
+                          </span>
+                          <span className="mt-0.5 block text-xs text-white/45">
+                            {t(`types.${type}Hint`)}
+                          </span>
+                        </span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </fieldset>
+
               {FIELDS.map((field) => (
                 <div key={field}>
                   <label

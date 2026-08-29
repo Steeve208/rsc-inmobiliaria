@@ -566,8 +566,15 @@ export async function openChatThread(
     .limit(1);
 
   const initialText = input.initialMessage?.trim();
+  const matchContext = input.matchContext ?? null;
 
   if (existing) {
+    if (matchContext) {
+      await db
+        .update(chatThread)
+        .set({ matchContext, updatedAt: new Date() })
+        .where(eq(chatThread.id, existing.id));
+    }
     if (initialText) {
       void recordBackofficeListingEvent(input.listingId, "contact");
       const messageId = newId("msg");
@@ -615,6 +622,7 @@ export async function openChatThread(
       companyName: input.companyName,
       buyerId: input.buyerId,
       buyerName: input.buyerName,
+      matchContext: matchContext ?? undefined,
     })
     .returning();
 

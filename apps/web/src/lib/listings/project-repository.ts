@@ -1,10 +1,16 @@
-import type { ProjectListing, ProjectType, ProjectUnitType } from "@/features/projetos/types";
-import { projectListings } from "@/features/projetos/mock-data";
+import type {
+  ProjectListing,
+  ProjectType,
+  ProjectUnitType,
+} from "@/features/projetos/types";
 import type { PropertyListing } from "@/features/imoveis/types";
+import {
+  fetchAllBackofficeListingsResult,
+  isBackofficeConfigured,
+} from "@/lib/backoffice/client";
+import { mapBackofficeToProjectListing } from "@/lib/backoffice/mappers";
 import { listingCodeValue } from "@/lib/listings/listing-code";
-
-/** Preview-only project mocks. Drop this file and its import before production. */
-export const INCLUDE_HOME_PROJECT_MOCKS = process.env.NODE_ENV !== "production";
+import { getLaunchProperties } from "@/lib/listings/property-repository";
 
 function mapPropertyType(type: string): ProjectType {
   if (type === "commercial") return "commercial";
@@ -19,7 +25,7 @@ function mapUnitType(type: string): ProjectUnitType {
   return "apartments";
 }
 
-export function propertyToProject(
+function propertyToProject(
   item: PropertyListing,
   index = 0,
 ): ProjectListing {
@@ -59,10 +65,10 @@ export function propertyToProject(
   };
 }
 
-export function mergeProjectCatalog(liveLaunches: PropertyListing[]) {
-  const extras = INCLUDE_HOME_PROJECT_MOCKS || liveLaunches.length < 8
-    ? projectListings
-    : [];
+function mergeProjectCatalog(
+  liveLaunches: PropertyListing[],
+  liveProjects: ProjectListing[] = [],
+) {
   const mapped = liveLaunches
     .filter((item) => item.launch)
     .map((item, index) => propertyToProject(item, index));
@@ -70,7 +76,7 @@ export function mergeProjectCatalog(liveLaunches: PropertyListing[]) {
   const merged: ProjectListing[] = [];
   const seen = new Set<string>();
 
-  for (const item of [...extras, ...mapped]) {
+  for (const item of [...liveProjects, ...mapped]) {
     if (seen.has(item.id) || (item.propertyId && seen.has(item.propertyId))) {
       continue;
     }
@@ -79,4 +85,23 @@ export function mergeProjectCatalog(liveLaunches: PropertyListing[]) {
     merged.push(item);
   }
   return merged;
+}
+
+export async function listProjects(): Promise<ProjectListing[]> {
+  let liveProjects: ProjectListing[] = [];
+
+  if (isBackofficeConfigured()) {
+    const result = await fetchAllBackofficeListingsResult({ category: "project" });
+    if (result.status === "ok") {
+      liveProjects = result.listings.map(mapBackofficeToProjectListing);
+    }
+  }
+
+  const launches = await getLaunchProperties();
+  return mergeProjectCatalog(launches, liveProjects);
+}
+
+export async function getProjectById(id: string): Promise<ProjectListing | undefined> {
+  const catalog = await listProjects();
+  return catalog.find((item) => item.id === id || item.propertyId === id);
 }

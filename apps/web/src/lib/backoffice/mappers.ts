@@ -1,5 +1,20 @@
 import type { PropertyDetail, PropertyListing, CompanyPublicInfo } from "@/features/imoveis/types";
 import type { VehicleDetail, VehicleListing } from "@/features/veiculos/types";
+import type {
+  ProjectListing,
+  ProjectStatus,
+  ProjectType,
+  ProjectUnitType,
+} from "@/features/projetos/types";
+import type {
+  BusinessCategory,
+  BusinessListing,
+} from "@/features/negocios/types";
+import type {
+  ServiceCategory,
+  ServiceListing,
+  ServicePricing,
+} from "@/features/services/types";
 import type { BackofficePublicListing } from "@/lib/backoffice/types";
 import { listingCodeValue } from "@/lib/listings/listing-code";
 import { listingImageUrl } from "@/lib/listings/listing-image";
@@ -11,6 +26,32 @@ function num(value: unknown, fallback = 0): number {
     return Number.isFinite(parsed) ? parsed : fallback;
   }
   return fallback;
+}
+
+function optionalPositiveNum(value: unknown): number | undefined {
+  const parsed = num(value, Number.NaN);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : undefined;
+}
+
+/** Price-cut fields for deals — top-level or `metadata.originalPrice` / `discountPercent`. */
+export function listingDealFields(source: {
+  price?: number | null;
+  originalPrice?: number | null;
+  discountPercent?: number | null;
+  metadata?: Record<string, unknown> | null;
+}): { originalPrice?: number; discountPercent?: number } {
+  const meta = source.metadata ?? {};
+  const originalPrice =
+    optionalPositiveNum(source.originalPrice) ?? optionalPositiveNum(meta.originalPrice);
+  let discountPercent =
+    optionalPositiveNum(source.discountPercent) ?? optionalPositiveNum(meta.discountPercent);
+
+  const price = optionalPositiveNum(source.price);
+  if (originalPrice && price && originalPrice > price && discountPercent == null) {
+    discountPercent = Math.round(((originalPrice - price) / originalPrice) * 100);
+  }
+
+  return { originalPrice, discountPercent };
 }
 
 function str(value: unknown, fallback = ""): string {
@@ -123,6 +164,12 @@ export function mapBackofficeToPropertyListing(
     transaction: str(meta.transaction, "buy"),
     condition: str(meta.condition, ""),
     price: listing.price ?? 0,
+    ...listingDealFields({
+      price: listing.price,
+      originalPrice: listing.originalPrice,
+      discountPercent: listing.discountPercent,
+      metadata: meta,
+    }),
     currency: listing.currency,
     country: str(meta.country, "Brasil"),
     state,
@@ -214,6 +261,12 @@ export function mapBackofficeToVehicleListing(
     engine: str(meta.engine),
     drive: str(meta.drive, "fwd") as VehicleListing["drive"],
     price: listing.price ?? 0,
+    ...listingDealFields({
+      price: listing.price,
+      originalPrice: listing.originalPrice,
+      discountPercent: listing.discountPercent,
+      metadata: meta,
+    }),
     currency: listing.currency,
     country: str(meta.country, "Brasil"),
     state: str(meta.state, ""),
@@ -286,6 +339,239 @@ export function mapBackofficeToVehicleDetail(
     dealershipActive: num(meta.dealershipActive, 1),
     dealershipSold: num(meta.dealershipSold),
     dealershipReviews: num(meta.dealershipReviews),
+  };
+}
+
+const PROJECT_TYPES = new Set<ProjectType>([
+  "residential",
+  "commercial",
+  "mixed",
+  "industrial",
+  "hospitality",
+]);
+
+const PROJECT_STAGES = new Set<ProjectStatus>(["prelaunch", "construction", "ready"]);
+
+const PROJECT_UNITS = new Set<ProjectUnitType>([
+  "apartments",
+  "houses",
+  "studios",
+  "offices",
+  "villas",
+]);
+
+function asProjectType(value: string): ProjectType {
+  if (PROJECT_TYPES.has(value as ProjectType)) return value as ProjectType;
+  if (value === "commercial") return "commercial";
+  if (value === "land") return "mixed";
+  return "residential";
+}
+
+function asProjectStatus(value: string, launch: boolean): ProjectStatus {
+  if (PROJECT_STAGES.has(value as ProjectStatus)) return value as ProjectStatus;
+  return launch ? "prelaunch" : "construction";
+}
+
+function asProjectUnitType(value: string, propertyType: string): ProjectUnitType {
+  if (PROJECT_UNITS.has(value as ProjectUnitType)) return value as ProjectUnitType;
+  if (propertyType === "house") return "houses";
+  if (propertyType === "studio") return "studios";
+  if (propertyType === "commercial") return "offices";
+  return "apartments";
+}
+
+function stringList(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value.map((item) => str(item)).filter(Boolean);
+  }
+  if (typeof value === "string" && value.trim()) {
+    return value.split(",").map((item) => item.trim()).filter(Boolean);
+  }
+  return [];
+}
+
+export function mapBackofficeToProjectListing(
+  listing: BackofficePublicListing,
+): ProjectListing {
+  const meta = listing.metadata ?? {};
+  const propertyType = str(meta.type, "apartment");
+  const unitIds = stringList(meta.unitListingIds);
+  const delivery = str(meta.deliveryDate) || str(meta.delivery);
+  const deliveryYearMatch = delivery.match(/(20\d{2})/);
+  const year = deliveryYearMatch
+    ? Number(deliveryYearMatch[1])
+    : num(meta.yearBuilt, new Date().getFullYear() + 1);
+
+  return {
+    id: listing.id,
+    category: "projects",
+    title: listing.title,
+    type: asProjectType(str(meta.projectType, propertyType)),
+    status: asProjectStatus(str(meta.projectStatus), bool(meta.launch)),
+    unitType: asProjectUnitType(str(meta.unitType), propertyType),
+    bedsMin: optionalPositiveNum(meta.bedsMin) ?? optionalPositiveNum(meta.bedrooms),
+    bedsMax: optionalPositiveNum(meta.bedsMax) ?? optionalPositiveNum(meta.bedrooms),
+    price: listing.price ?? 0,
+    currency: listing.currency,
+    country: str(meta.country, "Brasil"),
+    state: str(listing.organization.state) || str(meta.state),
+    city:
+      str(listing.organization.city) ||
+      str(meta.city) ||
+      listing.locationCity ||
+      "",
+    neighborhood: str(meta.neighborhood) || undefined,
+    developer: str(meta.developer) || listing.organization.name,
+    delivery: delivery || String(year),
+    deliveryYear: year,
+    paymentPlan: bool(meta.paymentPlan) || bool(meta.financing),
+    highRoi: bool(meta.highRoi),
+    sustainable: bool(meta.sustainable),
+    luxury: bool(meta.luxury) || bool(meta.premium),
+    amenities: bool(meta.amenities) || bool(meta.pool),
+    verified: bool(meta.verified) || undefined,
+    featured: listing.isFeatured || bool(meta.featured) || undefined,
+    premium: listing.isFeatured || bool(meta.premium) || undefined,
+    image: coverImage(listing),
+    lat: num(meta.lat),
+    lng: num(meta.lng),
+    publishedAt: publishedDate(listing),
+    propertyId: unitIds[0] || str(meta.parentProjectId) || undefined,
+    companyId: listing.organization.slug,
+    unitListingIds: unitIds.length > 0 ? unitIds : undefined,
+    code: listingCodeValue(
+      listing.id,
+      str(meta.code) || str(meta.reference) || str(meta.listingCode) || undefined,
+      "project",
+    ),
+  };
+}
+
+const BUSINESS_TYPES: BusinessCategory[] = [
+  "food",
+  "retail",
+  "services",
+  "beauty",
+  "education",
+  "hospitality",
+];
+
+function asBusinessType(value: string): BusinessCategory {
+  return BUSINESS_TYPES.includes(value as BusinessCategory)
+    ? (value as BusinessCategory)
+    : "retail";
+}
+
+export function mapBackofficeToBusinessListing(
+  listing: BackofficePublicListing,
+): BusinessListing {
+  const meta = listing.metadata ?? {};
+  const deals = listingDealFields(listing);
+
+  return {
+    id: listing.id,
+    category: "businesses",
+    title: listing.title,
+    type: asBusinessType(str(meta.type, str(meta.businessType, "retail"))),
+    price: listing.price ?? 0,
+    originalPrice: deals.originalPrice,
+    discountPercent: deals.discountPercent,
+    revenue: num(meta.revenue),
+    cashFlow: num(meta.cashFlow),
+    currency: listing.currency,
+    country: str(meta.country, "Brasil"),
+    state: str(listing.organization.state) || str(meta.state),
+    city:
+      str(listing.organization.city) ||
+      str(meta.city) ||
+      listing.locationCity ||
+      "",
+    neighborhood: str(meta.neighborhood) || undefined,
+    broker: str(meta.broker) || listing.organization.name,
+    equipment: bool(meta.equipment),
+    franchise: bool(meta.franchise),
+    profitable: bool(meta.profitable),
+    sellerFinancing: bool(meta.sellerFinancing) || bool(meta.financing),
+    verified: bool(meta.verified) || undefined,
+    featured: listing.isFeatured || bool(meta.featured) || undefined,
+    image: coverImage(listing),
+    lat: num(meta.lat),
+    lng: num(meta.lng),
+    publishedAt: publishedDate(listing),
+    code: listingCodeValue(
+      listing.id,
+      str(meta.code) || str(meta.reference) || str(meta.listingCode) || undefined,
+      "business",
+    ),
+  };
+}
+
+const SERVICE_TYPES: ServiceCategory[] = [
+  "agents",
+  "management",
+  "inspection",
+  "appraisal",
+  "architecture",
+  "interior",
+  "renovation",
+  "construction",
+  "landscaping",
+  "cleaning",
+  "moving",
+  "security",
+  "maintenance",
+  "photography",
+  "legal",
+  "financing",
+  "insurance",
+  "staging",
+];
+
+function asServiceType(value: string): ServiceCategory {
+  return SERVICE_TYPES.includes(value as ServiceCategory)
+    ? (value as ServiceCategory)
+    : "agents";
+}
+
+function asServicePricing(value: string): ServicePricing {
+  if (value === "month" || value === "quote") return value;
+  return "from";
+}
+
+export function mapBackofficeToServiceListing(
+  listing: BackofficePublicListing,
+): ServiceListing {
+  const meta = listing.metadata ?? {};
+  const price = optionalPositiveNum(listing.price) ?? optionalPositiveNum(meta.price);
+
+  return {
+    id: listing.id,
+    category: "services",
+    title: listing.title,
+    type: asServiceType(str(meta.type, str(meta.serviceType, "agents"))),
+    pricing: asServicePricing(str(meta.pricing, price ? "from" : "quote")),
+    price,
+    currency: listing.currency,
+    country: str(meta.country, "Brasil"),
+    state: str(listing.organization.state) || str(meta.state),
+    city:
+      str(listing.organization.city) ||
+      str(meta.city) ||
+      listing.locationCity ||
+      "",
+    description: listing.description?.trim() || str(meta.description),
+    provider: str(meta.provider) || listing.organization.name,
+    rating: num(meta.rating),
+    reviews: num(meta.reviews),
+    verified: bool(meta.verified) || undefined,
+    topRated: bool(meta.topRated) || undefined,
+    availableToday: bool(meta.availableToday) || undefined,
+    availableWeek: bool(meta.availableWeek) || undefined,
+    online: bool(meta.online) || undefined,
+    image: coverImage(listing),
+    lat: num(meta.lat),
+    lng: num(meta.lng),
+    publishedAt: publishedDate(listing),
   };
 }
 

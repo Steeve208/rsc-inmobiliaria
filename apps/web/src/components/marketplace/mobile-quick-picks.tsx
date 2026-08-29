@@ -1,29 +1,18 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/lib/i18n/routing";
-import { QUICK_PICKS } from "@/lib/marketplace/catalog";
 import {
-  IconApartments,
-  IconCars,
-  IconCommercial,
-  IconLand,
-  IconLuxury,
-  IconProjects,
-  IconProperties,
-  QUICK_PICK_TONES,
+  quickPickIcon,
+  quickPickTone,
 } from "@/components/marketplace/marketplace-icons";
+import type { MarketplaceQuickPick } from "@/lib/marketplace/types";
 
-const icons = {
-  propertiesUnder: IconProperties,
-  luxury: IconLuxury,
-  rentals: IconApartments,
-  carsUnder: IconCars,
-  projects: IconProjects,
-  commercial: IconCommercial,
-  land: IconLand,
-} as const;
+type Props = {
+  items: MarketplaceQuickPick[];
+};
 
-export async function MobileQuickPicks() {
+export async function MobileQuickPicks({ items }: Props) {
   const t = await getTranslations("marketplace.quickPicks");
+  if (items.length === 0) return null;
 
   return (
     <div className="px-3 py-3">
@@ -36,8 +25,11 @@ export async function MobileQuickPicks() {
         </Link>
       </div>
       <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {QUICK_PICKS.map((item) => {
-          const Icon = icons[item.id];
+        {items.map((item) => {
+          const Icon = quickPickIcon(item.id);
+          const titleKey = `${item.id}.title`;
+          const title =
+            item.title?.trim() || (t.has(titleKey) ? t(titleKey) : item.id);
           return (
             <Link
               key={item.id}
@@ -45,12 +37,12 @@ export async function MobileQuickPicks() {
               className="flex shrink-0 items-center gap-2 rounded-full bg-[#F4F7FA] px-3 py-2"
             >
               <span
-                className={`inline-flex size-7 shrink-0 items-center justify-center rounded-md ${QUICK_PICK_TONES[item.id]}`}
+                className={`inline-flex size-7 shrink-0 items-center justify-center rounded-md ${quickPickTone(item.id)}`}
               >
-                <Icon className="size-5" />
+                <Icon className="size-6 object-contain" />
               </span>
               <span className="text-[13px] font-semibold whitespace-nowrap text-[#0B1220]">
-                {t(`${item.id}.title`)}
+                {title}
               </span>
             </Link>
           );

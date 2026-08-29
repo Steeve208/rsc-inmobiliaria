@@ -5,10 +5,7 @@ import { listingImageUrl } from "@/lib/listings/constants";
 import { slugifyCompanyId } from "@/lib/leads/utils";
 import { getMarketOrDefault } from "@/lib/markets/config";
 import { listProperties } from "@/lib/listings/property-repository";
-import { mergePropertyCatalog } from "@/lib/marketplace/home-property-mocks";
-import { propertyListings } from "@/features/imoveis/mock-data";
 import type { PropertyListing } from "@/features/imoveis/types";
-import { mockBrokers } from "@/features/corredores/mock-data";
 import type { BrokerProfile } from "@/features/corredores/types";
 
 type AgentRow = typeof agent.$inferSelect;
@@ -68,40 +65,24 @@ async function listLocalBrokers(): Promise<BrokerProfile[]> {
   }
 }
 
-export function mergeBrokerCatalog(live: BrokerProfile[], extras: BrokerProfile[]) {
-  const merged: BrokerProfile[] = [];
-  const seen = new Set<string>();
-
-  for (const item of [...live, ...extras]) {
-    if (seen.has(item.id)) continue;
-    seen.add(item.id);
-    merged.push(item);
-  }
-
-  return merged.sort((a, b) => {
+export async function listBrokers(): Promise<BrokerProfile[]> {
+  const live = await listLocalBrokers();
+  return live.sort((a, b) => {
     if (a.verified !== b.verified) return a.verified ? -1 : 1;
     return b.listingsCount - a.listingsCount;
   });
 }
 
-export async function listBrokers(): Promise<BrokerProfile[]> {
-  const live = await listLocalBrokers();
-  return mergeBrokerCatalog(live, mockBrokers);
-}
-
 export async function getBrokerById(id: string): Promise<BrokerProfile | undefined> {
   const live = await listLocalBrokers();
-  return (
-    live.find((item) => item.id === id) ??
-    mockBrokers.find((item) => item.id === id)
-  );
+  return live.find((item) => item.id === id);
 }
 
 export async function listBrokerListings(
   broker: BrokerProfile,
   limit = 6,
 ): Promise<PropertyListing[]> {
-  const catalog = mergePropertyCatalog(await listProperties(), propertyListings);
+  const catalog = await listProperties();
   const companySlug = slugifyCompanyId(broker.companyName);
   const matched = catalog.filter((item) => {
     const itemSlug = slugifyCompanyId(item.company);

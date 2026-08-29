@@ -72,6 +72,8 @@ export type ProjectListing = {
   lng: number;
   publishedAt: string;
   propertyId?: string;
+  companyId?: string;
+  unitListingIds?: string[];
   code?: string;
 };
 

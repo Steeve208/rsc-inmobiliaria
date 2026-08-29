@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { MapPin, ShieldCheck, Star } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
@@ -8,13 +9,31 @@ import { MarketplaceFooter } from "@/components/marketplace/marketplace-footer";
 import { ListingContactPanel } from "@/features/contact";
 import { formatServicePrice } from "@/components/marketplace/services/listing-utils";
 import { listingLocation } from "@/lib/marketplace/format";
-import { serviceListings } from "../mock-data";
+import type { ServiceListing } from "../types";
 
 type Props = { id: string };
 
 export function ServiceDetailPage({ id }: Props) {
   const t = useTranslations("marketplace.services");
-  const item = serviceListings.find((service) => service.id === id);
+  const [item, setItem] = useState<ServiceListing | null | undefined>(undefined);
+
+  useEffect(() => {
+    fetch("/api/listings/services")
+      .then((r) => r.json())
+      .then((data: ServiceListing[]) => {
+        const catalog = Array.isArray(data) ? data : [];
+        setItem(catalog.find((service) => service.id === id) ?? null);
+      })
+      .catch(() => setItem(null));
+  }, [id]);
+
+  if (item === undefined) {
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center text-[#6B7285]">
+        Loading...
+      </div>
+    );
+  }
 
   if (!item) {
     return (

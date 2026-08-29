@@ -23,31 +23,30 @@ export function MarketplaceHome({ data }: Props) {
         <section className="overflow-hidden rounded-xl bg-white shadow-[0_2px_10px_rgba(15,23,42,.06)] ring-1 ring-black/[0.05]">
           <div className="grid grid-cols-1 lg:h-[360px] lg:grid-cols-[210px_minmax(0,1fr)_236px]">
             <div className="hidden h-full overflow-hidden border-r border-[#E8EEF4] lg:block">
-              <QuickPicks />
+              <QuickPicks items={data.quickPicks} />
             </div>
             <div className="h-full min-w-0 overflow-hidden">
-              <MarketplaceHero />
+              <MarketplaceHero hero={data.hero} />
             </div>
             <div className="hidden h-full overflow-hidden lg:block">
-              <PromoPanels />
+              <PromoPanels panels={data.promoPanels} />
             </div>
           </div>
 
           <div className="border-t border-[#E8EEF4] lg:hidden">
-            <MobileQuickPicks />
+            <MobileQuickPicks items={data.quickPicks} />
           </div>
           <div className="border-t border-[#E8EEF4] lg:hidden">
-            <PromoPanels />
+            <PromoPanels panels={data.promoPanels} />
           </div>
           <div className="border-t border-[#E8EEF4]">
-            <CategoryShortcuts />
+            <CategoryShortcuts items={data.categoryShortcuts} />
           </div>
         </section>
 
-        {/* Deals + City: same row, tops aligned, shared height */}
         <div className="mt-3 grid items-stretch gap-3 xl:grid-cols-[minmax(0,1fr)_260px]">
           <div className="min-w-0">
-            <DealCarousel items={data.deals} />
+            <DealCarousel items={data.deals} href={data.dealsSeeAllHref} />
           </div>
           <aside className="hidden min-h-0 xl:block">
             {data.featuredCity ? <FeaturedCity block={data.featuredCity} /> : null}
@@ -60,14 +59,22 @@ export function MarketplaceHome({ data }: Props) {
           </div>
         ) : null}
 
-        {/* Properties + Vehicles: headers aligned, equal card gutters */}
         <div className="mt-3 grid items-start gap-3 xl:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)]">
-          <FeaturedPropertyCarousel items={data.featuredProperties} />
-          <VehicleCarousel items={data.popularVehicles} />
+          <FeaturedPropertyCarousel
+            items={data.featuredProperties}
+            href={data.featuredPropertiesSeeAllHref}
+          />
+          <VehicleCarousel
+            items={data.popularVehicles}
+            href={data.popularVehiclesSeeAllHref}
+          />
         </div>
 
         <div className="mt-3">
-          <NewListingsCarousel items={data.newListings} />
+          <NewListingsCarousel
+            items={data.newListings}
+            href={data.newListingsSeeAllHref}
+          />
         </div>
       </div>
 

@@ -1,11 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { MessageCircle, CalendarClock, Info } from "lucide-react";
+import { Suspense, useEffect, useState } from "react";
+import { MessageCircle, CalendarClock, Info, Landmark } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import type { ListingContactContext } from "@/lib/leads/types";
+import type { ChatMatchContext, ListingContactContext } from "@/lib/leads/types";
 import { buildWhatsAppUrl } from "@/lib/leads/whatsapp";
 import { trackListingEvent } from "@/lib/listings/analytics-client";
+import { fetchMatchExplain, recordMatchEvent } from "@/lib/match/client";
+import { formatWhatsAppMatchMessage } from "@/lib/match/lead-context";
+import { summarizeRequirements } from "@/lib/match/missing";
 import { cn } from "@/lib/utils";
 import { RscChatModal } from "./rsc-chat-modal";
 import { ScheduleVisitModal } from "./schedule-visit-modal";
@@ -17,19 +21,52 @@ type Props = {
   variant?: "dark" | "light";
   /** Category-aware secondary CTAs */
   mode?: "property" | "vehicle" | "project" | "business" | "service";
+  financingHref?: string;
 };
 
-export function ListingContactPanel({
+export function ListingContactPanel(props: Props) {
+  return (
+    <Suspense fallback={<ListingContactPanelInner {...props} />}>
+      <ListingContactPanelWithMatch {...props} />
+    </Suspense>
+  );
+}
+
+function ListingContactPanelWithMatch(props: Props) {
+  const searchParams = useSearchParams();
+  const matchSessionId = searchParams.get("match");
+  return <ListingContactPanelInner {...props} matchSessionId={matchSessionId} />;
+}
+
+function ListingContactPanelInner({
   listing,
   className,
   variant = "dark",
   mode = "property",
-}: Props) {
+  financingHref,
+  matchSessionId,
+}: Props & { matchSessionId?: string | null }) {
   const t = useTranslations("contact.panel");
   const tDetail = useTranslations("imoveis.detail");
   const [whatsappNumber, setWhatsappNumber] = useState(listing.whatsappNumber);
   const [chatOpen, setChatOpen] = useState(false);
   const [visitOpen, setVisitOpen] = useState(false);
+  const [matchContext, setMatchContext] = useState<ChatMatchContext | undefined>(
+    listing.matchContext,
+  );
+
+  useEffect(() => {
+    if (!matchSessionId) return;
+    fetchMatchExplain(matchSessionId, listing.listingId)
+      .then((explain) => {
+        setMatchContext({
+          sessionId: matchSessionId,
+          matchScore: explain.totalScore,
+          requirementsSummary: summarizeRequirements(explain.requirements),
+        });
+      })
+      .catch(() => undefined);
+  }, [matchSessionId, listing.listingId]);
 
   useEffect(() => {
     const params = new URLSearchParams({
@@ -46,17 +83,26 @@ export function ListingContactPanel({
 
   function handleWhatsApp() {
     void trackListingEvent(listing.listingId, "contact");
-    const url = buildWhatsAppUrl(
-      whatsappNumber,
-      t("whatsappPrefill", { title: listing.listingTitle }),
-      listing.listingTitle,
-    );
+    if (matchContext) {
+      void recordMatchEvent(matchContext.sessionId, listing.listingId, "property_contact");
+    }
+    const prefill = matchContext
+      ? formatWhatsAppMatchMessage({
+          listingTitle: listing.listingTitle,
+          matchScore: matchContext.matchScore,
+          summary: matchContext.requirementsSummary,
+        })
+      : t("whatsappPrefill", { title: listing.listingTitle });
+    const url = buildWhatsAppUrl(whatsappNumber, prefill, listing.listingTitle);
     if (!url) return;
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
   function openChat() {
     void trackListingEvent(listing.listingId, "click");
+    if (matchContext) {
+      void recordMatchEvent(matchContext.sessionId, listing.listingId, "property_contact");
+    }
     setChatOpen(true);
   }
 
@@ -65,9 +111,29 @@ export function ListingContactPanel({
     setVisitOpen(true);
   }
 
+  function openFinancing() {
+    void trackListingEvent(listing.listingId, "click");
+    if (financingHref) {
+      window.location.assign(financingHref);
+      return;
+    }
+    setChatOpen(true);
+  }
+
+  const secondaryAction =
+    mode === "service"
+      ? handleWhatsApp
+      : mode === "project"
+        ? openChat
+        : openVisit;
+
+  const tertiaryAction =
+    mode === "vehicle" || mode === "project" ? openFinancing : openChat;
+
   const contactListing: ListingContactContext = {
     ...listing,
     whatsappNumber,
+    matchContext,
   };
 
   const light = variant === "light";
@@ -107,18 +173,26 @@ export function ListingContactPanel({
           </button>
           <button
             type="button"
-            onClick={mode === "service" ? handleWhatsApp : openVisit}
+            onClick={secondaryAction}
             className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-[#D1D5DB] bg-white text-sm font-semibold text-[#0B1220] transition hover:border-[#EBAD5B]"
           >
-            <CalendarClock className="size-4" />
+            {mode === "project" ? (
+              <Info className="size-4" />
+            ) : (
+              <CalendarClock className="size-4" />
+            )}
             {secondaryLabel}
           </button>
           <button
             type="button"
-            onClick={mode === "vehicle" || mode === "project" ? openChat : openChat}
+            onClick={tertiaryAction}
             className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-[#D1D5DB] bg-white text-sm font-semibold text-[#0B1220] transition hover:border-[#EBAD5B]"
           >
-            <Info className="size-4" />
+            {mode === "project" ? (
+              <Landmark className="size-4" />
+            ) : (
+              <Info className="size-4" />
+            )}
             {tertiaryLabel}
           </button>
           <p className="flex items-center gap-2 pt-1 text-xs text-[#059669]">

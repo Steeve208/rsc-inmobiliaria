@@ -891,9 +891,10 @@
       "badge": "Soluções B2B",
       "titleStart": "Venda mais com a",
       "titleHighlight": "plataforma RSC",
-      "subtitle": "Imobiliárias, concessionárias e construtoras em um só ecossistema. Publique anúncios, receba leads qualificados e gerencie tudo no painel SaaS. Cadastre-se gratuitamente e comece a vender.",
+      "subtitle": "Imobiliárias, concessionárias e construtoras em um só ecossistema. Nesta web você pede o cadastro; anúncios, leads e equipe ficam no portal.",
       "ctaPrimary": "Cadastrar minha empresa",
       "imageAlt": "Vista corporativa de prédios modernos representando empresas parceiras",
+      "disclaimer": "A RSC não fecha a venda, não assina contratos e não move dinheiro. Isso a empresa faz com o cliente.",
       "bullets": {
         "0": "Sem taxa de setup",
         "1": "Leads direto no painel",
@@ -913,7 +914,7 @@
       "subtitle": "Se você tem uma empresa, a RSC foi construída para você.",
       "realEstate": {
         "title": "Imobiliárias",
-        "description": "Publique imóveis, receba contatos qualificados e feche mais negócios com crédito integrado."
+        "description": "Publique imóveis e corretores no portal; o comprador vê, escreve e agenda visita aqui."
       },
       "dealerships": {
         "title": "Concessionárias",
@@ -921,7 +922,7 @@
       },
       "builders": {
         "title": "Construtoras",
-        "description": "Lance empreendimentos, gerencie unidades e conecte compradores ao financiamento."
+        "description": "Empreendimentos e unidades no portal; aqui o comprador pede informação e financiamento de pré-venda."
       }
     },
     "howItWorks": {
@@ -937,7 +938,7 @@
       },
       "access": {
         "title": "Receba o acesso",
-        "description": "Você receberá um e-mail com as credenciais para acessar seu painel exclusivo."
+        "description": "Enviamos as credenciais do portal. O painel local /empresa/painel só redireciona para lá."
       }
     },
     "features": {
@@ -945,7 +946,7 @@
       "subtitle": "Uma plataforma completa para publicar, vender e crescer.",
       "listings": {
         "title": "Gestão de anúncios",
-        "description": "Publique, edite e destaque imóveis ou veículos em massa com poucos cliques."
+        "description": "Imobiliárias publicam imóveis; construtoras publicam empreendimentos e unidades, tudo no portal."
       },
       "leads": {
         "title": "CRM de leads",
@@ -961,7 +962,7 @@
       },
       "trust": {
         "title": "Selo verificado RSC",
-        "description": "Destaque-se com perfil verificado e maior confiança dos compradores."
+        "description": "A RSC concede o selo, não a empresa. O comprador vê na ficha pública."
       },
       "ai": {
         "title": "IA para vendas",
@@ -1007,6 +1008,25 @@
         }
       }
     },
+    "roles": {
+      "title": "O que cada lado faz",
+      "subtitle": "Este site é o marketplace. O portal é o backoffice da empresa.",
+      "marketplaceTitle": "Neste site (marketplace)",
+      "portalTitle": "No portal (backoffice)",
+      "marketplace": {
+        "0": "Pedir cadastro em /para-empresas",
+        "1": "O comprador vê o anúncio",
+        "2": "O comprador escreve, agenda visita ou pede informação",
+        "3": "Ficha pública: logo, telefone e horários"
+      },
+      "portal": {
+        "0": "Receber credenciais e entrar",
+        "1": "Criar, editar, destacar e arquivar anúncios",
+        "2": "Receber e responder leads, chats e visitas",
+        "3": "Editar perfil, filiais e equipe"
+      },
+      "disclaimer": "A RSC não fecha a venda, não assina contratos e não move dinheiro. /dashboard neste site é só do comprador (favoritos, chats, visitas)."
+    },
     "cta": {
       "title": "Pronto para crescer com a RSC?",
       "subtitle": "Junte-se a milhares de empresas que já vendem no maior ecossistema imobiliário e automotivo. Cadastre-se gratuitamente e nossa equipe entrará em contato em até 24 horas.",
@@ -1035,6 +1055,16 @@
       "emailPlaceholder": "contato@suaempresa.com",
       "phone": "Telefone / WhatsApp",
       "phonePlaceholder": "(51) 99999-0000",
+      "accountType": "Tipo de conta",
+      "accountTypeHint": "Uma imobiliária gerencia imóveis, corretores e leads. Uma construtora gerencia empreendimentos, unidades e consultas de pré-venda.",
+      "types": {
+        "real_estate": "Imobiliária",
+        "real_estateHint": "Imóveis em /imoveis, equipe de corretores e leads.",
+        "project": "Construtora / desenvolvedora",
+        "projectHint": "Empreendimentos em /projetos, unidades vinculadas e pré-venda.",
+        "automotive": "Concessionária",
+        "automotiveHint": "Estoque de veículos e leads automotivos."
+      },
       "submit": "Solicitar cadastro",
       "submitting": "Enviando...",
       "successTitle": "Solicitação enviada!",
@@ -1042,7 +1072,7 @@
       "error": "Não foi possível enviar a solicitação. Tente novamente.",
       "duplicate": "Já existe uma solicitação pendente com este e-mail.",
       "noteLabel": "Importante:",
-      "note": "Após enviar sua solicitação, nossa equipe analisará seus dados. Você receberá um e-mail com as credenciais de acesso ao painel em até 24 horas após a aprovação."
+      "note": "Após a aprovação você recebe as credenciais do portal. Nesta web o comprador vê anúncios; você gerencia inventário e leads lá. A RSC não fecha vendas nem move dinheiro."
     }
   },
   "imoveis": {
@@ -2854,6 +2884,7 @@
       "anyPrice": "Qualquer preço",
       "moreFilters": "Mais filtros",
       "submit": "Buscar",
+      "useAi": "Buscar com IA",
       "popular": "Buscas populares:"
     },
     "quickPicks": {
@@ -3143,6 +3174,8 @@
       "subtitle": "Descubra novos empreendimentos dos melhores incorporadores.",
       "promoTitle": "Lance seu projeto na Reeskova",
       "promoCta": "Anunciar projeto",
+      "linkedUnits": "Unidades em /imoveis",
+      "viewUnit": "Ver unidade",
       "count": "{count} projetos encontrados",
       "propertyType": "Tipo de imóvel",
       "types": {
@@ -3660,6 +3693,52 @@
       "description": "Ocorreu um erro inesperado. Tente novamente ou volte ao início.",
       "retry": "Tentar de novo",
       "home": "Ir ao início"
+    }
+  },
+  "match": {
+    "loading": "Entendendo o que você precisa…",
+    "working": "Buscando correspondências…",
+    "errors": {
+      "generic": "Não foi possível concluir agora. Tente de novo."
+    },
+    "purpose": {
+      "buy": "Comprar",
+      "rent": "Alugar",
+      "invest": "Investir",
+      "unknown": "Não tenho certeza"
+    },
+    "intent": {
+      "placeholder": "Diga o que você está procurando...",
+      "submit": "Encontrar matches",
+      "examplesLabel": "Exemplos",
+      "examples": {
+        "0": "Um apartamento para minha família perto do centro.",
+        "1": "Uma casa com 3 quartos até R$700 mil.",
+        "2": "Um imóvel para investir com bom potencial de aluguel."
+      }
+    },
+    "page": {
+      "title": "O que você está procurando?",
+      "subtitle": "Diga à REESKOVA o que você precisa. Nós encontramos o que cabe.",
+      "findMatches": "Ver meus matches"
+    },
+    "builder": {
+      "kicker": "REESKOVA MATCH",
+      "title": "É isso que entendemos.",
+      "mustHave": "Obrigatório",
+      "preferences": "Preferências"
+    },
+    "results": {
+      "headline": "Seus melhores matches",
+      "found": "Encontramos {count, plural, one {# imóvel que atende seus requisitos.} other {# imóveis que atendem seus requisitos.}}",
+      "why": "Por que combina",
+      "viewProperty": "Ver imóvel",
+      "whyPercent": "Por que {score}%?"
+    },
+    "property": {
+      "whyTitle": "Por que combina",
+      "affordTitle": "Você consegue pagar?",
+      "estimateDisclaimer": "Estimativa com base nas informações fornecidas."
     }
   }
 }

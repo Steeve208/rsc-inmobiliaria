@@ -2,8 +2,12 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
-import { PROMO_PANELS } from "@/lib/marketplace/catalog";
 import { cn } from "@/lib/utils";
+import type { MarketplacePromoPanel } from "@/lib/marketplace/types";
+
+type Props = {
+  panels: MarketplacePromoPanel[];
+};
 
 function HotTagsGraphic() {
   return (
@@ -22,10 +26,7 @@ function HotTagsGraphic() {
   );
 }
 
-const PANEL_STYLE: Record<
-  string,
-  { gradient: string; solid?: string }
-> = {
+const PANEL_STYLE: Record<string, { gradient: string; solid?: string }> = {
   premium: {
     gradient: "from-[#0B1220] via-[#0B1220]/90 to-[#0B1220]/20",
   },
@@ -43,14 +44,27 @@ const PANEL_STYLE: Record<
   },
 };
 
-export async function PromoPanels() {
+export async function PromoPanels({ panels }: Props) {
   const t = await getTranslations("marketplace.promos");
+  if (panels.length === 0) return null;
 
   return (
     <div className="flex h-full flex-col gap-1.5 bg-transparent p-1.5 lg:p-2">
-      {PROMO_PANELS.map((panel) => {
+      {panels.map((panel) => {
         const isHot = panel.graphic === "tags";
         const style = PANEL_STYLE[panel.id] ?? PANEL_STYLE.premium;
+        const titleKey = `${panel.id}.title`;
+        const subtitleKey = `${panel.id}.subtitle`;
+        const title =
+          panel.title?.trim() || (t.has(titleKey) ? t(titleKey) : panel.id);
+        const subtitle =
+          panel.subtitle?.trim() ||
+          (t.has(subtitleKey) ? t(subtitleKey) : "");
+        const cta =
+          panel.cta?.trim() ||
+          (panel.id === "hot" ? t("cta.deals") : t("cta.explore"));
+        const imageUrl = panel.imageUrl?.trim();
+        const remoteImage = Boolean(imageUrl && /^https?:\/\//i.test(imageUrl));
         return (
           <Link
             key={panel.id}
@@ -63,12 +77,13 @@ export async function PromoPanels() {
           >
             {isHot ? (
               <HotTagsGraphic />
-            ) : panel.image ? (
+            ) : imageUrl ? (
               <div className="absolute inset-y-0 right-0 w-[54%]">
                 <Image
-                  src={panel.image}
+                  src={imageUrl}
                   alt=""
                   fill
+                  unoptimized={remoteImage}
                   className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   sizes="220px"
                 />
@@ -82,13 +97,15 @@ export async function PromoPanels() {
             />
             <div className="relative z-10 flex max-w-[70%] flex-col justify-center px-3 py-2 text-white">
               <p className="text-[12px] font-bold leading-tight tracking-tight">
-                {t(`${panel.id}.title`)}
+                {title}
               </p>
-              <p className="mt-0.5 line-clamp-1 text-[10px] leading-snug text-white/80">
-                {t(`${panel.id}.subtitle`)}
-              </p>
+              {subtitle ? (
+                <p className="mt-0.5 line-clamp-1 text-[10px] leading-snug text-white/80">
+                  {subtitle}
+                </p>
+              ) : null}
               <span className="mt-1 inline-flex items-center gap-1 text-[10px] font-semibold text-white">
-                {t(`cta.${panel.ctaKey}`)}
+                {cta}
                 <ArrowRight className="size-3" strokeWidth={2.5} />
               </span>
             </div>

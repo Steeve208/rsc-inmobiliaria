@@ -1,8 +1,9 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useMemo, useState, useTransition } from "react";
-import { useTranslations } from "next-intl";
-import { ChevronDown, Loader2, MapPin, Search } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { ChevronDown, Loader2, MapPin, Search, Sparkles } from "lucide-react";
 import { LocationAutocomplete } from "@/components/search/location-autocomplete";
 import {
   resolvedLocationToFilters,
@@ -14,6 +15,8 @@ import { projetosFiltersToParams } from "@/lib/projetos/search-params";
 import { servicesFiltersToParams } from "@/lib/servicos/search-params";
 import { veiculosFiltersToParams } from "@/lib/veiculos/search-params";
 import { useRouter } from "@/lib/i18n/routing";
+import { tryCreateMatchSession } from "@/lib/match/client";
+import type { MatchPropertyType } from "@/lib/match/types";
 import { useMarket } from "@/lib/providers/market-provider";
 import { defaultImoveisFilters } from "@/features/imoveis/types";
 import { defaultNegociosFilters, type BusinessCategory } from "@/features/negocios/types";
@@ -101,12 +104,19 @@ function formatPriceLabel(
   return `${fmt(option.min)} – ${fmt(option.max)}`;
 }
 
-export function HeroSearch() {
+function parsePriceBound(value: string | undefined) {
+  if (!value) return undefined;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : undefined;
+}
+
+export function HeroSearch({ footer }: { footer?: ReactNode }) {
   const t = useTranslations("marketplace.search");
   const tLanding = useTranslations("landing.search");
   const tVeiculos = useTranslations("veiculos.categories");
   const tProjects = useTranslations("marketplace.projects");
   const tBusinesses = useTranslations("marketplace.businesses");
+  const locale = useLocale();
   const { market } = useMarket();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -121,6 +131,7 @@ export function HeroSearch() {
   const [businessType, setBusinessType] = useState<BusinessCategory | "">("");
   const [vehicleType, setVehicleType] = useState<VehicleCategory | "">("");
   const [priceRangeId, setPriceRangeId] = useState("");
+  const [useAi, setUseAi] = useState(false);
 
   const priceOptions = useMemo(
     () =>
@@ -158,87 +169,131 @@ export function HeroSearch() {
         lat: locationFields.lat,
         lng: locationFields.lng,
       });
-      startTransition(() => {
-        router.push(`/services${params.toString() ? `?${params.toString()}` : ""}`);
-      });
+      router.push(`/services${params.toString() ? `?${params.toString()}` : ""}`);
       return;
     }
 
-    if (tab === "vehicles") {
-      const params = veiculosFiltersToParams({
-        ...defaultVeiculosFilters,
-        query: q,
-        type: vehicleType,
-        state: locationFields.state,
-        city: locationFields.city,
-        locationLabel: locationFields.locationLabel,
-        lat: locationFields.lat,
-        lng: locationFields.lng,
-        priceMin: selectedPrice?.min ?? "",
-        priceMax: selectedPrice?.max ?? "",
-      });
-      startTransition(() => {
-        router.push(`/veiculos${params.toString() ? `?${params.toString()}` : ""}`);
-      });
-      return;
-    }
-
-    if (tab === "businesses") {
-      const params = negociosFiltersToParams({
-        ...defaultNegociosFilters,
-        query: q,
-        type: businessType,
-        state: locationFields.state,
-        city: locationFields.city,
-        country: locationFields.country,
-        locationLabel: locationFields.locationLabel,
-        lat: locationFields.lat,
-        lng: locationFields.lng,
-        priceMin: selectedPrice?.min ?? "",
-        priceMax: selectedPrice?.max ?? "",
-      });
-      startTransition(() => {
-        router.push(`/negocios${params.toString() ? `?${params.toString()}` : ""}`);
-      });
-      return;
-    }
-
-    if (tab === "projects") {
-      const params = projetosFiltersToParams({
-        ...defaultProjetosFilters,
-        query: q,
-        type: projectType,
-        state: locationFields.state,
-        city: locationFields.city,
-        country: locationFields.country,
-        locationLabel: locationFields.locationLabel,
-        lat: locationFields.lat,
-        lng: locationFields.lng,
-        priceMin: selectedPrice?.min ?? "",
-        priceMax: selectedPrice?.max ?? "",
-      });
-      startTransition(() => {
-        router.push(`/projetos${params.toString() ? `?${params.toString()}` : ""}`);
-      });
-      return;
-    }
-
-    const params = imoveisFiltersToParams({
-      ...defaultImoveisFilters,
+  if (tab === "vehicles") {
+    const params = veiculosFiltersToParams({
+      ...defaultVeiculosFilters,
       query: q,
-      country: locationFields.country || market.countryName,
+      type: vehicleType,
       state: locationFields.state,
       city: locationFields.city,
-      neighborhood: locationFields.neighborhood,
       locationLabel: locationFields.locationLabel,
       lat: locationFields.lat,
       lng: locationFields.lng,
-      type: propertyType,
       priceMin: selectedPrice?.min ?? "",
       priceMax: selectedPrice?.max ?? "",
     });
-    startTransition(() => {
-      router.push(`/imoveis${params.toString() ? `?${params.toString()}` : ""}`);
+    router.push(`/veiculos${params.toString() ? `?${params.toString()}` : ""}`);
+    return;
+  }
+
+  if (tab === "businesses") {
+    const params = negociosFiltersToParams({
+      ...defaultNegociosFilters,
+      query: q,
+      type: businessType,
+      state: locationFields.state,
+      city: locationFields.city,
+      country: locationFields.country,
+      locationLabel: locationFields.locationLabel,
+      lat: locationFields.lat,
+      lng: locationFields.lng,
+      priceMin: selectedPrice?.min ?? "",
+      priceMax: selectedPrice?.max ?? "",
+    });
+    router.push(`/negocios${params.toString() ? `?${params.toString()}` : ""}`);
+    return;
+  }
+
+  if (tab === "projects") {
+    const params = projetosFiltersToParams({
+      ...defaultProjetosFilters,
+      query: q,
+      type: projectType,
+      state: locationFields.state,
+      city: locationFields.city,
+      country: locationFields.country,
+      locationLabel: locationFields.locationLabel,
+      lat: locationFields.lat,
+      lng: locationFields.lng,
+      priceMin: selectedPrice?.min ?? "",
+      priceMax: selectedPrice?.max ?? "",
+    });
+    router.push(`/projetos${params.toString() ? `?${params.toString()}` : ""}`);
+    return;
+  }
+
+  const params = imoveisFiltersToParams({
+    ...defaultImoveisFilters,
+    query: q,
+    country: locationFields.country || market.countryName,
+    state: locationFields.state,
+    city: locationFields.city,
+    neighborhood: locationFields.neighborhood,
+    locationLabel: locationFields.locationLabel,
+    lat: locationFields.lat,
+    lng: locationFields.lng,
+    type: propertyType,
+    priceMin: selectedPrice?.min ?? "",
+    priceMax: selectedPrice?.max ?? "",
+  });
+  router.push(`/imoveis${params.toString() ? `?${params.toString()}` : ""}`);
+};
+
+  const hasMatchInput =
+    query.trim().length >= 2 ||
+    Boolean(location.trim()) ||
+    Boolean(propertyType) ||
+    Boolean(priceRangeId);
+
+  const handleSubmit = () => {
+    startTransition(async () => {
+      if (tab === "properties" && useAi && hasMatchInput) {
+        const parts = [
+          query.trim(),
+          locationFields.locationLabel || location.trim(),
+          propertyType,
+        ].filter(Boolean);
+        if (selectedPrice?.min) parts.push(`min ${selectedPrice.min}`);
+        if (selectedPrice?.max) parts.push(`max ${selectedPrice.max}`);
+        const message = parts.join(". ").trim();
+        const matchType = PROPERTY_TYPES.includes(
+          propertyType as (typeof PROPERTY_TYPES)[number],
+        )
+          ? (propertyType as MatchPropertyType)
+          : undefined;
+        const hasLocation = Boolean(location.trim() || resolvedLocation);
+
+        const session = await tryCreateMatchSession({
+          message: message.length >= 2 ? message : "properties",
+          locale,
+          source: "hero",
+          hints: {
+            propertyType: matchType,
+            city: hasLocation ? locationFields.city || undefined : undefined,
+            state: hasLocation ? locationFields.state || undefined : undefined,
+            neighborhood: hasLocation
+              ? locationFields.neighborhood || undefined
+              : undefined,
+            country: hasLocation ? locationFields.country || undefined : undefined,
+            locationLabel: hasLocation
+              ? locationFields.locationLabel || undefined
+              : undefined,
+            lat: hasLocation ? locationFields.lat ?? undefined : undefined,
+            lng: hasLocation ? locationFields.lng ?? undefined : undefined,
+            priceMin: parsePriceBound(selectedPrice?.min),
+            priceMax: parsePriceBound(selectedPrice?.max),
+          },
+        });
+        if (session?.sessionId) {
+          router.push(`/match/${session.sessionId}`);
+          return;
+        }
+      }
+      goToSearch();
     });
   };
 
@@ -282,15 +337,10 @@ export function HeroSearch() {
       </div>
 
       <form
-        className={cn(
-          "overflow-hidden bg-white shadow-[0_10px_28px_rgba(0,0,0,.22)]",
-          tab === "properties"
-            ? "rounded-xl rounded-tl-none"
-            : "rounded-xl",
-        )}
+        className="overflow-hidden rounded-xl bg-white shadow-[0_10px_28px_rgba(0,0,0,.22)]"
         onSubmit={(event) => {
           event.preventDefault();
-          goToSearch();
+          handleSubmit();
         }}
       >
         <div
@@ -333,7 +383,7 @@ export function HeroSearch() {
                   setLocation(place.label);
                 }}
                 onLocationCleared={() => setResolvedLocation(null)}
-                onEnter={goToSearch}
+                onEnter={handleSubmit}
                 className="[&_div]:min-h-0 [&_div]:h-auto [&_div]:rounded-none [&_div]:border-0 [&_div]:px-0 [&_div]:ring-0"
               />
             </div>
@@ -448,6 +498,28 @@ export function HeroSearch() {
           </div>
         </div>
       </form>
+
+      {(tab === "properties" || footer) ? (
+        <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+          {tab === "properties" ? (
+            <button
+              type="button"
+              aria-pressed={useAi}
+              onClick={() => setUseAi((current) => !current)}
+              className={cn(
+                "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium backdrop-blur-sm transition",
+                useAi
+                  ? "border-[#F9B14D]/80 bg-[#F9B14D]/20 text-[#F9B14D]"
+                  : "border-white/30 bg-black/40 text-white/85 hover:bg-black/55",
+              )}
+            >
+              <Sparkles className="size-3" strokeWidth={2} />
+              {t("useAi")}
+            </button>
+          ) : null}
+          {footer}
+        </div>
+      ) : null}
     </div>
   );
 }

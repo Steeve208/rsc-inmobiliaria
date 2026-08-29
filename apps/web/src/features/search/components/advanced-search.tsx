@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { filterListings } from "../mock-listings";
+import { filterListings } from "../filter-listings";
 import { useSearchState } from "../hooks/use-search-state";
 import type { ListingItem, SearchFilters } from "../types";
 import { SearchToolbar } from "./search-toolbar";

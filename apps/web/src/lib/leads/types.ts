@@ -9,6 +9,12 @@ export function normalizeListingCategory(
   return "properties";
 }
 
+export type ChatMatchContext = {
+  sessionId: string;
+  matchScore: number;
+  requirementsSummary: string[];
+};
+
 export type ListingContactContext = {
   listingId: string;
   listingTitle: string;
@@ -17,6 +23,7 @@ export type ListingContactContext = {
   companyName: string;
   whatsappNumber: string;
   agentName?: string;
+  matchContext?: ChatMatchContext;
 };
 
 export type VisitStatus = "pending" | "confirmed" | "cancelled" | "reschedule_proposed";
@@ -99,6 +106,7 @@ export type OpenChatInput = {
   buyerId: string;
   buyerName: string;
   initialMessage?: string;
+  matchContext?: ChatMatchContext;
 };
 
 export type SendChatMessageInput = {

@@ -1,3 +1,4 @@
+/** Seed fixtures for `scripts/seed.ts` only. Not imported by the app runtime. */
 import type {
   ImoveisFilters,
   MapNavigation,

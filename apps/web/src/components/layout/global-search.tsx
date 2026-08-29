@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ChevronDown, Search } from "lucide-react";
+import { useEffect, useState, useTransition } from "react";
+import { ChevronDown, Loader2, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/lib/i18n/routing";
 import {
@@ -31,6 +31,7 @@ export function GlobalSearch({ className }: { className?: string }) {
   const t = useTranslations("marketplace.headerSearch");
   const router = useRouter();
   const pathname = usePathname();
+  const [isPending, startTransition] = useTransition();
   const [category, setCategory] = useState<MarketplaceSearchCategory>(() =>
     categoryFromPath(pathname),
   );
@@ -44,13 +45,15 @@ export function GlobalSearch({ className }: { className?: string }) {
     event.preventDefault();
     const q = query.trim();
     const base = routes[category];
-    if (!q) {
-      router.push(base);
-      return;
-    }
-    const url = new URL(base, "http://local.invalid");
-    url.searchParams.set("q", q);
-    router.push(`${url.pathname}${url.search}`);
+    startTransition(() => {
+      if (!q) {
+        router.push(base);
+        return;
+      }
+      const url = new URL(base, "http://local.invalid");
+      url.searchParams.set("q", q);
+      router.push(`${url.pathname}${url.search}`);
+    });
   };
 
   return (
@@ -82,10 +85,15 @@ export function GlobalSearch({ className }: { className?: string }) {
         />
         <button
           type="submit"
-          className="inline-flex w-12 shrink-0 items-center justify-center rounded-r-full bg-[#EBAD5B] text-[#1A1205] transition hover:bg-[#F2C06E] sm:w-14"
+          disabled={isPending}
+          className="inline-flex w-12 shrink-0 items-center justify-center rounded-r-full bg-[#EBAD5B] text-[#1A1205] transition hover:bg-[#F2C06E] disabled:opacity-70 sm:w-14"
           aria-label={t("submit")}
         >
-          <Search className="size-5" strokeWidth={2.25} />
+          {isPending ? (
+            <Loader2 className="size-5 animate-spin" />
+          ) : (
+            <Search className="size-5" strokeWidth={2.25} />
+          )}
         </button>
       </div>
     </form>

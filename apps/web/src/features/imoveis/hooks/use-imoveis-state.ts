@@ -16,8 +16,6 @@ import { brazilStates, worldRegions } from "@/lib/listings/regions";
 import { getDefaultCountryFilters } from "@/lib/markets/config";
 import { useMarket } from "@/lib/providers/market-provider";
 import type { MarketId } from "@/lib/markets/types";
-import { propertyListings } from "../mock-data";
-import { mergePropertyCatalog } from "@/lib/marketplace/home-property-mocks";
 
 function createDefaultNav(marketId: MarketId): MapNavigation {
   const { country, countryCode } = getDefaultCountryFilters(marketId);
@@ -52,11 +50,11 @@ export function useImoveisState() {
       .then((r) => r.json())
       .then((data: PropertyListing[]) => {
         const live = Array.isArray(data) ? data : [];
-        setCatalog(mergePropertyCatalog(live, propertyListings));
+        setCatalog(live);
         setHasSearched(true);
       })
       .catch(() => {
-        setCatalog(mergePropertyCatalog([], propertyListings));
+        setCatalog([]);
         setHasSearched(true);
       });
   }, []);

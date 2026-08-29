@@ -125,6 +125,8 @@ export function ParaEmpresasPage() {
               </Link>
             </div>
 
+            <p className="mt-6 max-w-xl text-sm text-white/50">{t("hero.disclaimer")}</p>
+
             <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
               {[0, 1, 2].map((i) => (
                 <li key={i} className="flex items-center gap-2 text-sm text-white/65">
@@ -225,6 +227,43 @@ export function ParaEmpresasPage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="market-section bg-[#000810]/60">
+        <div className={marketplace.container}>
+          <SectionHeader
+            centered
+            title={t("roles.title")}
+            subtitle={t("roles.subtitle")}
+          />
+          <div className="grid gap-5 lg:grid-cols-2 lg:gap-6">
+            <article className="rounded-2xl bg-[#0a1628]/50 p-6 lg:p-7">
+              <h3 className="text-lg font-semibold text-white">{t("roles.marketplaceTitle")}</h3>
+              <ul className="mt-4 space-y-3">
+                {[0, 1, 2, 3].map((i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-white/60">
+                    <Check className="mt-0.5 size-4 shrink-0 text-[#2BB8A8]" />
+                    {t(`roles.marketplace.${i}`)}
+                  </li>
+                ))}
+              </ul>
+            </article>
+            <article className="rounded-2xl bg-[#0a1628]/50 p-6 lg:p-7">
+              <h3 className="text-lg font-semibold text-white">{t("roles.portalTitle")}</h3>
+              <ul className="mt-4 space-y-3">
+                {[0, 1, 2, 3].map((i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-white/60">
+                    <Check className="mt-0.5 size-4 shrink-0 text-[#2BB8A8]" />
+                    {t(`roles.portal.${i}`)}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          </div>
+          <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-white/45">
+            {t("roles.disclaimer")}
+          </p>
         </div>
       </section>
 

@@ -7,7 +7,6 @@ import {
   vehicleListing,
 } from "@/lib/db/schema";
 import type { VehicleDetail, VehicleListing } from "@/features/veiculos/types";
-import { enrichVehicle } from "@/features/veiculos/mock-data";
 import { slugifyCompanyId } from "@/lib/leads/utils";
 import { listingCodeValue } from "@/lib/listings/listing-code";
 import {
@@ -146,8 +145,9 @@ export async function listVehiclesByIds(ids: string[]): Promise<VehicleListing[]
 export async function getVehicleById(id: string): Promise<VehicleListing | undefined> {
   if (isBackofficeConfigured()) {
     const listing = await fetchBackofficeListingById(id);
-    if (!listing || listing.category !== "automotive") return undefined;
-    return mapBackofficeToVehicleListing(listing);
+    if (listing && listing.category === "automotive") {
+      return mapBackofficeToVehicleListing(listing);
+    }
   }
   try {
     const [row] = await db
@@ -157,19 +157,20 @@ export async function getVehicleById(id: string): Promise<VehicleListing | undef
       .where(eq(vehicleListing.id, id))
       .limit(1);
 
-    if (!row) return undefined;
-    return mapListing(row.vehicle, row.company?.name ?? "Concessionária");
+    if (row) return mapListing(row.vehicle, row.company?.name ?? "Concessionária");
   } catch {
     return undefined;
   }
+  return undefined;
 }
 
 export async function getVehicleDetail(id: string): Promise<VehicleDetail | undefined> {
   if (isBackofficeConfigured()) {
     const listing = await fetchBackofficeListingById(id);
-    if (!listing || listing.category !== "automotive") return undefined;
-    void incrementBackofficeListingViews(id);
-    return mapBackofficeToVehicleDetail(listing);
+    if (listing && listing.category === "automotive") {
+      void incrementBackofficeListingViews(id);
+      return mapBackofficeToVehicleDetail(listing);
+    }
   }
   try {
     const [row] = await db
@@ -180,78 +181,79 @@ export async function getVehicleDetail(id: string): Promise<VehicleDetail | unde
       .where(eq(vehicleListing.id, id))
       .limit(1);
 
-    if (!row) return undefined;
+    if (row) {
+      const base = mapListing(row.vehicle, row.company?.name ?? "Concessionária");
+      const images = await fetchImages(id);
+      const co = row.company;
+      const ag = row.agent;
+      const specs = (row.vehicle.specs as Record<string, string>) ?? {};
 
-    const base = mapListing(row.vehicle, row.company?.name ?? "Concessionária");
-    const images = await fetchImages(id);
-    const co = row.company;
-    const ag = row.agent;
-    const specs = (row.vehicle.specs as Record<string, string>) ?? {};
-
-    return {
-      ...base,
-      companyId: row.vehicle.companyId ?? slugifyCompanyId(base.company),
-      whatsappNumber:
-        row.vehicle.whatsappNumber ?? co?.whatsappNumber ?? "",
-      images: images.length > 0 ? images : base.image ? [base.image] : [],
-      videoUrl: row.vehicle.videoUrl ?? undefined,
-      has360: row.vehicle.has360,
-      tour360Url: row.vehicle.tour360Url ?? undefined,
-      address:
-        row.vehicle.address ??
-        `Av. das Indústrias, 450 — ${base.city} - ${base.state}`,
-      condition:
-        (row.vehicle.condition as VehicleDetail["condition"]) ??
-        (base.year >= 2024 ? "new" : "used"),
-      doors: row.vehicle.doors ?? (base.type === "motorcycle" ? 0 : 4),
-      consumption: row.vehicle.consumption ?? "12 km/L",
-      warranty: row.vehicle.warranty ?? "Garantia da concessionária",
-      history: row.vehicle.history ?? [],
-      equipment: row.vehicle.equipment ?? [],
-      specs:
-        Object.keys(specs).length > 0
-          ? specs
+      return {
+        ...base,
+        companyId: row.vehicle.companyId ?? slugifyCompanyId(base.company),
+        whatsappNumber:
+          row.vehicle.whatsappNumber ?? co?.whatsappNumber ?? "",
+        images: images.length > 0 ? images : base.image ? [base.image] : [],
+        videoUrl: row.vehicle.videoUrl ?? undefined,
+        has360: row.vehicle.has360,
+        tour360Url: row.vehicle.tour360Url ?? undefined,
+        address:
+          row.vehicle.address ??
+          `Av. das Indústrias, 450 — ${base.city} - ${base.state}`,
+        condition:
+          (row.vehicle.condition as VehicleDetail["condition"]) ??
+          (base.year >= 2024 ? "new" : "used"),
+        doors: row.vehicle.doors ?? (base.type === "motorcycle" ? 0 : 4),
+        consumption: row.vehicle.consumption ?? "12 km/L",
+        warranty: row.vehicle.warranty ?? "Garantia da concessionária",
+        history: row.vehicle.history ?? [],
+        equipment: row.vehicle.equipment ?? [],
+        specs:
+          Object.keys(specs).length > 0
+            ? specs
+            : {
+                Marca: base.make,
+                Modelo: base.model,
+                Ano: String(base.year),
+              },
+        description:
+          row.vehicle.description ??
+          `${base.make} ${base.model} ${base.year} disponível na RSC Market.`,
+        agent: ag
+          ? {
+              name: ag.name,
+              role: ag.role ?? "Consultor",
+              phone: ag.phone ?? "",
+              photo: ag.photoUrl ?? "",
+            }
           : {
-              Marca: base.make,
-              Modelo: base.model,
-              Ano: String(base.year),
+              name: co?.name ?? base.company,
+              role: "Concessionária",
+              phone: row.vehicle.whatsappNumber ?? co?.whatsappNumber ?? "",
+              photo: "",
             },
-      description:
-        row.vehicle.description ??
-        `${base.make} ${base.model} ${base.year} disponível na RSC Market.`,
-      agent: ag
-        ? {
-            name: ag.name,
-            role: ag.role ?? "Consultor",
-            phone: ag.phone ?? "",
-            photo: ag.photoUrl ?? "",
-          }
-        : {
-            name: co?.name ?? base.company,
-            role: "Concessionária",
-            phone: row.vehicle.whatsappNumber ?? co?.whatsappNumber ?? "",
-            photo: "",
-          },
-      dealershipRating: num(co?.rating, 0),
-      dealershipYears: co?.yearsActive ?? 0,
-      dealershipActive: co?.activeListings ?? 0,
-      dealershipSold: co?.soldCount ?? 0,
-      dealershipReviews: co?.reviewsCount ?? 0,
-      companyInfo: {
-        cnpj: null,
-        phone: row.vehicle.whatsappNumber ?? co?.whatsappNumber ?? null,
-        website: null,
-        address: row.vehicle.address ?? null,
-        city: base.city,
-        state: base.state,
-        postalCode: null,
-        branchName: co?.name ?? base.company,
-        businessHours: [],
-      },
-    };
+        dealershipRating: num(co?.rating, 0),
+        dealershipYears: co?.yearsActive ?? 0,
+        dealershipActive: co?.activeListings ?? 0,
+        dealershipSold: co?.soldCount ?? 0,
+        dealershipReviews: co?.reviewsCount ?? 0,
+        companyInfo: {
+          cnpj: null,
+          phone: row.vehicle.whatsappNumber ?? co?.whatsappNumber ?? null,
+          website: null,
+          address: row.vehicle.address ?? null,
+          city: base.city,
+          state: base.state,
+          postalCode: null,
+          branchName: co?.name ?? base.company,
+          businessHours: [],
+        },
+      };
+    }
   } catch {
     return undefined;
   }
+  return undefined;
 }
 
 export async function listVehiclesByCity(
@@ -420,7 +422,7 @@ export async function getVehicleMakes(): Promise<string[]> {
 
 export async function seedVehicleFromMock(
   listing: VehicleListing,
-  detail: ReturnType<typeof enrichVehicle>,
+  detail: VehicleDetail,
   companyId: string,
   agentId?: string,
   gallery?: string[],

@@ -69,6 +69,20 @@ export function RscChatConversation({
             companyName: sourceProps.listing.companyName,
             buyerId,
             buyerName: buyerName.trim() || t("defaultBuyerName"),
+            matchContext: sourceProps.listing.matchContext,
+            initialMessage: sourceProps.listing.matchContext
+              ? [
+                  "NEW QUALIFIED INQUIRY",
+                  "",
+                  `Property: ${sourceProps.listing.listingTitle}`,
+                  `Match: ${sourceProps.listing.matchContext.matchScore}%`,
+                  "",
+                  "User requirements:",
+                  ...sourceProps.listing.matchContext.requirementsSummary.map(
+                    (line) => `- ${line}`,
+                  ),
+                ].join("\n")
+              : undefined,
           });
 
     load

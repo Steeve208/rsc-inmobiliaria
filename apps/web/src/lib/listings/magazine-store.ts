@@ -5,7 +5,6 @@ import { desc, eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { magazine } from "@/lib/db/schema";
 import { slugifyCompanyId } from "@/lib/leads/utils";
-import { seedMagazines } from "@/features/revistas/mock-data";
 import {
   MAGAZINE_CATEGORIES,
   type MagazineCategory,
@@ -155,11 +154,7 @@ async function upsertDb(item: MagazineIssue): Promise<boolean> {
 }
 
 export async function listMagazines(options?: { includeDrafts?: boolean }) {
-  const merged = mergeIssues([
-    await listFromDb(),
-    await readFromFile(),
-    seedMagazines,
-  ]);
+  const merged = mergeIssues([await listFromDb(), await readFromFile()]);
   if (options?.includeDrafts) return merged;
   return merged.filter((item) => item.status === "published");
 }

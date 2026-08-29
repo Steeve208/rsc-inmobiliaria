@@ -1,30 +1,19 @@
 import { getTranslations } from "next-intl/server";
 import { ChevronRight } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
-import { QUICK_PICKS } from "@/lib/marketplace/catalog";
 import {
-  IconApartments,
-  IconCars,
-  IconCommercial,
-  IconLand,
-  IconLuxury,
-  IconProjects,
-  IconProperties,
-  QUICK_PICK_TONES,
+  quickPickIcon,
+  quickPickTone,
 } from "@/components/marketplace/marketplace-icons";
+import type { MarketplaceQuickPick } from "@/lib/marketplace/types";
 
-const icons = {
-  propertiesUnder: IconProperties,
-  luxury: IconLuxury,
-  rentals: IconApartments,
-  carsUnder: IconCars,
-  projects: IconProjects,
-  commercial: IconCommercial,
-  land: IconLand,
-} as const;
+type Props = {
+  items: MarketplaceQuickPick[];
+};
 
-export async function QuickPicks() {
+export async function QuickPicks({ items }: Props) {
   const t = await getTranslations("marketplace.quickPicks");
+  if (items.length === 0) return null;
 
   return (
     <aside className="flex h-full flex-col bg-[#FAFBFC]">
@@ -34,8 +23,15 @@ export async function QuickPicks() {
         </h2>
       </div>
       <ul className="flex flex-1 flex-col justify-center gap-0.5">
-        {QUICK_PICKS.map((item) => {
-          const Icon = icons[item.id];
+        {items.map((item) => {
+          const Icon = quickPickIcon(item.id);
+          const titleKey = `${item.id}.title`;
+          const subtitleKey = `${item.id}.subtitle`;
+          const title =
+            item.title?.trim() || (t.has(titleKey) ? t(titleKey) : item.id);
+          const subtitle =
+            item.subtitle?.trim() ||
+            (t.has(subtitleKey) ? t(subtitleKey) : "");
           return (
             <li key={item.id}>
               <Link
@@ -43,17 +39,19 @@ export async function QuickPicks() {
                 className="flex items-center gap-2.5 px-3 py-1.5 transition hover:bg-white"
               >
                 <span
-                  className={`inline-flex size-8 shrink-0 items-center justify-center rounded-lg ${QUICK_PICK_TONES[item.id]}`}
+                  className={`inline-flex size-8 shrink-0 items-center justify-center rounded-lg ${quickPickTone(item.id)}`}
                 >
-                  <Icon className="size-[22px]" />
+                  <Icon className="size-7 object-contain" />
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-[13px] font-semibold leading-tight text-[#0B1220]">
-                    {t(`${item.id}.title`)}
+                    {title}
                   </span>
-                  <span className="block text-[11px] leading-tight text-[#6B7285]">
-                    {t(`${item.id}.subtitle`)}
-                  </span>
+                  {subtitle ? (
+                    <span className="block text-[11px] leading-tight text-[#6B7285]">
+                      {subtitle}
+                    </span>
+                  ) : null}
                 </span>
                 <ChevronRight className="size-3.5 shrink-0 text-[#C5CAD3]" strokeWidth={2} />
               </Link>

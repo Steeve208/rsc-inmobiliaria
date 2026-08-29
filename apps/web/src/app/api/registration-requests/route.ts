@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getBackofficeRegistrationUrl } from "@/lib/backoffice/config";
+import { normalizeCompanyCategory } from "@/lib/company/kinds";
 import { enforceRateLimit } from "@/lib/security/rate-limit";
 import {
   createAdminSupabase,
@@ -8,6 +9,7 @@ import {
 
 const VALID_CATEGORIES = new Set([
   "real_estate",
+  "project",
   "automotive",
   "agency",
   "retail",
@@ -204,7 +206,7 @@ export async function POST(request: Request) {
     .trim()
     .toLowerCase();
   const contactPhone = String(body.contactPhone ?? body.phone ?? "").trim();
-  const category = String(body.category ?? "real_estate").trim();
+  const category = normalizeCompanyCategory(String(body.category ?? body.type ?? "real_estate"));
   const cnpj = String(body.cnpj ?? "").trim();
   const message = String(body.message ?? "").trim();
 

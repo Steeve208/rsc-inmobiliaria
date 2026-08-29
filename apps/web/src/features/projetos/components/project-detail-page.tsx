@@ -9,7 +9,6 @@ import { ListingCodeBadge } from "@/components/marketplace/listing-code-badge";
 import { MarketplaceFooter } from "@/components/marketplace/marketplace-footer";
 import { ListingContactPanel } from "@/features/contact";
 import { formatMarketplacePrice, listingLocation } from "@/lib/marketplace/format";
-import { mergeProjectCatalog } from "@/lib/marketplace/home-project-mocks";
 import type { PropertyListing } from "@/features/imoveis/types";
 import type { ProjectListing } from "../types";
 import { bedsLabel } from "@/components/marketplace/projects/listing-utils";
@@ -21,23 +20,31 @@ type Props = {
 export function ProjectDetailPage({ id }: Props) {
   const t = useTranslations("marketplace.projects");
   const [item, setItem] = useState<ProjectListing | null | undefined>(undefined);
+  const [units, setUnits] = useState<PropertyListing[]>([]);
 
   useEffect(() => {
-    fetch("/api/listings/properties?section=launch")
+    fetch("/api/listings/projects")
       .then((r) => r.json())
-      .then((data: PropertyListing[]) => {
-        const catalog = mergeProjectCatalog(Array.isArray(data) ? data : []);
-        setItem(
-          catalog.find((project) => project.id === id || project.propertyId === id) ??
-            null,
-        );
+      .then((data: ProjectListing[]) => {
+        const catalog = Array.isArray(data) ? data : [];
+        const project =
+          catalog.find((entry) => entry.id === id || entry.propertyId === id) ?? null;
+        setItem(project);
+
+        const unitIds = project?.unitListingIds?.filter(Boolean) ?? [];
+        if (unitIds.length === 0) {
+          setUnits([]);
+          return;
+        }
+        return fetch(`/api/listings/properties?ids=${unitIds.join(",")}`)
+          .then((response) => response.json())
+          .then((rows: PropertyListing[]) => {
+            setUnits(Array.isArray(rows) ? rows : []);
+          });
       })
       .catch(() => {
-        const catalog = mergeProjectCatalog([]);
-        setItem(
-          catalog.find((project) => project.id === id || project.propertyId === id) ??
-            null,
-        );
+        setItem(null);
+        setUnits([]);
       });
   }, [id]);
 
@@ -67,7 +74,9 @@ export function ProjectDetailPage({ id }: Props) {
     item.country,
   ]);
   const beds = bedsLabel(item);
-  const companyId = item.developer.toLowerCase().replace(/\s+/g, "-") || "reeskova";
+  const companyId =
+    item.companyId || item.developer.toLowerCase().replace(/\s+/g, "-") || "reeskova";
+  const financingHref = `/financing?price=${item.price}&down=20&listingId=${item.id}&title=${encodeURIComponent(item.title)}&category=properties&currency=${item.currency}&companyId=${encodeURIComponent(companyId)}`;
 
   return (
     <div className="bg-[#F4F7FA] text-[#0B1220]">
@@ -128,13 +137,30 @@ export function ProjectDetailPage({ id }: Props) {
                   </dd>
                 </div>
               </dl>
-              {item.propertyId ? (
+              {item.propertyId && units.length === 0 ? (
                 <Link
                   href={`/imoveis/${item.propertyId}`}
                   className="mt-5 inline-flex text-sm font-semibold text-[#2563EB] hover:underline"
                 >
-                  {t("promoCta")}
+                  {t("viewUnit")}
                 </Link>
+              ) : null}
+              {units.length > 0 ? (
+                <div className="mt-6">
+                  <p className="text-sm font-semibold text-[#0B1220]">{t("linkedUnits")}</p>
+                  <ul className="mt-2 space-y-2">
+                    {units.map((unit) => (
+                      <li key={unit.id}>
+                        <Link
+                          href={`/imoveis/${unit.id}`}
+                          className="text-sm font-semibold text-[#2563EB] hover:underline"
+                        >
+                          {unit.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ) : null}
             </div>
           </div>
@@ -180,7 +206,7 @@ export function ProjectDetailPage({ id }: Props) {
               <div className="mt-5">
                 <ListingContactPanel
                   listing={{
-                    listingId: item.propertyId || item.id,
+                    listingId: item.id,
                     listingTitle: item.title,
                     listingCategory: "properties",
                     companyId,
@@ -189,6 +215,7 @@ export function ProjectDetailPage({ id }: Props) {
                   }}
                   variant="light"
                   mode="project"
+                  financingHref={financingHref}
                 />
               </div>
             </div>

@@ -891,9 +891,10 @@
       "badge": "Soluciones B2B",
       "titleStart": "Vende más con la",
       "titleHighlight": "plataforma RSC",
-      "subtitle": "Inmobiliarias, concesionarios y constructoras en un solo ecosistema. Publica anuncios, recibe leads calificados y gestiona todo en el panel SaaS. Regístrate gratis y empieza a vender.",
+      "subtitle": "Inmobiliarias, concesionarios y constructoras en un solo ecosistema. En esta web pedís el alta; anuncios, leads y equipo se gestionan en el portal.",
       "ctaPrimary": "Registrar mi empresa",
       "imageAlt": "Vista corporativa de edificios modernos que representan empresas asociadas",
+      "disclaimer": "RSC no cierra la venta, no firma contratos y no mueve dinero. Eso lo hace la empresa con el cliente.",
       "bullets": {
         "0": "Sin costo de setup",
         "1": "Leads directo al panel",
@@ -913,7 +914,7 @@
       "subtitle": "Si tienes una empresa, RSC fue construida para ti.",
       "realEstate": {
         "title": "Inmobiliarias",
-        "description": "Publica inmuebles, recibe contactos calificados y cierra más negocios con crédito integrado."
+        "description": "Publicá inmuebles y corredores en el portal; el comprador los ve, escribe y agenda visita aquí."
       },
       "dealerships": {
         "title": "Concesionarios",
@@ -921,7 +922,7 @@
       },
       "builders": {
         "title": "Constructoras",
-        "description": "Lanza emprendimientos, gestiona unidades y conecta compradores al financiamiento."
+        "description": "Emprendimientos y unidades en el portal; acá el comprador pide información y financiación de preventa."
       }
     },
     "howItWorks": {
@@ -937,7 +938,7 @@
       },
       "access": {
         "title": "Recibe el acceso",
-        "description": "Recibirás un email con las credenciales para acceder a tu panel exclusivo."
+        "description": "Te enviamos las credenciales del portal. El panel local /empresa/painel solo redirige ahí."
       }
     },
     "features": {
@@ -945,7 +946,7 @@
       "subtitle": "Una plataforma completa para publicar, vender y crecer.",
       "listings": {
         "title": "Gestión de anuncios",
-        "description": "Publica, edita y destaca inmuebles o vehículos en masa con pocos clics."
+        "description": "Inmobiliarias publican inmuebles; constructoras publican emprendimientos y unidades, todo en el portal."
       },
       "leads": {
         "title": "CRM de leads",
@@ -961,7 +962,7 @@
       },
       "trust": {
         "title": "Sello verificado RSC",
-        "description": "Destácate con perfil verificado y mayor confianza de los compradores."
+        "description": "Lo otorga RSC, no la empresa. El comprador lo ve en la ficha pública."
       },
       "ai": {
         "title": "IA para ventas",
@@ -1007,6 +1008,25 @@
         }
       }
     },
+    "roles": {
+      "title": "Qué hace cada lado",
+      "subtitle": "Esta web es el marketplace. El portal es el backoffice de la empresa.",
+      "marketplaceTitle": "En esta web (marketplace)",
+      "portalTitle": "En el portal (backoffice)",
+      "marketplace": {
+        "0": "Pedir registro en /para-empresas",
+        "1": "El comprador ve el anuncio",
+        "2": "El comprador escribe, agenda visita o pide información",
+        "3": "Ficha pública: logo, teléfono y horarios"
+      },
+      "portal": {
+        "0": "Recibir credenciales y entrar",
+        "1": "Crear, editar, destacar y archivar anuncios",
+        "2": "Recibir y responder leads, chats y visitas",
+        "3": "Editar perfil, sucursales y equipo"
+      },
+      "disclaimer": "RSC no cierra la venta, no firma contratos y no mueve dinero. /dashboard en esta web es solo del comprador (favoritos, chats, visitas)."
+    },
     "cta": {
       "title": "¿Listo para crecer con RSC?",
       "subtitle": "Únete a miles de empresas que ya venden en el mayor ecosistema inmobiliario y automotriz. Regístrate gratis y nuestro equipo te contactará en hasta 24 horas.",
@@ -1035,6 +1055,16 @@
       "emailPlaceholder": "contacto@tuempresa.com",
       "phone": "Teléfono / WhatsApp",
       "phonePlaceholder": "(51) 99999-0000",
+      "accountType": "Tipo de cuenta",
+      "accountTypeHint": "Una inmobiliaria gestiona inmuebles, corredores y leads. Una constructora gestiona emprendimientos, unidades y consultas de preventa.",
+      "types": {
+        "real_estate": "Inmobiliaria",
+        "real_estateHint": "Inmuebles en /imoveis, equipo de corredores y leads.",
+        "project": "Constructora / desarrolladora",
+        "projectHint": "Emprendimientos en /projetos, unidades vinculadas y preventa.",
+        "automotive": "Concesionaria",
+        "automotiveHint": "Stock de vehículos y leads automotrices."
+      },
       "submit": "Solicitar registro",
       "submitting": "Enviando...",
       "successTitle": "¡Solicitud enviada!",
@@ -1042,7 +1072,7 @@
       "error": "No se pudo enviar la solicitud. Inténtalo de nuevo.",
       "duplicate": "Ya existe una solicitud pendiente con este correo.",
       "noteLabel": "Importante:",
-      "note": "Tras enviar tu solicitud, nuestro equipo analizará tus datos. Recibirás un correo con las credenciales de acceso al panel en hasta 24 horas tras la aprobación."
+      "note": "Tras la aprobación recibirás las credenciales del portal. En esta web el comprador ve anuncios; vos gestionás inventario y leads allá. RSC no cierra ventas ni mueve dinero."
     }
   },
   "imoveis": {
@@ -2834,7 +2864,7 @@
     "hero": {
       "titleStart": "Encuentra tu próxima",
       "titleHighlight": "oportunidad",
-      "subtitle": "Propiedades, vehículos, proyectos y servicios de empresas verificadas."
+      "subtitle": "Inmuebles, vehículos, proyectos y servicios de empresas verificadas."
     },
     "search": {
       "tabs": {
@@ -2854,6 +2884,7 @@
       "anyPrice": "Cualquier precio",
       "moreFilters": "Más filtros",
       "submit": "Buscar",
+      "useAi": "Buscar con IA",
       "popular": "Búsquedas populares:"
     },
     "quickPicks": {
@@ -3143,6 +3174,8 @@
       "subtitle": "Descubre nuevos desarrollos de los mejores developers.",
       "promoTitle": "Lanza tu proyecto en Reeskova",
       "promoCta": "Publicar proyecto",
+      "linkedUnits": "Unidades en /imoveis",
+      "viewUnit": "Ver unidad",
       "count": "{count} proyectos encontrados",
       "propertyType": "Tipo de propiedad",
       "types": {
@@ -3660,6 +3693,51 @@
       "description": "Ocurrió un error inesperado. Inténtalo de nuevo o vuelve al inicio.",
       "retry": "Reintentar",
       "home": "Ir al inicio"
+    }
+  },
+  "match": {
+    "loading": "Entendiendo lo que necesitas…",
+    "working": "Buscando coincidencias…",
+    "errors": {
+      "generic": "No pudimos completar esto ahora. Inténtalo de nuevo."
+    },
+    "purpose": {
+      "buy": "Comprar",
+      "rent": "Alquilar",
+      "invest": "Invertir",
+      "unknown": "No estoy seguro"
+    },
+    "intent": {
+      "placeholder": "Cuéntanos qué estás buscando...",
+      "submit": "Encontrar matches",
+      "examplesLabel": "Ejemplos",
+      "examples": {
+        "0": "Un apartamento para mi familia cerca del centro.",
+        "1": "Una casa con 3 dormitorios por menos de R$700 mil.",
+        "2": "Una propiedad de inversión con buen potencial de renta."
+      }
+    },
+    "page": {
+      "title": "¿Qué estás buscando?",
+      "subtitle": "Dile a REESKOVA lo que necesitas. Encontraremos lo que encaja.",
+      "findMatches": "Ver mis matches"
+    },
+    "builder": {
+      "title": "Esto es lo que entendimos.",
+      "mustHave": "Imprescindible",
+      "preferences": "Preferencias"
+    },
+    "results": {
+      "headline": "Tus mejores matches",
+      "found": "Encontramos {count, plural, one {# propiedad que encaja con tus requisitos.} other {# propiedades que encajan con tus requisitos.}}",
+      "why": "Por qué encaja",
+      "viewProperty": "Ver propiedad",
+      "whyPercent": "¿Por qué {score}%?"
+    },
+    "property": {
+      "whyTitle": "Por qué encaja",
+      "affordTitle": "¿Puedes pagarlo?",
+      "estimateDisclaimer": "Estimación basada en la información proporcionada."
     }
   }
 }

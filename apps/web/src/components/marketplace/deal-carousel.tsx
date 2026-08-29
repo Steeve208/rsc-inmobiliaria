@@ -8,9 +8,10 @@ import type { MarketplaceListing } from "@/lib/marketplace/types";
 
 type Props = {
   items: MarketplaceListing[];
+  href?: string;
 };
 
-export function DealCarousel({ items }: Props) {
+export function DealCarousel({ items, href = "/imoveis" }: Props) {
   const t = useTranslations("marketplace");
   if (items.length === 0) return null;
 
@@ -25,7 +26,7 @@ export function DealCarousel({ items }: Props) {
         </h2>
         <div className="flex items-center gap-2">
           <Link
-            href="/imoveis"
+            href={href}
             className="hidden text-[13px] font-semibold text-[#2563EB] hover:text-[#1D4ED8] sm:inline"
           >
             {t("seeAll")}

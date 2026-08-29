@@ -7,27 +7,22 @@ import {
   type ProjetosView,
   type ProjectListing,
 } from "../types";
-import type { PropertyListing } from "@/features/imoveis/types";
 import { filterProjects, sortProjects } from "@/lib/listings/filters";
-import { mergeProjectCatalog } from "@/lib/marketplace/home-project-mocks";
 
 export function useProjetosState() {
   const [filters, setFilters] = useState<ProjetosFilters>(defaultProjetosFilters);
   const [view, setView] = useState<ProjetosView>("grid");
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
-  const [catalog, setCatalog] = useState<ProjectListing[]>(() =>
-    mergeProjectCatalog([]),
-  );
+  const [catalog, setCatalog] = useState<ProjectListing[]>([]);
 
   useEffect(() => {
-    fetch("/api/listings/properties?section=launch")
+    fetch("/api/listings/projects")
       .then((r) => r.json())
-      .then((data: PropertyListing[]) => {
-        const live = Array.isArray(data) ? data : [];
-        setCatalog(mergeProjectCatalog(live));
+      .then((data: ProjectListing[]) => {
+        setCatalog(Array.isArray(data) ? data : []);
       })
       .catch(() => {
-        setCatalog(mergeProjectCatalog([]));
+        setCatalog([]);
       });
   }, []);
 

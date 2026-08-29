@@ -170,3 +170,21 @@ export const TRUST_ITEMS = [
   "connect",
   "search",
 ] as const;
+
+/** Static chrome used when the portal has not published a home (or a slot is empty). */
+export function getCatalogHomeEditorial() {
+  return {
+    hero: {
+      imageUrl: HERO_IMAGE,
+      popularSearches: POPULAR_SEARCHES.map((item) => ({ ...item })),
+    },
+    quickPicks: QUICK_PICKS.map(({ id, href }) => ({ id, href })),
+    promoPanels: PROMO_PANELS.map((panel) => ({
+      id: panel.id,
+      href: panel.href,
+      imageUrl: panel.image,
+      graphic: panel.graphic,
+    })),
+    categoryShortcuts: CATEGORY_SHORTCUTS.map(({ id, href }) => ({ id, href })),
+  };
+}

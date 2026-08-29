@@ -12,7 +12,6 @@ import { parseVehicleAiQuery } from "@/lib/listings/parse-ai-query";
 import { resolveSearchLocationFromQuery } from "@/lib/geocoding/resolve-search-location";
 import { filterVehicles, sortVehicles } from "@/lib/listings/filters";
 import { brazilStates, worldRegions } from "@/lib/listings/regions";
-import { mergeVehicleCatalog } from "@/lib/marketplace/home-vehicle-mocks";
 
 export function useVeiculosState() {
   const [filters, setFilters] = useState<VeiculosFilters>(defaultVeiculosFilters);
@@ -27,11 +26,11 @@ export function useVeiculosState() {
       .then((r) => r.json())
       .then((data: VehicleListing[]) => {
         const live = Array.isArray(data) ? data : [];
-        setCatalog(mergeVehicleCatalog(live));
+        setCatalog(live);
         setHasSearched(true);
       })
       .catch(() => {
-        setCatalog(mergeVehicleCatalog([]));
+        setCatalog([]);
         setHasSearched(true);
       });
   }, []);

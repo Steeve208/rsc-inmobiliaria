@@ -891,9 +891,10 @@
       "badge": "B2B Solutions",
       "titleStart": "Sell more with the",
       "titleHighlight": "RSC platform",
-      "subtitle": "Real estate agencies, dealerships and builders in one ecosystem. Publish listings, receive qualified leads and manage everything in the SaaS panel. Register for free and start selling.",
+      "subtitle": "Real estate agencies, dealerships and builders in one ecosystem. Register here; listings, leads and team are managed in the portal.",
       "ctaPrimary": "Register my business",
       "imageAlt": "Corporate view of modern buildings representing partner businesses",
+      "disclaimer": "RSC does not close the sale, sign contracts or move money. The company does that with the client.",
       "bullets": {
         "0": "No setup fee",
         "1": "Leads straight to your panel",
@@ -913,7 +914,7 @@
       "subtitle": "If you run a business, RSC was built for you.",
       "realEstate": {
         "title": "Real estate agencies",
-        "description": "Publish properties, receive qualified contacts and close more deals with integrated credit."
+        "description": "Publish properties and brokers in the portal; buyers see them, write and book visits here."
       },
       "dealerships": {
         "title": "Dealerships",
@@ -921,7 +922,7 @@
       },
       "builders": {
         "title": "Builders",
-        "description": "Launch developments, manage units and connect buyers to financing."
+        "description": "Developments and units in the portal; here buyers request information and pre-sale financing."
       }
     },
     "howItWorks": {
@@ -937,7 +938,7 @@
       },
       "access": {
         "title": "Receive access",
-        "description": "You will receive an email with credentials to access your exclusive panel."
+        "description": "We send portal credentials. The local /empresa/painel page only redirects there."
       }
     },
     "features": {
@@ -945,7 +946,7 @@
       "subtitle": "A complete platform to publish, sell and grow.",
       "listings": {
         "title": "Listing management",
-        "description": "Publish, edit and feature properties or vehicles in bulk with a few clicks."
+        "description": "Agencies publish properties; developers publish developments and units — all in the portal."
       },
       "leads": {
         "title": "Lead CRM",
@@ -961,7 +962,7 @@
       },
       "trust": {
         "title": "RSC verified badge",
-        "description": "Stand out with a verified profile and greater buyer trust."
+        "description": "RSC grants it, not the company. Buyers see it on the public profile."
       },
       "ai": {
         "title": "AI for sales",
@@ -1007,6 +1008,25 @@
         }
       }
     },
+    "roles": {
+      "title": "Who does what",
+      "subtitle": "This site is the marketplace. The portal is the company backoffice.",
+      "marketplaceTitle": "On this site (marketplace)",
+      "portalTitle": "In the portal (backoffice)",
+      "marketplace": {
+        "0": "Request registration at /para-empresas",
+        "1": "The buyer sees the listing",
+        "2": "The buyer writes, books a visit or asks for information",
+        "3": "Public profile: logo, phone and hours"
+      },
+      "portal": {
+        "0": "Receive credentials and sign in",
+        "1": "Create, edit, feature and archive listings",
+        "2": "Receive and reply to leads, chats and visits",
+        "3": "Edit profile, branches and team"
+      },
+      "disclaimer": "RSC does not close the sale, sign contracts or move money. /dashboard on this site is buyer-only (favorites, chats, visits)."
+    },
     "cta": {
       "title": "Ready to grow with RSC?",
       "subtitle": "Join thousands of businesses already selling on the largest real estate and automotive ecosystem. Register for free and our team will contact you within 24 hours.",
@@ -1035,6 +1055,16 @@
       "emailPlaceholder": "contact@yourcompany.com",
       "phone": "Phone / WhatsApp",
       "phonePlaceholder": "(51) 99999-0000",
+      "accountType": "Account type",
+      "accountTypeHint": "An agency manages properties, brokers and leads. A developer manages developments, units and pre-sale inquiries.",
+      "types": {
+        "real_estate": "Real estate agency",
+        "real_estateHint": "Properties on /imoveis, broker team and leads.",
+        "project": "Developer / builder",
+        "projectHint": "Developments on /projetos, linked units and pre-sale.",
+        "automotive": "Dealership",
+        "automotiveHint": "Vehicle stock and automotive leads."
+      },
       "submit": "Request registration",
       "submitting": "Sending...",
       "successTitle": "Request sent!",
@@ -1042,7 +1072,7 @@
       "error": "Could not send the request. Please try again.",
       "duplicate": "A pending request already exists for this email.",
       "noteLabel": "Important:",
-      "note": "After submitting your request, our team will review your details. You will receive an email with panel access credentials within 24 hours of approval."
+      "note": "After approval you receive portal credentials. Buyers see listings here; you manage inventory and leads there. RSC does not close sales or move money."
     }
   },
   "imoveis": {
@@ -2854,6 +2884,7 @@
       "anyPrice": "Any price",
       "moreFilters": "More filters",
       "submit": "Search",
+      "useAi": "Search with AI",
       "popular": "Popular searches:"
     },
     "quickPicks": {
@@ -3143,6 +3174,8 @@
       "subtitle": "Discover new developments from top developers.",
       "promoTitle": "Launch your project on Reeskova",
       "promoCta": "List your project",
+      "linkedUnits": "Units on /imoveis",
+      "viewUnit": "View unit",
       "count": "{count} projects found",
       "propertyType": "Property type",
       "types": {
@@ -3660,6 +3693,119 @@
       "description": "An unexpected error occurred. Try again or return to the home page.",
       "retry": "Try again",
       "home": "Go home"
+    }
+  },
+  "match": {
+    "loading": "Understanding your request…",
+    "working": "Finding matches…",
+    "errors": {
+      "generic": "We could not complete that just now. Please try again."
+    },
+    "purpose": {
+      "buy": "Buy",
+      "rent": "Rent",
+      "invest": "Invest",
+      "unknown": "Not sure"
+    },
+    "types": {
+      "apartment": "Apartment",
+      "house": "House",
+      "land": "Land",
+      "commercial": "Commercial"
+    },
+    "prefs": {
+      "near_public_transport": "Near public transportation",
+      "parking": "Parking",
+      "balcony": "Balcony",
+      "pool": "Pool",
+      "quiet_neighborhood": "Quiet neighborhood",
+      "near_schools": "Near schools",
+      "rental_potential": "Rental potential",
+      "more_space": "More space",
+      "lower_price": "Lower price",
+      "furnished": "Furnished",
+      "pets": "Pet friendly"
+    },
+    "intent": {
+      "placeholder": "Tell us what you're looking for...",
+      "submit": "Find matches",
+      "examplesLabel": "Try",
+      "examples": {
+        "0": "An apartment for my family near downtown.",
+        "1": "A house with 3 bedrooms under R$700k.",
+        "2": "An investment property with good rental potential."
+      }
+    },
+    "page": {
+      "title": "What are you looking for?",
+      "subtitle": "Tell REESKOVA what you need. We'll find what fits.",
+      "findMatches": "Find my matches"
+    },
+    "builder": {
+      "kicker": "REESKOVA MATCH",
+      "title": "Here's what we understood.",
+      "empty": "Add a little more detail and we'll refine the search.",
+      "mustHave": "Must have",
+      "preferences": "Preferences",
+      "noneYet": "Nothing here yet",
+      "editBedrooms": "Bedrooms (min)",
+      "editBudget": "Budget max",
+      "editCity": "City",
+      "bedroomsMin": "{count}+ bedrooms",
+      "budgetMax": "Up to {price}"
+    },
+    "conversation": {
+      "placeholder": "Add anything else that matters…",
+      "send": "Send",
+      "typeAnswer": "Type your answer below."
+    },
+    "results": {
+      "headline": "Your best matches",
+      "found": "We found {count, plural, one {# property that fits your requirements.} other {# properties that fit your requirements.}}",
+      "empty": "We did not find properties that meet these requirements yet. Try relaxing a must-have.",
+      "why": "Why it matches",
+      "viewProperty": "View property",
+      "whyPercent": "Why {score}%?",
+      "compare": "Compare",
+      "compareSelected": "Compare {count} properties"
+    },
+    "compare": {
+      "metric": "",
+      "price": "Price",
+      "size": "Size",
+      "bedrooms": "Bedrooms",
+      "priceM2": "Price/m²"
+    },
+    "explain": {
+      "kicker": "Why this property matches you",
+      "close": "Close",
+      "loading": "Preparing the explanation…",
+      "insight": "REESKOVA insight",
+      "ask": "Ask about this property",
+      "askPlaceholder": "Is the condominium included?",
+      "askSubmit": "Ask",
+      "asking": "Thinking…",
+      "rating": {
+        "excellent": "Excellent",
+        "good": "Good",
+        "fair": "Fair",
+        "weak": "Weak",
+        "unknown": "Unknown"
+      }
+    },
+    "property": {
+      "whyTitle": "Why it matches",
+      "whyPercent": "Why {score}%?",
+      "affordTitle": "Can you afford it?",
+      "price": "Property price",
+      "down": "Estimated down payment",
+      "financing": "Estimated monthly payment",
+      "monthly": "Estimated monthly cost",
+      "estimateDisclaimer": "Estimated based on the information provided.",
+      "askTitle": "Ask REESKOVA",
+      "askPlaceholder": "Why did this property get this match?",
+      "askSubmit": "Ask",
+      "askError": "I don't have enough information to determine that."
     }
   }
 }

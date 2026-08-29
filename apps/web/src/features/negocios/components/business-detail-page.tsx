@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { MapPin, ShieldCheck } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
@@ -8,13 +9,31 @@ import { ListingCodeBadge } from "@/components/marketplace/listing-code-badge";
 import { MarketplaceFooter } from "@/components/marketplace/marketplace-footer";
 import { ListingContactPanel } from "@/features/contact";
 import { formatMarketplacePrice, listingLocation } from "@/lib/marketplace/format";
-import { businessListings } from "../mock-data";
+import type { BusinessListing } from "../types";
 
 type Props = { id: string };
 
 export function BusinessDetailPage({ id }: Props) {
   const t = useTranslations("marketplace.businesses");
-  const item = businessListings.find((business) => business.id === id);
+  const [item, setItem] = useState<BusinessListing | null | undefined>(undefined);
+
+  useEffect(() => {
+    fetch("/api/listings/businesses")
+      .then((r) => r.json())
+      .then((data: BusinessListing[]) => {
+        const catalog = Array.isArray(data) ? data : [];
+        setItem(catalog.find((business) => business.id === id) ?? null);
+      })
+      .catch(() => setItem(null));
+  }, [id]);
+
+  if (item === undefined) {
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center text-[#6B7285]">
+        Loading...
+      </div>
+    );
+  }
 
   if (!item) {
     return (

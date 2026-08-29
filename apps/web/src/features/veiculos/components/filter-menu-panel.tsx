@@ -2,7 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import type { VeiculosFilters } from "../types";
-import { brazilStates, vehicleMakes } from "../mock-data";
+import { brazilStates } from "@/lib/listings/regions";
+import { VEHICLE_MAKES } from "../catalog";
 
 type Props = {
   draft: VeiculosFilters;
@@ -26,7 +27,7 @@ export function FilterMenuPanel({ draft, onChange, onReset }: Props) {
           className={inputClass}
         >
           <option value="">{t("all")}</option>
-          {vehicleMakes.map((m) => (
+          {VEHICLE_MAKES.map((m) => (
             <option key={m} value={m}>
               {m}
             </option>

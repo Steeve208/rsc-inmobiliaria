@@ -7,16 +7,17 @@ import type { MarketplaceListing } from "@/lib/marketplace/types";
 
 type Props = {
   items: MarketplaceListing[];
+  href?: string;
 };
 
-export function NewListingsCarousel({ items }: Props) {
+export function NewListingsCarousel({ items, href = "/imoveis" }: Props) {
   const t = useTranslations("marketplace");
   if (items.length === 0) return null;
 
   return (
     <MarketplaceCarousel
       title={t("newListings")}
-      href="/imoveis"
+      href={href}
       hrefLabel={t("seeAll")}
     >
       {items.map((item) => (

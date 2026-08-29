@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState, useEffect } from "react";
+import { useMemo, useRef, useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import { ListingImage } from "@/components/listing-image";
 import { ListingVideo } from "@/components/listing-video";
@@ -45,6 +45,7 @@ import { shareListing } from "@/lib/listings/share-listing";
 import { PropertyMapLazy } from "./property-map-lazy";
 import { PropertyCard } from "./property-card";
 import { ReportListingModal } from "./report-listing-modal";
+import { PropertyMatchPanel } from "@/features/match";
 import type { PropertyDetail, PropertyListing } from "../types";
 
 type Props = {
@@ -446,6 +447,10 @@ export function PropertyDetailPage({
               </div>
             </section>
 
+            <Suspense fallback={null}>
+              <PropertyMatchPanel property={property} />
+            </Suspense>
+
             {/* Description */}
             <section className="rounded-xl bg-white p-5 ring-1 ring-black/[0.04] sm:p-6">
               <h2 className="rk-display text-lg font-bold">{t("descriptionTitle")}</h2>
@@ -585,6 +590,10 @@ export function PropertyDetailPage({
             >
               <p className="rk-display text-2xl font-bold tracking-tight sm:text-3xl">
                 {formatPrice(property.price, property.currency)}
+              </p>
+              <p className="mt-1 text-sm text-[#6B7285]">
+                {property.bedrooms} {t("bedrooms")} · {property.bathrooms ?? 0}{" "}
+                {t("bathrooms")} · {property.area} m²
               </p>
               <p className="mt-1 text-xs text-[#6B7285]">
                 {t("condoFee")}:{" "}
