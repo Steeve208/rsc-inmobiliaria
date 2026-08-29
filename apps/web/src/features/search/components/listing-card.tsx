@@ -62,7 +62,9 @@ export function ListingCard({ item, variant = "list" }: Props) {
             <h3 className="mt-1 font-medium text-white/90">{item.title}</h3>
             <p className="mt-1 flex items-center gap-1 text-xs text-white/50">
               <MapPin className="size-3" />
-              {item.neighborhood}, {item.city} - {item.state}
+              {[item.neighborhood, item.city, item.state, item.country]
+                .filter(Boolean)
+                .join(", ")}
             </p>
           </div>
         </article>

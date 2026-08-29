@@ -55,19 +55,20 @@ export function MarketplaceVehicleCard({
           </span>
         ) : null}
         {!fill ? (
-          <>
-            <ListingCodeBadge
-              id={item.id}
-              code={item.code}
-              kind="vehicle"
-              className="absolute bottom-2 left-2"
-            />
-            <CountryFlag
-              country={item.country ?? item.location}
-              className="absolute bottom-2 right-2 text-[14px] drop-shadow-[0_1px_2px_rgba(0,0,0,.7)]"
-            />
-          </>
+          <ListingCodeBadge
+            id={item.id}
+            code={item.code}
+            kind="vehicle"
+            className="absolute bottom-2 left-2"
+          />
         ) : null}
+        <CountryFlag
+          country={item.country ?? item.location}
+          className={cn(
+            "absolute bottom-2 right-2 drop-shadow-[0_1px_2px_rgba(0,0,0,.7)]",
+            fill ? "text-[12px]" : "text-[14px]",
+          )}
+        />
         <button
           type="button"
           onClick={handleClick}

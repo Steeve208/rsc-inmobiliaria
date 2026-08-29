@@ -70,12 +70,13 @@ export function MarketplacePropertyCard({ item, fill = false }: Props) {
             className="absolute bottom-2 left-2"
           />
         ) : null}
-        {!fill ? (
-          <CountryFlag
-            country={item.country ?? item.location}
-            className="absolute bottom-2 right-2 text-[15px] drop-shadow-[0_1px_2px_rgba(0,0,0,.7)]"
-          />
-        ) : null}
+        <CountryFlag
+          country={item.country ?? item.location}
+          className={cn(
+            "absolute bottom-2 right-2 drop-shadow-[0_1px_2px_rgba(0,0,0,.7)]",
+            fill ? "text-[13px]" : "text-[15px]",
+          )}
+        />
         <button
           type="button"
           onClick={handleClick}
@@ -95,9 +96,10 @@ export function MarketplacePropertyCard({ item, fill = false }: Props) {
           {item.title}
         </h3>
         <p className="mt-0.5 flex items-center gap-1 text-[11px] text-[#6B7285]">
-          {!fill ? (
-            <CountryFlag country={item.country ?? item.location} className="text-[12px]" />
-          ) : null}
+          <CountryFlag
+            country={item.country ?? item.location}
+            className="text-[12px]"
+          />
           <MapPin className="size-3 shrink-0 text-[#EBAD5B]" />
           <span className="line-clamp-1">{item.location}</span>
         </p>

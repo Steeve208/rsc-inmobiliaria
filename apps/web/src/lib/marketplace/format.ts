@@ -1,3 +1,5 @@
+import { countryDisplayName, resolveCountryCode } from "@/lib/listings/country-flag";
+
 export function formatMarketplacePrice(price: number, currency: string) {
   try {
     return new Intl.NumberFormat("pt-BR", {
@@ -16,6 +18,26 @@ export function formatMileage(mileage: number, locale: string) {
 
 export function listingLocation(parts: Array<string | null | undefined>) {
   return parts.filter((part) => Boolean(part?.trim())).join(", ");
+}
+
+export function appendCountryToLocation(
+  location: string,
+  country?: string | null,
+) {
+  const name = countryDisplayName(country);
+  if (!name) return location;
+  const foldedLocation = location
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+  const foldedName = name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+  if (foldedLocation.includes(foldedName)) return location;
+  const iso = resolveCountryCode(country);
+  if (iso && new RegExp(`\\b${iso}\\b`, "i").test(location)) return location;
+  return listingLocation([location, name]);
 }
 
 export function formatCompactMoney(price: number, currency: string) {

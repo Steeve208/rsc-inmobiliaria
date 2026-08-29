@@ -58,6 +58,20 @@ function str(value: unknown, fallback = ""): string {
   return typeof value === "string" && value.trim() ? value.trim() : fallback;
 }
 
+function listingCountry(
+  listing: BackofficePublicListing,
+  meta: Record<string, unknown>,
+): string {
+  return (
+    str(meta.country) ||
+    str(meta.countryName) ||
+    str(meta.country_name) ||
+    str(meta.countryCode) ||
+    str(meta.country_code) ||
+    str(listing.organization.primaryBranch?.country)
+  );
+}
+
 function bool(value: unknown): boolean {
   return value === true || value === "true" || value === 1 || value === "1";
 }
@@ -171,7 +185,7 @@ export function mapBackofficeToPropertyListing(
       metadata: meta,
     }),
     currency: listing.currency,
-    country: str(meta.country, "Brasil"),
+    country: listingCountry(listing, meta),
     state,
     city,
     neighborhood,
@@ -268,7 +282,7 @@ export function mapBackofficeToVehicleListing(
       metadata: meta,
     }),
     currency: listing.currency,
-    country: str(meta.country, "Brasil"),
+    country: listingCountry(listing, meta),
     state: str(meta.state, ""),
     city: listing.locationCity ?? str(meta.city, ""),
     company: listing.organization.name,
@@ -413,7 +427,7 @@ export function mapBackofficeToProjectListing(
     bedsMax: optionalPositiveNum(meta.bedsMax) ?? optionalPositiveNum(meta.bedrooms),
     price: listing.price ?? 0,
     currency: listing.currency,
-    country: str(meta.country, "Brasil"),
+    country: listingCountry(listing, meta),
     state: str(listing.organization.state) || str(meta.state),
     city:
       str(listing.organization.city) ||
@@ -479,7 +493,7 @@ export function mapBackofficeToBusinessListing(
     revenue: num(meta.revenue),
     cashFlow: num(meta.cashFlow),
     currency: listing.currency,
-    country: str(meta.country, "Brasil"),
+    country: listingCountry(listing, meta),
     state: str(listing.organization.state) || str(meta.state),
     city:
       str(listing.organization.city) ||
@@ -552,7 +566,7 @@ export function mapBackofficeToServiceListing(
     pricing: asServicePricing(str(meta.pricing, price ? "from" : "quote")),
     price,
     currency: listing.currency,
-    country: str(meta.country, "Brasil"),
+    country: listingCountry(listing, meta),
     state: str(listing.organization.state) || str(meta.state),
     city:
       str(listing.organization.city) ||

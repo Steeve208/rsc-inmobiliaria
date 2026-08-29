@@ -87,7 +87,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html
       lang={locale}
-      dir={locale === "ar" ? "rtl" : "ltr"}
+      dir="ltr"
       suppressHydrationWarning
       className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >

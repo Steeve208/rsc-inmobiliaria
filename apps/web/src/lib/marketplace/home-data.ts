@@ -68,7 +68,7 @@ export function mapVehicleListing(
     location: [
       item.year ? String(item.year) : "",
       item.mileage ? formatMileage(item.mileage, locale) : "",
-      item.city,
+      listingLocation([item.city, item.state, item.country]),
     ]
       .filter(Boolean)
       .join(" · "),

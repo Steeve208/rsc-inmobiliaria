@@ -4,9 +4,13 @@ const ALIASES: Record<string, string> = {
   brazil: "br",
   brasil: "br",
   usa: "us",
+  "u s a": "us",
+  "u s": "us",
   "united states": "us",
   "united states of america": "us",
   "estados unidos": "us",
+  "estados unidos da america": "us",
+  "estados unidos de america": "us",
   eeuu: "us",
   spain: "es",
   espana: "es",
@@ -14,7 +18,10 @@ const ALIASES: Record<string, string> = {
   portugal: "pt",
   uae: "ae",
   "united arab emirates": "ae",
+  "emiratos arabes": "ae",
   "emiratos arabes unidos": "ae",
+  "emirados arabes": "ae",
+  "emirados arabes unidos": "ae",
   uk: "gb",
   "united kingdom": "gb",
   "reino unido": "gb",
@@ -23,13 +30,16 @@ const ALIASES: Record<string, string> = {
   francia: "fr",
   germany: "de",
   alemania: "de",
+  alemanha: "de",
   italy: "it",
   italia: "it",
   switzerland: "ch",
   suiza: "ch",
+  suica: "ch",
   netherlands: "nl",
   holanda: "nl",
   "paises bajos": "nl",
+  "paises baixos": "nl",
   colombia: "co",
   chile: "cl",
   peru: "pe",
@@ -39,6 +49,37 @@ const ALIASES: Record<string, string> = {
   bolivia: "bo",
   paraguay: "py",
   canada: "ca",
+  argentina: "ar",
+  "costa rica": "cr",
+  panama: "pa",
+  guatemala: "gt",
+  "dominican republic": "do",
+  "republica dominicana": "do",
+  cuba: "cu",
+  honduras: "hn",
+  "el salvador": "sv",
+  nicaragua: "ni",
+  jamaica: "jm",
+  "puerto rico": "pr",
+  "south africa": "za",
+  "africa do sul": "za",
+  "sudafrica": "za",
+  nigeria: "ng",
+  kenya: "ke",
+  ghana: "gh",
+  egypt: "eg",
+  egipto: "eg",
+  egito: "eg",
+  morocco: "ma",
+  marruecos: "ma",
+  marrocos: "ma",
+  angola: "ao",
+  mozambique: "mz",
+  mocambique: "mz",
+  senegal: "sn",
+  "saudi arabia": "sa",
+  "arabia saudita": "sa",
+  "saudi": "sa",
 };
 
 function fold(value: string) {
@@ -59,32 +100,62 @@ function isoToFlag(iso: string) {
 }
 
 const lookup = new Map<string, string>();
+const knownIso = new Set<string>();
+const nameByIso = new Map<string, string>();
 
 for (const market of marketList) {
-  lookup.set(fold(market.countryCode), market.countryCode);
-  lookup.set(fold(market.id), market.countryCode);
-  lookup.set(fold(market.countryName), market.countryCode);
+  const iso = market.countryCode.toLowerCase();
+  knownIso.add(iso);
+  lookup.set(fold(market.countryCode), iso);
+  lookup.set(fold(market.id), iso);
+  lookup.set(fold(market.countryName), iso);
+  if (!nameByIso.has(iso)) nameByIso.set(iso, market.countryName);
 }
 
 for (const [alias, iso] of Object.entries(ALIASES)) {
   lookup.set(fold(alias), iso);
+  knownIso.add(iso);
 }
 
-export function countryFlag(value?: string | null) {
+function lookupIso(value: string): string {
+  return lookup.get(fold(value)) ?? "";
+}
+
+/** ISO-2 country code, or empty when the value cannot be resolved. */
+export function resolveCountryCode(value?: string | null): string {
   if (!value?.trim()) return "";
   const trimmed = value.trim();
-  if (/^[a-z]{2}$/i.test(trimmed)) return isoToFlag(trimmed);
 
-  const direct = lookup.get(fold(trimmed));
-  if (direct) return isoToFlag(direct);
+  if (/^[a-z]{2}$/i.test(trimmed)) {
+    const iso = trimmed.toLowerCase();
+    return knownIso.has(iso) ? iso : lookupIso(trimmed);
+  }
 
-  const parts = trimmed.split(/[,·|]/).map((part) => part.trim()).filter(Boolean);
+  const direct = lookupIso(trimmed);
+  if (direct) return direct;
+
+  const parts = trimmed
+    .split(/[,·|/]/)
+    .map((part) => part.trim())
+    .filter(Boolean);
   for (let index = parts.length - 1; index >= 0; index -= 1) {
     const part = parts[index];
     if (!part || part === trimmed) continue;
-    const fromPart = countryFlag(part);
+    const fromPart = resolveCountryCode(part);
     if (fromPart) return fromPart;
   }
 
   return "";
 }
+
+export function countryFlag(value?: string | null) {
+  const iso = resolveCountryCode(value);
+  return iso ? isoToFlag(iso) : "";
+}
+
+export function countryDisplayName(value?: string | null) {
+  const iso = resolveCountryCode(value);
+  if (iso) return nameByIso.get(iso) ?? value?.trim() ?? "";
+  return value?.trim() ?? "";
+}
+

@@ -10,6 +10,10 @@ import type {
 } from "@/lib/backoffice/types";
 import { getCatalogHomeEditorial } from "@/lib/marketplace/catalog";
 import { listingImageUrl } from "@/lib/listings/listing-image";
+import {
+  appendCountryToLocation,
+  listingLocation,
+} from "@/lib/marketplace/format";
 import type {
   FeaturedCityBlock,
   MarketplaceBadge,
@@ -76,6 +80,23 @@ function sectionSeeAllHref(
   return href || undefined;
 }
 
+function str(value: unknown): string {
+  return typeof value === "string" && value.trim() ? value.trim() : "";
+}
+
+function homeListingCountry(item: BackofficeHomeListing): string {
+  const meta = item.metadata ?? {};
+  return (
+    str(item.country) ||
+    str(meta.country) ||
+    str(meta.countryName) ||
+    str(meta.country_name) ||
+    str(meta.countryCode) ||
+    str(meta.country_code) ||
+    str(item.organization?.country)
+  );
+}
+
 function mapBadge(
   item: BackofficeHomeListing,
   deal: { originalPrice?: number; discountPercent?: number },
@@ -100,11 +121,15 @@ export function mapBackofficeHomeListing(
     metadata: meta,
   });
   const href = item.href?.trim() || listingHref(kind, id);
-  const location =
+  const country = homeListingCountry(item);
+  const baseLocation =
     item.location?.trim() ||
-    [item.locationCity, item.organization?.city, item.organization?.state]
-      .filter((part): part is string => Boolean(part?.trim()))
-      .join(", ");
+    listingLocation([
+      item.locationCity,
+      item.organization?.city,
+      item.organization?.state,
+    ]);
+  const location = appendCountryToLocation(baseLocation, country);
 
   return {
     id,
@@ -112,6 +137,7 @@ export function mapBackofficeHomeListing(
     href,
     title: item.title?.trim() || id,
     location,
+    country: country || undefined,
     price: item.price ?? 0,
     originalPrice: deal.originalPrice,
     discountPercent: deal.discountPercent,

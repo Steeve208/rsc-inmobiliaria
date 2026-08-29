@@ -27,11 +27,12 @@ export async function QuickPicks({ items }: Props) {
           const Icon = quickPickIcon(item.id);
           const titleKey = `${item.id}.title`;
           const subtitleKey = `${item.id}.subtitle`;
-          const title =
-            item.title?.trim() || (t.has(titleKey) ? t(titleKey) : item.id);
-          const subtitle =
-            item.subtitle?.trim() ||
-            (t.has(subtitleKey) ? t(subtitleKey) : "");
+          const title = t.has(titleKey)
+            ? t(titleKey)
+            : item.title?.trim() || item.id;
+          const subtitle = t.has(subtitleKey)
+            ? t(subtitleKey)
+            : item.subtitle?.trim() || "";
           return (
             <li key={item.id}>
               <Link

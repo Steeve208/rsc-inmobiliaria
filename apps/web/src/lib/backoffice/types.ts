@@ -103,6 +103,7 @@ export type BackofficeHomeListing = {
   title: string;
   location?: string;
   locationCity?: string;
+  country?: string;
   price?: number | null;
   originalPrice?: number | null;
   discountPercent?: number | null;
@@ -125,6 +126,7 @@ export type BackofficeHomeListing = {
   organization?: Pick<BackofficePublicListingOrganization, "name"> & {
     city?: string | null;
     state?: string | null;
+    country?: string | null;
   };
 };
 

@@ -2744,237 +2744,238 @@
     }
   },
   "marketplace": {
-    "save": "Save",
-    "seeAll": "See all",
-    "deals": "Today's deals",
-    "featuredProperties": "Featured properties",
-    "newListings": "New listings — Just added",
-    "continueExploring": "Continue exploring",
-    "popularVehicles": "Most popular vehicles",
-    "featuredIn": "Featured in {city}",
+    "save": "收藏",
+    "seeAll": "查看全部",
+    "deals": "今日优惠",
+    "featuredProperties": "精选房产",
+    "newListings": "最新房源 — 刚刚上架",
+    "continueExploring": "继续浏览",
+    "popularVehicles": "热门车辆",
+    "featuredIn": "{city}精选",
     "badges": {
-      "premium": "Premium",
-      "new": "New",
-      "featured": "Featured",
-      "deal": "Deal"
+      "premium": "高端",
+      "new": "新上架",
+      "featured": "精选",
+      "deal": "优惠"
     },
     "types": {
       "property": {
-        "house": "House",
-        "apartment": "Apartment",
-        "land": "Land",
-        "commercial": "Commercial",
-        "condominium": "Condominium",
-        "penthouse": "Penthouse",
-        "studio": "Studio"
+        "house": "别墅",
+        "apartment": "公寓",
+        "land": "土地",
+        "commercial": "商业",
+        "condominium": "共管公寓",
+        "penthouse": "顶层公寓",
+        "studio": "开间"
       },
       "vehicle": {
-        "car": "Car",
+        "car": "轿车",
         "suv": "SUV",
-        "motorcycle": "Motorcycle",
-        "truck": "Truck",
-        "van": "Van",
-        "electric": "Electric",
-        "hybrid": "Hybrid"
+        "motorcycle": "摩托车",
+        "truck": "卡车",
+        "van": "面包车",
+        "electric": "电动",
+        "hybrid": "混动"
       }
     },
     "specs": {
-      "beds": "{count} beds",
-      "baths": "{count} baths",
-      "area": "{area} m²"
+      "beds": "{count} 室",
+      "baths": "{count} 卫",
+      "area": "{area} 平方米"
     },
     "header": {
-      "deliverTo": "Deliver to",
-      "saved": "Saved",
-      "cart": "Cart",
-      "downloadApp": "Download App",
-      "listCta": "List on Reeskova",
+      "deliverTo": "配送至",
+      "saved": "已收藏",
+      "cart": "购物车",
+      "downloadApp": "下载应用",
+      "listCta": "在 Reeskova 发布",
       "nav": {
-        "home": "Home",
-        "properties": "Properties",
-        "vehicles": "Vehicles",
-        "projects": "Projects",
-        "businesses": "Businesses",
-        "services": "Services",
-        "deals": "Deals",
-        "newListings": "New listings",
-        "brokers": "Brokers",
-        "premium": "Premium",
-        "magazines": "Magazine",
-        "visits": "Free visits"
+        "home": "首页",
+        "properties": "房产",
+        "vehicles": "车辆",
+        "projects": "项目",
+        "businesses": "企业",
+        "services": "服务",
+        "deals": "优惠",
+        "newListings": "最新房源",
+        "brokers": "经纪人",
+        "premium": "高端",
+        "magazines": "杂志",
+        "visits": "免费看房"
       }
     },
     "headerSearch": {
-      "categoryLabel": "Search category",
-      "placeholder": "Search properties, vehicles, projects or property services...",
+      "categoryLabel": "搜索类别",
+      "placeholder": "搜索房产、车辆、项目或服务...",
       "placeholders": {
-        "all": "Search properties, vehicles, projects or property services...",
-        "properties": "Search city, neighborhood or code COD-00001...",
-        "vehicles": "Search car, motorcycle, dealer or code COD-00001...",
-        "projects": "Search project, developer, city or code COD-00001...",
-        "businesses": "Search business, franchise, company or code COD-00001...",
-        "services": "Search service, professional or company..."
+        "all": "搜索房产、车辆、项目或服务...",
+        "properties": "搜索城市、街区或编码 COD-00001...",
+        "vehicles": "搜索汽车、摩托车、经销商或编码...",
+        "projects": "搜索项目、开发商、城市或编码...",
+        "businesses": "搜索企业、加盟或编码...",
+        "services": "搜索服务、专业人士或公司..."
       },
-      "submit": "Search",
+      "submit": "搜索",
       "categories": {
-        "all": "All categories",
-        "properties": "Properties",
-        "vehicles": "Vehicles",
-        "projects": "Projects",
-        "businesses": "Businesses",
-        "services": "Services"
+        "all": "全部分类",
+        "properties": "房产",
+        "vehicles": "车辆",
+        "projects": "项目",
+        "businesses": "企业",
+        "services": "服务"
       }
     },
     "hero": {
-      "titleStart": "Find your next",
-      "titleHighlight": "opportunity",
-      "subtitle": "Properties, vehicles, projects and services from verified businesses."
+      "titleStart": "发现你的下一个",
+      "titleHighlight": "机会",
+      "subtitle": "来自认证企业的房产、车辆、项目与服务。"
     },
     "search": {
       "tabs": {
-        "properties": "Properties",
-        "vehicles": "Vehicles",
-        "projects": "Projects",
-        "businesses": "Businesses",
-        "services": "Services"
+        "properties": "房产",
+        "vehicles": "车辆",
+        "projects": "项目",
+        "businesses": "企业",
+        "services": "服务"
       },
-      "query": "What are you looking for?",
-      "queryPlaceholder": "e.g. Apartment, House, BMW X5...",
-      "location": "Location",
-      "locationPlaceholder": "City, state or country",
-      "type": "Type",
-      "anyType": "Any type",
-      "price": "Price",
-      "anyPrice": "Any price",
-      "moreFilters": "More filters",
-      "submit": "Search",
-      "popular": "Popular searches:"
+      "query": "您在找什么？",
+      "queryPlaceholder": "例如：公寓、别墅、BMW X5...",
+      "location": "地点",
+      "locationPlaceholder": "城市、州或国家",
+      "type": "类型",
+      "anyType": "不限类型",
+      "price": "价格",
+      "anyPrice": "不限价格",
+      "moreFilters": "更多筛选",
+      "submit": "搜索",
+      "popular": "热门搜索：",
+      "useAi": "使用 AI 搜索"
     },
     "quickPicks": {
-      "title": "Quick picks",
-      "viewAll": "View all categories",
+      "title": "快速选择",
+      "viewAll": "查看全部分类",
       "propertiesUnder": {
-        "title": "Properties",
-        "subtitle": "Under $500K"
+        "title": "房产",
+        "subtitle": "50 万美元以下"
       },
       "luxury": {
-        "title": "Luxury properties",
-        "subtitle": "Premium selection"
+        "title": "豪华房产",
+        "subtitle": "精选高端"
       },
       "rentals": {
-        "title": "Rentals",
-        "subtitle": "Apartments & houses"
+        "title": "租赁",
+        "subtitle": "公寓与别墅"
       },
       "carsUnder": {
-        "title": "Cars",
-        "subtitle": "Under $30K"
+        "title": "汽车",
+        "subtitle": "3 万美元以下"
       },
       "projects": {
-        "title": "New projects",
-        "subtitle": "Launching soon"
+        "title": "新项目",
+        "subtitle": "即将推出"
       },
       "commercial": {
-        "title": "Commercial",
-        "subtitle": "Offices & shops"
+        "title": "商业",
+        "subtitle": "办公与商铺"
       },
       "land": {
-        "title": "Land",
-        "subtitle": "Investment land"
+        "title": "土地",
+        "subtitle": "投资用地"
       }
     },
     "promos": {
       "premium": {
-        "title": "Premium Properties",
-        "subtitle": "Curated selection just for you"
+        "title": "高端房产",
+        "subtitle": "为您精选"
       },
       "projects": {
-        "title": "New Projects",
-        "subtitle": "Discover upcoming developments"
+        "title": "新项目",
+        "subtitle": "发现即将推出的开发项目"
       },
       "vehicles": {
-        "title": "Vehicle Deals",
-        "subtitle": "The best offers on premium vehicles"
+        "title": "车辆优惠",
+        "subtitle": "高端车辆的最佳报价"
       },
       "hot": {
-        "title": "Hot Opportunities",
-        "subtitle": "Limited-time deals"
+        "title": "热门机会",
+        "subtitle": "限时优惠"
       },
       "cta": {
-        "explore": "Explore",
-        "deals": "See deals"
+        "explore": "探索",
+        "deals": "查看优惠"
       }
     },
     "categories": {
-      "apartments": "Apartments",
-      "houses": "Houses",
-      "land": "Land",
-      "commercial": "Commercial",
-      "rentals": "Rentals",
-      "cars": "Cars",
-      "motorcycles": "Motorcycles",
-      "trucks": "Trucks",
-      "projects": "New Projects",
-      "businesses": "Businesses",
-      "services": "Services",
-      "more": "More"
+      "apartments": "公寓",
+      "houses": "别墅",
+      "land": "土地",
+      "commercial": "商业",
+      "rentals": "租赁",
+      "cars": "汽车",
+      "motorcycles": "摩托车",
+      "trucks": "卡车",
+      "projects": "新项目",
+      "businesses": "企业",
+      "services": "服务",
+      "more": "更多"
     },
     "trust": {
       "verified": {
-        "title": "Verified businesses",
-        "text": "Only trusted and verified advertisers."
+        "title": "认证企业",
+        "text": "仅展示可信、已验证的广告主。"
       },
       "secure": {
-        "title": "Secure platform",
-        "text": "Your safety is our top priority."
+        "title": "安全平台",
+        "text": "您的安全是我们的首要任务。"
       },
       "global": {
-        "title": "Global reach",
-        "text": "Opportunities in the best locations."
+        "title": "全球覆盖",
+        "text": "覆盖优质地段的机会。"
       },
       "connect": {
-        "title": "Easy to connect",
-        "text": "Contact directly with the advertiser."
+        "title": "轻松联系",
+        "text": "直接联系广告主。"
       },
       "search": {
-        "title": "Smart search",
-        "text": "Advanced filters to find exactly what you want."
+        "title": "智能搜索",
+        "text": "高级筛选，精准找到您要的。"
       }
     },
     "footer": {
-      "tagline": "The marketplace to discover properties, vehicles, projects, businesses and services.",
-      "portal": "Business Portal",
-      "rights": "All rights reserved.",
+      "tagline": "发现房产、车辆、项目、企业与服务的市场。",
+      "portal": "企业门户",
+      "rights": "版权所有。",
       "reeskova": {
         "title": "Reeskova",
-        "about": "About us",
-        "how": "How it works",
-        "blog": "Blog",
-        "careers": "Careers",
-        "contact": "Contact"
+        "about": "关于我们",
+        "how": "如何运作",
+        "blog": "博客",
+        "careers": "招聘",
+        "contact": "联系我们"
       },
       "support": {
-        "title": "Support",
-        "help": "Help Center",
-        "safety": "Safety Tips",
-        "terms": "Terms of Use",
-        "privacy": "Privacy Policy",
+        "title": "支持",
+        "help": "帮助中心",
+        "safety": "安全提示",
+        "terms": "使用条款",
+        "privacy": "隐私政策",
         "cookies": "Cookies"
       },
       "business": {
-        "title": "For Businesses",
-        "property": "List your property",
-        "vehicle": "List your vehicle",
-        "advertise": "Advertise your business",
-        "partner": "Partner with us"
+        "title": "企业合作",
+        "property": "发布房产",
+        "vehicle": "发布车辆",
+        "advertise": "推广您的企业",
+        "partner": "成为合作伙伴"
       },
       "newsletter": {
-        "title": "Stay updated",
-        "text": "Get the best opportunities straight to your inbox.",
-        "placeholder": "Your email",
-        "submit": "Subscribe"
+        "title": "保持更新",
+        "text": "把最好的机会发到您的邮箱。",
+        "placeholder": "您的邮箱",
+        "submit": "订阅"
       },
       "app": {
-        "title": "Download the app"
+        "title": "下载应用"
       }
     },
     "listing": {

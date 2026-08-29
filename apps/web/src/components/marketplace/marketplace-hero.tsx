@@ -12,9 +12,9 @@ export async function MarketplaceHero({ hero }: Props) {
   const t = await getTranslations("marketplace.hero");
   const tSearch = await getTranslations("marketplace.search");
   const remoteImage = /^https?:\/\//i.test(hero.imageUrl);
-  const title = hero.title?.trim();
-  const highlight = hero.titleHighlight?.trim();
-  const subtitle = hero.subtitle?.trim() || t("subtitle");
+  const title = t("titleStart");
+  const highlight = t("titleHighlight");
+  const subtitle = t("subtitle");
 
   return (
     <div className="relative h-[300px] overflow-hidden rounded-xl sm:h-[340px] lg:h-full lg:rounded-none">
@@ -32,22 +32,8 @@ export async function MarketplaceHero({ hero }: Props) {
       <div className="relative z-10 flex h-full flex-col justify-between px-4 py-4 sm:px-5 sm:py-5 lg:px-6 lg:py-5">
         <div>
           <h1 className="rk-display max-w-xl text-[1.6rem] font-bold leading-[1.12] tracking-tight text-white sm:text-[1.85rem] lg:text-[2.05rem]">
-            {title ? (
-              <>
-                {title}
-                {highlight ? (
-                  <>
-                    {" "}
-                    <span className="text-[#F9B14D]">{highlight}</span>
-                  </>
-                ) : null}
-              </>
-            ) : (
-              <>
-                {t("titleStart")}{" "}
-                <span className="text-[#F9B14D]">{t("titleHighlight")}</span>
-              </>
-            )}
+            {title}{" "}
+            <span className="text-[#F9B14D]">{highlight}</span>
           </h1>
           <p className="mt-1.5 max-w-lg text-[12px] leading-snug text-white/85 sm:text-[13px]">
             {subtitle}

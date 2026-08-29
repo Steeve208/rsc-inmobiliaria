@@ -55,14 +55,18 @@ export async function PromoPanels({ panels }: Props) {
         const style = PANEL_STYLE[panel.id] ?? PANEL_STYLE.premium;
         const titleKey = `${panel.id}.title`;
         const subtitleKey = `${panel.id}.subtitle`;
-        const title =
-          panel.title?.trim() || (t.has(titleKey) ? t(titleKey) : panel.id);
-        const subtitle =
-          panel.subtitle?.trim() ||
-          (t.has(subtitleKey) ? t(subtitleKey) : "");
+        const title = t.has(titleKey)
+          ? t(titleKey)
+          : panel.title?.trim() || panel.id;
+        const subtitle = t.has(subtitleKey)
+          ? t(subtitleKey)
+          : panel.subtitle?.trim() || "";
         const cta =
-          panel.cta?.trim() ||
-          (panel.id === "hot" ? t("cta.deals") : t("cta.explore"));
+          panel.id === "hot"
+            ? t("cta.deals")
+            : t.has("cta.explore")
+              ? t("cta.explore")
+              : panel.cta?.trim() || "";
         const imageUrl = panel.imageUrl?.trim();
         const remoteImage = Boolean(imageUrl && /^https?:\/\//i.test(imageUrl));
         return (

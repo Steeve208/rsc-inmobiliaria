@@ -16,8 +16,9 @@ export async function CategoryShortcuts({ items }: Props) {
       <div className="flex h-[80px] gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:grid lg:grid-cols-12 lg:gap-1 lg:overflow-visible">
         {items.map((item) => {
           const Icon = categoryIcon(item.id);
-          const label =
-            item.label?.trim() || (t.has(item.id) ? t(item.id) : item.id);
+          const label = t.has(item.id)
+            ? t(item.id)
+            : item.label?.trim() || item.id;
           return (
             <Link
               key={item.id}

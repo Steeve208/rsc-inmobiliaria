@@ -18,6 +18,7 @@ function propertyToSearchItem(
     city: p.city,
     neighborhood: p.neighborhood,
     bedrooms: p.bedrooms,
+    bathrooms: p.bathrooms,
     garage: p.garage,
     pool: p.pool,
     area: p.area,

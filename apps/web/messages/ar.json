@@ -4,39 +4,39 @@
     "description": "استكشف العقارات والمركبات والشركات والخدمات في سوق عالمي."
   },
   "nav": {
-    "home": "Home",
-    "properties": "Properties",
+    "home": "الرئيسية",
+    "properties": "العقارات",
     "vehicles": "المركبات",
     "financing": "التمويل",
-    "investments": "Investments",
-    "credit": "Credit",
+    "investments": "الاستثمارات",
+    "credit": "الائتمان",
     "services": "الخدمات",
     "companies": "الشركات",
-    "paraEmpresas": "For Business",
+    "paraEmpresas": "للشركات",
     "help": "المساعدة",
-    "signIn": "Sign in",
-    "signUp": "Register",
-    "signOut": "Sign out",
+    "signIn": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "signOut": "تسجيل الخروج",
     "wishlist": "المفضلة",
     "changeRegion": "تغيير البلد",
     "globalSearch": {
-      "categoryLabel": "Search category",
-      "properties": "Properties",
-      "propertiesPlaceholder": "Search homes...",
-      "vehicles": "Vehicles",
-      "vehiclesPlaceholder": "Search cars...",
-      "companies": "Companies",
-      "companiesPlaceholder": "Search companies...",
-      "submit": "Search"
+      "categoryLabel": "فئة البحث",
+      "properties": "عقارات",
+      "propertiesPlaceholder": "ابحث عن منازل...",
+      "vehicles": "مركبات",
+      "vehiclesPlaceholder": "ابحث عن سيارات...",
+      "companies": "شركات",
+      "companiesPlaceholder": "ابحث عن شركات...",
+      "submit": "بحث"
     },
-    "buy": "Buy",
-    "rent": "Rent",
-    "sell": "Sell",
-    "invest": "Invest",
+    "buy": "شراء",
+    "rent": "إيجار",
+    "sell": "بيع",
+    "invest": "استثمار",
     "more": "المزيد",
-    "publishListing": "Post a listing",
-    "clientArea": "Client Area",
-    "companyPortal": "Business Portal",
+    "publishListing": "انشر إعلاناً",
+    "clientArea": "منطقة العميل",
+    "companyPortal": "بوابة الشركات",
     "explore": {
       "title": "استكشف",
       "houses": "منازل",
@@ -2744,247 +2744,248 @@
     }
   },
   "marketplace": {
-    "save": "Save",
-    "seeAll": "See all",
-    "deals": "Today's deals",
-    "featuredProperties": "Featured properties",
-    "newListings": "New listings — Just added",
-    "continueExploring": "Continue exploring",
-    "popularVehicles": "Most popular vehicles",
-    "featuredIn": "Featured in {city}",
+    "save": "حفظ",
+    "seeAll": "عرض الكل",
+    "deals": "عروض اليوم",
+    "featuredProperties": "عقارات مميزة",
+    "newListings": "إعلانات جديدة — أضيفت للتو",
+    "continueExploring": "واصل الاستكشاف",
+    "popularVehicles": "أكثر المركبات رواجاً",
+    "featuredIn": "مميز في {city}",
     "badges": {
-      "premium": "Premium",
-      "new": "New",
-      "featured": "Featured",
-      "deal": "Deal"
+      "premium": "بريميوم",
+      "new": "جديد",
+      "featured": "مميز",
+      "deal": "عرض"
     },
     "types": {
       "property": {
-        "house": "House",
-        "apartment": "Apartment",
-        "land": "Land",
-        "commercial": "Commercial",
-        "condominium": "Condominium",
-        "penthouse": "Penthouse",
-        "studio": "Studio"
+        "house": "منزل",
+        "apartment": "شقة",
+        "land": "أرض",
+        "commercial": "تجاري",
+        "condominium": "مجمع سكني",
+        "penthouse": "بنتهاوس",
+        "studio": "استوديو"
       },
       "vehicle": {
-        "car": "Car",
+        "car": "سيارة",
         "suv": "SUV",
-        "motorcycle": "Motorcycle",
-        "truck": "Truck",
-        "van": "Van",
-        "electric": "Electric",
-        "hybrid": "Hybrid"
+        "motorcycle": "دراجة نارية",
+        "truck": "شاحنة",
+        "van": "فان",
+        "electric": "كهربائية",
+        "hybrid": "هجينة"
       }
     },
     "specs": {
-      "beds": "{count} beds",
-      "baths": "{count} baths",
-      "area": "{area} m²"
+      "beds": "{count} غرف",
+      "baths": "{count} حمامات",
+      "area": "{area} م²"
     },
     "header": {
-      "deliverTo": "Deliver to",
-      "saved": "Saved",
-      "cart": "Cart",
-      "downloadApp": "Download App",
-      "listCta": "List on Reeskova",
+      "deliverTo": "التوصيل إلى",
+      "saved": "المحفوظات",
+      "cart": "السلة",
+      "downloadApp": "تحميل التطبيق",
+      "listCta": "انشر في Reeskova",
       "nav": {
-        "home": "Home",
-        "properties": "Properties",
-        "vehicles": "Vehicles",
-        "projects": "Projects",
-        "businesses": "Businesses",
-        "services": "Services",
-        "deals": "Deals",
-        "newListings": "New listings",
-        "brokers": "Brokers",
-        "premium": "Premium",
-        "magazines": "Magazine",
-        "visits": "Free visits"
+        "home": "الرئيسية",
+        "properties": "عقارات",
+        "vehicles": "مركبات",
+        "projects": "مشاريع",
+        "businesses": "أعمال",
+        "services": "خدمات",
+        "deals": "عروض",
+        "newListings": "إعلانات جديدة",
+        "brokers": "وسطاء",
+        "premium": "بريميوم",
+        "magazines": "مجلات",
+        "visits": "زيارات مجانية"
       }
     },
     "headerSearch": {
-      "categoryLabel": "Search category",
-      "placeholder": "Search properties, vehicles, projects or property services...",
+      "categoryLabel": "فئة البحث",
+      "placeholder": "ابحث عن عقارات أو مركبات أو مشاريع أو خدمات...",
       "placeholders": {
-        "all": "Search properties, vehicles, projects or property services...",
-        "properties": "Search city, neighborhood or code COD-00001...",
-        "vehicles": "Search car, motorcycle, dealer or code COD-00001...",
-        "projects": "Search project, developer, city or code COD-00001...",
-        "businesses": "Search business, franchise, company or code COD-00001...",
-        "services": "Search service, professional or company..."
+        "all": "ابحث عن عقارات أو مركبات أو مشاريع أو خدمات...",
+        "properties": "ابحث عن مدينة أو حي أو رمز COD-00001...",
+        "vehicles": "ابحث عن سيارة أو دراجة أو وكيل أو رمز COD-00001...",
+        "projects": "ابحث عن مشروع أو مطور أو مدينة أو رمز COD-00001...",
+        "businesses": "ابحث عن عمل أو امتياز أو شركة أو رمز COD-00001...",
+        "services": "ابحث عن خدمة أو متخصص أو شركة..."
       },
-      "submit": "Search",
+      "submit": "بحث",
       "categories": {
-        "all": "All categories",
-        "properties": "Properties",
-        "vehicles": "Vehicles",
-        "projects": "Projects",
-        "businesses": "Businesses",
-        "services": "Services"
+        "all": "كل الفئات",
+        "properties": "عقارات",
+        "vehicles": "مركبات",
+        "projects": "مشاريع",
+        "businesses": "أعمال",
+        "services": "خدمات"
       }
     },
     "hero": {
-      "titleStart": "Find your next",
-      "titleHighlight": "opportunity",
-      "subtitle": "Properties, vehicles, projects and services from verified businesses."
+      "titleStart": "اعثر على فرصتك",
+      "titleHighlight": "القادمة",
+      "subtitle": "عقارات ومركبات ومشاريع وخدمات من شركات موثّقة."
     },
     "search": {
       "tabs": {
-        "properties": "Properties",
-        "vehicles": "Vehicles",
-        "projects": "Projects",
-        "businesses": "Businesses",
-        "services": "Services"
+        "properties": "عقارات",
+        "vehicles": "مركبات",
+        "projects": "مشاريع",
+        "businesses": "أعمال",
+        "services": "خدمات"
       },
-      "query": "What are you looking for?",
-      "queryPlaceholder": "e.g. Apartment, House, BMW X5...",
-      "location": "Location",
-      "locationPlaceholder": "City, state or country",
-      "type": "Type",
-      "anyType": "Any type",
-      "price": "Price",
-      "anyPrice": "Any price",
-      "moreFilters": "More filters",
-      "submit": "Search",
-      "popular": "Popular searches:"
+      "query": "ماذا تبحث عنه؟",
+      "queryPlaceholder": "مثال: شقة، منزل، BMW X5...",
+      "location": "الموقع",
+      "locationPlaceholder": "مدينة أو ولاية أو بلد",
+      "type": "النوع",
+      "anyType": "أي نوع",
+      "price": "السعر",
+      "anyPrice": "أي سعر",
+      "moreFilters": "مزيد من الفلاتر",
+      "submit": "بحث",
+      "useAi": "البحث بالذكاء الاصطناعي",
+      "popular": "عمليات بحث شائعة:"
     },
     "quickPicks": {
-      "title": "Quick picks",
-      "viewAll": "View all categories",
+      "title": "اختيارات سريعة",
+      "viewAll": "عرض كل الفئات",
       "propertiesUnder": {
-        "title": "Properties",
-        "subtitle": "Under $500K"
+        "title": "عقارات",
+        "subtitle": "أقل من 500 ألف دولار"
       },
       "luxury": {
-        "title": "Luxury properties",
-        "subtitle": "Premium selection"
+        "title": "عقارات فاخرة",
+        "subtitle": "مجموعة مميزة"
       },
       "rentals": {
-        "title": "Rentals",
-        "subtitle": "Apartments & houses"
+        "title": "إيجار",
+        "subtitle": "شقق ومنازل"
       },
       "carsUnder": {
-        "title": "Cars",
-        "subtitle": "Under $30K"
+        "title": "سيارات",
+        "subtitle": "أقل من 30 ألف دولار"
       },
       "projects": {
-        "title": "New projects",
-        "subtitle": "Launching soon"
+        "title": "مشاريع جديدة",
+        "subtitle": "قريباً"
       },
       "commercial": {
-        "title": "Commercial",
-        "subtitle": "Offices & shops"
+        "title": "تجاري",
+        "subtitle": "مكاتب ومحلات"
       },
       "land": {
-        "title": "Land",
-        "subtitle": "Investment land"
+        "title": "أراضٍ",
+        "subtitle": "أراضٍ استثمارية"
       }
     },
     "promos": {
       "premium": {
-        "title": "Premium Properties",
-        "subtitle": "Curated selection just for you"
+        "title": "عقارات بريميوم",
+        "subtitle": "مجموعة مختارة لك"
       },
       "projects": {
-        "title": "New Projects",
-        "subtitle": "Discover upcoming developments"
+        "title": "مشاريع جديدة",
+        "subtitle": "اكتشف التطورات القادمة"
       },
       "vehicles": {
-        "title": "Vehicle Deals",
-        "subtitle": "The best offers on premium vehicles"
+        "title": "عروض المركبات",
+        "subtitle": "أفضل العروض على المركبات المميزة"
       },
       "hot": {
-        "title": "Hot Opportunities",
-        "subtitle": "Limited-time deals"
+        "title": "فرص ساخنة",
+        "subtitle": "عروض لفترة محدودة"
       },
       "cta": {
-        "explore": "Explore",
-        "deals": "See deals"
+        "explore": "استكشف",
+        "deals": "عرض العروض"
       }
     },
     "categories": {
-      "apartments": "Apartments",
-      "houses": "Houses",
-      "land": "Land",
-      "commercial": "Commercial",
-      "rentals": "Rentals",
-      "cars": "Cars",
-      "motorcycles": "Motorcycles",
-      "trucks": "Trucks",
-      "projects": "New Projects",
-      "businesses": "Businesses",
-      "services": "Services",
-      "more": "More"
+      "apartments": "شقق",
+      "houses": "منازل",
+      "land": "أراضٍ",
+      "commercial": "تجاري",
+      "rentals": "إيجار",
+      "cars": "سيارات",
+      "motorcycles": "دراجات نارية",
+      "trucks": "شاحنات",
+      "projects": "مشاريع جديدة",
+      "businesses": "أعمال",
+      "services": "خدمات",
+      "more": "المزيد"
     },
     "trust": {
       "verified": {
-        "title": "Verified businesses",
-        "text": "Only trusted and verified advertisers."
+        "title": "شركات موثّقة",
+        "text": "فقط معلنون موثوقون ومُتحقق منهم."
       },
       "secure": {
-        "title": "Secure platform",
-        "text": "Your safety is our top priority."
+        "title": "منصة آمنة",
+        "text": "سلامتك هي أولويتنا."
       },
       "global": {
-        "title": "Global reach",
-        "text": "Opportunities in the best locations."
+        "title": "وصول عالمي",
+        "text": "فرص في أفضل المواقع."
       },
       "connect": {
-        "title": "Easy to connect",
-        "text": "Contact directly with the advertiser."
+        "title": "تواصل سهل",
+        "text": "تواصل مباشرة مع المعلن."
       },
       "search": {
-        "title": "Smart search",
-        "text": "Advanced filters to find exactly what you want."
+        "title": "بحث ذكي",
+        "text": "فلاتر متقدمة لتجد ما تريده بالضبط."
       }
     },
     "footer": {
-      "tagline": "The marketplace to discover properties, vehicles, projects, businesses and services.",
-      "portal": "Business Portal",
-      "rights": "All rights reserved.",
+      "tagline": "السوق لاكتشاف العقارات والمركبات والمشاريع والأعمال والخدمات.",
+      "portal": "بوابة الشركات",
+      "rights": "جميع الحقوق محفوظة.",
       "reeskova": {
         "title": "Reeskova",
-        "about": "About us",
-        "how": "How it works",
-        "blog": "Blog",
-        "careers": "Careers",
-        "contact": "Contact"
+        "about": "من نحن",
+        "how": "كيف يعمل",
+        "blog": "المدونة",
+        "careers": "وظائف",
+        "contact": "اتصل بنا"
       },
       "support": {
-        "title": "Support",
-        "help": "Help Center",
-        "safety": "Safety Tips",
-        "terms": "Terms of Use",
-        "privacy": "Privacy Policy",
-        "cookies": "Cookies"
+        "title": "الدعم",
+        "help": "مركز المساعدة",
+        "safety": "نصائح السلامة",
+        "terms": "شروط الاستخدام",
+        "privacy": "سياسة الخصوصية",
+        "cookies": "ملفات تعريف الارتباط"
       },
       "business": {
-        "title": "For Businesses",
-        "property": "List your property",
-        "vehicle": "List your vehicle",
-        "advertise": "Advertise your business",
-        "partner": "Partner with us"
+        "title": "للشركات",
+        "property": "انشر عقارك",
+        "vehicle": "انشر مركبتك",
+        "advertise": "روّج لشركتك",
+        "partner": "كن شريكاً"
       },
       "newsletter": {
-        "title": "Stay updated",
-        "text": "Get the best opportunities straight to your inbox.",
-        "placeholder": "Your email",
-        "submit": "Subscribe"
+        "title": "ابقَ على اطلاع",
+        "text": "احصل على أفضل الفرص في بريدك.",
+        "placeholder": "بريدك الإلكتروني",
+        "submit": "اشترك"
       },
       "app": {
-        "title": "Download the app"
+        "title": "حمّل التطبيق"
       }
     },
     "listing": {
-      "breadcrumbHome": "Home",
-      "breadcrumbProperties": "Properties",
-      "title": "Properties for sale & rent",
-      "subtitle": "Find your perfect property from verified businesses.",
-      "promoTitle": "List your property on Reeskova",
-      "promoCta": "List your property",
-      "count": "{count} properties found",
+      "breadcrumbHome": "الرئيسية",
+      "breadcrumbProperties": "عقارات",
+      "title": "عقارات للبيع والإيجار",
+      "subtitle": "اعثر على عقارك المثالي من شركات موثّقة.",
+      "promoTitle": "انشر عقارك على Reeskova",
+      "promoCta": "انشر عقارك",
+      "count": "{count} عقاراً",
       "status": "Show results for",
       "statusOptions": {
         "all": "All properties",
@@ -3053,13 +3054,13 @@
       }
     },
     "vehicles": {
-      "breadcrumbHome": "Home",
-      "breadcrumbVehicles": "Vehicles",
-      "title": "Vehicles for sale",
-      "subtitle": "Find the perfect vehicle from verified dealers.",
-      "promoTitle": "Sell your vehicle on Reeskova",
-      "promoCta": "List your vehicle",
-      "count": "{count} vehicles found",
+      "breadcrumbHome": "الرئيسية",
+      "breadcrumbVehicles": "مركبات",
+      "title": "مركبات للبيع",
+      "subtitle": "اعثر على المركبة المناسبة من وكلاء موثّقين.",
+      "promoTitle": "بع مركبتك على Reeskova",
+      "promoCta": "انشر مركبتك",
+      "count": "{count} مركبة",
       "vehicleType": "Vehicle type",
       "types": {
         "all": "All",

@@ -6,6 +6,7 @@ import { ListingImage } from "@/components/listing-image";
 import { useFavoriteButton } from "@/hooks/use-favorites";
 import { Link } from "@/lib/i18n/routing";
 import { listingLocation } from "@/lib/marketplace/format";
+import { CountryFlag } from "@/components/marketplace/country-flag";
 import { cn } from "@/lib/utils";
 import type { ServiceListing } from "@/features/services/types";
 import { formatServicePrice, initials } from "./listing-utils";
@@ -43,7 +44,7 @@ export function ListingServiceCard({
 }: Props) {
   const t = useTranslations("marketplace.services");
   const { active, handleClick } = useFavoriteButton("property", item.id);
-  const location = listingLocation([item.city, item.state]);
+  const location = listingLocation([item.city, item.state, item.country]);
   const compact = variant === "compact";
   const price = formatServicePrice(item, {
     from: t("priceFrom"),
@@ -81,6 +82,13 @@ export function ListingServiceCard({
           </span>
         ))}
       </div>
+      <CountryFlag
+        country={item.country}
+        className={cn(
+          "absolute bottom-2 right-2 drop-shadow-[0_1px_2px_rgba(0,0,0,.7)]",
+          compact ? "text-[12px]" : "text-[15px]",
+        )}
+      />
       <button
         type="button"
         onClick={(event) => {
@@ -111,6 +119,7 @@ export function ListingServiceCard({
         {item.title}
       </h3>
       <p className="mt-1 flex items-center gap-1 text-xs text-[#6B7285]">
+        <CountryFlag country={item.country} className="text-[13px]" />
         <MapPin className="size-3 shrink-0 text-[#2BB8A8]" />
         <span className="line-clamp-1">{location}</span>
       </p>

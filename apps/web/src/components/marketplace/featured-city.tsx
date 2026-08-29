@@ -3,6 +3,7 @@
 import { ListingImage } from "@/components/listing-image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
+import { CountryFlag } from "@/components/marketplace/country-flag";
 import { formatMarketplacePrice } from "@/lib/marketplace/format";
 import type { FeaturedCityBlock } from "@/lib/marketplace/types";
 
@@ -44,6 +45,10 @@ export function FeaturedCity({ block }: Props) {
                 variant="thumb"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="140px"
+              />
+              <CountryFlag
+                country={item.country ?? item.location ?? block.country}
+                className="absolute bottom-1 right-1 text-[12px] drop-shadow-[0_1px_2px_rgba(0,0,0,.7)]"
               />
             </div>
             <div className="shrink-0 p-1.5">

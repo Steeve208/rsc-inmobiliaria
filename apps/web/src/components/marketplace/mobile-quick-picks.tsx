@@ -28,8 +28,9 @@ export async function MobileQuickPicks({ items }: Props) {
         {items.map((item) => {
           const Icon = quickPickIcon(item.id);
           const titleKey = `${item.id}.title`;
-          const title =
-            item.title?.trim() || (t.has(titleKey) ? t(titleKey) : item.id);
+          const title = t.has(titleKey)
+            ? t(titleKey)
+            : item.title?.trim() || item.id;
           return (
             <Link
               key={item.id}

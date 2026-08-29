@@ -5,6 +5,7 @@ import { Heart } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
 import { useFavoriteButton } from "@/hooks/use-favorites";
+import { CountryFlag } from "@/components/marketplace/country-flag";
 import { formatMarketplacePrice } from "@/lib/marketplace/format";
 import type { MarketplaceListing } from "@/lib/marketplace/types";
 import { cn } from "@/lib/utils";
@@ -97,6 +98,10 @@ export function DealCard({ item, featured = false }: Props) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
         </Link>
         <Badge item={item} t={t} className="absolute left-2.5 top-2.5 z-10" />
+        <CountryFlag
+          country={item.country ?? item.location}
+          className="absolute bottom-2.5 right-2.5 z-10 text-[15px] drop-shadow-[0_1px_2px_rgba(0,0,0,.7)]"
+        />
         <button
           type="button"
           onClick={handleClick}
@@ -120,8 +125,12 @@ export function DealCard({ item, featured = false }: Props) {
           <h3 className="mt-0.5 line-clamp-2 text-[14px] font-semibold leading-tight">
             {item.title}
           </h3>
-          <p className="mt-0.5 line-clamp-1 text-[11px] text-white/70">
-            {item.location}
+          <p className="mt-0.5 flex items-center gap-1 text-[11px] text-white/70">
+            <CountryFlag
+              country={item.country ?? item.location}
+              className="text-[12px]"
+            />
+            <span className="line-clamp-1">{item.location}</span>
           </p>
           <p className="mt-1.5 flex items-baseline gap-1.5">
             {item.originalPrice ? (
@@ -152,6 +161,10 @@ export function DealCard({ item, featured = false }: Props) {
           />
         </Link>
         <Badge item={item} t={t} className="absolute left-1.5 top-1.5" />
+        <CountryFlag
+          country={item.country ?? item.location}
+          className="absolute bottom-1.5 right-1.5 text-[13px] drop-shadow-[0_1px_2px_rgba(0,0,0,.7)]"
+        />
         <button
           type="button"
           onClick={handleClick}
@@ -173,7 +186,13 @@ export function DealCard({ item, featured = false }: Props) {
         <h3 className="mt-0.5 line-clamp-2 text-[12px] font-semibold leading-tight text-[#0B1220]">
           {item.title}
         </h3>
-        <p className="mt-0.5 line-clamp-1 text-[11px] text-[#6B7285]">{item.location}</p>
+        <p className="mt-0.5 flex items-center gap-1 text-[11px] text-[#6B7285]">
+          <CountryFlag
+            country={item.country ?? item.location}
+            className="text-[12px]"
+          />
+          <span className="line-clamp-1">{item.location}</span>
+        </p>
         <p className="mt-auto flex items-baseline gap-1.5 pt-1.5">
           <span
             className={cn(

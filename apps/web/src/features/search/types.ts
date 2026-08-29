@@ -34,6 +34,7 @@ export type ListingItem = {
   city: string;
   neighborhood: string;
   bedrooms: number;
+  bathrooms?: number;
   garage: number;
   pool: boolean;
   area: number;

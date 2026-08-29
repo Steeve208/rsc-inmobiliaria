@@ -2744,237 +2744,238 @@
     }
   },
   "marketplace": {
-    "save": "Save",
-    "seeAll": "See all",
-    "deals": "Today's deals",
-    "featuredProperties": "Featured properties",
-    "newListings": "New listings — Just added",
-    "continueExploring": "Continue exploring",
-    "popularVehicles": "Most popular vehicles",
-    "featuredIn": "Featured in {city}",
+    "save": "सहेजें",
+    "seeAll": "सभी देखें",
+    "deals": "आज के ऑफ़र",
+    "featuredProperties": "चुनिंदा प्रॉपर्टी",
+    "newListings": "नई लिस्टिंग — अभी जोड़ी गईं",
+    "continueExploring": "खोज जारी रखें",
+    "popularVehicles": "सबसे लोकप्रिय वाहन",
+    "featuredIn": "{city} में विशेष",
     "badges": {
-      "premium": "Premium",
-      "new": "New",
-      "featured": "Featured",
-      "deal": "Deal"
+      "premium": "प्रीमियम",
+      "new": "नया",
+      "featured": "विशेष",
+      "deal": "ऑफ़र"
     },
     "types": {
       "property": {
-        "house": "House",
-        "apartment": "Apartment",
-        "land": "Land",
-        "commercial": "Commercial",
-        "condominium": "Condominium",
-        "penthouse": "Penthouse",
-        "studio": "Studio"
+        "house": "घर",
+        "apartment": "अपार्टमेंट",
+        "land": "ज़मीन",
+        "commercial": "व्यावसायिक",
+        "condominium": "कंडोमिनियम",
+        "penthouse": "पेंटहाउस",
+        "studio": "स्टूडियो"
       },
       "vehicle": {
-        "car": "Car",
+        "car": "कार",
         "suv": "SUV",
-        "motorcycle": "Motorcycle",
-        "truck": "Truck",
-        "van": "Van",
-        "electric": "Electric",
-        "hybrid": "Hybrid"
+        "motorcycle": "मोटरसाइकिल",
+        "truck": "ट्रक",
+        "van": "वैन",
+        "electric": "इलेक्ट्रिक",
+        "hybrid": "हाइब्रिड"
       }
     },
     "specs": {
-      "beds": "{count} beds",
-      "baths": "{count} baths",
-      "area": "{area} m²"
+      "beds": "{count} बेड",
+      "baths": "{count} बाथ",
+      "area": "{area} मी²"
     },
     "header": {
-      "deliverTo": "Deliver to",
-      "saved": "Saved",
-      "cart": "Cart",
-      "downloadApp": "Download App",
-      "listCta": "List on Reeskova",
+      "deliverTo": "डिलीवर करें",
+      "saved": "सहेजे गए",
+      "cart": "कार्ट",
+      "downloadApp": "ऐप डाउनलोड करें",
+      "listCta": "Reeskova पर सूचीबद्ध करें",
       "nav": {
-        "home": "Home",
-        "properties": "Properties",
-        "vehicles": "Vehicles",
-        "projects": "Projects",
-        "businesses": "Businesses",
-        "services": "Services",
-        "deals": "Deals",
-        "newListings": "New listings",
-        "brokers": "Brokers",
-        "premium": "Premium",
-        "magazines": "Magazine",
-        "visits": "Free visits"
+        "home": "होम",
+        "properties": "प्रॉपर्टी",
+        "vehicles": "वाहन",
+        "projects": "प्रोजेक्ट",
+        "businesses": "व्यवसाय",
+        "services": "सेवाएँ",
+        "deals": "ऑफ़र",
+        "newListings": "नई लिस्टिंग",
+        "brokers": "ब्रोकर",
+        "premium": "प्रीमियम",
+        "magazines": "पत्रिकाएँ",
+        "visits": "मुफ़्त विज़िट"
       }
     },
     "headerSearch": {
-      "categoryLabel": "Search category",
-      "placeholder": "Search properties, vehicles, projects or property services...",
+      "categoryLabel": "खोज श्रेणी",
+      "placeholder": "प्रॉपर्टी, वाहन, प्रोजेक्ट या सेवाएँ खोजें...",
       "placeholders": {
-        "all": "Search properties, vehicles, projects or property services...",
-        "properties": "Search city, neighborhood or code COD-00001...",
-        "vehicles": "Search car, motorcycle, dealer or code COD-00001...",
-        "projects": "Search project, developer, city or code COD-00001...",
-        "businesses": "Search business, franchise, company or code COD-00001...",
-        "services": "Search service, professional or company..."
+        "all": "प्रॉपर्टी, वाहन, प्रोजेक्ट या सेवाएँ खोजें...",
+        "properties": "शहर, इलाका या कोड COD-00001 खोजें...",
+        "vehicles": "कार, बाइक, डीलर या कोड खोजें...",
+        "projects": "प्रोजेक्ट, डेवलपर, शहर या कोड खोजें...",
+        "businesses": "व्यवसाय, फ्रैंचाइज़ी या कोड खोजें...",
+        "services": "सेवा, प्रोफ़ेशनल या कंपनी खोजें..."
       },
-      "submit": "Search",
+      "submit": "खोजें",
       "categories": {
-        "all": "All categories",
-        "properties": "Properties",
-        "vehicles": "Vehicles",
-        "projects": "Projects",
-        "businesses": "Businesses",
-        "services": "Services"
+        "all": "सभी श्रेणियाँ",
+        "properties": "प्रॉपर्टी",
+        "vehicles": "वाहन",
+        "projects": "प्रोजेक्ट",
+        "businesses": "व्यवसाय",
+        "services": "सेवाएँ"
       }
     },
     "hero": {
-      "titleStart": "Find your next",
-      "titleHighlight": "opportunity",
-      "subtitle": "Properties, vehicles, projects and services from verified businesses."
+      "titleStart": "अपना अगला",
+      "titleHighlight": "अवसर खोजें",
+      "subtitle": "सत्यापित व्यवसायों से प्रॉपर्टी, वाहन, प्रोजेक्ट और सेवाएँ।"
     },
     "search": {
       "tabs": {
-        "properties": "Properties",
-        "vehicles": "Vehicles",
-        "projects": "Projects",
-        "businesses": "Businesses",
-        "services": "Services"
+        "properties": "प्रॉपर्टी",
+        "vehicles": "वाहन",
+        "projects": "प्रोजेक्ट",
+        "businesses": "व्यवसाय",
+        "services": "सेवाएँ"
       },
-      "query": "What are you looking for?",
-      "queryPlaceholder": "e.g. Apartment, House, BMW X5...",
-      "location": "Location",
-      "locationPlaceholder": "City, state or country",
-      "type": "Type",
-      "anyType": "Any type",
-      "price": "Price",
-      "anyPrice": "Any price",
-      "moreFilters": "More filters",
-      "submit": "Search",
-      "popular": "Popular searches:"
+      "query": "आप क्या खोज रहे हैं?",
+      "queryPlaceholder": "जैसे अपार्टमेंट, घर, BMW X5...",
+      "location": "स्थान",
+      "locationPlaceholder": "शहर, राज्य या देश",
+      "type": "प्रकार",
+      "anyType": "कोई भी प्रकार",
+      "price": "कीमत",
+      "anyPrice": "कोई भी कीमत",
+      "moreFilters": "और फ़िल्टर",
+      "submit": "खोजें",
+      "popular": "लोकप्रिय खोजें:",
+      "useAi": "AI से खोजें"
     },
     "quickPicks": {
-      "title": "Quick picks",
-      "viewAll": "View all categories",
+      "title": "त्वरित चयन",
+      "viewAll": "सभी श्रेणियाँ देखें",
       "propertiesUnder": {
-        "title": "Properties",
-        "subtitle": "Under $500K"
+        "title": "प्रॉपर्टी",
+        "subtitle": "$500K से कम"
       },
       "luxury": {
-        "title": "Luxury properties",
-        "subtitle": "Premium selection"
+        "title": "लक्जरी प्रॉपर्टी",
+        "subtitle": "प्रीमियम चयन"
       },
       "rentals": {
-        "title": "Rentals",
-        "subtitle": "Apartments & houses"
+        "title": "किराया",
+        "subtitle": "अपार्टमेंट और घर"
       },
       "carsUnder": {
-        "title": "Cars",
-        "subtitle": "Under $30K"
+        "title": "कारें",
+        "subtitle": "$30K से कम"
       },
       "projects": {
-        "title": "New projects",
-        "subtitle": "Launching soon"
+        "title": "नए प्रोजेक्ट",
+        "subtitle": "जल्द लॉन्च"
       },
       "commercial": {
-        "title": "Commercial",
-        "subtitle": "Offices & shops"
+        "title": "व्यावसायिक",
+        "subtitle": "ऑफिस और दुकानें"
       },
       "land": {
-        "title": "Land",
-        "subtitle": "Investment land"
+        "title": "ज़मीन",
+        "subtitle": "निवेश भूमि"
       }
     },
     "promos": {
       "premium": {
-        "title": "Premium Properties",
-        "subtitle": "Curated selection just for you"
+        "title": "प्रीमियम प्रॉपर्टी",
+        "subtitle": "आपके लिए चुनी गई"
       },
       "projects": {
-        "title": "New Projects",
-        "subtitle": "Discover upcoming developments"
+        "title": "नए प्रोजेक्ट",
+        "subtitle": "आने वाले विकास देखें"
       },
       "vehicles": {
-        "title": "Vehicle Deals",
-        "subtitle": "The best offers on premium vehicles"
+        "title": "वाहन ऑफ़र",
+        "subtitle": "प्रीमियम वाहनों पर बेहतरीन सौदे"
       },
       "hot": {
-        "title": "Hot Opportunities",
-        "subtitle": "Limited-time deals"
+        "title": "हॉट अवसर",
+        "subtitle": "सीमित समय के ऑफ़र"
       },
       "cta": {
-        "explore": "Explore",
-        "deals": "See deals"
+        "explore": "देखें",
+        "deals": "ऑफ़र देखें"
       }
     },
     "categories": {
-      "apartments": "Apartments",
-      "houses": "Houses",
-      "land": "Land",
-      "commercial": "Commercial",
-      "rentals": "Rentals",
-      "cars": "Cars",
-      "motorcycles": "Motorcycles",
-      "trucks": "Trucks",
-      "projects": "New Projects",
-      "businesses": "Businesses",
-      "services": "Services",
-      "more": "More"
+      "apartments": "अपार्टमेंट",
+      "houses": "घर",
+      "land": "ज़मीन",
+      "commercial": "व्यावसायिक",
+      "rentals": "किराया",
+      "cars": "कारें",
+      "motorcycles": "मोटरसाइकिल",
+      "trucks": "ट्रक",
+      "projects": "नए प्रोजेक्ट",
+      "businesses": "व्यवसाय",
+      "services": "सेवाएँ",
+      "more": "और"
     },
     "trust": {
       "verified": {
-        "title": "Verified businesses",
-        "text": "Only trusted and verified advertisers."
+        "title": "सत्यापित व्यवसाय",
+        "text": "केवल विश्वसनीय और सत्यापित विज्ञापनदाता।"
       },
       "secure": {
-        "title": "Secure platform",
-        "text": "Your safety is our top priority."
+        "title": "सुरक्षित प्लेटफ़ॉर्म",
+        "text": "आपकी सुरक्षा हमारी प्राथमिकता है।"
       },
       "global": {
-        "title": "Global reach",
-        "text": "Opportunities in the best locations."
+        "title": "वैश्विक पहुँच",
+        "text": "बेहतरीन स्थानों पर अवसर।"
       },
       "connect": {
-        "title": "Easy to connect",
-        "text": "Contact directly with the advertiser."
+        "title": "आसान संपर्क",
+        "text": "विज्ञापनदाता से सीधे बात करें।"
       },
       "search": {
-        "title": "Smart search",
-        "text": "Advanced filters to find exactly what you want."
+        "title": "स्मार्ट खोज",
+        "text": "ठीक वही खोजने के लिए उन्नत फ़िल्टर।"
       }
     },
     "footer": {
-      "tagline": "The marketplace to discover properties, vehicles, projects, businesses and services.",
-      "portal": "Business Portal",
-      "rights": "All rights reserved.",
+      "tagline": "प्रॉपर्टी, वाहन, प्रोजेक्ट, व्यवसाय और सेवाएँ खोजने का मार्केटप्लेस।",
+      "portal": "बिज़नेस पोर्टल",
+      "rights": "सर्वाधिकार सुरक्षित।",
       "reeskova": {
         "title": "Reeskova",
-        "about": "About us",
-        "how": "How it works",
-        "blog": "Blog",
-        "careers": "Careers",
-        "contact": "Contact"
+        "about": "हमारे बारे में",
+        "how": "यह कैसे काम करता है",
+        "blog": "ब्लॉग",
+        "careers": "करियर",
+        "contact": "संपर्क"
       },
       "support": {
-        "title": "Support",
-        "help": "Help Center",
-        "safety": "Safety Tips",
-        "terms": "Terms of Use",
-        "privacy": "Privacy Policy",
-        "cookies": "Cookies"
+        "title": "सहायता",
+        "help": "हेल्प सेंटर",
+        "safety": "सुरक्षा सुझाव",
+        "terms": "उपयोग की शर्तें",
+        "privacy": "गोपनीयता नीति",
+        "cookies": "कुकीज़"
       },
       "business": {
-        "title": "For Businesses",
-        "property": "List your property",
-        "vehicle": "List your vehicle",
-        "advertise": "Advertise your business",
-        "partner": "Partner with us"
+        "title": "व्यवसायों के लिए",
+        "property": "अपनी प्रॉपर्टी सूचीबद्ध करें",
+        "vehicle": "अपना वाहन सूचीबद्ध करें",
+        "advertise": "अपना व्यवसाय विज्ञापित करें",
+        "partner": "हमारे साथ साझेदारी करें"
       },
       "newsletter": {
-        "title": "Stay updated",
-        "text": "Get the best opportunities straight to your inbox.",
-        "placeholder": "Your email",
-        "submit": "Subscribe"
+        "title": "अपडेट रहें",
+        "text": "बेहतरीन अवसर सीधे अपने इनबॉक्स में पाएँ।",
+        "placeholder": "आपका ईमेल",
+        "submit": "सब्सक्राइब"
       },
       "app": {
-        "title": "Download the app"
+        "title": "ऐप डाउनलोड करें"
       }
     },
     "listing": {

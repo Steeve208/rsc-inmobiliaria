@@ -2744,237 +2744,238 @@
     }
   },
   "marketplace": {
-    "save": "Save",
-    "seeAll": "See all",
-    "deals": "Today's deals",
-    "featuredProperties": "Featured properties",
-    "newListings": "New listings — Just added",
-    "continueExploring": "Continue exploring",
-    "popularVehicles": "Most popular vehicles",
-    "featuredIn": "Featured in {city}",
+    "save": "Enregistrer",
+    "seeAll": "Voir tout",
+    "deals": "Offres du jour",
+    "featuredProperties": "Biens en vedette",
+    "newListings": "Nouvelles annonces — Tout juste ajoutées",
+    "continueExploring": "Continuer à explorer",
+    "popularVehicles": "Véhicules les plus populaires",
+    "featuredIn": "En vedette à {city}",
     "badges": {
       "premium": "Premium",
-      "new": "New",
-      "featured": "Featured",
-      "deal": "Deal"
+      "new": "Nouveau",
+      "featured": "En vedette",
+      "deal": "Offre"
     },
     "types": {
       "property": {
-        "house": "House",
-        "apartment": "Apartment",
-        "land": "Land",
+        "house": "Maison",
+        "apartment": "Appartement",
+        "land": "Terrain",
         "commercial": "Commercial",
-        "condominium": "Condominium",
+        "condominium": "Copropriété",
         "penthouse": "Penthouse",
         "studio": "Studio"
       },
       "vehicle": {
-        "car": "Car",
+        "car": "Voiture",
         "suv": "SUV",
-        "motorcycle": "Motorcycle",
-        "truck": "Truck",
-        "van": "Van",
-        "electric": "Electric",
-        "hybrid": "Hybrid"
+        "motorcycle": "Moto",
+        "truck": "Camion",
+        "van": "Fourgon",
+        "electric": "Électrique",
+        "hybrid": "Hybride"
       }
     },
     "specs": {
-      "beds": "{count} beds",
-      "baths": "{count} baths",
+      "beds": "{count} ch.",
+      "baths": "{count} sdb",
       "area": "{area} m²"
     },
     "header": {
-      "deliverTo": "Deliver to",
-      "saved": "Saved",
-      "cart": "Cart",
-      "downloadApp": "Download App",
-      "listCta": "List on Reeskova",
+      "deliverTo": "Livrer à",
+      "saved": "Enregistrés",
+      "cart": "Panier",
+      "downloadApp": "Télécharger l’app",
+      "listCta": "Publier sur Reeskova",
       "nav": {
-        "home": "Home",
-        "properties": "Properties",
-        "vehicles": "Vehicles",
-        "projects": "Projects",
-        "businesses": "Businesses",
+        "home": "Accueil",
+        "properties": "Immobilier",
+        "vehicles": "Véhicules",
+        "projects": "Projets",
+        "businesses": "Entreprises",
         "services": "Services",
-        "deals": "Deals",
-        "newListings": "New listings",
-        "brokers": "Brokers",
+        "deals": "Offres",
+        "newListings": "Nouvelles annonces",
+        "brokers": "Courtiers",
         "premium": "Premium",
-        "magazines": "Magazine",
-        "visits": "Free visits"
+        "magazines": "Magazines",
+        "visits": "Visites gratuites"
       }
     },
     "headerSearch": {
-      "categoryLabel": "Search category",
-      "placeholder": "Search properties, vehicles, projects or property services...",
+      "categoryLabel": "Catégorie de recherche",
+      "placeholder": "Rechercher des biens, véhicules, projets ou services...",
       "placeholders": {
-        "all": "Search properties, vehicles, projects or property services...",
-        "properties": "Search city, neighborhood or code COD-00001...",
-        "vehicles": "Search car, motorcycle, dealer or code COD-00001...",
-        "projects": "Search project, developer, city or code COD-00001...",
-        "businesses": "Search business, franchise, company or code COD-00001...",
-        "services": "Search service, professional or company..."
+        "all": "Rechercher des biens, véhicules, projets ou services...",
+        "properties": "Rechercher une ville, un quartier ou un code COD-00001...",
+        "vehicles": "Rechercher une voiture, une moto, un concessionnaire ou un code...",
+        "projects": "Rechercher un projet, un promoteur, une ville ou un code...",
+        "businesses": "Rechercher une entreprise, une franchise ou un code...",
+        "services": "Rechercher un service, un professionnel ou une entreprise..."
       },
-      "submit": "Search",
+      "submit": "Rechercher",
       "categories": {
-        "all": "All categories",
-        "properties": "Properties",
-        "vehicles": "Vehicles",
-        "projects": "Projects",
-        "businesses": "Businesses",
+        "all": "Toutes les catégories",
+        "properties": "Immobilier",
+        "vehicles": "Véhicules",
+        "projects": "Projets",
+        "businesses": "Entreprises",
         "services": "Services"
       }
     },
     "hero": {
-      "titleStart": "Find your next",
-      "titleHighlight": "opportunity",
-      "subtitle": "Properties, vehicles, projects and services from verified businesses."
+      "titleStart": "Trouvez votre prochaine",
+      "titleHighlight": "opportunité",
+      "subtitle": "Biens, véhicules, projets et services d’entreprises vérifiées."
     },
     "search": {
       "tabs": {
-        "properties": "Properties",
-        "vehicles": "Vehicles",
-        "projects": "Projects",
-        "businesses": "Businesses",
+        "properties": "Immobilier",
+        "vehicles": "Véhicules",
+        "projects": "Projets",
+        "businesses": "Entreprises",
         "services": "Services"
       },
-      "query": "What are you looking for?",
-      "queryPlaceholder": "e.g. Apartment, House, BMW X5...",
-      "location": "Location",
-      "locationPlaceholder": "City, state or country",
+      "query": "Que recherchez-vous ?",
+      "queryPlaceholder": "ex. Appartement, Maison, BMW X5...",
+      "location": "Lieu",
+      "locationPlaceholder": "Ville, région ou pays",
       "type": "Type",
-      "anyType": "Any type",
-      "price": "Price",
-      "anyPrice": "Any price",
-      "moreFilters": "More filters",
-      "submit": "Search",
-      "popular": "Popular searches:"
+      "anyType": "Tous les types",
+      "price": "Prix",
+      "anyPrice": "Tous les prix",
+      "moreFilters": "Plus de filtres",
+      "submit": "Rechercher",
+      "popular": "Recherches populaires :",
+      "useAi": "Rechercher avec l’IA"
     },
     "quickPicks": {
-      "title": "Quick picks",
-      "viewAll": "View all categories",
+      "title": "Sélection rapide",
+      "viewAll": "Voir toutes les catégories",
       "propertiesUnder": {
-        "title": "Properties",
-        "subtitle": "Under $500K"
+        "title": "Biens",
+        "subtitle": "Moins de 500 k$"
       },
       "luxury": {
-        "title": "Luxury properties",
-        "subtitle": "Premium selection"
+        "title": "Biens de luxe",
+        "subtitle": "Sélection premium"
       },
       "rentals": {
-        "title": "Rentals",
-        "subtitle": "Apartments & houses"
+        "title": "Locations",
+        "subtitle": "Appartements et maisons"
       },
       "carsUnder": {
-        "title": "Cars",
-        "subtitle": "Under $30K"
+        "title": "Voitures",
+        "subtitle": "Moins de 30 k$"
       },
       "projects": {
-        "title": "New projects",
-        "subtitle": "Launching soon"
+        "title": "Nouveaux projets",
+        "subtitle": "Bientôt disponibles"
       },
       "commercial": {
         "title": "Commercial",
-        "subtitle": "Offices & shops"
+        "subtitle": "Bureaux et commerces"
       },
       "land": {
-        "title": "Land",
-        "subtitle": "Investment land"
+        "title": "Terrains",
+        "subtitle": "Terrains d’investissement"
       }
     },
     "promos": {
       "premium": {
-        "title": "Premium Properties",
-        "subtitle": "Curated selection just for you"
+        "title": "Biens premium",
+        "subtitle": "Une sélection rien que pour vous"
       },
       "projects": {
-        "title": "New Projects",
-        "subtitle": "Discover upcoming developments"
+        "title": "Nouveaux projets",
+        "subtitle": "Découvrez les prochains développements"
       },
       "vehicles": {
-        "title": "Vehicle Deals",
-        "subtitle": "The best offers on premium vehicles"
+        "title": "Offres véhicules",
+        "subtitle": "Les meilleures offres sur des véhicules premium"
       },
       "hot": {
-        "title": "Hot Opportunities",
-        "subtitle": "Limited-time deals"
+        "title": "Opportunités du moment",
+        "subtitle": "Offres à durée limitée"
       },
       "cta": {
-        "explore": "Explore",
-        "deals": "See deals"
+        "explore": "Explorer",
+        "deals": "Voir les offres"
       }
     },
     "categories": {
-      "apartments": "Apartments",
-      "houses": "Houses",
-      "land": "Land",
+      "apartments": "Appartements",
+      "houses": "Maisons",
+      "land": "Terrains",
       "commercial": "Commercial",
-      "rentals": "Rentals",
-      "cars": "Cars",
-      "motorcycles": "Motorcycles",
-      "trucks": "Trucks",
-      "projects": "New Projects",
-      "businesses": "Businesses",
+      "rentals": "Locations",
+      "cars": "Voitures",
+      "motorcycles": "Motos",
+      "trucks": "Camions",
+      "projects": "Nouveaux projets",
+      "businesses": "Entreprises",
       "services": "Services",
-      "more": "More"
+      "more": "Plus"
     },
     "trust": {
       "verified": {
-        "title": "Verified businesses",
-        "text": "Only trusted and verified advertisers."
+        "title": "Entreprises vérifiées",
+        "text": "Uniquement des annonceurs de confiance."
       },
       "secure": {
-        "title": "Secure platform",
-        "text": "Your safety is our top priority."
+        "title": "Plateforme sécurisée",
+        "text": "Votre sécurité est notre priorité."
       },
       "global": {
-        "title": "Global reach",
-        "text": "Opportunities in the best locations."
+        "title": "Portée mondiale",
+        "text": "Des opportunités dans les meilleurs emplacements."
       },
       "connect": {
-        "title": "Easy to connect",
-        "text": "Contact directly with the advertiser."
+        "title": "Contact facile",
+        "text": "Contactez directement l’annonceur."
       },
       "search": {
-        "title": "Smart search",
-        "text": "Advanced filters to find exactly what you want."
+        "title": "Recherche intelligente",
+        "text": "Des filtres avancés pour trouver exactement ce que vous voulez."
       }
     },
     "footer": {
-      "tagline": "The marketplace to discover properties, vehicles, projects, businesses and services.",
-      "portal": "Business Portal",
-      "rights": "All rights reserved.",
+      "tagline": "La marketplace pour découvrir biens, véhicules, projets, entreprises et services.",
+      "portal": "Portail entreprises",
+      "rights": "Tous droits réservés.",
       "reeskova": {
         "title": "Reeskova",
-        "about": "About us",
-        "how": "How it works",
+        "about": "À propos",
+        "how": "Comment ça marche",
         "blog": "Blog",
-        "careers": "Careers",
+        "careers": "Carrières",
         "contact": "Contact"
       },
       "support": {
         "title": "Support",
-        "help": "Help Center",
-        "safety": "Safety Tips",
-        "terms": "Terms of Use",
-        "privacy": "Privacy Policy",
+        "help": "Centre d’aide",
+        "safety": "Conseils de sécurité",
+        "terms": "Conditions d’utilisation",
+        "privacy": "Politique de confidentialité",
         "cookies": "Cookies"
       },
       "business": {
-        "title": "For Businesses",
-        "property": "List your property",
-        "vehicle": "List your vehicle",
-        "advertise": "Advertise your business",
-        "partner": "Partner with us"
+        "title": "Pour les entreprises",
+        "property": "Publiez votre bien",
+        "vehicle": "Publiez votre véhicule",
+        "advertise": "Faites connaître votre entreprise",
+        "partner": "Devenez partenaire"
       },
       "newsletter": {
-        "title": "Stay updated",
-        "text": "Get the best opportunities straight to your inbox.",
-        "placeholder": "Your email",
-        "submit": "Subscribe"
+        "title": "Restez informé",
+        "text": "Recevez les meilleures opportunités dans votre boîte mail.",
+        "placeholder": "Votre e-mail",
+        "submit": "S’abonner"
       },
       "app": {
-        "title": "Download the app"
+        "title": "Télécharger l’application"
       }
     },
     "listing": {
