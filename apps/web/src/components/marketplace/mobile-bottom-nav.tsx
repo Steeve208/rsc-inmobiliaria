@@ -25,8 +25,6 @@ export function MobileBottomNav() {
     pathname.startsWith("/services/") ||
     pathname === "/corredores" ||
     pathname.startsWith("/corredores/") ||
-    pathname === "/revistas" ||
-    pathname.startsWith("/revistas/") ||
     pathname === "/match" ||
     pathname.startsWith("/match/");
 

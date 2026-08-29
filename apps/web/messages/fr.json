@@ -2942,40 +2942,38 @@
       }
     },
     "footer": {
-      "tagline": "La marketplace pour découvrir biens, véhicules, projets, entreprises et services.",
-      "portal": "Portail entreprises",
+      "slogan": "Trouvez ce qui vous correspond.",
+      "description": "Découvrez des biens et des opportunités alignés sur ce qui compte pour vous.",
       "rights": "Tous droits réservés.",
-      "reeskova": {
-        "title": "Reeskova",
+      "explore": {
+        "title": "Explorer",
+        "properties": "Immobilier",
+        "vehicles": "Véhicules",
+        "projects": "Projets",
+        "businesses": "Entreprises",
+        "services": "Services"
+      },
+      "business": {
+        "title": "Pour les entreprises",
+        "property": "Publier un bien",
+        "advertise": "Faire connaître votre entreprise",
+        "agencies": "Pour les agences",
+        "brokers": "Pour les courtiers"
+      },
+      "company": {
+        "title": "Entreprise",
         "about": "À propos",
-        "how": "Comment ça marche",
         "blog": "Blog",
-        "careers": "Carrières",
-        "contact": "Contact"
+        "contact": "Contact",
+        "careers": "Carrières"
       },
       "support": {
         "title": "Support",
         "help": "Centre d’aide",
         "safety": "Conseils de sécurité",
-        "terms": "Conditions d’utilisation",
         "privacy": "Politique de confidentialité",
+        "terms": "Conditions d’utilisation",
         "cookies": "Cookies"
-      },
-      "business": {
-        "title": "Pour les entreprises",
-        "property": "Publiez votre bien",
-        "vehicle": "Publiez votre véhicule",
-        "advertise": "Faites connaître votre entreprise",
-        "partner": "Devenez partenaire"
-      },
-      "newsletter": {
-        "title": "Restez informé",
-        "text": "Recevez les meilleures opportunités dans votre boîte mail.",
-        "placeholder": "Votre e-mail",
-        "submit": "S’abonner"
-      },
-      "app": {
-        "title": "Télécharger l’application"
       }
     },
     "listing": {

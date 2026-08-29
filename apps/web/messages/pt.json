@@ -2978,40 +2978,38 @@
       }
     },
     "footer": {
-      "tagline": "O marketplace para descobrir imóveis, veículos, projetos, empresas e serviços.",
-      "portal": "Portal Empresas",
+      "slogan": "Encontre o que combina.",
+      "description": "Descubra imóveis e oportunidades alinhados com o que importa para você.",
       "rights": "Todos os direitos reservados.",
-      "reeskova": {
-        "title": "Reeskova",
+      "explore": {
+        "title": "Explorar",
+        "properties": "Imóveis",
+        "vehicles": "Veículos",
+        "projects": "Projetos",
+        "businesses": "Negócios",
+        "services": "Serviços"
+      },
+      "business": {
+        "title": "Para empresas",
+        "property": "Anuncie um imóvel",
+        "advertise": "Divulgue sua empresa",
+        "agencies": "Para agências",
+        "brokers": "Para corretores"
+      },
+      "company": {
+        "title": "Empresa",
         "about": "Sobre nós",
-        "how": "Como funciona",
         "blog": "Blog",
-        "careers": "Carreiras",
-        "contact": "Contato"
+        "contact": "Contato",
+        "careers": "Carreiras"
       },
       "support": {
         "title": "Suporte",
-        "help": "Central de Ajuda",
+        "help": "Central de ajuda",
         "safety": "Dicas de segurança",
-        "terms": "Termos de Uso",
-        "privacy": "Privacidade",
+        "privacy": "Política de privacidade",
+        "terms": "Termos de serviço",
         "cookies": "Cookies"
-      },
-      "business": {
-        "title": "Para Empresas",
-        "property": "Anuncie seu imóvel",
-        "vehicle": "Anuncie seu veículo",
-        "advertise": "Divulgue sua empresa",
-        "partner": "Seja parceiro"
-      },
-      "newsletter": {
-        "title": "Fique por dentro",
-        "text": "Receba as melhores oportunidades no seu e-mail.",
-        "placeholder": "Seu e-mail",
-        "submit": "Assinar"
-      },
-      "app": {
-        "title": "Baixe o app"
       }
     },
     "listing": {

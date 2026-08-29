@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useState, useTransition } from "react";
-import { ChevronDown, Loader2, Search } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { ChevronDown, Loader2, Search, Sparkles } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/lib/i18n/routing";
+import { tryCreateMatchSession } from "@/lib/match/client";
 import {
   HEADER_SEARCH_CATEGORIES,
   type MarketplaceSearchCategory,
 } from "@/lib/marketplace/catalog";
+import { cn } from "@/lib/utils";
 
 const routes: Record<MarketplaceSearchCategory, string> = {
   all: "/search",
@@ -29,6 +31,8 @@ function categoryFromPath(pathname: string): MarketplaceSearchCategory {
 
 export function GlobalSearch({ className }: { className?: string }) {
   const t = useTranslations("marketplace.headerSearch");
+  const tSearch = useTranslations("marketplace.search");
+  const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
@@ -36,6 +40,7 @@ export function GlobalSearch({ className }: { className?: string }) {
     categoryFromPath(pathname),
   );
   const [query, setQuery] = useState("");
+  const [useAi, setUseAi] = useState(false);
 
   useEffect(() => {
     setCategory(categoryFromPath(pathname));
@@ -45,7 +50,22 @@ export function GlobalSearch({ className }: { className?: string }) {
     event.preventDefault();
     const q = query.trim();
     const base = routes[category];
-    startTransition(() => {
+    startTransition(async () => {
+      if (useAi && q.length >= 2) {
+        const message =
+          category === "all" || category === "properties"
+            ? q
+            : `${category}. ${q}`;
+        const session = await tryCreateMatchSession({
+          message,
+          locale,
+          source: "header",
+        });
+        if (session?.sessionId) {
+          router.push(`/match/${session.sessionId}`);
+          return;
+        }
+      }
       if (!q) {
         router.push(base);
         return;
@@ -83,6 +103,18 @@ export function GlobalSearch({ className }: { className?: string }) {
           placeholder={t(`placeholders.${category}`)}
           className="min-w-0 flex-1 px-3 text-sm text-[#0B1220] outline-none placeholder:text-[#9CA3AF]"
         />
+        <button
+          type="button"
+          aria-pressed={useAi}
+          aria-label={tSearch("useAi")}
+          onClick={() => setUseAi((current) => !current)}
+          className={cn(
+            "inline-flex shrink-0 items-center justify-center px-2 text-[#6B7285] transition hover:text-[#D49A3F]",
+            useAi && "text-[#D49A3F]",
+          )}
+        >
+          <Sparkles className="size-4" strokeWidth={2} />
+        </button>
         <button
           type="submit"
           disabled={isPending}

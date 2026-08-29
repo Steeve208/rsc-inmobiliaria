@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Logo } from "@/components/layout/logo";
-import { Link, useRouter } from "@/lib/i18n/routing";
+import { ReeskovaMark } from "@/components/layout/logo";
+import { Link } from "@/lib/i18n/routing";
 
 function FacebookIcon({ className }: { className?: string }) {
   return (
@@ -39,28 +38,37 @@ function YouTubeIcon({ className }: { className?: string }) {
   );
 }
 
-function AppPhoneMockup() {
+const GOLD = "#C5A059";
+
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: Array<{ href: string; label: string }>;
+}) {
   return (
-    <div className="relative mx-auto h-[210px] w-[108px] rounded-[22px] border-[3px] border-white/20 bg-[#0B1220] p-1.5 shadow-[0_16px_40px_rgba(0,0,0,.45)]">
-      <div className="absolute left-1/2 top-1.5 h-1.5 w-8 -translate-x-1/2 rounded-full bg-white/20" />
-      <div className="h-full overflow-hidden rounded-[16px] bg-[#F4F7FA]">
-        <div className="bg-[#0B0F19] px-2 pb-1.5 pt-3">
-          <p className="text-[7px] font-bold tracking-[0.16em] text-[#EBAD5B]">
-            REESKOVA
-          </p>
-          <div className="mt-1 h-3 rounded-full bg-white/90" />
-        </div>
-        <div className="space-y-1 p-1.5">
-          <div className="overflow-hidden rounded bg-white">
-            <div className="h-10 bg-[#1F2937]" />
-            <div className="h-1.5 w-10 m-1 rounded bg-[#EBAD5B]" />
-          </div>
-          <div className="grid grid-cols-2 gap-1">
-            <div className="h-8 rounded bg-white" />
-            <div className="h-8 rounded bg-white" />
-          </div>
-        </div>
-      </div>
+    <div>
+      <p
+        className="text-[11px] font-semibold tracking-[0.16em] uppercase"
+        style={{ color: GOLD }}
+      >
+        {title}
+      </p>
+      <span
+        className="mt-2 block h-px w-8"
+        style={{ backgroundColor: GOLD }}
+        aria-hidden
+      />
+      <ul className="mt-4 space-y-2.5 text-[13px] text-white/90">
+        {links.map((link) => (
+          <li key={`${link.href}-${link.label}`}>
+            <Link href={link.href} className="transition-colors hover:text-[#C5A059]">
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -68,115 +76,116 @@ function AppPhoneMockup() {
 export function MarketplaceFooter() {
   const t = useTranslations("marketplace.footer");
   const tBrand = useTranslations("brand");
-  const router = useRouter();
-  const [email, setEmail] = useState("");
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0B0F19] text-white">
-      <div className="rk-container grid gap-8 py-6 sm:grid-cols-2 lg:grid-cols-12">
-        <div className="lg:col-span-4">
-          <p className="rk-display text-base font-bold">{t("newsletter.title")}</p>
-          <p className="mt-1.5 max-w-sm text-[13px] leading-relaxed text-[#8C97A8]">
-            {t("newsletter.text")}
-          </p>
-          <form
-            className="mt-3 flex max-w-md gap-2"
-            onSubmit={(event) => {
-              event.preventDefault();
-              router.push("/cadastrar");
-            }}
-          >
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder={t("newsletter.placeholder")}
-              className="h-10 min-w-0 flex-1 rounded-md border border-white/10 bg-white px-3 text-sm text-[#0B1220] outline-none placeholder:text-[#8C97A8] focus:border-[#EBAD5B]"
-            />
-            <button
-              type="submit"
-              className="h-10 rounded-md bg-[#EBAD5B] px-4 text-sm font-bold text-[#1A1205] hover:bg-[#F2C06E]"
+    <footer className="bg-[#050505] text-white">
+      <div className="rk-container grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.15fr_repeat(4,minmax(0,1fr))]">
+        <div className="max-w-sm">
+          <div className="flex items-center gap-3">
+            <ReeskovaMark className="size-10" />
+            <span
+              className="rk-display text-[22px] font-bold tracking-[0.14em] uppercase"
+              style={{ color: GOLD }}
             >
-              {t("newsletter.submit")}
-            </button>
-          </form>
-          <div className="mt-4">
-            <Logo compact />
-          </div>
-        </div>
-
-        <div className="lg:col-span-2">
-          <p className="mb-2 text-xs font-semibold tracking-wider text-[#8C97A8] uppercase">
-            {t("reeskova.title")}
-          </p>
-          <ul className="space-y-1.5 text-[13px] text-[#C8D0DD]">
-            <li><Link href="/about" className="hover:text-[#EBAD5B]">{t("reeskova.about")}</Link></li>
-            <li><Link href="/#partners" className="hover:text-[#EBAD5B]">{t("reeskova.blog")}</Link></li>
-            <li><Link href="/help#contact" className="hover:text-[#EBAD5B]">{t("reeskova.contact")}</Link></li>
-          </ul>
-        </div>
-
-        <div className="lg:col-span-2">
-          <p className="mb-2 text-xs font-semibold tracking-wider text-[#8C97A8] uppercase">
-            {t("support.title")}
-          </p>
-          <ul className="space-y-1.5 text-[13px] text-[#C8D0DD]">
-            <li><Link href="/help" className="hover:text-[#EBAD5B]">{t("support.help")}</Link></li>
-            <li><Link href="/security" className="hover:text-[#EBAD5B]">{t("support.safety")}</Link></li>
-            <li><Link href="/privacy" className="hover:text-[#EBAD5B]">{t("support.privacy")}</Link></li>
-            <li><Link href="/cookies" className="hover:text-[#EBAD5B]">{t("support.cookies")}</Link></li>
-          </ul>
-        </div>
-
-        <div className="lg:col-span-2">
-          <p className="mb-2 text-xs font-semibold tracking-wider text-[#8C97A8] uppercase">
-            {t("business.title")}
-          </p>
-          <ul className="space-y-1.5 text-[13px] text-[#C8D0DD]">
-            <li><Link href="/empresa/cadastro" className="hover:text-[#EBAD5B]">{t("business.property")}</Link></li>
-            <li><Link href="/para-empresas" className="hover:text-[#EBAD5B]">{t("business.advertise")}</Link></li>
-          </ul>
-        </div>
-
-        <div className="flex flex-col items-start gap-3 lg:col-span-2 lg:items-end">
-          <p className="text-xs font-semibold tracking-wider text-[#8C97A8] uppercase">
-            {t("app.title")}
-          </p>
-          <AppPhoneMockup />
-          <div className="flex flex-col gap-2">
-            <span className="rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-center text-[11px] font-semibold text-[#C8D0DD]">
-              App Store
-            </span>
-            <span className="rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-center text-[11px] font-semibold text-[#C8D0DD]">
-              Google Play
+              REESKOVA
             </span>
           </div>
+          <p className="rk-display mt-5 text-[22px] font-medium leading-tight text-white">
+            {t("slogan")}
+          </p>
+          <p className="mt-3 text-[13px] leading-relaxed text-white/70">
+            {t("description")}
+          </p>
         </div>
+
+        <FooterColumn
+          title={t("explore.title")}
+          links={[
+            { href: "/imoveis", label: t("explore.properties") },
+            { href: "/veiculos", label: t("explore.vehicles") },
+            { href: "/projetos", label: t("explore.projects") },
+            { href: "/negocios", label: t("explore.businesses") },
+            { href: "/services", label: t("explore.services") },
+          ]}
+        />
+        <FooterColumn
+          title={t("business.title")}
+          links={[
+            { href: "/empresa/cadastro", label: t("business.property") },
+            { href: "/para-empresas", label: t("business.advertise") },
+            { href: "/para-empresas", label: t("business.agencies") },
+            { href: "/corredores", label: t("business.brokers") },
+          ]}
+        />
+        <FooterColumn
+          title={t("company.title")}
+          links={[
+            { href: "/about", label: t("company.about") },
+            { href: "/guides", label: t("company.blog") },
+            { href: "/help#contact", label: t("company.contact") },
+            { href: "/careers", label: t("company.careers") },
+          ]}
+        />
+        <FooterColumn
+          title={t("support.title")}
+          links={[
+            { href: "/help", label: t("support.help") },
+            { href: "/security", label: t("support.safety") },
+            { href: "/privacy", label: t("support.privacy") },
+            { href: "/terms", label: t("support.terms") },
+            { href: "/cookies", label: t("support.cookies") },
+          ]}
+        />
       </div>
 
-      <div className="border-t border-white/5">
-        <div className="rk-container flex flex-col items-start justify-between gap-3 py-3.5 text-xs text-[#8C97A8] sm:flex-row sm:items-center">
-          <p>© {year} Reeskova. {t("rights")}</p>
-          <div className="flex items-center gap-3 text-white/70">
-            <a href="https://facebook.com" aria-label="Facebook" className="hover:text-[#EBAD5B]">
-              <FacebookIcon className="size-4" />
-            </a>
-            <a href="https://instagram.com" aria-label="Instagram" className="hover:text-[#EBAD5B]">
-              <InstagramIcon className="size-4" />
-            </a>
-            <a href="https://linkedin.com" aria-label="LinkedIn" className="hover:text-[#EBAD5B]">
-              <LinkedInIcon className="size-4" />
-            </a>
-            <a href="https://youtube.com" aria-label="YouTube" className="hover:text-[#EBAD5B]">
-              <YouTubeIcon className="size-4" />
-            </a>
-          </div>
+      <div className="border-t border-white/10">
+        <div className="rk-container flex flex-col items-start justify-between gap-4 py-4 text-[12px] text-white/70 sm:flex-row sm:items-center">
           <p>
-            {tBrand("poweredBy")}{" "}
-            <span className="text-[#EBAD5B]">{tBrand("poweredByBrand")}</span>
+            <span className="rk-display font-semibold tracking-[0.12em] uppercase" style={{ color: GOLD }}>
+              REESKOVA
+            </span>{" "}
+            <span className="ms-1">
+              © {year} Reeskova. {t("rights")}
+            </span>
           </p>
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="flex items-center gap-3 text-white/80">
+              <a
+                href="https://www.facebook.com"
+                aria-label="Facebook"
+                className="transition-colors hover:text-[#C5A059]"
+              >
+                <FacebookIcon className="size-4" />
+              </a>
+              <a
+                href="https://www.instagram.com/reeskova/"
+                aria-label="Instagram"
+                className="transition-colors hover:text-[#C5A059]"
+              >
+                <InstagramIcon className="size-4" />
+              </a>
+              <a
+                href="https://www.linkedin.com"
+                aria-label="LinkedIn"
+                className="transition-colors hover:text-[#C5A059]"
+              >
+                <LinkedInIcon className="size-4" />
+              </a>
+              <a
+                href="https://www.youtube.com/@rscchain"
+                aria-label="YouTube"
+                className="transition-colors hover:text-[#C5A059]"
+              >
+                <YouTubeIcon className="size-4" />
+              </a>
+            </div>
+            <span className="hidden h-4 w-px bg-white/20 sm:block" aria-hidden />
+            <p>
+              {tBrand("poweredBy")}{" "}
+              <span style={{ color: GOLD }}>{tBrand("poweredByBrand")}</span>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

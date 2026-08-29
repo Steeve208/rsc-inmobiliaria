@@ -36,7 +36,6 @@ export const SECONDARY_NAV = [
   { href: "/services", labelKey: "services" as const, icon: "services" as const },
   { href: "/imoveis?featured=1", labelKey: "deals" as const, icon: "deals" as const },
   { href: "/corredores", labelKey: "brokers" as const, icon: "brokers" as const },
-  { href: "/revistas", labelKey: "magazines" as const, icon: "magazines" as const },
 ] as const;
 
 export type QuickPickId =

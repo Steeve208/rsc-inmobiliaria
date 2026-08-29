@@ -246,16 +246,25 @@ export function HeroSearch({ footer }: { footer?: ReactNode }) {
   const hasMatchInput =
     query.trim().length >= 2 ||
     Boolean(location.trim()) ||
-    Boolean(propertyType) ||
+    Boolean(propertyType || projectType || businessType || vehicleType) ||
     Boolean(priceRangeId);
 
   const handleSubmit = () => {
     startTransition(async () => {
-      if (tab === "properties" && useAi && hasMatchInput) {
+      if (useAi && hasMatchInput) {
+        const selectedType =
+          tab === "vehicles"
+            ? vehicleType
+            : tab === "projects"
+              ? projectType
+              : tab === "businesses"
+                ? businessType
+                : propertyType;
         const parts = [
+          tab !== "properties" ? tab : "",
           query.trim(),
           locationFields.locationLabel || location.trim(),
-          propertyType,
+          selectedType,
         ].filter(Boolean);
         if (selectedPrice?.min) parts.push(`min ${selectedPrice.min}`);
         if (selectedPrice?.max) parts.push(`max ${selectedPrice.max}`);
@@ -268,11 +277,11 @@ export function HeroSearch({ footer }: { footer?: ReactNode }) {
         const hasLocation = Boolean(location.trim() || resolvedLocation);
 
         const session = await tryCreateMatchSession({
-          message: message.length >= 2 ? message : "properties",
+          message: message.length >= 2 ? message : tab,
           locale,
           source: "hero",
           hints: {
-            propertyType: matchType,
+            propertyType: tab === "properties" ? matchType : undefined,
             city: hasLocation ? locationFields.city || undefined : undefined,
             state: hasLocation ? locationFields.state || undefined : undefined,
             neighborhood: hasLocation
@@ -499,27 +508,23 @@ export function HeroSearch({ footer }: { footer?: ReactNode }) {
         </div>
       </form>
 
-      {(tab === "properties" || footer) ? (
-        <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
-          {tab === "properties" ? (
-            <button
-              type="button"
-              aria-pressed={useAi}
-              onClick={() => setUseAi((current) => !current)}
-              className={cn(
-                "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium backdrop-blur-sm transition",
-                useAi
-                  ? "border-[#F9B14D]/80 bg-[#F9B14D]/20 text-[#F9B14D]"
-                  : "border-white/30 bg-black/40 text-white/85 hover:bg-black/55",
-              )}
-            >
-              <Sparkles className="size-3" strokeWidth={2} />
-              {t("useAi")}
-            </button>
-          ) : null}
-          {footer}
-        </div>
-      ) : null}
+      <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+        <button
+          type="button"
+          aria-pressed={useAi}
+          onClick={() => setUseAi((current) => !current)}
+          className={cn(
+            "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium backdrop-blur-sm transition",
+            useAi
+              ? "border-[#F9B14D]/80 bg-[#F9B14D]/20 text-[#F9B14D]"
+              : "border-white/30 bg-black/40 text-white/85 hover:bg-black/55",
+          )}
+        >
+          <Sparkles className="size-3" strokeWidth={2} />
+          {t("useAi")}
+        </button>
+        {footer}
+      </div>
     </div>
   );
 }

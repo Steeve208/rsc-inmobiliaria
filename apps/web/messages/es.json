@@ -2978,40 +2978,38 @@
       }
     },
     "footer": {
-      "tagline": "El marketplace para descubrir propiedades, vehículos, proyectos, empresas y servicios.",
-      "portal": "Portal Empresas",
+      "slogan": "Encuentra lo que encaja.",
+      "description": "Descubre propiedades y oportunidades alineadas con lo que te importa.",
       "rights": "Todos los derechos reservados.",
-      "reeskova": {
-        "title": "Reeskova",
+      "explore": {
+        "title": "Explorar",
+        "properties": "Propiedades",
+        "vehicles": "Vehículos",
+        "projects": "Proyectos",
+        "businesses": "Negocios",
+        "services": "Servicios"
+      },
+      "business": {
+        "title": "Para empresas",
+        "property": "Publica una propiedad",
+        "advertise": "Anuncia tu empresa",
+        "agencies": "Para agencias",
+        "brokers": "Para corredores"
+      },
+      "company": {
+        "title": "Compañía",
         "about": "Sobre nosotros",
-        "how": "Cómo funciona",
         "blog": "Blog",
-        "careers": "Carreras",
-        "contact": "Contacto"
+        "contact": "Contacto",
+        "careers": "Carreras"
       },
       "support": {
         "title": "Soporte",
         "help": "Centro de ayuda",
         "safety": "Consejos de seguridad",
-        "terms": "Términos de uso",
-        "privacy": "Privacidad",
+        "privacy": "Política de privacidad",
+        "terms": "Términos de servicio",
         "cookies": "Cookies"
-      },
-      "business": {
-        "title": "Para empresas",
-        "property": "Publica tu propiedad",
-        "vehicle": "Publica tu vehículo",
-        "advertise": "Anuncia tu empresa",
-        "partner": "Sé partner"
-      },
-      "newsletter": {
-        "title": "Mantente al día",
-        "text": "Recibe las mejores oportunidades en tu correo.",
-        "placeholder": "Tu email",
-        "submit": "Suscribirse"
-      },
-      "app": {
-        "title": "Descarga la app"
       }
     },
     "listing": {

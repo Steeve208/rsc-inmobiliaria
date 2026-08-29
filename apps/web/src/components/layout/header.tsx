@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import {
-  BookOpen,
   Briefcase,
   Building2,
   Car,
@@ -37,7 +36,6 @@ const navIcons = {
   services: Wrench,
   deals: Tag,
   brokers: Users,
-  magazines: BookOpen,
 } as const;
 
 export function Header() {
@@ -127,9 +125,7 @@ export function Header() {
                 (link.labelKey === "services" &&
                   (pathname === "/services" || pathname.startsWith("/services/"))) ||
                 (link.labelKey === "brokers" &&
-                  (pathname === "/corredores" || pathname.startsWith("/corredores/"))) ||
-                (link.labelKey === "magazines" &&
-                  (pathname === "/revistas" || pathname.startsWith("/revistas/")));
+                  (pathname === "/corredores" || pathname.startsWith("/corredores/")));
               return (
                 <Link
                   key={link.labelKey}

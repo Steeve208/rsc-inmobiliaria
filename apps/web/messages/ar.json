@@ -2942,40 +2942,38 @@
       }
     },
     "footer": {
-      "tagline": "السوق لاكتشاف العقارات والمركبات والمشاريع والأعمال والخدمات.",
-      "portal": "بوابة الشركات",
+      "slogan": "اعثر على ما يناسبك.",
+      "description": "اكتشف عقارات وفرصاً تتوافق مع ما يهمك.",
       "rights": "جميع الحقوق محفوظة.",
-      "reeskova": {
-        "title": "Reeskova",
+      "explore": {
+        "title": "استكشف",
+        "properties": "عقارات",
+        "vehicles": "مركبات",
+        "projects": "مشاريع",
+        "businesses": "أعمال",
+        "services": "خدمات"
+      },
+      "business": {
+        "title": "للشركات",
+        "property": "انشر عقاراً",
+        "advertise": "روّج لشركتك",
+        "agencies": "للوكالات",
+        "brokers": "للوسطاء"
+      },
+      "company": {
+        "title": "الشركة",
         "about": "من نحن",
-        "how": "كيف يعمل",
         "blog": "المدونة",
-        "careers": "وظائف",
-        "contact": "اتصل بنا"
+        "contact": "اتصل بنا",
+        "careers": "وظائف"
       },
       "support": {
         "title": "الدعم",
         "help": "مركز المساعدة",
         "safety": "نصائح السلامة",
-        "terms": "شروط الاستخدام",
         "privacy": "سياسة الخصوصية",
+        "terms": "شروط الخدمة",
         "cookies": "ملفات تعريف الارتباط"
-      },
-      "business": {
-        "title": "للشركات",
-        "property": "انشر عقارك",
-        "vehicle": "انشر مركبتك",
-        "advertise": "روّج لشركتك",
-        "partner": "كن شريكاً"
-      },
-      "newsletter": {
-        "title": "ابقَ على اطلاع",
-        "text": "احصل على أفضل الفرص في بريدك.",
-        "placeholder": "بريدك الإلكتروني",
-        "submit": "اشترك"
-      },
-      "app": {
-        "title": "حمّل التطبيق"
       }
     },
     "listing": {
