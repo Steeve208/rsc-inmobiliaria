@@ -1,290 +1,60 @@
 #!/usr/bin/env python3
 """Generate REESKOVA corporate presentation PDFs in EN, PT and FR."""
 
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import mm
-from reportlab.pdfgen import canvas
-from reportlab.lib.colors import HexColor, white, Color
 import os
 import sys
 
-W, H = A4
-MX, MT, MB = 16 * mm, 13 * mm, 13 * mm
-ACCENT = HexColor("#8B3A26")
-ACCENT_SOFT = HexColor("#F5F0ED")
-INK = HexColor("#181818")
-MUTED = HexColor("#555555")
-SOFT = HexColor("#2F2F2F")
-RULE = HexColor("#D6D6D6")
-FOOTER_C = HexColor("#888888")
-TABLE_LINE = HexColor("#D2CBC6")
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import mm
+from reportlab.pdfgen import canvas
+
+from pdf_design import ReeskovaPDFDesign, W, MX
+
 EMAIL = "rscgroupltda@gmail.com"
 PHONE = "+33 7 85 61 86 44"
 WEB = "www.rscchain.com"
 DIR = os.path.dirname(__file__)
 ASSETS = os.path.join(DIR, "assets")
-BG = os.path.join(ASSETS, "bg")
-LOGO = os.path.join(ASSETS, "rsc-group-logo.png")
 TOTAL = 12
-
-# ───────────────────────── helpers ─────────────────────────
-
-def wrap(c, text, font, size, max_width):
-    words = text.split()
-    lines, line = [], ""
-    for w in words:
-        test = (line + " " + w).strip()
-        if c.stringWidth(test, font, size) <= max_width:
-            line = test
-        else:
-            if line:
-                lines.append(line)
-            line = w
-    if line:
-        lines.append(line)
-    return lines
+CONTACT = f"{EMAIL} · {PHONE} · {WEB}"
+_DESIGN = ReeskovaPDFDesign(ASSETS)
 
 
-def draw_bg(c, n):
-    path = os.path.join(BG, f"bg-{n:02d}.jpg")
-    if os.path.exists(path):
-        c.drawImage(path, 0, 0, width=W, height=H, preserveAspectRatio=False)
-    else:
-        c.setFillColor(white)
-        c.rect(0, 0, W, H, fill=1, stroke=0)
-    c.setFillColor(Color(1, 1, 1, alpha=0.96))
-    c.rect(MX - 1.5 * mm, MB + 5 * mm, W - 2 * MX + 3 * mm, H - MT - MB - 26 * mm, fill=1, stroke=0)
-
-
-def draw_header(c):
-    if os.path.exists(LOGO):
-        c.drawImage(LOGO, MX, H - MT - 16 * mm, width=13 * mm, height=14 * mm, mask="auto", preserveAspectRatio=True, anchor="c")
-    c.setFillColor(INK)
-    c.setFont("Helvetica-Bold", 9.5)
-    c.drawCentredString(W / 2, H - MT - 3.5 * mm, "RSC Group")
-    c.setFillColor(MUTED)
-    c.setFont("Helvetica", 6.8)
-    c.drawCentredString(W / 2, H - MT - 7.5 * mm, "Building the Next Generation of Digital Platforms")
-    c.setFont("Helvetica", 6.5)
-    c.drawCentredString(W / 2, H - MT - 11 * mm, WEB)
-    right, y = W - MX, H - MT - 3.5 * mm
-    c.setFont("Helvetica", 6.5)
-    for label in [EMAIL, WEB, PHONE]:
-        c.setFillColor(ACCENT)
-        c.circle(right - c.stringWidth(label, "Helvetica", 6.5) - 3 * mm, y + 1 * mm, 1 * mm, fill=1, stroke=0)
-        c.setFillColor(MUTED)
-        c.drawRightString(right, y, label)
-        y -= 3.4 * mm
-    y_rule = H - MT - 18 * mm
-    c.setStrokeColor(ACCENT)
-    c.setLineWidth(0.8)
-    c.line(MX, y_rule, W - MX, y_rule)
-    return y_rule - 5.5 * mm
-
-
-def draw_footer(c, page, footer_label):
-    c.setStrokeColor(RULE)
-    c.setLineWidth(0.4)
-    c.line(MX, MB + 3.5 * mm, W - MX, MB + 3.5 * mm)
-    c.setFillColor(FOOTER_C)
-    c.setFont("Helvetica", 6)
-    c.drawString(MX, MB - 0.5 * mm, f"{footer_label}  ·  {WEB}  ·  {EMAIL}")
-    c.drawRightString(W - MX, MB - 0.5 * mm, f"{page:02d} / {TOTAL:02d}")
-
-
-def render_blocks(c, blocks, footer_label, page_no, bg_n):
-    draw_bg(c, bg_n)
-    y = draw_header(c)
-    for b in blocks:
-        kind = b[0]
-        if kind == "h1":
-            c.setFillColor(INK)
-            c.setFont("Helvetica-Bold", 15)
-            c.drawString(MX, y, b[1])
-            y -= 5 * mm
-        elif kind == "sub":
-            c.setFillColor(MUTED)
-            c.setFont("Helvetica", 8.5)
-            c.drawString(MX, y, b[1])
-            y -= 3.5 * mm
-        elif kind == "audiences":
-            c.setFillColor(MUTED)
-            c.setFont("Helvetica", 7.2)
-            c.drawString(MX, y, b[1])
-            y -= 5.5 * mm
-        elif kind == "p":
-            size, leading = (b[2], b[3]) if len(b) > 3 else (8.2, 11)
-            c.setFillColor(SOFT)
-            c.setFont("Helvetica", size)
-            for ln in wrap(c, b[1], "Helvetica", size, W - 2 * MX):
-                c.drawString(MX, y, ln)
-                y -= leading
-            y -= 1.5 * mm
-        elif kind == "h2":
-            c.setFillColor(ACCENT)
-            c.setFont("Helvetica-Bold", 8.5)
-            c.drawString(MX, y, f"{b[1]:02d}")
-            c.setFillColor(INK)
-            c.setFont("Helvetica-Bold", 9.5)
-            c.drawString(MX + 7 * mm, y, b[2].upper())
-            y -= 5.2 * mm
-        elif kind == "label":
-            c.setFillColor(INK)
-            c.setFont("Helvetica-Bold", 9)
-            c.drawString(MX, y, b[1].upper())
-            y -= 5 * mm
-        elif kind == "callout":
-            lines = wrap(c, b[1], "Helvetica-Oblique", 7.8, W - 2 * MX - 7 * mm)
-            h = len(lines) * 10.2 + 8
-            c.setFillColor(ACCENT_SOFT)
-            c.rect(MX, y - h, W - 2 * MX, h, fill=1, stroke=0)
-            c.setFillColor(SOFT)
-            c.setFont("Helvetica-Oblique", 7.8)
-            ty = y - 8
-            for ln in lines:
-                c.drawString(MX + 3 * mm, ty, ln)
-                ty -= 10.2
-            y = y - h - 3 * mm
-        elif kind == "bullets":
-            for item in b[1]:
-                c.setFillColor(ACCENT)
-                c.circle(MX + 1.1 * mm, y + 1.1 * mm, 0.85 * mm, fill=1, stroke=0)
-                c.setFillColor(SOFT)
-                c.setFont("Helvetica", 7.9)
-                for ln in wrap(c, item, "Helvetica", 7.9, W - 2 * MX - 4.5 * mm):
-                    c.drawString(MX + 4.2 * mm, y, ln)
-                    y -= 10.5
-                y -= 1.2 * mm
-            y -= 1 * mm
-        elif kind == "table":
-            headers, rows = b[1], b[2]
-            max_w = W - 2 * MX
-            col_w = b[3] if len(b) > 3 and b[3] is not None else [max_w * 0.30, max_w * 0.70]
-            fs = b[4] if len(b) > 4 else 7.3
-            c.setFillColor(ACCENT_SOFT)
-            c.rect(MX, y - 5.8 * mm, max_w, 5.8 * mm, fill=1, stroke=0)
-            c.setStrokeColor(TABLE_LINE)
-            c.setLineWidth(0.45)
-            c.line(MX, y, W - MX, y)
-            c.line(MX, y - 5.8 * mm, W - MX, y - 5.8 * mm)
-            c.setFillColor(ACCENT)
-            c.setFont("Helvetica-Bold", 6.6)
-            x = MX
-            for i, h in enumerate(headers):
-                c.drawString(x + 2 * mm, y - 3.9 * mm, h.upper())
-                x += col_w[i]
-            y -= 5.8 * mm
-            for row in rows:
-                cell_lines, max_lines = [], 1
-                for i, cell in enumerate(row):
-                    font = "Helvetica-Bold" if i == 0 else "Helvetica"
-                    lines = wrap(c, cell, font, fs, col_w[i] - 4 * mm)
-                    cell_lines.append((font, lines))
-                    max_lines = max(max_lines, len(lines))
-                hh = max(6.8 * mm, max_lines * 3.15 * mm + 2.6 * mm)
-                c.setStrokeColor(TABLE_LINE)
-                c.setLineWidth(0.35)
-                c.line(MX, y - hh, W - MX, y - hh)
-                x = MX
-                for i, (font, lines) in enumerate(cell_lines):
-                    c.setFont(font, fs)
-                    c.setFillColor(INK if i == 0 else SOFT)
-                    ty = y - 3.6 * mm
-                    for ln in lines:
-                        c.drawString(x + 2 * mm, ty, ln)
-                        ty -= 3.15 * mm
-                    x += col_w[i]
-                y -= hh
-            y -= 1.8 * mm
-        elif kind == "steps":
-            items = b[1]
-            bh = b[2] if len(b) > 2 else 17 * mm
-            n = len(items)
-            gap = 2.2 * mm
-            bw = (W - 2 * MX - gap * (n - 1)) / n
-            x = MX
-            for i, (title, desc) in enumerate(items):
-                c.setFillColor(ACCENT_SOFT)
-                c.rect(x, y - bh, bw, bh, fill=1, stroke=0)
-                c.setFillColor(ACCENT)
-                c.setFont("Helvetica-Bold", 7.2)
-                c.drawString(x + 2 * mm, y - 4.8 * mm, f"{i + 1:02d}")
-                c.setFillColor(INK)
-                c.setFont("Helvetica-Bold", 7)
-                c.drawString(x + 2 * mm, y - 9 * mm, title)
-                c.setFillColor(MUTED)
-                c.setFont("Helvetica", 6)
-                ty = y - 12.5 * mm
-                for ln in wrap(c, desc, "Helvetica", 6, bw - 3.5 * mm)[:2]:
-                    c.drawString(x + 2 * mm, ty, ln)
-                    ty -= 7
-                x += bw + gap
-            y -= bh + 3 * mm
-        elif kind == "two_col":
-            blocks2 = b[1]
-            bh = b[2] if len(b) > 2 else 16 * mm
-            gap = 2.5 * mm
-            bw = (W - 2 * MX - gap) / 2
-            for i, (title, desc) in enumerate(blocks2):
-                col, row = i % 2, i // 2
-                x = MX + col * (bw + gap)
-                yy = y - row * (bh + 2 * mm)
-                c.setFillColor(ACCENT_SOFT)
-                c.rect(x, yy - bh, bw, bh, fill=1, stroke=0)
-                c.setFillColor(ACCENT)
-                c.setFont("Helvetica-Bold", 7.4)
-                c.drawString(x + 2.5 * mm, yy - 4.8 * mm, title)
-                c.setFillColor(SOFT)
-                c.setFont("Helvetica", 6.6)
-                ty = yy - 9.2 * mm
-                for ln in wrap(c, desc, "Helvetica", 6.6, bw - 5 * mm)[:3]:
-                    c.drawString(x + 2.5 * mm, ty, ln)
-                    ty -= 8
-            rows = (len(blocks2) + 1) // 2
-            y -= rows * (bh + 2 * mm) + 1.5 * mm
-        elif kind == "brand":
-            c.setFillColor(ACCENT)
-            c.setFont("Helvetica-Bold", 9)
-            c.drawString(MX, y, "RSC GROUP")
-            y -= 3.5 * mm
-            c.setFillColor(MUTED)
-            c.setFont("Helvetica", 7.5)
-            c.drawString(MX, y, f"REESKOVA  ·  {WEB}  ·  {EMAIL}  ·  {PHONE}")
-            y -= 3 * mm
-        elif kind == "gap":
-            y -= b[1]
-        elif kind == "toc":
-            for t in b[1]:
-                c.setFillColor(SOFT)
-                c.setFont("Helvetica", 7.8)
-                c.drawString(MX, y, t)
-                y -= 4.4 * mm
-            y -= 2 * mm
-    draw_footer(c, page_no, footer_label)
+def build_lang(lang):
+    filename, factory = OUTPUTS[lang]
+    footer, pages = factory()
+    cover = pages[0]
+    closing = pages[-1]
+    body: list = []
+    for page in pages[1:-1]:
+        body.extend(page)
+    out = os.path.join(DIR, filename)
+    c = canvas.Canvas(out, pagesize=A4)
+    _DESIGN.render_document(c, cover, body, closing, footer, CONTACT)
+    c.save()
+    print(f"Wrote {out} ({_DESIGN.total} pages)")
+    return out
 
 
 # ───────────────────────── CONTENT ─────────────────────────
 
-CONTACT = f"{EMAIL} · {PHONE} · {WEB}"
-
 def pages_en():
     f = "REESKOVA · Corporate Presentation"
     return f, [
-        # 1
+        # 1 — cover (minimal — visual only)
         [
-            ("h1", "REESKOVA"),
-            ("sub", "Corporate Presentation for Companies"),
             ("audiences", "Real-estate firms  ·  Dealerships  ·  Developers  ·  Service partners  ·  Multi-branch operations"),
-            ("p", "REESKOVA is the premium marketplace for properties, vehicles and services powered by RSC Group. This document presents, in operational detail, the digital infrastructure available to companies that want to publish verified inventory, capture qualified demand and manage the commercial relationship with buyers and investors without handing the closing process to an intermediary agency.", 8.3, 11.2),
-            ("p", "The platform combines a public discovery layer (a multilingual, multi-market B2B2C marketplace) with a private operations layer (Company Portal / Backoffice). RSC / REESKOVA publishes and connects; negotiation, paperwork and closing remain exclusively between the listing company and the customer.", 8.3, 11.2),
-            ("callout", "Institutional principle: REESKOVA is a publishing and connection platform. It does not intermediate contracts, custody funds or handle legal procedures. This framework sets clear expectations for companies, buyers and ecosystem partners."),
+        ],
+        # 2
+        [
+            ("callout", "Institutional principle: REESKOVA is a publishing and connection platform. It does not intermediate contracts, custody funds or handle legal procedures."),
+            ("p", "Premium marketplace for properties, vehicles and services. Digital infrastructure for verified companies to publish inventory, capture qualified demand and manage commercial relationships directly with buyers.", 7.8, 10),
             ("h2", 1, "Purpose of this document"),
             ("bullets", [
                 "Explain REESKOVA’s positioning within the RSC Group ecosystem and its role toward the listing company.",
                 "Describe verticals, the buyer journey, SaaS capabilities and corporate verification rules.",
                 "Document the actual flows for onboarding, inventory publishing, contact and visit scheduling.",
                 "Define institutional boundaries, reciprocal commitments and official contact channels.",
-                "Serve as an evaluation basis for onboarding real-estate firms, dealerships, developers and partners.",
             ]),
             ("h2", 2, "Product operating scope"),
             ("table", ["Dimension", "Detail"], [
@@ -295,6 +65,15 @@ def pages_en():
                 ["Company admission", "Corporate application with verification before operational activation"],
                 ["RSC role", "Publishing and connection; no contract intermediation or fund custody"],
             ]),
+            ("label", "How to use this document"),
+            ("bullets", [
+                "Executive leadership: assess strategic fit with REESKOVA infrastructure.",
+                "Operations and sales: review the journey, SaaS panel and lead/visit flows before onboarding.",
+                f"Official contact: {CONTACT}",
+            ]),
+        ],
+        # 3
+        [
             ("h2", 3, "Contents"),
             ("toc", [
                 "04  RSC Group and the definition of REESKOVA",
@@ -307,16 +86,6 @@ def pages_en():
                 "11  Discovery, ecosystem and governance",
                 "12  Official channels and next steps",
             ]),
-            ("label", "How to use this document"),
-            ("bullets", [
-                "Executive leadership and partnerships: assess strategic fit with REESKOVA infrastructure.",
-                "Operations and sales: review the journey, SaaS panel and lead/visit flows before onboarding.",
-                "Internal legal / compliance: align the publish-and-connect principle with company policies.",
-                f"Official contact to proceed: {CONTACT}",
-            ]),
-        ],
-        # 2
-        [
             ("h2", 4, "RSC Group — parent company"),
             ("p", "RSC Group is the parent technology company of a multi-product ecosystem focused on digital infrastructure, markets and associated services. Its institutional identity — professional, sober and technology-forward — sets the visual, operating and reputational standard for group brands, including REESKOVA."),
             ("p", "The group combines marketplace, chain, wallet, financial services and applied technology capabilities. REESKOVA concentrates the premium marketplace experience for properties, vehicles and services, while other units contribute complementary layers without changing the marketplace principle of no contractual intermediation."),
@@ -330,21 +99,17 @@ def pages_en():
                 ["Auxiliary services", "Escrow, P2P and Corporate layers when activated within the RSC ecosystem"],
             ]),
             ("h2", 6, "Operational definition of REESKOVA"),
-            ("p", "REESKOVA is a B2B2C marketplace: associated and verified companies manage listings from the Company Portal / Backoffice; consumers do not publish. Buyers discover inventory, contact the advertiser, schedule visits and advance the purchase directly with the company. RSC enables publishing, discovery, messaging and scheduling infrastructure; it does not replace the advertiser in the commercial relationship."),
-            ("table", ["Dimension", "Institutional detail"], [
-                ["Legal-operating nature", "Publishing and connection platform; not a real-estate or automotive brokerage"],
-                ["B2B model", "SaaS infrastructure and digital distribution for verified companies"],
-                ["Who publishes", "Only associated companies after onboarding and verification"],
-                ["Who buys / browses", "Consumers, investors and users of the public marketplace"],
-                ["Verticals", "Properties, vehicles, services and credit options published by partners"],
-                ["Product coverage", "Multi-market configuration with strategic LATAM+ communication"],
-                ["Languages", "Seven interface languages for regional and international operations"],
-                ["Explicit boundary", "No contract intermediation, no fund custody, no legal paperwork"],
-            ]),
+            ("p", "REESKOVA is a B2B2C marketplace: associated and verified companies manage listings from the Company Portal / Backoffice; consumers do not publish. Buyers discover inventory, contact the advertiser, schedule visits and advance the purchase directly with the company."),
             ("callout", "Positioning in brief: “A marketplace, not an agency.” The company keeps commercial control; REESKOVA provides infrastructure, audience and operating tools."),
         ],
-        # 3
+        # 4
         [
+            ("stat_row", [
+                ("7", "Interface languages"),
+                ("3+", "Core verticals"),
+                ("24h", "Onboarding review"),
+                ("B2B2C", "Operating model"),
+            ]),
             ("h2", 7, "Market context"),
             ("p", "The digital environment for properties, vehicles and services remains fragmented. Companies operate across disconnected vertical portals, with heavy competition for impressions, weak lead traceability and little integration between discovery, contact, visits and commercial follow-up. Buyers, by contrast, expect a continuous and transparent journey."),
             ("bullets", [
@@ -375,7 +140,7 @@ def pages_en():
             ]),
             ("callout", "Commercial focus of the For Companies product: publish listings, receive qualified leads and run operations in the SaaS panel, inside an ecosystem built for real-estate firms, dealerships and developers."),
         ],
-        # 4
+        # 5 — verticals
         [
             ("h2", 10, "Marketplace verticals"),
             ("p", "REESKOVA organizes supply into verticals that follow the purchase decision. The company publishes in the category it operates; the buyer navigates the ecosystem with a continuous experience, filters, map and direct contact."),
@@ -1116,20 +881,6 @@ OUTPUTS = {
     "pt": ("REESKOVA-Apresentacao-Corporativa-PT.pdf", pages_pt),
     "fr": ("REESKOVA-Presentation-Corporative-FR.pdf", pages_fr),
 }
-
-
-def build_lang(lang):
-    filename, factory = OUTPUTS[lang]
-    footer, pages = factory()
-    out = os.path.join(DIR, filename)
-    c = canvas.Canvas(out, pagesize=A4)
-    for i, blocks in enumerate(pages, 1):
-        render_blocks(c, blocks, footer, i, i)
-        if i < len(pages):
-            c.showPage()
-    c.save()
-    print(f"Wrote {out} ({len(pages)} pages)")
-    return out
 
 
 def main(langs=None):

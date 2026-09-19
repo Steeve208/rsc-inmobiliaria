@@ -63,3 +63,7 @@ En logs de Vercel / runtime, vigilar prefijos:
 ## Deploy
 
 Proyecto independiente en Vercel (u otro host). Variables críticas: `DATABASE_URL`, `BETTER_AUTH_SECRET`, `NEXT_PUBLIC_BACKOFFICE_URL`, `NEXT_PUBLIC_APP_URL`, `MARKET_INTERNAL_API_SECRET`.
+
+## Workflow operativo
+
+Guía para el equipo administrativo y onboarding de nuevos integrantes: [docs/WORKFLOW-MARKETPLACE-FUNCIONAL.md](docs/WORKFLOW-MARKETPLACE-FUNCIONAL.md) (fases, checklists, flujos diarios y criterios de marketplace funcional).
