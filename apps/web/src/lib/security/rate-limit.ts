@@ -95,11 +95,11 @@ async function rateLimitPostgres(input: {
   limit: number;
   windowMs: number;
 }): Promise<RateLimitResult> {
-  const resetAt = new Date(Date.now() + input.windowMs);
+  const resetAt = new Date(Date.now() + input.windowMs).toISOString();
 
   const rows = await db.execute<{ count: number; reset_at: Date | string }>(sql`
     INSERT INTO api_rate_limit ("key", "count", "reset_at")
-    VALUES (${input.key}, 1, ${resetAt})
+    VALUES (${input.key}, 1, ${resetAt}::timestamptz)
     ON CONFLICT ("key") DO UPDATE SET
       "count" = CASE
         WHEN api_rate_limit.reset_at <= NOW() THEN 1
