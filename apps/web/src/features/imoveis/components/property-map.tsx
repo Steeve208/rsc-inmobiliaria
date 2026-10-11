@@ -107,6 +107,7 @@ export function PropertyMap({
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !token) return;
+    const activeMap = map;
 
     markersRef.current.forEach((marker) => marker.remove());
     markersRef.current.clear();
@@ -132,7 +133,7 @@ export function PropertyMap({
 
       const marker = new mapboxgl.Marker({ element: el })
         .setLngLat([lng, lat])
-        .addTo(map);
+        .addTo(activeMap);
 
       markersRef.current.set(id, marker);
     }
@@ -159,9 +160,9 @@ export function PropertyMap({
 
     const controller = new AbortController();
     void geocodePlace(query, token, controller.signal).then((point) => {
-      if (!point || mapRef.current !== map) return;
+      if (!point || mapRef.current !== activeMap) return;
       placeMarker(item.id, point.lng, point.lat, item.price, item.currency);
-      map.flyTo({ center: [point.lng, point.lat], zoom: 13 });
+      activeMap.flyTo({ center: [point.lng, point.lat], zoom: 13 });
     });
 
     return () => controller.abort();
