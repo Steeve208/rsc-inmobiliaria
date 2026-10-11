@@ -1707,6 +1707,8 @@
     "panel": {
       "chatRsc": "Chat on RSC",
       "whatsapp": "WhatsApp",
+      "email": "Email",
+      "emailSubject": "Property code {code} — Reeskova Properties",
       "scheduleVisit": "Schedule a visit",
       "contactAdvertiser": "Contact advertiser",
       "requestInformation": "Request information",
@@ -1714,7 +1716,8 @@
       "contactProvider": "Contact provider",
       "bookInspection": "Book inspection",
       "askFinancing": "Ask about financing",
-      "whatsappPrefill": "Hi! I'm interested in this listing: {title}"
+      "whatsappPrefill": "Hi! I'm interested in this listing: {title}",
+      "whatsappPropertyPrefill": "Hello. I am contacting you through Reeskova Properties regarding property code {code}. I would like to receive further information."
     },
     "schedule": {
       "title": "Schedule a visit",
@@ -2661,9 +2664,70 @@
       }
     },
     "about": {
-      "title": "About RSC Group & REESKOVA",
+      "title": "About RSC Group and REESKOVA",
       "updated": "Last updated: July 18, 2026",
-      "intro": "REESKOVA is the premium marketplace brand for properties, vehicles, and services—powered by RSC Group.",
+      "intro": "REESKOVA is the premium marketplace brand for properties, vehicles, and services, operated by RSC Group.",
+      "eyebrow": "RSC Group",
+      "lead": "REESKOVA is the RSC Group marketplace for properties, vehicles, and services. We publish company inventory and connect buyers directly with advertisers, with a defined role for the group and for the platform.",
+      "factsLabel": "How we operate",
+      "facts": {
+        "0": "Marketplace for properties, vehicles, and services",
+        "1": "Companies reviewed at onboarding",
+        "2": "Software and distribution, not a closing commission",
+        "3": "Presence across Latin America and beyond"
+      },
+      "group": {
+        "kicker": "The group",
+        "title": "RSC Group",
+        "body": "RSC Group organizes the ecosystem. Technology, the marketplace, and complementary services keep distinct roles, so the buyer journey does not absorb activities that do not belong to the platform."
+      },
+      "platform": {
+        "kicker": "The platform",
+        "title": "REESKOVA",
+        "body": "REESKOVA is the market-facing brand. Companies publish inventory and run the relationship. Buyers discover, compare, and settle price, documents, and conditions with the advertiser."
+      },
+      "mandate": {
+        "title": "How the platform works"
+      },
+      "pillars": {
+        "0": {
+          "index": "01",
+          "title": "Publish",
+          "body": "Tools for a company to keep listings, availability, and a commercial presence in a single marketplace."
+        },
+        "1": {
+          "index": "02",
+          "title": "Connect",
+          "body": "Discovery for the buyer, with contact, conversation, and visits handled directly with the advertising company."
+        },
+        "2": {
+          "index": "03",
+          "title": "Draw the line",
+          "body": "The model is software and distribution. Closing the transaction stays between the parties."
+        }
+      },
+      "boundary": {
+        "kicker": "Scope of activity",
+        "title": "What REESKOVA is not",
+        "body": "We are not a brokerage desk, an escrow agent, or a law firm. We do not intermediate contracts, custody funds, or replace the legal process between buyer and seller. When a financing option or another partner service appears in the journey, that partner remains responsible for its own licensed activity."
+      },
+      "ecosystem": {
+        "kicker": "Brand architecture",
+        "title": "The ecosystem, with a hierarchy",
+        "subtitle": "Each brand has a role. REESKOVA does not absorb the activities of the others.",
+        "brands": {
+          "group": { "name": "RSC Group", "role": "Ecosystem" },
+          "reeskova": { "name": "REESKOVA", "role": "Marketplace" },
+          "bank": { "name": "RSC Bank", "role": "Financial solutions" },
+          "capital": { "name": "RSC Capital", "role": "Investments" },
+          "ora": { "name": "Ora Technology", "role": "Technology" },
+          "chain": { "name": "Reesk Chain", "role": "Infrastructure" }
+        }
+      },
+      "contactHeading": "Contact",
+      "contactBody": "Platform support is at support@rscmarket.com. Companies request access through For business.",
+      "businessCta": "For business",
+      "helpCta": "Help center",
       "sections": {
         "0": {
           "title": "What we build",
@@ -2866,6 +2930,146 @@
       "titleHighlight": "opportunity",
       "subtitle": "Properties, vehicles, projects and services from verified businesses."
     },
+    "residence": {
+      "eyebrow": "Exceptional residences",
+      "title": "Architecture for a different way of living.",
+      "subtitle": "Curated residences in the world's most desirable locations. For those who expect more than a property.",
+      "signIn": "Sign in",
+      "account": "Account",
+      "saved": "Saved",
+      "nav": {
+        "properties": "Properties",
+        "collections": "Collections",
+        "destinations": "Destinations",
+        "journal": "Journal"
+      },
+      "rail": {
+        "estates": "Estates",
+        "apartments": "Apartments",
+        "waterfront": "Waterfront",
+        "mountain": "Mountain",
+        "investment": "Investment",
+        "collection": "A global collection"
+      },
+      "search": {
+        "destination": "Destination",
+        "destinationPlaceholder": "City, region or country",
+        "residenceType": "Residence type",
+        "priceRange": "Price range",
+        "anyPrice": "Any price",
+        "explore": "Explore",
+        "types": {
+          "any": "Houses, apartments, estates",
+          "house": "Houses",
+          "apartment": "Apartments",
+          "estate": "Estates"
+        }
+      },
+      "featured": {
+        "label": "Featured residence",
+        "emptyTitle": "The collection",
+        "beds": "Beds",
+        "baths": "Baths",
+        "interior": "Interior",
+        "land": "Land",
+        "viewDetails": "View details",
+        "prev": "Previous residence",
+        "next": "Next residence"
+      },
+      "body":       {
+        "collectionsEyebrow": "Curated collections",
+        "collectionsTitle": "Live the extraordinary.",
+        "collectionsText": "Explore our exclusive collections of exceptional residences around the world.",
+        "collectionsLink": "View all collections",
+        "collections": {
+          "estates": {
+            "title": "Contemporary Estates",
+            "subtitle": "Modern architecture. Exceptional living."
+          },
+          "waterfront": {
+            "title": "Waterfront Residences",
+            "subtitle": "Oceanfront living in the world's finest locations."
+          },
+          "apartments": {
+            "title": "Luxury Apartments",
+            "subtitle": "Exclusive residences in global cities."
+          },
+          "retreats": {
+            "title": "Private Retreats",
+            "subtitle": "Nature & privacy"
+          }
+        },
+        "featuredEyebrow": "Featured properties",
+        "featuredBadge": "Featured",
+        "featuredTitle": "Exceptional residences.",
+        "featuredText": "Exceptional residences published by verified agencies and advertisers around the world.",
+        "featuredLink": "View all properties",
+        "featuredEmpty": "New residences will appear here.",
+        "save": "Save",
+        "beds": "beds",
+        "baths": "baths",
+        "destinationsEyebrow": "Top destinations",
+        "destinationsTitle": "Extraordinary places.",
+        "destinationsText": "Discover exceptional residences in the world's most desirable locations.",
+        "destinationsLink": "View all destinations",
+        "fromPrice": "From {price}",
+        "propertiesCount": "{count, plural, one {# property} other {# properties}}"
+      }
+    },
+    "destinationsPage": {
+      "eyebrow": "Global destinations",
+      "title": "Exceptional homes. Remarkable places.",
+      "subtitle": "Explore the world's most desirable destinations and find extraordinary residences in unique locations.",
+      "explore": "Explore destinations",
+      "viewOnMap": "View on map",
+      "featuredTitle": "Featured destinations",
+      "featuredText": "From iconic cities to hidden retreats, discover exceptional properties in the world's most sought-after destinations.",
+      "prev": "Previous destinations",
+      "next": "Next destinations",
+      "exploreTitle": "Explore by country",
+      "viewAllCountries": "View all countries",
+      "empty": "Destinations appear here as residences are published.",
+      "propertiesCount": "{count, plural, one {# property} other {# properties}}",
+      "regions": {
+        "all": "All regions",
+        "europe": "Europe",
+        "northAmerica": "North America",
+        "southAmerica": "South America",
+        "middleEast": "Middle East",
+        "asia": "Asia",
+        "africa": "Africa",
+        "oceania": "Oceania"
+      }
+    },
+    "journal": {
+      "eyebrow": "The journal",
+      "title": "Architecture, places and a better way to live.",
+      "subtitle": "Insights, inspiration and expert perspectives on global real estate, design and lifestyle.",
+      "featuredLabel": "Featured article",
+      "readArticle": "Read the article",
+      "prev": "Previous article",
+      "next": "Next article",
+      "searchPlaceholder": "Search articles, places, topics...",
+      "trending": "Trending",
+      "latest": "Latest articles",
+      "viewAll": "View all articles",
+      "empty": "New articles will appear here when the editorial team publishes them.",
+      "minutes": "{count} min read",
+      "newsletterEyebrow": "Reeskova Journal",
+      "newsletterTitle": "Insights that take you further.",
+      "newsletterText": "Get the latest articles, destinations and market insights.",
+      "emailPlaceholder": "Your email address",
+      "subscribe": "Subscribe",
+      "subscribed": "You are on the list.",
+      "invalidEmail": "Enter a valid email address.",
+      "categories": {
+        "all": "All",
+        "architecture": "Architecture",
+        "destinations": "Destinations",
+        "living": "Living",
+        "market": "Market insights"
+      }
+    },
     "search": {
       "tabs": {
         "properties": "Properties",
@@ -2917,6 +3121,10 @@
       "land": {
         "title": "Land",
         "subtitle": "Investment land"
+      },
+      "beach": {
+        "title": "Beachfront",
+        "subtitle": "Houses and apartments"
       }
     },
     "promos": {
@@ -2939,6 +3147,10 @@
       "cta": {
         "explore": "Explore",
         "deals": "See deals"
+      },
+      "rentals": {
+        "title": "Homes for rent",
+        "subtitle": "Apartments and houses ready to move in"
       }
     },
     "categories": {
@@ -2953,7 +3165,11 @@
       "projects": "New Projects",
       "businesses": "Businesses",
       "services": "Services",
-      "more": "More"
+      "more": "More",
+      "luxury": "Luxury",
+      "penthouses": "Penthouses",
+      "beach": "Beach",
+      "studios": "Studios"
     },
     "trust": {
       "verified": {

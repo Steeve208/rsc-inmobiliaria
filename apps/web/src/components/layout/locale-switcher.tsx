@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   className?: string;
+  size?: "md" | "lg";
 };
 
 function MarketCurrencyCode() {
@@ -18,7 +19,7 @@ function MarketCurrencyCode() {
   return <>{market?.market.currency.code ?? "USD"}</>;
 }
 
-export function LocaleSwitcher({ className }: Props) {
+export function LocaleSwitcher({ className, size = "md" }: Props) {
   const t = useTranslations("markets.languages");
   const tNav = useTranslations("nav");
   const locale = useLocale();
@@ -31,15 +32,29 @@ export function LocaleSwitcher({ className }: Props) {
         <button
           type="button"
           onClick={toggle}
-          className="inline-flex h-9 items-center gap-1.5 rounded-[14px] px-2 text-sm font-medium text-[#C8D0DD] transition-colors duration-300 hover:bg-white/5 hover:text-[#D49A3F]"
+          className={cn(
+            "inline-flex items-center font-medium text-[#C8D0DD] transition-colors duration-300 hover:bg-white/5 hover:text-[#D49A3F]",
+            size === "lg"
+              ? "h-14 gap-2.5 rounded-full px-4 text-xl"
+              : "h-11 gap-2 rounded-full px-3.5 text-base",
+          )}
           aria-label={tNav("changeLanguage")}
           aria-expanded={open}
           aria-haspopup="menu"
         >
-          <span className="text-xs font-semibold tracking-wide">
-            {locale.toUpperCase()} / <MarketCurrencyCode />
+          <span
+            className={cn(
+              "font-semibold tracking-wide",
+              size === "lg" ? "text-xl" : "text-base",
+            )}
+          >
+            {locale.toUpperCase()}
+            <span className="hidden min-[400px]:inline">
+              {" "}
+              / <MarketCurrencyCode />
+            </span>
           </span>
-          <ChevronDown className="size-3.5 opacity-70" />
+          <ChevronDown className={cn("opacity-70", size === "lg" ? "size-6" : "size-5")} />
         </button>
       )}
     >

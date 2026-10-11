@@ -2830,6 +2830,146 @@
       "titleHighlight": "সুযোগ খুঁজুন",
       "subtitle": "যাচাইকৃত ব্যবসা থেকে সম্পত্তি, যানবাহন, প্রকল্প ও সেবা।"
     },
+    "residence": {
+      "eyebrow": "Exceptional residences",
+      "title": "Architecture for a different way of living.",
+      "subtitle": "Curated residences in the world's most desirable locations. For those who expect more than a property.",
+      "signIn": "Sign in",
+      "account": "Account",
+      "saved": "Saved",
+      "nav": {
+        "properties": "Properties",
+        "collections": "Collections",
+        "destinations": "Destinations",
+        "journal": "Journal"
+      },
+      "rail": {
+        "estates": "Estates",
+        "apartments": "Apartments",
+        "waterfront": "Waterfront",
+        "mountain": "Mountain",
+        "investment": "Investment",
+        "collection": "A global collection"
+      },
+      "search": {
+        "destination": "Destination",
+        "destinationPlaceholder": "City, region or country",
+        "residenceType": "Residence type",
+        "priceRange": "Price range",
+        "anyPrice": "Any price",
+        "explore": "Explore",
+        "types": {
+          "any": "Houses, apartments, estates",
+          "house": "Houses",
+          "apartment": "Apartments",
+          "estate": "Estates"
+        }
+      },
+      "featured": {
+        "label": "Featured residence",
+        "emptyTitle": "The collection",
+        "beds": "Beds",
+        "baths": "Baths",
+        "interior": "Interior",
+        "land": "Land",
+        "viewDetails": "View details",
+        "prev": "Previous residence",
+        "next": "Next residence"
+      },
+      "body":       {
+        "collectionsEyebrow": "Curated collections",
+        "collectionsTitle": "Extraordinary places. Distinct lifestyles.",
+        "collectionsText": "বিশ্বজুড়ে অসাধারণ বাসভবনের আমাদের বিশেষ সংগ্রহ দেখুন।",
+        "collectionsLink": "Explore all collections",
+        "collections": {
+          "estates": {
+            "title": "Modern Estates",
+            "subtitle": "Architecture & space"
+          },
+          "waterfront": {
+            "title": "Waterfront Residences",
+            "subtitle": "Oceanfront living"
+          },
+          "apartments": {
+            "title": "Luxury Apartments",
+            "subtitle": "Global cities"
+          },
+          "retreats": {
+            "title": "Private Retreats",
+            "subtitle": "Nature & privacy"
+          }
+        },
+        "featuredEyebrow": "Featured properties",
+        "featuredBadge": "নির্বাচিত",
+        "featuredTitle": "অসাধারণ বাসভবন।",
+        "featuredText": "Exceptional residences published by verified agencies and advertisers around the world.",
+        "featuredLink": "View all properties",
+        "featuredEmpty": "New residences will appear here.",
+        "save": "Save",
+        "beds": "beds",
+        "baths": "baths",
+        "destinationsEyebrow": "Top destinations",
+        "destinationsTitle": "অসাধারণ স্থান।",
+        "destinationsText": "বিশ্বের সবচেয়ে কাঙ্ক্ষিত স্থানে অসাধারণ বাসভবন দেখুন।",
+        "destinationsLink": "সব গন্তব্য দেখুন",
+        "fromPrice": "{price} থেকে",
+        "propertiesCount": "{count} properties"
+      }
+    },
+    "destinationsPage": {
+      "eyebrow": "Global destinations",
+      "title": "Exceptional homes. Remarkable places.",
+      "subtitle": "Explore the world's most desirable destinations and find extraordinary residences in unique locations.",
+      "explore": "Explore destinations",
+      "viewOnMap": "View on map",
+      "featuredTitle": "Featured destinations",
+      "featuredText": "From iconic cities to hidden retreats, discover exceptional properties in the world's most sought-after destinations.",
+      "prev": "Previous destinations",
+      "next": "Next destinations",
+      "exploreTitle": "Explore by country",
+      "viewAllCountries": "View all countries",
+      "empty": "Destinations appear here as residences are published.",
+      "propertiesCount": "{count, plural, one {# property} other {# properties}}",
+      "regions": {
+        "all": "All regions",
+        "europe": "Europe",
+        "northAmerica": "North America",
+        "southAmerica": "South America",
+        "middleEast": "Middle East",
+        "asia": "Asia",
+        "africa": "Africa",
+        "oceania": "Oceania"
+      }
+    },
+    "journal": {
+      "eyebrow": "The journal",
+      "title": "Architecture, places and a better way to live.",
+      "subtitle": "Insights, inspiration and expert perspectives on global real estate, design and lifestyle.",
+      "featuredLabel": "Featured article",
+      "readArticle": "Read the article",
+      "prev": "Previous article",
+      "next": "Next article",
+      "searchPlaceholder": "Search articles, places, topics...",
+      "trending": "Trending",
+      "latest": "Latest articles",
+      "viewAll": "View all articles",
+      "empty": "New articles will appear here when the editorial team publishes them.",
+      "minutes": "{count} min read",
+      "newsletterEyebrow": "Reeskova Journal",
+      "newsletterTitle": "Insights that take you further.",
+      "newsletterText": "Get the latest articles, destinations and market insights.",
+      "emailPlaceholder": "Your email address",
+      "subscribe": "Subscribe",
+      "subscribed": "You are on the list.",
+      "invalidEmail": "Enter a valid email address.",
+      "categories": {
+        "all": "All",
+        "architecture": "Architecture",
+        "destinations": "Destinations",
+        "living": "Living",
+        "market": "Market insights"
+      }
+    },
     "search": {
       "tabs": {
         "properties": "সম্পত্তি",
@@ -2881,6 +3021,10 @@
       "land": {
         "title": "জমি",
         "subtitle": "বিনিয়োগের জমি"
+      },
+      "beach": {
+        "title": "সমুদ্রতীর",
+        "subtitle": "বাড়ি ও অ্যাপার্টমেন্ট"
       }
     },
     "promos": {
@@ -2903,6 +3047,10 @@
       "cta": {
         "explore": "দেখুন",
         "deals": "অফার দেখুন"
+      },
+      "rentals": {
+        "title": "ভাড়ার বাড়ি",
+        "subtitle": "থাকার জন্য প্রস্তুত অ্যাপার্টমেন্ট ও বাড়ি"
       }
     },
     "categories": {
@@ -2917,7 +3065,11 @@
       "projects": "নতুন প্রকল্প",
       "businesses": "ব্যবসা",
       "services": "সেবা",
-      "more": "আরও"
+      "more": "আরও",
+      "luxury": "লাক্সারি",
+      "penthouses": "পেন্টহাউস",
+      "beach": "সমুদ্রসৈকত",
+      "studios": "স্টুডিও"
     },
     "trust": {
       "verified": {
@@ -3631,5 +3783,118 @@
   "footer": {
     "rights": "সর্বস্বত্ব সংরক্ষিত।",
     "tagline": "যে বাজারে হাজার হাজার কোম্পানি সম্পত্তি, যানবাহন ও পরিষেবা দেয়।"
+  },
+  "match": {
+    "loading": "আপনার অনুরোধ বুঝছি…",
+    "working": "ম্যাচ খোঁজা হচ্ছে…",
+    "errors": {
+      "generic": "এখন এটি শেষ করা যায়নি। আবার চেষ্টা করুন।"
+    },
+    "purpose": {
+      "buy": "কেনা",
+      "rent": "ভাড়া",
+      "invest": "বিনিয়োগ",
+      "unknown": "নিশ্চিত নই"
+    },
+    "types": {
+      "apartment": "অ্যাপার্টমেন্ট",
+      "house": "বাড়ি",
+      "land": "জমি",
+      "commercial": "বাণিজ্যিক"
+    },
+    "prefs": {
+      "near_public_transport": "গণপরিবহনের কাছে",
+      "parking": "পার্কিং",
+      "balcony": "বারান্দা",
+      "pool": "পুল",
+      "quiet_neighborhood": "শান্ত এলাকা",
+      "near_schools": "স্কুলের কাছে",
+      "rental_potential": "ভাড়ার সম্ভাবনা",
+      "more_space": "আরও জায়গা",
+      "lower_price": "কম দাম",
+      "furnished": "আসবাবসহ",
+      "pets": "পোষা প্রাণী গ্রহণযোগ্য"
+    },
+    "intent": {
+      "placeholder": "আপনি কী খুঁজছেন, বলুন...",
+      "submit": "ম্যাচ খুঁজুন",
+      "examplesLabel": "উদাহরণ",
+      "examples": {
+        "0": "আমার পরিবারের জন্য শহরের কেন্দ্রের কাছে একটি অ্যাপার্টমেন্ট।",
+        "1": "R$700 হাজারের মধ্যে ৩ বেডরুমের একটি বাড়ি।",
+        "2": "ভালো ভাড়ার সম্ভাবনা আছে এমন একটি বিনিয়োগের সম্পত্তি।"
+      }
+    },
+    "page": {
+      "title": "আপনি কী খুঁজছেন?",
+      "subtitle": "REESKOVA-কে বলুন আপনার কী দরকার। আমরা মানানসইটি খুঁজে দেব।",
+      "findMatches": "আমার ম্যাচ দেখুন"
+    },
+    "builder": {
+      "kicker": "REESKOVA MATCH",
+      "title": "আমরা এটাই বুঝেছি।",
+      "empty": "আর একটু বিস্তারিত দিন, আমরা খোঁজ আরও নিখুঁত করব।",
+      "mustHave": "অবশ্যই দরকার",
+      "preferences": "পছন্দ",
+      "noneYet": "এখনও কিছু নেই",
+      "editBedrooms": "বেডরুম (ন্যূনতম)",
+      "editBudget": "সর্বোচ্চ বাজেট",
+      "editCity": "শহর",
+      "bedroomsMin": "{count}+ বেডরুম",
+      "budgetMax": "{price} পর্যন্ত"
+    },
+    "conversation": {
+      "placeholder": "আর যা গুরুত্বপূর্ণ, যোগ করুন…",
+      "send": "পাঠান",
+      "typeAnswer": "নিচে আপনার উত্তর লিখুন।"
+    },
+    "results": {
+      "headline": "আপনার সেরা ম্যাচ",
+      "found": "{count, plural, one {আমরা #টি প্রপার্টি পেয়েছি যা আপনার শর্ত পূরণ করে।} other {আমরা #টি প্রপার্টি পেয়েছি যা আপনার শর্ত পূরণ করে।}}",
+      "empty": "এই শর্তে এখনও কোনো প্রপার্টি পাইনি। একটি আবশ্যিক শর্ত একটু শিথিল করে দেখুন।",
+      "why": "কেন মিলল",
+      "viewProperty": "প্রপার্টি দেখুন",
+      "whyPercent": "কেন {score}%?",
+      "compare": "তুলনা",
+      "compareSelected": "{count}টি প্রপার্টি তুলনা করুন"
+    },
+    "compare": {
+      "metric": "",
+      "price": "দাম",
+      "size": "আয়তন",
+      "bedrooms": "বেডরুম",
+      "priceM2": "দাম/মি²"
+    },
+    "explain": {
+      "kicker": "এই প্রপার্টিটি আপনার সঙ্গে কেন মেলে",
+      "close": "বন্ধ",
+      "loading": "ব্যাখ্যা প্রস্তুত হচ্ছে…",
+      "insight": "REESKOVA-এর মতামত",
+      "ask": "এই প্রপার্টি নিয়ে জিজ্ঞাসা করুন",
+      "askPlaceholder": "রক্ষণাবেক্ষণ চার্জ কি অন্তর্ভুক্ত?",
+      "askSubmit": "জিজ্ঞাসা",
+      "asking": "ভাবছি…",
+      "rating": {
+        "excellent": "চমৎকার",
+        "good": "ভালো",
+        "fair": "মোটামুটি",
+        "weak": "দুর্বল",
+        "unknown": "অজানা"
+      }
+    },
+    "property": {
+      "whyTitle": "কেন মিলল",
+      "whyPercent": "কেন {score}%?",
+      "affordTitle": "আপনি কি এটি বহন করতে পারবেন?",
+      "price": "প্রপার্টির দাম",
+      "down": "আনুমানিক ডাউন পেমেন্ট",
+      "financing": "আনুমানিক মাসিক কিস্তি",
+      "monthly": "আনুমানিক মাসিক খরচ",
+      "estimateDisclaimer": "দেওয়া তথ্যের ভিত্তিতে আনুমানিক।",
+      "askTitle": "REESKOVA-কে জিজ্ঞাসা করুন",
+      "askPlaceholder": "এই প্রপার্টি এই ম্যাচ পেল কেন?",
+      "askSubmit": "জিজ্ঞাসা",
+      "askError": "এটা নির্ধারণ করার মতো যথেষ্ট তথ্য আমার কাছে নেই।"
+    }
   }
 }

@@ -2830,6 +2830,146 @@
       "titleHighlight": "opportunity",
       "subtitle": "Properties, vehicles, projects and services from verified businesses."
     },
+    "residence": {
+      "eyebrow": "Residenze eccezionali",
+      "title": "Architettura per un altro modo di vivere.",
+      "subtitle": "Residenze selezionate nei luoghi più desiderabili del mondo. Per chi si aspetta più di un immobile.",
+      "signIn": "Accedi",
+      "account": "Account",
+      "saved": "Salvati",
+      "nav": {
+        "properties": "Immobili",
+        "collections": "Collezioni",
+        "destinations": "Destinazioni",
+        "journal": "Journal"
+      },
+      "rail": {
+        "estates": "Tenute",
+        "apartments": "Appartamenti",
+        "waterfront": "Lungomare",
+        "mountain": "Montagna",
+        "investment": "Investimento",
+        "collection": "Una collezione globale"
+      },
+      "search": {
+        "destination": "Destinazione",
+        "destinationPlaceholder": "Città, regione o paese",
+        "residenceType": "Tipo di residenza",
+        "priceRange": "Fascia di prezzo",
+        "anyPrice": "Qualsiasi prezzo",
+        "explore": "Esplora",
+        "types": {
+          "any": "Case, appartamenti, tenute",
+          "house": "Case",
+          "apartment": "Appartamenti",
+          "estate": "Tenute"
+        }
+      },
+      "featured": {
+        "label": "Residenza in evidenza",
+        "emptyTitle": "La collezione",
+        "beds": "Camere",
+        "baths": "Bagni",
+        "interior": "Interni",
+        "land": "Terreno",
+        "viewDetails": "Vedi dettagli",
+        "prev": "Residenza precedente",
+        "next": "Residenza successiva"
+      },
+      "body":       {
+        "collectionsEyebrow": "Curated collections",
+        "collectionsTitle": "Extraordinary places. Distinct lifestyles.",
+        "collectionsText": "Esplora le nostre collezioni esclusive di residenze eccezionali nel mondo.",
+        "collectionsLink": "Explore all collections",
+        "collections": {
+          "estates": {
+            "title": "Modern Estates",
+            "subtitle": "Architecture & space"
+          },
+          "waterfront": {
+            "title": "Waterfront Residences",
+            "subtitle": "Oceanfront living"
+          },
+          "apartments": {
+            "title": "Luxury Apartments",
+            "subtitle": "Global cities"
+          },
+          "retreats": {
+            "title": "Private Retreats",
+            "subtitle": "Nature & privacy"
+          }
+        },
+        "featuredEyebrow": "Featured properties",
+        "featuredBadge": "In evidenza",
+        "featuredTitle": "Residenze eccezionali.",
+        "featuredText": "Exceptional residences published by verified agencies and advertisers around the world.",
+        "featuredLink": "View all properties",
+        "featuredEmpty": "New residences will appear here.",
+        "save": "Save",
+        "beds": "beds",
+        "baths": "baths",
+        "destinationsEyebrow": "Top destinations",
+        "destinationsTitle": "Luoghi straordinari.",
+        "destinationsText": "Scopri residenze eccezionali nei luoghi più desiderati del mondo.",
+        "destinationsLink": "Vedi tutte le destinazioni",
+        "fromPrice": "Da {price}",
+        "propertiesCount": "{count} properties"
+      }
+    },
+    "destinationsPage": {
+      "eyebrow": "Global destinations",
+      "title": "Exceptional homes. Remarkable places.",
+      "subtitle": "Explore the world's most desirable destinations and find extraordinary residences in unique locations.",
+      "explore": "Explore destinations",
+      "viewOnMap": "View on map",
+      "featuredTitle": "Featured destinations",
+      "featuredText": "From iconic cities to hidden retreats, discover exceptional properties in the world's most sought-after destinations.",
+      "prev": "Previous destinations",
+      "next": "Next destinations",
+      "exploreTitle": "Explore by country",
+      "viewAllCountries": "View all countries",
+      "empty": "Destinations appear here as residences are published.",
+      "propertiesCount": "{count, plural, one {# property} other {# properties}}",
+      "regions": {
+        "all": "All regions",
+        "europe": "Europe",
+        "northAmerica": "North America",
+        "southAmerica": "South America",
+        "middleEast": "Middle East",
+        "asia": "Asia",
+        "africa": "Africa",
+        "oceania": "Oceania"
+      }
+    },
+    "journal": {
+      "eyebrow": "The journal",
+      "title": "Architecture, places and a better way to live.",
+      "subtitle": "Insights, inspiration and expert perspectives on global real estate, design and lifestyle.",
+      "featuredLabel": "Featured article",
+      "readArticle": "Read the article",
+      "prev": "Previous article",
+      "next": "Next article",
+      "searchPlaceholder": "Search articles, places, topics...",
+      "trending": "Trending",
+      "latest": "Latest articles",
+      "viewAll": "View all articles",
+      "empty": "New articles will appear here when the editorial team publishes them.",
+      "minutes": "{count} min read",
+      "newsletterEyebrow": "Reeskova Journal",
+      "newsletterTitle": "Insights that take you further.",
+      "newsletterText": "Get the latest articles, destinations and market insights.",
+      "emailPlaceholder": "Your email address",
+      "subscribe": "Subscribe",
+      "subscribed": "You are on the list.",
+      "invalidEmail": "Enter a valid email address.",
+      "categories": {
+        "all": "All",
+        "architecture": "Architecture",
+        "destinations": "Destinations",
+        "living": "Living",
+        "market": "Market insights"
+      }
+    },
     "search": {
       "tabs": {
         "properties": "Properties",
@@ -2880,6 +3020,10 @@
       "land": {
         "title": "Land",
         "subtitle": "Investment land"
+      },
+      "beach": {
+        "title": "Fronte mare",
+        "subtitle": "Case e appartamenti"
       }
     },
     "promos": {
@@ -2902,6 +3046,10 @@
       "cta": {
         "explore": "Explore",
         "deals": "See deals"
+      },
+      "rentals": {
+        "title": "Immobili in affitto",
+        "subtitle": "Appartamenti e case pronti"
       }
     },
     "categories": {
@@ -2916,7 +3064,11 @@
       "projects": "New Projects",
       "businesses": "Businesses",
       "services": "Services",
-      "more": "More"
+      "more": "More",
+      "luxury": "Lusso",
+      "penthouses": "Attici",
+      "beach": "Spiaggia",
+      "studios": "Monolocali"
     },
     "trust": {
       "verified": {
@@ -3630,5 +3782,118 @@
   "footer": {
     "rights": "Tutti i diritti riservati.",
     "tagline": "Il marketplace dove migliaia di aziende offrono immobili, veicoli e servizi."
+  },
+  "match": {
+    "loading": "Stiamo capendo la tua richiesta…",
+    "working": "Ricerca delle corrispondenze…",
+    "errors": {
+      "generic": "Non siamo riusciti a completare ora. Riprova."
+    },
+    "purpose": {
+      "buy": "Comprare",
+      "rent": "Affittare",
+      "invest": "Investire",
+      "unknown": "Non sono sicuro"
+    },
+    "types": {
+      "apartment": "Appartamento",
+      "house": "Casa",
+      "land": "Terreno",
+      "commercial": "Commerciale"
+    },
+    "prefs": {
+      "near_public_transport": "Vicino ai trasporti pubblici",
+      "parking": "Parcheggio",
+      "balcony": "Balcone",
+      "pool": "Piscina",
+      "quiet_neighborhood": "Quartiere tranquillo",
+      "near_schools": "Vicino alle scuole",
+      "rental_potential": "Potenziale di affitto",
+      "more_space": "Più spazio",
+      "lower_price": "Prezzo più basso",
+      "furnished": "Arredato",
+      "pets": "Animali ammessi"
+    },
+    "intent": {
+      "placeholder": "Dicci che cosa stai cercando...",
+      "submit": "Trova corrispondenze",
+      "examplesLabel": "Esempi",
+      "examples": {
+        "0": "Un appartamento per la mia famiglia vicino al centro.",
+        "1": "Una casa con 3 camere sotto i 700.000 R$.",
+        "2": "Un immobile da investimento con un buon potenziale di affitto."
+      }
+    },
+    "page": {
+      "title": "Che cosa stai cercando?",
+      "subtitle": "Di' a REESKOVA che cosa ti serve. Troviamo ciò che fa per te.",
+      "findMatches": "Vedi le mie corrispondenze"
+    },
+    "builder": {
+      "kicker": "REESKOVA MATCH",
+      "title": "Ecco che cosa abbiamo capito.",
+      "empty": "Aggiungi qualche dettaglio e rendiamo la ricerca più precisa.",
+      "mustHave": "Indispensabile",
+      "preferences": "Preferenze",
+      "noneYet": "Ancora niente",
+      "editBedrooms": "Camere (min.)",
+      "editBudget": "Budget massimo",
+      "editCity": "Città",
+      "bedroomsMin": "{count}+ camere",
+      "budgetMax": "Fino a {price}"
+    },
+    "conversation": {
+      "placeholder": "Aggiungi cos'altro conta…",
+      "send": "Invia",
+      "typeAnswer": "Scrivi la tua risposta qui sotto."
+    },
+    "results": {
+      "headline": "Le tue migliori corrispondenze",
+      "found": "Abbiamo trovato {count, plural, one {# immobile adatto alle tue esigenze.} other {# immobili adatti alle tue esigenze.}}",
+      "empty": "Non abbiamo ancora trovato immobili che soddisfino questi requisiti. Prova ad allentare un indispensabile.",
+      "why": "Perché corrisponde",
+      "viewProperty": "Vedi immobile",
+      "whyPercent": "Perché {score}%?",
+      "compare": "Confronta",
+      "compareSelected": "Confronta {count} immobili"
+    },
+    "compare": {
+      "metric": "",
+      "price": "Prezzo",
+      "size": "Superficie",
+      "bedrooms": "Camere",
+      "priceM2": "Prezzo/m²"
+    },
+    "explain": {
+      "kicker": "Perché questo immobile fa per te",
+      "close": "Chiudi",
+      "loading": "Preparazione della spiegazione…",
+      "insight": "Lettura REESKOVA",
+      "ask": "Chiedi di questo immobile",
+      "askPlaceholder": "Le spese condominiali sono incluse?",
+      "askSubmit": "Chiedi",
+      "asking": "Sto pensando…",
+      "rating": {
+        "excellent": "Eccellente",
+        "good": "Buono",
+        "fair": "Discreto",
+        "weak": "Debole",
+        "unknown": "Sconosciuto"
+      }
+    },
+    "property": {
+      "whyTitle": "Perché corrisponde",
+      "whyPercent": "Perché {score}%?",
+      "affordTitle": "Puoi permettertelo?",
+      "price": "Prezzo dell'immobile",
+      "down": "Anticipo stimato",
+      "financing": "Rata mensile stimata",
+      "monthly": "Costo mensile stimato",
+      "estimateDisclaimer": "Stima basata sulle informazioni fornite.",
+      "askTitle": "Chiedi a REESKOVA",
+      "askPlaceholder": "Perché questo immobile ha ottenuto questo punteggio?",
+      "askSubmit": "Chiedi",
+      "askError": "Non ho abbastanza informazioni per stabilirlo."
+    }
   }
 }

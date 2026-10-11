@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { listProperties } from "@/lib/listings/property-repository";
 import { listVehicles } from "@/lib/listings/vehicle-repository";
+import { PUBLIC_MODULES } from "@/lib/marketplace/features";
 import type { ListingItem } from "@/features/search/types";
 
 function propertyToSearchItem(
@@ -61,7 +62,7 @@ function vehicleToSearchItem(
 export async function GET() {
   const [properties, vehicles] = await Promise.all([
     listProperties(),
-    listVehicles(),
+    PUBLIC_MODULES.vehicles ? listVehicles() : Promise.resolve([]),
   ]);
 
   const items: ListingItem[] = [

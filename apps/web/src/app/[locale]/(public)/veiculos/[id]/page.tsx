@@ -8,12 +8,14 @@ import {
 } from "@/lib/listings/vehicle-repository";
 import { VehicleDetailPage } from "@/features/veiculos/components/vehicle-detail-page";
 import { buildListingMetadata } from "@/lib/seo/listing-metadata";
+import { PUBLIC_MODULES } from "@/lib/marketplace/features";
 
 type Props = {
   params: Promise<{ locale: string; id: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  if (!PUBLIC_MODULES.vehicles) return {};
   const { locale, id } = await params;
   const vehicle = await getVehicleDetail(id);
   if (!vehicle) return {};
@@ -33,6 +35,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Props) {
+  if (!PUBLIC_MODULES.vehicles) notFound();
+
   const { locale, id } = await params;
   setRequestLocale(locale);
 

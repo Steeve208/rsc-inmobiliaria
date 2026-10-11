@@ -102,6 +102,7 @@ export type PropertyDetail = PropertyListing & {
   companyId: string;
   companyLogoUrl?: string;
   whatsappNumber: string;
+  contactEmail?: string;
   images: string[];
   featured?: boolean;
   virtualTourUrl?: string;

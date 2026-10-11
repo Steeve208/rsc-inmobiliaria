@@ -16,7 +16,6 @@ import {
   Dumbbell,
   Eye,
   Fence,
-  Heart,
   MapPin,
   Maximize2,
   Share2,
@@ -40,7 +39,8 @@ import { useMarket } from "@/lib/providers/market-provider";
 import { VirtualTourEmbed } from "@/features/listings/components/virtual-tour-embed";
 import { FloorPlanViewer } from "@/features/listings/components/floor-plan-viewer";
 import { ListingContactPanel } from "@/features/contact";
-import { useFavoriteButton } from "@/hooks/use-favorites";
+import { buildWhatsAppUrl } from "@/lib/leads/whatsapp";
+import { formatListingCode } from "@/lib/listings/listing-code";
 import { shareListing } from "@/lib/listings/share-listing";
 import { PropertyMapLazy } from "./property-map-lazy";
 import { PropertyCard } from "./property-card";
@@ -71,9 +71,8 @@ export function PropertyDetailPage({
   agencyListings = [],
 }: Props) {
   const t = useTranslations("imoveis.detail");
+  const tContact = useTranslations("contact.panel");
   const { market } = useMarket();
-  const { active: isFavorite, handleClick: handleFavoriteClick } =
-    useFavoriteButton("property", property.id);
   const [activeImage, setActiveImage] = useState(0);
   const [mediaTab, setMediaTab] = useState<(typeof mediaTabs)[number]>("photos");
   const [expandedDesc, setExpandedDesc] = useState(false);
@@ -84,6 +83,7 @@ export function PropertyDetailPage({
   const [reportOpen, setReportOpen] = useState(false);
   const locationRef = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+  const swipeStart = useRef(0);
 
   const termMonths = termYears * 12;
   const interestRate = 0.89;
@@ -209,6 +209,12 @@ export function PropertyDetailPage({
     );
   }
 
+  const listingCode = formatListingCode(property.id, property.code, "property");
+  const advertiserWhatsAppUrl = buildWhatsAppUrl(
+    property.whatsappNumber,
+    tContact("whatsappPropertyPrefill", { code: listingCode }),
+  );
+
   const contactListing = {
     listingId: property.id,
     listingTitle: property.title,
@@ -216,12 +222,14 @@ export function PropertyDetailPage({
     companyId: property.companyId,
     companyName: property.company,
     whatsappNumber: property.whatsappNumber,
+    contactEmail: property.contactEmail,
+    listingCode,
     agentName: property.agent?.name,
   };
 
   return (
     <div className="bg-[#F4F7FA] text-[#0B1220]">
-      <div className="rk-container py-4 pb-28 lg:pb-10">
+      <div className="rk-container py-4 pb-[calc(var(--rk-bottom-nav)+5.5rem+env(safe-area-inset-bottom))] md:pb-28 lg:pb-24">
         <nav className="mb-4 flex flex-wrap items-center gap-1 text-xs text-[#6B7285]">
           <Link href="/" className="hover:text-[#EBAD5B]">
             {t("breadcrumbHome")}
@@ -245,7 +253,17 @@ export function PropertyDetailPage({
             <section>
               {mediaTab === "photos" ? (
                 <>
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-[#0B1220]">
+                  <div
+                    className="relative aspect-[4/3] touch-pan-y overflow-hidden rounded-xl bg-[#0B1220] sm:aspect-[16/10]"
+                    onPointerDown={(event) => {
+                      swipeStart.current = event.clientX;
+                    }}
+                    onPointerUp={(event) => {
+                      const delta = event.clientX - swipeStart.current;
+                      if (delta > 48) prevImage();
+                      else if (delta < -48) nextImage();
+                    }}
+                  >
                     <ListingImage
                       src={heroImage}
                       alt={property.title}
@@ -262,23 +280,8 @@ export function PropertyDetailPage({
                     <div className="absolute right-3 top-3 flex gap-2">
                       <button
                         type="button"
-                        onClick={handleFavoriteClick}
-                        className={cn(
-                          "inline-flex size-9 items-center justify-center rounded-full backdrop-blur-md",
-                          isFavorite
-                            ? "bg-[#EBAD5B] text-[#1A1205]"
-                            : "bg-white/90 text-[#0B1220]",
-                        )}
-                        aria-label={t("save")}
-                      >
-                        <Heart
-                          className={cn("size-4", isFavorite && "fill-current")}
-                        />
-                      </button>
-                      <button
-                        type="button"
                         onClick={handleShare}
-                        className="inline-flex size-9 items-center justify-center rounded-full bg-white/90 text-[#0B1220]"
+                        className="inline-flex size-11 items-center justify-center rounded-full bg-white/90 text-[#0B1220]"
                         aria-label={t("share")}
                       >
                         <Share2 className="size-4" />
@@ -292,7 +295,7 @@ export function PropertyDetailPage({
                         <button
                           type="button"
                           onClick={prevImage}
-                          className="absolute left-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white hover:bg-black/65"
+                          className="absolute left-2 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white hover:bg-black/65"
                           aria-label={t("prevPhoto")}
                         >
                           <ChevronLeft className="size-5" />
@@ -300,7 +303,7 @@ export function PropertyDetailPage({
                         <button
                           type="button"
                           onClick={nextImage}
-                          className="absolute right-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white hover:bg-black/65"
+                          className="absolute right-2 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white hover:bg-black/65"
                           aria-label={t("nextPhoto")}
                         >
                           <ChevronRight className="size-5" />
@@ -403,13 +406,13 @@ export function PropertyDetailPage({
                   {t("verified")}
                 </p>
               ) : null}
-              <h1 className="rk-display mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+              <h1 className="rk-display mt-2 break-words text-[length:var(--rk-type-title)] font-bold tracking-tight">
                 {property.title}
               </h1>
               <button
                 type="button"
                 onClick={scrollToMap}
-                className="mt-2 inline-flex items-center gap-1.5 text-sm text-[#6B7285] hover:text-[#EBAD5B]"
+                className="mt-2 flex w-full items-start gap-1.5 text-left text-sm text-[#6B7285] hover:text-[#EBAD5B]"
               >
                 <MapPin className="size-4 text-[#EBAD5B]" />
                 {property.neighborhood}, {property.city}, {property.state}
@@ -432,7 +435,7 @@ export function PropertyDetailPage({
                 />
               </div>
 
-              <div className="mt-5 grid grid-cols-2 gap-3 border-t border-[#EEF2F7] pt-5 sm:grid-cols-5">
+              <div className="mt-5 grid grid-cols-2 gap-3 border-t border-[#EEF2F7] pt-5 min-[900px]:grid-cols-5">
                 {quickSpecs.map(({ icon: Icon, label, value }) => (
                   <div key={label} className="flex items-center gap-2.5">
                     <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#F4F7FA] text-[#0B1220]">
@@ -586,9 +589,9 @@ export function PropertyDetailPage({
           <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
             <div
               ref={contactRef}
-              className="rounded-xl bg-white p-5 ring-1 ring-black/[0.04]"
+              className="scroll-mt-24 rounded-xl bg-white p-5 ring-1 ring-black/[0.04]"
             >
-              <p className="rk-display text-2xl font-bold tracking-tight sm:text-3xl">
+              <p className="rk-display break-words text-[length:var(--rk-type-title)] font-bold tracking-tight">
                 {formatPrice(property.price, property.currency)}
               </p>
               <p className="mt-1 text-sm text-[#6B7285]">
@@ -752,34 +755,35 @@ export function PropertyDetailPage({
       </div>
 
       {/* Sticky mobile/desktop CTA bar */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E5E7EB] bg-white/95 backdrop-blur-md lg:hidden">
-        <div className="rk-container flex items-center justify-between gap-3 py-2.5">
+      <div className="fixed inset-x-0 bottom-[calc(var(--rk-bottom-nav)+env(safe-area-inset-bottom))] z-40 border-t border-[#E5E7EB] bg-white/95 backdrop-blur-md md:bottom-0 lg:hidden">
+        <div className="rk-container flex items-center justify-between gap-3 py-2">
           <div className="min-w-0">
-            <p className="text-sm font-bold">
+            <p className="truncate text-sm font-bold">
               {formatPrice(property.price, property.currency)}
             </p>
-            <p className="truncate text-[11px] text-[#6B7285]">
+            <p className="hidden truncate text-[11px] text-[#6B7285] min-[400px]:block">
               {property.title}
             </p>
           </div>
           <div className="flex shrink-0 items-center gap-2">
-            <button
-              type="button"
-              onClick={handleFavoriteClick}
-              className="inline-flex size-10 items-center justify-center rounded-lg border border-[#E5E7EB]"
-              aria-label={t("save")}
-            >
-              <Heart
-                className={cn("size-4", isFavorite && "fill-[#EBAD5B] text-[#EBAD5B]")}
-              />
-            </button>
-            <button
-              type="button"
-              onClick={scrollToContact}
-              className="inline-flex h-10 items-center rounded-lg bg-[#EBAD5B] px-4 text-sm font-bold text-[#1A1205]"
-            >
-              {t("contactAdvertiser")}
-            </button>
+            {advertiserWhatsAppUrl ? (
+              <a
+                href={advertiserWhatsAppUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 max-w-[46vw] items-center justify-center rounded-lg bg-[#25D366] px-3 text-center text-xs font-bold leading-tight text-white sm:max-w-none sm:px-4 sm:text-sm"
+              >
+                {tContact("whatsapp")}
+              </a>
+            ) : (
+              <button
+                type="button"
+                onClick={scrollToContact}
+                className="inline-flex h-11 max-w-[46vw] items-center justify-center rounded-lg bg-[#25D366] px-3 text-center text-xs font-bold leading-tight text-white sm:max-w-none sm:px-4 sm:text-sm"
+              >
+                {tContact("whatsapp")}
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -796,16 +800,6 @@ export function PropertyDetailPage({
           <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={handleFavoriteClick}
-              className="inline-flex h-10 items-center gap-2 rounded-lg border border-[#E5E7EB] px-3 text-sm font-semibold"
-            >
-              <Heart
-                className={cn("size-4", isFavorite && "fill-[#EBAD5B] text-[#EBAD5B]")}
-              />
-              {t("save")}
-            </button>
-            <button
-              type="button"
               onClick={handleShare}
               className="inline-flex h-10 items-center gap-2 rounded-lg border border-[#E5E7EB] px-3 text-sm font-semibold"
             >
@@ -819,13 +813,24 @@ export function PropertyDetailPage({
             >
               {t("scheduleVisit")}
             </button>
-            <button
-              type="button"
-              onClick={scrollToContact}
-              className="inline-flex h-10 items-center rounded-lg bg-[#EBAD5B] px-5 text-sm font-bold text-[#1A1205]"
-            >
-              {t("contactAdvertiser")}
-            </button>
+            {advertiserWhatsAppUrl ? (
+              <a
+                href={advertiserWhatsAppUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-10 items-center rounded-lg bg-[#25D366] px-5 text-sm font-bold text-white"
+              >
+                {tContact("whatsapp")}
+              </a>
+            ) : (
+              <button
+                type="button"
+                onClick={scrollToContact}
+                className="inline-flex h-10 items-center rounded-lg bg-[#25D366] px-5 text-sm font-bold text-white"
+              >
+                {tContact("whatsapp")}
+              </button>
+            )}
           </div>
         </div>
       </div>

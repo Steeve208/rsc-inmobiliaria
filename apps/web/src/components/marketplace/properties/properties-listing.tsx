@@ -219,7 +219,7 @@ export function PropertiesListing({
                 ))}
               </div>
             ) : (
-              <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="mt-3 grid gap-3 min-[600px]:grid-cols-2 xl:grid-cols-3">
                 {pageItems.map((item) => (
                   <ListingPropertyCard
                     key={item.id}

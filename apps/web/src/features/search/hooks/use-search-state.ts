@@ -3,6 +3,7 @@
 import { useCallback, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter, usePathname } from "@/lib/i18n/routing";
+import { PUBLIC_MODULES } from "@/lib/marketplace/features";
 import {
   defaultFilters,
   type SearchCategory,
@@ -11,8 +12,12 @@ import {
 } from "../types";
 
 function parseFilters(params: URLSearchParams): SearchFilters {
-  const category =
+  const requested =
     (params.get("category") as SearchCategory) || defaultFilters.category;
+  const category =
+    requested === "vehicles" && !PUBLIC_MODULES.vehicles
+      ? defaultFilters.category
+      : requested;
 
   return {
     category,

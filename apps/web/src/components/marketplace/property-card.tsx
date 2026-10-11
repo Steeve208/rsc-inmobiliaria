@@ -1,10 +1,9 @@
 "use client";
 
 import { ListingImage } from "@/components/listing-image";
-import { Bath, BedDouble, Heart, MapPin, ShieldCheck } from "lucide-react";
+import { Bath, BedDouble, MapPin, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
-import { useFavoriteButton } from "@/hooks/use-favorites";
 import { ListingCodeBadge } from "@/components/marketplace/listing-code-badge";
 import { CountryFlag } from "@/components/marketplace/country-flag";
 import { listingCodeKindFrom } from "@/lib/listings/listing-code";
@@ -26,7 +25,6 @@ function initials(name?: string) {
 
 export function MarketplacePropertyCard({ item, fill = false }: Props) {
   const t = useTranslations("marketplace");
-  const { active, handleClick } = useFavoriteButton("property", item.id);
 
   return (
     <article
@@ -77,19 +75,6 @@ export function MarketplacePropertyCard({ item, fill = false }: Props) {
             fill ? "text-[13px]" : "text-[15px]",
           )}
         />
-        <button
-          type="button"
-          onClick={handleClick}
-          className={cn(
-            "absolute right-2.5 top-2.5 inline-flex size-8 items-center justify-center rounded-full backdrop-blur-md transition",
-            active
-              ? "bg-[#EBAD5B] text-[#1A1205]"
-              : "bg-white/90 text-[#1A1F2B] hover:bg-white",
-          )}
-          aria-label={t("save")}
-        >
-          <Heart className={cn("size-4", active && "fill-current")} />
-        </button>
       </div>
       <Link href={item.href} className={cn("block", fill ? "p-2" : "p-2.5")}>
         <h3 className="rk-display line-clamp-1 text-[13px] font-semibold text-[#0B1220]">

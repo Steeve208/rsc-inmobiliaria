@@ -11,9 +11,9 @@ export default async function SignInPage({ params }: Props) {
   setRequestLocale(locale);
 
   return (
-    <div className="flex min-h-[calc(100vh-72px)] flex-col items-center justify-center px-6 py-12">
+    <div className="mx-auto flex w-full max-w-md flex-col items-center px-6 py-8">
       <div className="mb-8">
-        <Logo />
+        <Logo onLight />
       </div>
       <AuthForm mode="signIn" />
     </div>

@@ -2,9 +2,11 @@
  * Generates fr/de/it/ar message packs from en.json with localized overlays.
  * Untranslated leaves remain English (request.ts also deep-merges en at runtime).
  */
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const messagesDir = path.join(__dirname, "../messages");
 const en = JSON.parse(fs.readFileSync(path.join(messagesDir, "en.json"), "utf8"));
 

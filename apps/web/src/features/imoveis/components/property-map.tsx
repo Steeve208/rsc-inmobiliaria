@@ -10,6 +10,39 @@ import { formatCompactMoney } from "@/lib/marketplace/format";
 import { cn } from "@/lib/utils";
 import type { PropertyListing } from "../types";
 
+function mapQueryFromListing(item?: PropertyListing & { address?: string }) {
+  if (!item) return "";
+  const address = item.address?.trim() ?? "";
+  const street = address && !/^\d+$/.test(address) ? address : "";
+  return [street, item.neighborhood, item.city, item.state, item.country]
+    .map((part) => part?.trim())
+    .filter((part): part is string => Boolean(part && part.length > 1))
+    .join(", ");
+}
+
+async function geocodePlace(
+  query: string,
+  token: string,
+  signal: AbortSignal,
+) {
+  try {
+    const response = await fetch(
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${encodeURIComponent(token)}&limit=1`,
+      { signal },
+    );
+    if (!response.ok) return null;
+    const data = (await response.json()) as {
+      features?: { center?: number[] }[];
+    };
+    const center = data.features?.[0]?.center;
+    if (!center || center.length < 2) return null;
+    const [lng, lat] = center;
+    return isValidMapCoord(lng, lat) ? { lng, lat } : null;
+  } catch {
+    return null;
+  }
+}
+
 type Props = {
   items: PropertyListing[];
   highlightedId?: string | null;
@@ -58,6 +91,7 @@ export function PropertyMap({
       "bottom-right",
     );
     map.addControl(new mapboxgl.AttributionControl({ compact: true }));
+    map.on("load", () => map.resize());
 
     mapRef.current = map;
     const markersMap = markersRef.current;
@@ -81,35 +115,56 @@ export function PropertyMap({
       isValidMapCoord(item.lng, item.lat),
     );
 
-    mappable.forEach((item) => {
+    function placeMarker(id: string, lng: number, lat: number, price?: number, currency?: string) {
       const el = document.createElement("div");
-      if (pricePins) {
+      if (pricePins && price != null && currency) {
         el.className =
           "cursor-pointer rounded-md bg-white px-1.5 py-0.5 text-[10px] font-bold text-[#0B1220] shadow-md ring-1 ring-black/10 transition-transform";
-        el.textContent = formatCompactMoney(item.price, item.currency);
+        el.textContent = formatCompactMoney(price, currency);
       } else {
         el.className =
           "size-4 cursor-pointer rounded-full border-2 border-white shadow-lg transition-transform";
         el.style.backgroundColor = "#1d4ed8";
       }
 
-      el.addEventListener("mouseenter", () => onHighlight?.(item.id));
+      el.addEventListener("mouseenter", () => onHighlight?.(id));
       el.addEventListener("mouseleave", () => onHighlight?.(null));
 
       const marker = new mapboxgl.Marker({ element: el })
-        .setLngLat([item.lng, item.lat])
+        .setLngLat([lng, lat])
         .addTo(map);
 
-      markersRef.current.set(item.id, marker);
+      markersRef.current.set(id, marker);
+    }
+
+    mappable.forEach((item) => {
+      placeMarker(item.id, item.lng, item.lat, item.price, item.currency);
     });
 
     if (mappable.length > 1) {
       const bounds = new mapboxgl.LngLatBounds();
       mappable.forEach((item) => bounds.extend([item.lng, item.lat]));
       map.fitBounds(bounds, { padding: 48, maxZoom: 13 });
-    } else if (mappable.length === 1) {
-      map.flyTo({ center: [mappable[0].lng, mappable[0].lat], zoom: 13 });
+      return;
     }
+
+    if (mappable.length === 1) {
+      map.flyTo({ center: [mappable[0].lng, mappable[0].lat], zoom: 14 });
+      return;
+    }
+
+    const item = items[0];
+    const query = mapQueryFromListing(item);
+    if (!item || !query) return;
+
+    const controller = new AbortController();
+    void geocodePlace(query, token, controller.signal).then((point) => {
+      if (!point || mapRef.current !== map) return;
+      placeMarker(item.id, point.lng, point.lat, item.price, item.currency);
+      map.flyTo({ center: [point.lng, point.lat], zoom: 13 });
+    });
+
+    return () => controller.abort();
   }, [items, token, onHighlight, pricePins]);
 
   useEffect(() => {

@@ -53,30 +53,31 @@ export function ListingMobileBar({
         <button
           type="button"
           onClick={onOpenFilters}
-          className="inline-flex h-10 items-center justify-center gap-1.5 rounded-full bg-white text-sm font-semibold text-[#0B1220] ring-1 ring-[#E5E7EB]"
+          className="inline-flex min-h-11 items-center justify-center gap-1 rounded-full bg-white px-2 text-xs font-semibold text-[#0B1220] ring-1 ring-[#E5E7EB] sm:gap-1.5 sm:text-sm"
         >
-          <SlidersHorizontal className="size-4" />
-          {t("filters")}
+          <SlidersHorizontal className="size-4 shrink-0" />
+          <span className="truncate">{t("filters")}</span>
         </button>
         <button
           type="button"
           onClick={onOpenMap}
-          className="inline-flex h-10 items-center justify-center gap-1.5 rounded-full bg-white text-sm font-semibold text-[#0B1220] ring-1 ring-[#E5E7EB]"
+          className="inline-flex min-h-11 items-center justify-center gap-1 rounded-full bg-white px-2 text-xs font-semibold text-[#0B1220] ring-1 ring-[#E5E7EB] sm:gap-1.5 sm:text-sm"
         >
-          <MapIcon className="size-4" />
-          {t("views.map")}
+          <MapIcon className="size-4 shrink-0" />
+          <span className="truncate">{t("views.map")}</span>
         </button>
-        <div className="relative">
+        <div className="relative min-w-0">
           <button
             type="button"
             onClick={() => setSortOpen((open) => !open)}
-            className="inline-flex h-10 w-full items-center justify-center gap-1.5 rounded-full bg-white text-sm font-semibold text-[#0B1220] ring-1 ring-[#E5E7EB]"
+            className="inline-flex min-h-11 w-full items-center justify-center gap-1 rounded-full bg-white px-2 text-xs font-semibold text-[#0B1220] ring-1 ring-[#E5E7EB] sm:gap-1.5 sm:text-sm"
+            aria-expanded={sortOpen}
           >
             {t("sortLabel")}
             <ChevronDown className="size-4" />
           </button>
           {sortOpen ? (
-            <div className="absolute right-0 top-full z-30 mt-1 w-44 rounded-lg bg-white py-1 shadow-lg ring-1 ring-black/5">
+            <div className="absolute end-0 top-full z-30 mt-1 max-h-[min(60vh,18rem)] w-[min(16rem,80vw)] overflow-y-auto rounded-lg bg-white py-1 shadow-lg ring-1 ring-black/5">
               {SORTS.map((sort) => (
                 <button
                   key={sort}
@@ -85,8 +86,8 @@ export function ListingMobileBar({
                     onChange({ sort });
                     setSortOpen(false);
                   }}
-                  className={cn(
-                    "block w-full px-3 py-2 text-left text-sm",
+                    className={cn(
+                    "block min-h-11 w-full px-3 py-2 text-left text-sm",
                     filters.sort === sort
                       ? "font-semibold text-[#0B1220]"
                       : "text-[#4B5563]",
@@ -166,9 +167,9 @@ export function ListingMobileFilters({
   const t = useTranslations("marketplace.listing");
 
   return (
-    <div className="fixed inset-0 z-[70] flex flex-col bg-white lg:hidden">
-      <div className="flex items-center justify-between border-b border-[#EFECE4] px-4 py-3">
-        <button type="button" onClick={onClose} aria-label={t("close")}>
+    <div className="fixed inset-0 z-[70] flex flex-col bg-white pt-[env(safe-area-inset-top)] lg:hidden">
+      <div className="flex items-center justify-between border-b border-[#EFECE4] px-4 py-2">
+        <button type="button" onClick={onClose} aria-label={t("close")} className="inline-flex size-11 items-center justify-center">
           <X className="size-5 text-[#0B1220]" />
         </button>
         <h2 className="text-base font-bold text-[#0B1220]">{t("filters")}</h2>
@@ -183,11 +184,11 @@ export function ListingMobileFilters({
       <div className="flex-1 overflow-y-auto px-4">
         <ListingFilters filters={filters} catalog={catalog} onChange={onChange} />
       </div>
-      <div className="border-t border-[#EFECE4] p-4">
+      <div className="border-t border-[#EFECE4] p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
         <button
           type="button"
           onClick={onClose}
-          className="flex h-12 w-full items-center justify-center rounded-xl bg-[#2BB8A8] text-sm font-bold text-[#070B14]"
+          className="flex min-h-12 w-full items-center justify-center rounded-xl bg-[#2BB8A8] px-4 text-sm font-bold text-[#070B14]"
         >
           {t("showResults", { count: resultCount })}
         </button>
@@ -211,8 +212,8 @@ export function ListingMobileMap({
 
   return (
     <div className="fixed inset-0 z-[70] bg-[#F4F7FA] lg:hidden">
-      <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between bg-white px-4 py-3 shadow-sm">
-        <button type="button" onClick={onClose} aria-label={t("back")}>
+      <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between bg-white px-2 py-1 pt-[max(0.25rem,env(safe-area-inset-top))] shadow-sm">
+        <button type="button" onClick={onClose} aria-label={t("back")} className="inline-flex size-11 items-center justify-center">
           <ArrowLeft className="size-5 text-[#0B1220]" />
         </button>
         <h2 className="text-base font-bold text-[#0B1220]">{t("views.map")}</h2>
@@ -232,7 +233,7 @@ export function ListingMobileMap({
         pricePins
         className="h-full min-h-screen"
       />
-      <div className="absolute inset-x-0 bottom-0 max-h-[46vh] overflow-y-auto rounded-t-2xl bg-white px-4 pb-6 pt-3 shadow-[0_-8px_30px_rgba(15,23,42,.12)]">
+      <div className="absolute inset-x-0 bottom-0 max-h-[46vh] overflow-y-auto rounded-t-2xl bg-white px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-8px_30px_rgba(15,23,42,.12)]">
         <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-[#E5E7EB]" />
         <div className="mb-3 flex items-center justify-between gap-2">
           <p className="text-sm font-bold text-[#0B1220]">

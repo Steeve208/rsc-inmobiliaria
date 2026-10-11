@@ -43,7 +43,7 @@ export function LegalDocumentPage({ slug }: { slug: LegalSlug }) {
   const related = LEGAL_SLUGS.filter((item) => item !== slug);
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden bg-[#070B14]">
       <section className="border-b border-white/8 bg-gradient-to-b from-[#0a1628]/80 to-[#000810]">
         <div className={cn(marketplace.container, "py-12 lg:py-16")}>
           <div className="mx-auto max-w-3xl">
@@ -79,7 +79,7 @@ export function LegalDocumentPage({ slug }: { slug: LegalSlug }) {
                   <h2 className="text-lg font-semibold text-white sm:text-xl">
                     {t(`sections.${key}.title`)}
                   </h2>
-                  <div className="mt-4 space-y-3 text-sm leading-relaxed text-white/55 sm:text-[15px]">
+                  <div className="mt-4 space-y-3 text-sm leading-7 text-[#C5CDD8] sm:text-[15px]">
                     {paragraphs.map((_, index) => (
                       <p key={index}>{t(`sections.${key}.paragraphs.${index}`)}</p>
                     ))}

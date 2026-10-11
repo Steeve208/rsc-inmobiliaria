@@ -119,41 +119,123 @@ async function loadMessages(threadId: string): Promise<MessageRow[]> {
     .orderBy(asc(chatMessage.createdAt));
 }
 
+const PLATFORM_MEMBER_ROLES = new Set(["rsc_admin", "rsc_moderator"]);
+const LISTING_EMAIL_KEYS = [
+  "brokerEmail",
+  "agentEmail",
+  "corretorEmail",
+  "contactEmail",
+  "email",
+] as const;
+
+function textValue(value: unknown) {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function emailFromMetadata(metadata: Record<string, unknown> | null) {
+  if (!metadata) return "";
+  for (const key of LISTING_EMAIL_KEYS) {
+    const value = textValue(metadata[key]);
+    if (value.includes("@")) return value;
+  }
+  return "";
+}
+
+function whatsappFromMetadata(metadata: Record<string, unknown> | null) {
+  return textValue(metadata?.whatsappNumber).replace(/\D/g, "");
+}
+
 export async function getCompanyConfig(
   companyId: string,
+  listingId?: string | null,
 ): Promise<CompanyLeadConfig | undefined> {
   const fromOrg = await runOptionalQuery(async () => {
     const rows = await db.execute<{
       name: string;
+      contact_email: string | null;
+      social_email: string | null;
       whatsapp: string | null;
       whatsapp_number: string | null;
+      phone: string | null;
+      metadata: Record<string, unknown> | null;
+      creator_email: string | null;
+      creator_role: string | null;
+      company_member_email: string | null;
     }>(sql`
       select
         o.name,
+        nullif(btrim(o.contact_email), '') as contact_email,
+        nullif(btrim(o.social_links->>'email'), '') as social_email,
         nullif(o.social_links->>'whatsapp', '') as whatsapp,
-        nullif(o.social_links->>'whatsappNumber', '') as whatsapp_number
+        nullif(o.social_links->>'whatsappNumber', '') as whatsapp_number,
+        nullif(btrim(o.phone), '') as phone,
+        l.metadata as metadata,
+        nullif(btrim(p.email), '') as creator_email,
+        m.role as creator_role,
+        (
+          select nullif(btrim(p2.email), '')
+          from public.memberships m2
+          join public.profiles p2 on p2.id = m2.user_id
+          where m2.organization_id = o.id
+            and m2.role not in ('rsc_admin', 'rsc_moderator')
+          order by m2.is_primary desc nulls last, m2.created_at
+          limit 1
+        ) as company_member_email
       from public.organizations o
+      left join public.listings l
+        on l.organization_id = o.id
+       and ${listingId ?? ""} <> ''
+       and l.id::text = ${listingId ?? ""}
+      left join public.profiles p on p.id = l.created_by
+      left join public.memberships m
+        on m.user_id = l.created_by
+       and m.organization_id = o.id
       where o.slug = ${companyId}
       limit 1
     `);
     const row = rows[0];
     if (!row) return undefined;
-    const whatsappNumber = (row.whatsapp_number || row.whatsapp || "").replace(/\D/g, "");
-    if (!whatsappNumber) return undefined;
+
+    const brokerEmail =
+      row.creator_email &&
+      row.creator_role &&
+      !PLATFORM_MEMBER_ROLES.has(row.creator_role)
+        ? row.creator_email
+        : "";
+    const contactEmail =
+      emailFromMetadata(row.metadata) ||
+      row.contact_email ||
+      row.social_email ||
+      row.company_member_email ||
+      brokerEmail ||
+      row.creator_email ||
+      "";
+    const whatsappNumber =
+      whatsappFromMetadata(row.metadata) ||
+      (row.whatsapp_number || row.whatsapp || row.phone || "").replace(/\D/g, "");
+
     return {
       companyId,
       companyName: row.name,
       whatsappNumber,
+      contactEmail: contactEmail || undefined,
     } satisfies CompanyLeadConfig;
   }, undefined);
 
-  if (fromOrg) return fromOrg;
+  if (fromOrg?.whatsappNumber || fromOrg?.contactEmail) return fromOrg;
 
   const [row] = await db
     .select()
     .from(companyLeadConfig)
     .where(eq(companyLeadConfig.companyId, companyId))
     .limit(1);
+
+  if (fromOrg) {
+    return {
+      ...fromOrg,
+      whatsappNumber: fromOrg.whatsappNumber || row?.whatsappNumber || "",
+    };
+  }
 
   if (!row) return undefined;
 

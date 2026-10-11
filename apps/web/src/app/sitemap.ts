@@ -6,10 +6,13 @@ import { db } from "@/lib/db";
 import { propertyListing, vehicleListing } from "@/lib/db/schema";
 import { cityLandingPages as propertyCities } from "@/lib/imoveis/city-slugs";
 import { cityLandingPages as vehicleCities } from "@/lib/veiculos/city-slugs";
+import { PUBLIC_MODULES } from "@/lib/marketplace/features";
+import { listMagazines } from "@/lib/listings/magazine-store";
 
 const staticPaths = [
   "",
   "/imoveis",
+  "/destinos",
   "/veiculos",
   "/projetos",
   "/negocios",
@@ -38,11 +41,13 @@ async function listActiveListingIds() {
         .from(propertyListing)
         .where(eq(propertyListing.status, "active"))
         .limit(5000),
-      db
-        .select({ id: vehicleListing.id, updatedAt: vehicleListing.updatedAt })
-        .from(vehicleListing)
-        .where(eq(vehicleListing.status, "active"))
-        .limit(5000),
+      PUBLIC_MODULES.vehicles
+        ? db
+            .select({ id: vehicleListing.id, updatedAt: vehicleListing.updatedAt })
+            .from(vehicleListing)
+            .where(eq(vehicleListing.status, "active"))
+            .limit(5000)
+        : Promise.resolve([]),
     ]);
     return { properties, vehicles };
   } catch {
@@ -54,9 +59,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = getAppUrl().replace(/\/$/, "");
   const now = new Date();
   const entries: MetadataRoute.Sitemap = [];
+  const magazines = await listMagazines();
 
   for (const locale of routing.locales) {
     for (const path of staticPaths) {
+      if (!PUBLIC_MODULES.vehicles && path.startsWith("/veiculos")) continue;
+      if (!PUBLIC_MODULES.services && path.startsWith("/services")) continue;
       entries.push({
         url: `${base}/${locale}${path}`,
         lastModified: now,
@@ -74,13 +82,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
 
-    for (const city of vehicleCities) {
+    for (const city of PUBLIC_MODULES.vehicles ? vehicleCities : []) {
       entries.push({
         url: `${base}/${locale}/veiculos/cidade/${city.slug}`,
         lastModified: now,
         changeFrequency: "weekly",
         priority: 0.6,
       });
+    }
+
+    if (magazines.length > 0) {
+      entries.push({
+        url: `${base}/${locale}/revistas`,
+        lastModified: now,
+        changeFrequency: "weekly",
+        priority: 0.7,
+      });
+      for (const magazine of magazines) {
+        entries.push({
+          url: `${base}/${locale}/revistas/${magazine.slug}`,
+          lastModified: now,
+          changeFrequency: "monthly",
+          priority: 0.6,
+        });
+      }
     }
   }
 

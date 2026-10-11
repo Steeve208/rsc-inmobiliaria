@@ -3,10 +3,8 @@
 import { ListingImage } from "@/components/listing-image";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import { ArrowRight, Bath, BedDouble, Car, Heart, MapPin } from "lucide-react";
+import { ArrowRight, Bath, BedDouble, Car, MapPin } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
-import { useFavoriteButton } from "@/hooks/use-favorites";
-import { cn } from "@/lib/utils";
 
 export type FeaturedPropertyCard = {
   id: string;
@@ -34,7 +32,6 @@ function PropertyCard({
   index: number;
 }) {
   const t = useTranslations("landing.featured");
-  const { active, handleClick } = useFavoriteButton("property", item.id);
 
   const transactionLabel =
     item.transaction === "rent" ? t("badges.rent") : t("badges.sale");
@@ -70,21 +67,6 @@ function PropertyCard({
             </span>
           ) : null}
         </div>
-
-        <button
-          type="button"
-          onClick={handleClick}
-          className={cn(
-            "absolute right-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur-md transition-colors",
-            active
-              ? "bg-[#1E9B8C] text-[#070B14]"
-              : "bg-white/90 text-[#1A1F2B] hover:bg-white",
-          )}
-          aria-label={t("save")}
-        >
-          <Heart className={cn("size-3.5", active && "fill-current")} />
-          {t("save")}
-        </button>
       </div>
 
       <Link href={`/imoveis/${item.id}`} className="block p-5">

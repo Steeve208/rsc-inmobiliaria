@@ -6,9 +6,14 @@ import {
   listingImage,
   propertyListing,
 } from "@/lib/db/schema";
+import {
+  enrichProperty,
+  propertyListings,
+} from "@/features/imoveis/mock-data";
 import type { PropertyDetail, PropertyListing } from "@/features/imoveis/types";
 import { listingImageUrl } from "@/lib/listings/constants";
 import { listingCodeValue } from "@/lib/listings/listing-code";
+import { getCompanyConfig } from "@/lib/leads/store";
 import { slugifyCompanyId } from "@/lib/leads/utils";
 import {
   fetchAllBackofficeListingsResult,
@@ -21,6 +26,11 @@ import {
   mapBackofficeToPropertyDetail,
   mapBackofficeToPropertyListing,
 } from "@/lib/backoffice/mappers";
+import { SHOW_MARKETPLACE_MOCKS } from "@/lib/marketplace/features";
+import {
+  getHomePropertyMocks,
+  mergePropertyCatalog,
+} from "@/lib/marketplace/home-property-mocks";
 
 type PropertyRow = typeof propertyListing.$inferSelect;
 type CompanyRow = typeof company.$inferSelect;
@@ -124,13 +134,24 @@ export async function listActivePropertiesForAlerts(): Promise<PropertyListing[]
   return listLocalProperties();
 }
 
+function findPropertyMock(id: string) {
+  if (!SHOW_MARKETPLACE_MOCKS) return undefined;
+  return (
+    propertyListings.find((item) => item.id === id) ??
+    getHomePropertyMocks().find((item) => item.id === id)
+  );
+}
+
 export async function listProperties(): Promise<PropertyListing[]> {
+  let live: PropertyListing[] = [];
   if (isBackofficeConfigured()) {
     const remote = await listBackofficeProperties();
-    // Portal/backoffice is the source of truth for published inventory.
-    if (remote !== null) return remote;
+    if (remote !== null) live = remote;
+    else live = await listLocalProperties();
+  } else {
+    live = await listLocalProperties();
   }
-  return listLocalProperties();
+  return mergePropertyCatalog(live, propertyListings);
 }
 
 export async function listPropertiesByCity(
@@ -220,9 +241,9 @@ export async function getPropertyById(id: string): Promise<PropertyListing | und
 
     if (row) return mapListing(row.property, row.company?.name ?? "");
   } catch {
-    return undefined;
+    return findPropertyMock(id);
   }
-  return undefined;
+  return findPropertyMock(id);
 }
 
 export async function getPropertyDetail(id: string): Promise<PropertyDetail | undefined> {
@@ -230,7 +251,13 @@ export async function getPropertyDetail(id: string): Promise<PropertyDetail | un
     const listing = await fetchBackofficeListingById(id);
     if (listing && listing.category === "real_estate") {
       void incrementBackofficeListingViews(id);
-      return mapBackofficeToPropertyDetail(listing);
+      const detail = mapBackofficeToPropertyDetail(listing);
+      const contact = await getCompanyConfig(detail.companyId, detail.id);
+      return {
+        ...detail,
+        contactEmail: contact?.contactEmail || detail.contactEmail,
+        whatsappNumber: detail.whatsappNumber || contact?.whatsappNumber || "",
+      };
     }
   }
   try {
@@ -260,6 +287,7 @@ export async function getPropertyDetail(id: string): Promise<PropertyDetail | un
           co?.whatsappNumber?.trim() ||
           co?.phone?.replace(/\D/g, "") ||
           "",
+        contactEmail: co?.email?.trim() || undefined,
         images: gallery,
         featured: row.property.featured,
         address: formatAddress(row.property),
@@ -303,9 +331,11 @@ export async function getPropertyDetail(id: string): Promise<PropertyDetail | un
       };
     }
   } catch {
-    return undefined;
+    const mock = findPropertyMock(id);
+    return mock ? (enrichProperty(mock) as PropertyDetail) : undefined;
   }
-  return undefined;
+  const mock = findPropertyMock(id);
+  return mock ? (enrichProperty(mock) as PropertyDetail) : undefined;
 }
 
 export async function getSimilarProperties(

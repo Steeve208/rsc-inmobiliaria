@@ -9,7 +9,7 @@ export default function PublicLayout({
   return (
     <>
       <Header />
-      <main className="flex-1 bg-[#F4F7FA] pb-16 md:pb-0">{children}</main>
+      <main className="flex-1 bg-[#F4F7FA] pb-[calc(var(--rk-bottom-nav)+env(safe-area-inset-bottom))] md:pb-0">{children}</main>
       <MobileBottomNav />
     </>
   );

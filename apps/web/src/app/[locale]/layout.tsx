@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Manrope } from "next/font/google";
+import { Geist_Mono, Manrope, Playfair_Display } from "next/font/google";
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -18,6 +18,12 @@ const manrope = Manrope({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 type Props = {
@@ -58,10 +64,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: t("description"),
     },
     icons: {
-      icon: [
-        { url: "/brand/reeskova-icon.svg", type: "image/svg+xml" },
-        { url: "/favicon.ico", sizes: "any" },
-      ],
+      icon: [{ url: "/brand/reeskova-mark.png", type: "image/png" }],
       apple: [{ url: "/brand/reeskova-icon.png" }],
     },
   };
@@ -89,7 +92,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       lang={locale}
       dir="ltr"
       suppressHydrationWarning
-      className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${manrope.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
     >
       <head>
         <link

@@ -1,10 +1,9 @@
 "use client";
 
 import { ListingImage } from "@/components/listing-image";
-import { Gauge, Heart } from "lucide-react";
+import { Gauge } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
-import { useFavoriteButton } from "@/hooks/use-favorites";
 import { ListingCodeBadge } from "@/components/marketplace/listing-code-badge";
 import { CountryFlag } from "@/components/marketplace/country-flag";
 import {
@@ -26,7 +25,6 @@ export function MarketplaceVehicleCard({
   fill = false,
 }: Props) {
   const t = useTranslations("marketplace");
-  const { active, handleClick } = useFavoriteButton("vehicle", item.id);
 
   return (
     <article
@@ -69,19 +67,6 @@ export function MarketplaceVehicleCard({
             fill ? "text-[12px]" : "text-[14px]",
           )}
         />
-        <button
-          type="button"
-          onClick={handleClick}
-          className={cn(
-            "absolute right-1 top-1 inline-flex size-6 items-center justify-center rounded-full backdrop-blur-md transition",
-            active
-              ? "bg-[#EBAD5B] text-[#1A1205]"
-              : "bg-white/90 text-[#1A1F2B] hover:bg-white",
-          )}
-          aria-label={t("save")}
-        >
-          <Heart className={cn("size-3", active && "fill-current")} />
-        </button>
       </div>
       <Link href={item.href} className={cn("block", fill ? "px-0.5 py-1.5 text-center" : "p-2")}>
         <h3

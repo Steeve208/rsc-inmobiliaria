@@ -2,10 +2,9 @@
 
 import { ListingImage } from "@/components/listing-image";
 import { useTranslations } from "next-intl";
-import { Gauge, GitCompare, Heart, MapPin, ShieldCheck, Zap } from "lucide-react";
+import { Gauge, GitCompare, MapPin, ShieldCheck, Zap } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
-import { useFavoriteButton } from "@/hooks/use-favorites";
 import { useVehicleCompare } from "@/hooks/use-vehicle-compare-state";
 import { ListingCodeBadge } from "@/components/marketplace/listing-code-badge";
 import type { VehicleListing } from "../types";
@@ -38,7 +37,6 @@ export function VehicleCard({
   onLeave,
 }: Props) {
   const t = useTranslations("veiculos.card");
-  const { active, handleClick } = useFavoriteButton("vehicle", item.id);
   const { isCompared, toggle } = useVehicleCompare();
   const installment = estimateInstallment(item.price);
 
@@ -76,23 +74,6 @@ export function VehicleCard({
             aria-label={t("compare")}
           >
             <GitCompare className="size-3.5" />
-          </button>
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleClick(e);
-            }}
-            className={cn(
-              "flex size-8 items-center justify-center rounded-full backdrop-blur-sm transition-colors",
-              active
-                ? "bg-[#2BB8A8] text-[#000a1a]"
-                : "bg-black/40 text-white hover:bg-black/60",
-            )}
-            aria-label={t("favorite")}
-          >
-            <Heart className={cn("size-4", active && "fill-current")} />
           </button>
         </div>
         {item.verified && (
@@ -142,14 +123,6 @@ export function VehicleCard({
         </div>
 
         <div className="mt-3 flex gap-2">
-          <button
-            type="button"
-            onClick={(e) => e.preventDefault()}
-            className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-white/[0.06] py-2 text-xs font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white"
-          >
-            <Heart className="size-3.5" />
-            {t("save")}
-          </button>
           <button
             type="button"
             onClick={(e) => e.preventDefault()}

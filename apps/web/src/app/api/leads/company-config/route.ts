@@ -7,13 +7,14 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const companyId = searchParams.get("companyId");
   const companyName = searchParams.get("companyName");
+  const listingId = searchParams.get("listingId");
 
   if (!companyId) {
     return NextResponse.json({ error: "companyId required" }, { status: 400 });
   }
 
   const config =
-    (await getCompanyConfig(companyId)) ??
+    (await getCompanyConfig(companyId, listingId)) ??
     ({
       companyId,
       companyName: companyName ?? companyId,

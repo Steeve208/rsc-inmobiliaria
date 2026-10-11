@@ -22,6 +22,8 @@ node_modules
 
 # local listing uploads (dev fallback when Supabase Storage is not configured)
 apps/web/public/uploads/
+data/journal-subscribers.json
+apps/web/data/journal-subscribers.json
 *.pem
 
 # debug

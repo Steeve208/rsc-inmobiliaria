@@ -7,6 +7,8 @@ import type {
   BackofficeListingResponse,
   BackofficeListingsQuery,
   BackofficeListingsResponse,
+  BackofficeMagazine,
+  BackofficeMagazinesResponse,
   BackofficePublicListing,
 } from "@/lib/backoffice/types";
 
@@ -359,5 +361,67 @@ export async function fetchBackofficeHome(
   });
 
   homeInflight.set(lang, request);
+  return request;
+}
+
+const magazinesCache: { expires: number; value: BackofficeMagazine[] | null } = {
+  expires: 0,
+  value: null,
+};
+let magazinesInflight: Promise<BackofficeMagazine[] | null> | null = null;
+
+/** Published journal issues owned by the dashboard. Null when the portal is unreachable. */
+export async function fetchBackofficeMagazines(): Promise<BackofficeMagazine[] | null> {
+  if (!isBackofficeConfigured()) return null;
+  if (magazinesCache.expires > Date.now()) return magazinesCache.value;
+  if (magazinesInflight) return magazinesInflight;
+
+  const request = (async () => {
+    const base = getBackofficeBaseUrl();
+    if (!base) return null;
+    const path = "/api/marketplace/v1/magazines";
+
+    try {
+      const response = await fetch(`${base}${path}`, {
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+        signal: AbortSignal.timeout(LISTINGS_TIMEOUT_MS),
+      });
+
+      // The magazines route is published in the backoffice repo. Until it exists, 404 means an empty catalog.
+      if (response.status === 404) return [];
+
+      if (!response.ok) {
+        logBackofficeOnce(
+          `status:${path}:${response.status}`,
+          `${path} failed: ${response.status}`,
+        );
+        return null;
+      }
+
+      const payload = (await response.json()) as BackofficeMagazinesResponse;
+      return Array.isArray(payload?.data) ? payload.data : [];
+    } catch (error) {
+      if (isAbortOrTimeout(error)) {
+        logBackofficeOnce(
+          `timeout:${path}`,
+          `${path} timed out after ${LISTINGS_TIMEOUT_MS}ms (backoffice cold/slow).`,
+        );
+      } else {
+        logBackofficeOnce(
+          `unreachable:${path}`,
+          `${path} unreachable: ${error instanceof Error ? error.message : String(error)}`,
+        );
+      }
+      return null;
+    }
+  })().then((payload) => {
+    magazinesCache.expires = Date.now() + HOME_CACHE_TTL_MS;
+    magazinesCache.value = payload;
+    magazinesInflight = null;
+    return payload;
+  });
+
+  magazinesInflight = request;
   return request;
 }

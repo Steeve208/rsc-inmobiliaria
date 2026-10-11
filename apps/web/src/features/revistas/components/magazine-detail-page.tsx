@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, ArrowUpRight, Building2, Car, Download } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Building2, Download } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { ListingImage } from "@/components/listing-image";
 import { MarketplaceFooter } from "@/components/marketplace/marketplace-footer";
@@ -102,13 +102,6 @@ export function MagazineDetailPage({ magazine, related = [] }: Props) {
                 >
                   <Building2 className="size-4" />
                   {t("sponsor.propertiesCta")}
-                </Link>
-                <Link
-                  href="/veiculos"
-                  className="inline-flex h-10 items-center gap-1.5 rounded-md border border-white/20 px-4 text-sm font-semibold text-white hover:border-[#EBAD5B]"
-                >
-                  <Car className="size-4" />
-                  {t("sponsor.vehiclesCta")}
                 </Link>
               </div>
             </aside>

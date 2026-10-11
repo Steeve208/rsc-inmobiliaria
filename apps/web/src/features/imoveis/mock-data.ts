@@ -701,7 +701,7 @@ export function enrichProperty(base: PropertyListing) {
     agent: {
       name: base.company,
       role: "Imobiliária",
-      creci: undefined,
+      creci: "",
       photo: "",
     },
     agencyRating: 0,

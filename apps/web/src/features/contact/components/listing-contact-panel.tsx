@@ -1,10 +1,11 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
-import { MessageCircle, CalendarClock, Info, Landmark } from "lucide-react";
+import { MessageCircle, CalendarClock, Info, Landmark, Mail } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import type { ChatMatchContext, ListingContactContext } from "@/lib/leads/types";
+import { buildMailtoUrl } from "@/lib/leads/email";
 import { buildWhatsAppUrl } from "@/lib/leads/whatsapp";
 import { trackListingEvent } from "@/lib/listings/analytics-client";
 import { fetchMatchExplain, recordMatchEvent } from "@/lib/match/client";
@@ -49,6 +50,7 @@ function ListingContactPanelInner({
   const t = useTranslations("contact.panel");
   const tDetail = useTranslations("imoveis.detail");
   const [whatsappNumber, setWhatsappNumber] = useState(listing.whatsappNumber);
+  const [contactEmail, setContactEmail] = useState(listing.contactEmail ?? "");
   const [chatOpen, setChatOpen] = useState(false);
   const [visitOpen, setVisitOpen] = useState(false);
   const [matchContext, setMatchContext] = useState<ChatMatchContext | undefined>(
@@ -72,30 +74,59 @@ function ListingContactPanelInner({
     const params = new URLSearchParams({
       companyId: listing.companyId,
       companyName: listing.companyName,
+      listingId: listing.listingId,
     });
     fetch(`/api/leads/company-config?${params.toString()}`)
       .then((response) => response.json())
-      .then((config: { whatsappNumber?: string }) => {
+      .then((config: { whatsappNumber?: string; contactEmail?: string }) => {
         if (config.whatsappNumber) setWhatsappNumber(config.whatsappNumber);
+        if (config.contactEmail) setContactEmail(config.contactEmail);
       })
-      .catch(() => setWhatsappNumber(listing.whatsappNumber));
-  }, [listing.companyId, listing.companyName, listing.whatsappNumber]);
+      .catch(() => {
+        setWhatsappNumber(listing.whatsappNumber);
+        setContactEmail(listing.contactEmail ?? "");
+      });
+  }, [
+    listing.companyId,
+    listing.companyName,
+    listing.listingId,
+    listing.whatsappNumber,
+    listing.contactEmail,
+  ]);
 
-  function handleWhatsApp() {
+  function whatsappPrefill() {
+    if (listing.listingCode) {
+      return t("whatsappPropertyPrefill", { code: listing.listingCode });
+    }
+    if (matchContext) {
+      return formatWhatsAppMatchMessage({
+        listingTitle: listing.listingTitle,
+        matchScore: matchContext.matchScore,
+        summary: matchContext.requirementsSummary,
+      });
+    }
+    return t("whatsappPrefill", { title: listing.listingTitle });
+  }
+
+  const whatsappUrl = buildWhatsAppUrl(
+    whatsappNumber,
+    whatsappPrefill(),
+    listing.listingCode ? undefined : listing.listingTitle,
+  );
+
+  const emailBody = whatsappPrefill();
+  const emailSubject = listing.listingCode
+    ? t("emailSubject", { code: listing.listingCode })
+    : listing.listingTitle;
+  const mailtoUrl = contactEmail
+    ? buildMailtoUrl(contactEmail, emailSubject, emailBody)
+    : null;
+
+  function trackWhatsAppClick() {
     void trackListingEvent(listing.listingId, "contact");
     if (matchContext) {
       void recordMatchEvent(matchContext.sessionId, listing.listingId, "property_contact");
     }
-    const prefill = matchContext
-      ? formatWhatsAppMatchMessage({
-          listingTitle: listing.listingTitle,
-          matchScore: matchContext.matchScore,
-          summary: matchContext.requirementsSummary,
-        })
-      : t("whatsappPrefill", { title: listing.listingTitle });
-    const url = buildWhatsAppUrl(whatsappNumber, prefill, listing.listingTitle);
-    if (!url) return;
-    window.open(url, "_blank", "noopener,noreferrer");
   }
 
   function openChat() {
@@ -120,9 +151,15 @@ function ListingContactPanelInner({
     setChatOpen(true);
   }
 
+  function openWhatsApp() {
+    if (!whatsappUrl) return;
+    trackWhatsAppClick();
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  }
+
   const secondaryAction =
     mode === "service"
-      ? handleWhatsApp
+      ? openWhatsApp
       : mode === "project"
         ? openChat
         : openVisit;
@@ -163,6 +200,50 @@ function ListingContactPanelInner({
     return (
       <>
         <div className={cn("space-y-2.5", className)}>
+          {mode === "property" ? (
+            <>
+              {whatsappUrl ? (
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={trackWhatsAppClick}
+                  className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#25D366] text-sm font-bold text-white transition hover:bg-[#1EBE5A]"
+                >
+                  <MessageCircle className="size-4" />
+                  {t("whatsapp")}
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  disabled
+                  className="inline-flex h-12 w-full cursor-not-allowed items-center justify-center gap-2 rounded-lg bg-[#25D366] text-sm font-bold text-white opacity-50"
+                >
+                  <MessageCircle className="size-4" />
+                  {t("whatsapp")}
+                </button>
+              )}
+              <a
+                href={mailtoUrl ?? undefined}
+                onClick={() => {
+                  if (mailtoUrl) trackWhatsAppClick();
+                }}
+                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-[#D1D5DB] bg-white text-sm font-semibold text-[#0B1220] transition hover:border-[#EBAD5B]"
+              >
+                <Mail className="size-4" />
+                {t("email")}
+              </a>
+              <button
+                type="button"
+                onClick={openVisit}
+                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-[#D1D5DB] bg-white text-sm font-semibold text-[#0B1220] transition hover:border-[#EBAD5B]"
+              >
+                <CalendarClock className="size-4" />
+                {t("scheduleVisit")}
+              </button>
+            </>
+          ) : (
+            <>
           <button
             type="button"
             onClick={openChat}
@@ -195,18 +276,22 @@ function ListingContactPanelInner({
             )}
             {tertiaryLabel}
           </button>
+            </>
+          )}
           <p className="flex items-center gap-2 pt-1 text-xs text-[#059669]">
             <span className="size-1.5 rounded-full bg-[#059669]" />
             {tDetail("onlineNow")}
           </p>
-          {whatsappNumber ? (
-            <button
-              type="button"
-              onClick={handleWhatsApp}
+          {mode !== "property" && whatsappUrl ? (
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={trackWhatsAppClick}
               className="w-full text-center text-xs font-semibold text-[#2563EB] hover:underline"
             >
               {t("whatsapp")}
-            </button>
+            </a>
           ) : null}
         </div>
 
@@ -239,7 +324,7 @@ function ListingContactPanelInner({
           <button
             type="button"
             className="inline-flex h-10 items-center justify-center rounded-md bg-white/10 text-sm font-medium text-white/80 hover:bg-white/15 disabled:opacity-40"
-            onClick={handleWhatsApp}
+            onClick={openWhatsApp}
             disabled={!whatsappNumber}
           >
             {t("whatsapp")}

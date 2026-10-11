@@ -22,6 +22,10 @@ export type ListingContactContext = {
   companyId: string;
   companyName: string;
   whatsappNumber: string;
+  /** Advertiser inbox. Falls back to the site contact address when empty. */
+  contactEmail?: string;
+  /** Public code shown on the listing, e.g. COD-01234. */
+  listingCode?: string;
   agentName?: string;
   matchContext?: ChatMatchContext;
 };
@@ -74,6 +78,8 @@ export type CompanyLeadConfig = {
   companyId: string;
   companyName: string;
   whatsappNumber: string;
+  /** Company or broker inbox configured in the backoffice. */
+  contactEmail?: string;
 };
 
 export type LeadsStore = {

@@ -2,6 +2,8 @@ import { randomUUID } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { desc, eq } from "drizzle-orm";
+import { fetchBackofficeMagazines } from "@/lib/backoffice/client";
+import type { BackofficeMagazine } from "@/lib/backoffice/types";
 import { db } from "@/lib/db";
 import { magazine } from "@/lib/db/schema";
 import { slugifyCompanyId } from "@/lib/leads/utils";
@@ -27,6 +29,23 @@ function toIsoDate(value: Date | string | null | undefined) {
   if (!value) return new Date().toISOString().slice(0, 10);
   if (typeof value === "string") return value.slice(0, 10);
   return value.toISOString().slice(0, 10);
+}
+
+function fromBackoffice(item: BackofficeMagazine): MagazineIssue {
+  return {
+    id: item.id,
+    slug: item.slug,
+    title: item.title,
+    issueLabel: item.issueLabel,
+    excerpt: item.excerpt,
+    body: item.body,
+    coverImage: item.coverImage,
+    category: isCategory(item.category) ? item.category : "market",
+    author: item.author?.trim() || "Reeskova Editorial",
+    pdfUrl: item.pdfUrl ?? "",
+    status: isStatus(item.status) ? item.status : "published",
+    publishedAt: toIsoDate(item.publishedAt),
+  };
 }
 
 function mapRow(row: typeof magazine.$inferSelect): MagazineIssue {
@@ -154,7 +173,15 @@ async function upsertDb(item: MagazineIssue): Promise<boolean> {
 }
 
 export async function listMagazines(options?: { includeDrafts?: boolean }) {
-  const merged = mergeIssues([await listFromDb(), await readFromFile()]);
+  const [remote, localDb, localFile] = await Promise.all([
+    fetchBackofficeMagazines().catch(() => null),
+    listFromDb(),
+    readFromFile(),
+  ]);
+  const remoteIssues = (remote ?? [])
+    .filter((item) => item?.slug && item.title)
+    .map(fromBackoffice);
+  const merged = mergeIssues([remoteIssues, localDb, localFile]);
   if (options?.includeDrafts) return merged;
   return merged.filter((item) => item.status === "published");
 }

@@ -3,10 +3,8 @@
 import { ListingImage } from "@/components/listing-image";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import { ArrowRight, Gauge, Heart } from "lucide-react";
+import { ArrowRight, Gauge } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
-import { useFavoriteButton } from "@/hooks/use-favorites";
-import { cn } from "@/lib/utils";
 
 export type FeaturedVehicleCard = {
   id: string;
@@ -29,7 +27,6 @@ function VehicleCard({
   index: number;
 }) {
   const t = useTranslations("landing.featuredVehicles");
-  const { active, handleClick } = useFavoriteButton("vehicle", item.id);
 
   return (
     <motion.article
@@ -51,19 +48,6 @@ function VehicleCard({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
         </Link>
-        <button
-          type="button"
-          onClick={handleClick}
-          className={cn(
-            "absolute right-3 top-3 z-10 inline-flex size-9 items-center justify-center rounded-full backdrop-blur-md transition-colors",
-            active
-              ? "bg-[#1E9B8C] text-[#070B14]"
-              : "bg-white/90 text-[#1A1F2B] hover:bg-white",
-          )}
-          aria-label={t("save")}
-        >
-          <Heart className={cn("size-4", active && "fill-current")} />
-        </button>
       </div>
       <Link href={`/veiculos/${item.id}`} className="block p-5">
         <h3 className="rk-display line-clamp-1 text-base font-semibold text-[#121826]">

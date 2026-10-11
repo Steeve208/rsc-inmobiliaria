@@ -6,7 +6,9 @@ import { slugifyCompanyId } from "@/lib/leads/utils";
 import { getMarketOrDefault } from "@/lib/markets/config";
 import { listProperties } from "@/lib/listings/property-repository";
 import type { PropertyListing } from "@/features/imoveis/types";
+import { mockBrokers } from "@/features/corredores/mock-data";
 import type { BrokerProfile } from "@/features/corredores/types";
+import { SHOW_MARKETPLACE_MOCKS } from "@/lib/marketplace/features";
 
 type AgentRow = typeof agent.$inferSelect;
 type CompanyRow = typeof company.$inferSelect;
@@ -67,15 +69,21 @@ async function listLocalBrokers(): Promise<BrokerProfile[]> {
 
 export async function listBrokers(): Promise<BrokerProfile[]> {
   const live = await listLocalBrokers();
-  return live.sort((a, b) => {
+  const catalog = SHOW_MARKETPLACE_MOCKS
+    ? [
+        ...mockBrokers.filter((item) => !live.some((broker) => broker.id === item.id)),
+        ...live,
+      ]
+    : live;
+  return catalog.sort((a, b) => {
     if (a.verified !== b.verified) return a.verified ? -1 : 1;
     return b.listingsCount - a.listingsCount;
   });
 }
 
 export async function getBrokerById(id: string): Promise<BrokerProfile | undefined> {
-  const live = await listLocalBrokers();
-  return live.find((item) => item.id === id);
+  const catalog = await listBrokers();
+  return catalog.find((item) => item.id === id);
 }
 
 export async function listBrokerListings(

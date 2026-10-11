@@ -12,6 +12,7 @@ import {
   Rocket,
   Search,
 } from "lucide-react";
+import { PUBLIC_MODULES } from "@/lib/marketplace/features";
 import { cn } from "@/lib/utils";
 import type { SearchCategory, SearchFilters, SearchView } from "../types";
 
@@ -34,7 +35,9 @@ export function SearchToolbar({
 
   const tabs: { id: SearchCategory; icon: typeof Building2; label: string }[] = [
     { id: "properties", icon: Building2, label: t("tabs.properties") },
-    { id: "vehicles", icon: Car, label: t("tabs.vehicles") },
+    ...(PUBLIC_MODULES.vehicles
+      ? [{ id: "vehicles" as const, icon: Car, label: t("tabs.vehicles") }]
+      : []),
     { id: "launches", icon: Rocket, label: t("tabs.launches") },
   ];
 

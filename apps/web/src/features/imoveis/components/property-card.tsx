@@ -2,12 +2,11 @@
 
 import { ListingImage } from "@/components/listing-image";
 import { useTranslations } from "next-intl";
-import { Bath, BedDouble, Car, GitCompare, Heart, MapPin, ShieldCheck } from "lucide-react";
+import { Bath, BedDouble, Car, GitCompare, MapPin, ShieldCheck } from "lucide-react";
 import { Link } from "@/lib/i18n/routing";
 import { ListingCodeBadge } from "@/components/marketplace/listing-code-badge";
 import { CountryFlag } from "@/components/marketplace/country-flag";
 import { cn } from "@/lib/utils";
-import { useFavoriteButton } from "@/hooks/use-favorites";
 import { usePropertyCompare } from "@/hooks/use-property-compare-state";
 import type { PropertyListing } from "../types";
 
@@ -35,7 +34,6 @@ export function PropertyCard({
   onLeave,
 }: Props) {
   const t = useTranslations("imoveis.card");
-  const { active, handleClick } = useFavoriteButton("property", item.id);
   const { isCompared, toggle } = usePropertyCompare();
 
   const transactionLabel =
@@ -101,23 +99,6 @@ export function PropertyCard({
           aria-label={t("compare")}
         >
           <GitCompare className="size-3.5" />
-        </button>
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            handleClick(e);
-          }}
-        className={cn(
-          "absolute right-3 top-3 flex size-8 items-center justify-center rounded-full backdrop-blur-sm transition-colors",
-          active
-            ? "bg-[#2BB8A8] text-[#000a1a]"
-            : "bg-black/40 text-white hover:bg-black/60",
-        )}
-        aria-label={t("favorite")}
-      >
-        <Heart className={cn("size-4", active && "fill-current")} />
         </button>
       </div>
     </div>

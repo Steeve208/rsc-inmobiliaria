@@ -196,3 +196,22 @@ export type BackofficeHomeDocument = {
 export type BackofficeHomeResponse = {
   data: BackofficeHomeDocument;
 };
+
+export type BackofficeMagazine = {
+  id: string;
+  slug: string;
+  title: string;
+  issueLabel: string;
+  excerpt: string;
+  body: string;
+  coverImage: string;
+  category: string;
+  author: string;
+  pdfUrl: string;
+  status: "draft" | "published";
+  publishedAt: string;
+};
+
+export type BackofficeMagazinesResponse = {
+  data: BackofficeMagazine[];
+};

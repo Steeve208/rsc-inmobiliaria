@@ -9,6 +9,8 @@ import {
   isBackofficeConfigured,
 } from "@/lib/backoffice/client";
 import { mapBackofficeToProjectListing } from "@/lib/backoffice/mappers";
+import { projectListings } from "@/features/projetos/mock-data";
+import { SHOW_MARKETPLACE_MOCKS } from "@/lib/marketplace/features";
 import { listingCodeValue } from "@/lib/listings/listing-code";
 import { getLaunchProperties } from "@/lib/listings/property-repository";
 
@@ -98,7 +100,14 @@ export async function listProjects(): Promise<ProjectListing[]> {
   }
 
   const launches = await getLaunchProperties();
-  return mergeProjectCatalog(launches, liveProjects);
+  const live = mergeProjectCatalog(launches, liveProjects);
+  if (!SHOW_MARKETPLACE_MOCKS) return live;
+
+  const seen = new Set(live.map((item) => item.id));
+  return [
+    ...projectListings.filter((item) => !seen.has(item.id)),
+    ...live,
+  ];
 }
 
 export async function getProjectById(id: string): Promise<ProjectListing | undefined> {

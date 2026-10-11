@@ -30,21 +30,27 @@ export function FeaturedCity({ block }: Props) {
           {t("seeAll")}
         </Link>
       </div>
-      <div className="grid flex-1 grid-cols-2 grid-rows-2 gap-2">
+      <div
+        className={
+          block.items.length === 1
+            ? "grid grid-cols-1 gap-2"
+            : "grid grid-cols-2 gap-2"
+        }
+      >
         {block.items.slice(0, 4).map((item) => (
           <Link
             key={`${item.kind}-${item.id}`}
             href={item.href}
             className="group flex min-h-0 flex-col overflow-hidden rounded-md ring-1 ring-black/[0.05] transition hover:shadow-md"
           >
-            <div className="relative min-h-0 flex-1 overflow-hidden">
+            <div className="relative aspect-[4/3] overflow-hidden bg-[#F4F7FA]">
               <ListingImage
                 src={item.image}
                 alt={item.title}
                 fill
                 variant="thumb"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="140px"
+                sizes="220px"
               />
               <CountryFlag
                 country={item.country ?? item.location ?? block.country}
@@ -55,6 +61,11 @@ export function FeaturedCity({ block }: Props) {
               <p className="line-clamp-1 text-[11px] font-semibold text-[#0B1220]">
                 {item.title}
               </p>
+              {item.location ? (
+                <p className="line-clamp-1 text-[10px] text-[#6B7280]">
+                  {item.location}
+                </p>
+              ) : null}
               <p className="mt-0.5 text-[12px] font-bold text-[#0B1220]">
                 {formatMarketplacePrice(item.price, item.currency)}
               </p>

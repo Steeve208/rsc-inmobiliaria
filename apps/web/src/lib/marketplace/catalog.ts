@@ -1,3 +1,5 @@
+import { isPublicCatalogEntry } from "@/lib/marketplace/features";
+
 export const HERO_IMAGE = "/images/hero-night.jpg";
 
 export type MarketplaceSearchCategory =
@@ -8,7 +10,7 @@ export type MarketplaceSearchCategory =
   | "businesses"
   | "services";
 
-export const HEADER_SEARCH_CATEGORIES: MarketplaceSearchCategory[] = [
+const HEADER_SEARCH_CATEGORIES_ALL: MarketplaceSearchCategory[] = [
   "all",
   "properties",
   "vehicles",
@@ -17,7 +19,11 @@ export const HEADER_SEARCH_CATEGORIES: MarketplaceSearchCategory[] = [
   "services",
 ];
 
-export const HERO_SEARCH_TABS = [
+export const HEADER_SEARCH_CATEGORIES = HEADER_SEARCH_CATEGORIES_ALL.filter(
+  (id) => isPublicCatalogEntry({ id }),
+);
+
+const HERO_SEARCH_TABS_ALL = [
   "properties",
   "vehicles",
   "projects",
@@ -25,29 +31,36 @@ export const HERO_SEARCH_TABS = [
   "services",
 ] as const;
 
-export type HeroSearchTab = (typeof HERO_SEARCH_TABS)[number];
+export const HERO_SEARCH_TABS = HERO_SEARCH_TABS_ALL.filter((id) =>
+  isPublicCatalogEntry({ id }),
+);
 
-export const SECONDARY_NAV = [
+export type HeroSearchTab = (typeof HERO_SEARCH_TABS_ALL)[number];
+
+const SECONDARY_NAV_ALL = [
   { href: "/", labelKey: "home" as const, icon: "home" as const },
   { href: "/imoveis", labelKey: "properties" as const, icon: "properties" as const },
   { href: "/veiculos", labelKey: "vehicles" as const, icon: "vehicles" as const },
-  { href: "/projetos", labelKey: "projects" as const, icon: "projects" as const },
   { href: "/negocios", labelKey: "businesses" as const, icon: "businesses" as const },
   { href: "/services", labelKey: "services" as const, icon: "services" as const },
   { href: "/imoveis?featured=1", labelKey: "deals" as const, icon: "deals" as const },
   { href: "/corredores", labelKey: "brokers" as const, icon: "brokers" as const },
 ] as const;
 
+export const SECONDARY_NAV = SECONDARY_NAV_ALL.filter((item) =>
+  isPublicCatalogEntry(item),
+);
+
 export type QuickPickId =
   | "propertiesUnder"
   | "luxury"
   | "rentals"
-  | "carsUnder"
+  | "beach"
   | "projects"
   | "commercial"
   | "land";
 
-export const QUICK_PICKS: Array<{
+const QUICK_PICKS_ALL: Array<{
   id: QuickPickId;
   href: string;
   image: string;
@@ -71,10 +84,10 @@ export const QUICK_PICKS: Array<{
       "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=240&q=80",
   },
   {
-    id: "carsUnder",
-    href: "/veiculos?priceMax=150000",
+    id: "beach",
+    href: "/imoveis?q=beach",
     image:
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=240&q=80",
+      "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=240&q=80",
   },
   {
     id: "projects",
@@ -96,7 +109,11 @@ export const QUICK_PICKS: Array<{
   },
 ];
 
-export const PROMO_PANELS = [
+export const QUICK_PICKS = QUICK_PICKS_ALL.filter((item) =>
+  isPublicCatalogEntry(item),
+);
+
+const PROMO_PANELS_ALL = [
   {
     id: "premium",
     href: "/imoveis?featured=1",
@@ -114,10 +131,10 @@ export const PROMO_PANELS = [
     graphic: null,
   },
   {
-    id: "vehicles",
-    href: "/veiculos",
+    id: "rentals",
+    href: "/imoveis?transaction=rent",
     image:
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80",
     ctaKey: "explore" as const,
     graphic: null,
   },
@@ -130,20 +147,29 @@ export const PROMO_PANELS = [
   },
 ] as const;
 
-export const CATEGORY_SHORTCUTS = [
+export const PROMO_PANELS = PROMO_PANELS_ALL.filter((item) =>
+  isPublicCatalogEntry(item),
+);
+
+const CATEGORY_SHORTCUTS_ALL = [
   { id: "apartments", href: "/imoveis?type=apartment" },
   { id: "houses", href: "/imoveis?type=house" },
   { id: "land", href: "/imoveis?type=land" },
   { id: "commercial", href: "/imoveis?type=commercial" },
   { id: "rentals", href: "/imoveis?transaction=rent" },
-  { id: "cars", href: "/veiculos?type=car" },
-  { id: "motorcycles", href: "/veiculos?type=motorcycle" },
-  { id: "trucks", href: "/veiculos?type=truck" },
+  { id: "luxury", href: "/imoveis?featured=1" },
+  { id: "penthouses", href: "/imoveis?type=apartment&featured=1" },
+  { id: "beach", href: "/imoveis?q=beach" },
+  { id: "studios", href: "/imoveis?type=apartment&bedrooms=1" },
   { id: "projects", href: "/projetos" },
   { id: "businesses", href: "/negocios" },
   { id: "services", href: "/services" },
   { id: "more", href: "/imoveis" },
 ] as const;
+
+export const CATEGORY_SHORTCUTS = CATEGORY_SHORTCUTS_ALL.filter((item) =>
+  isPublicCatalogEntry(item),
+);
 
 export const POPULAR_SEARCHES = [
   { label: "Miami", href: "/imoveis?city=Miami&locationLabel=Miami" },
@@ -154,13 +180,17 @@ export const POPULAR_SEARCHES = [
   { label: "Orlando", href: "/imoveis?city=Orlando&locationLabel=Orlando" },
 ] as const;
 
-export const LIST_ACTIONS = [
+const LIST_ACTIONS_ALL = [
   { id: "property", href: "/empresa/cadastro" },
   { id: "vehicle", href: "/empresa/cadastro" },
   { id: "project", href: "/empresa/cadastro" },
   { id: "business", href: "/empresa/cadastro" },
   { id: "service", href: "/services" },
 ] as const;
+
+export const LIST_ACTIONS = LIST_ACTIONS_ALL.filter((item) =>
+  isPublicCatalogEntry(item),
+);
 
 export const TRUST_ITEMS = [
   "verified",

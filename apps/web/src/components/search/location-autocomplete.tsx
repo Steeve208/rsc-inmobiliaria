@@ -206,7 +206,7 @@ export function LocationAutocomplete({
           }}
           placeholder={placeholder}
           className={cn(
-            "w-full min-w-0 bg-transparent text-sm outline-none",
+            "w-full min-w-0 truncate bg-transparent text-sm outline-none",
             styles.input,
           )}
           autoComplete="off"

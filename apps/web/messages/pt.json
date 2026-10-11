@@ -1707,6 +1707,8 @@
     "panel": {
       "chatRsc": "Conversar no RSC",
       "whatsapp": "WhatsApp",
+      "email": "E-mail",
+      "emailSubject": "Imóvel código {code} — Reeskova Properties",
       "scheduleVisit": "Agendar visita",
       "contactAdvertiser": "Falar com anunciante",
       "requestInformation": "Solicitar informações",
@@ -1714,7 +1716,8 @@
       "contactProvider": "Falar com o prestador",
       "bookInspection": "Agendar inspeção",
       "askFinancing": "Perguntar sobre financiamento",
-      "whatsappPrefill": "Olá! Tenho interesse neste anúncio: {title}"
+      "whatsappPrefill": "Olá! Tenho interesse neste anúncio: {title}",
+      "whatsappPropertyPrefill": "Olá. Entro em contato pela Reeskova Properties a respeito do imóvel código {code}. Gostaria de receber mais informações."
     },
     "schedule": {
       "title": "Agendar visita",
@@ -2663,7 +2666,68 @@
     "about": {
       "title": "Sobre o RSC Group e a REESKOVA",
       "updated": "Última atualização: 18 de julho de 2026",
-      "intro": "A REESKOVA é a marca de marketplace premium de imóveis, veículos e serviços—powered by RSC Group.",
+      "intro": "A REESKOVA é a marca de marketplace premium de imóveis, veículos e serviços do RSC Group.",
+      "eyebrow": "RSC Group",
+      "lead": "A REESKOVA é o marketplace do RSC Group para imóveis, veículos e serviços. Publicamos o inventário de empresas e conectamos compradores diretamente aos anunciantes, com papéis definidos para o grupo e para a plataforma.",
+      "factsLabel": "Princípios da operação",
+      "facts": {
+        "0": "Marketplace de imóveis, veículos e serviços",
+        "1": "Empresas revisadas no acesso",
+        "2": "Software e distribuição, sem comissão de fechamento",
+        "3": "Presença na América Latina e além"
+      },
+      "group": {
+        "kicker": "O grupo",
+        "title": "RSC Group",
+        "body": "O RSC Group organiza o ecossistema. Tecnologia, marketplace e serviços complementares permanecem com papéis distintos, para que a jornada do comprador não se misture com atividades que não são da plataforma."
+      },
+      "platform": {
+        "kicker": "A plataforma",
+        "title": "REESKOVA",
+        "body": "A REESKOVA é a marca voltada ao mercado. Empresas anunciam inventário e conduzem o relacionamento. Compradores descobrem, comparam e tratam preço, documentos e condições com o anunciante."
+      },
+      "mandate": {
+        "title": "Como a plataforma trabalha"
+      },
+      "pillars": {
+        "0": {
+          "index": "01",
+          "title": "Publicar",
+          "body": "Ferramentas para a empresa manter anúncios, disponibilidade e presença comercial em um único marketplace."
+        },
+        "1": {
+          "index": "02",
+          "title": "Conectar",
+          "body": "Descoberta para o comprador, com contato, conversa e visita conduzidos diretamente com a empresa anunciante."
+        },
+        "2": {
+          "index": "03",
+          "title": "Delimitar",
+          "body": "O modelo é software e distribuição. O fechamento do negócio permanece entre as partes."
+        }
+      },
+      "boundary": {
+        "kicker": "Limites da atividade",
+        "title": "O que a REESKOVA não é",
+        "body": "Não somos corretora intermediária, escrow nem escritório de advocacia. Não intermediamos contratos, não custodiamos fundos e não substituímos o processo legal entre comprador e vendedor. Quando uma opção de financiamento ou outro serviço parceiro aparece na jornada, esse parceiro responde pela própria atividade licenciada."
+      },
+      "ecosystem": {
+        "kicker": "Arquitetura de marca",
+        "title": "O ecossistema, com hierarquia",
+        "subtitle": "Cada marca tem um papel. A REESKOVA não absorve as atividades das demais.",
+        "brands": {
+          "group": { "name": "RSC Group", "role": "Ecossistema" },
+          "reeskova": { "name": "REESKOVA", "role": "Marketplace" },
+          "bank": { "name": "RSC Bank", "role": "Soluções financeiras" },
+          "capital": { "name": "RSC Capital", "role": "Investimentos" },
+          "ora": { "name": "Ora Technology", "role": "Tecnologia" },
+          "chain": { "name": "Reesk Chain", "role": "Infraestrutura" }
+        }
+      },
+      "contactHeading": "Contato",
+      "contactBody": "Suporte da plataforma em support@rscmarket.com. Empresas solicitam acesso pelo canal Para empresas.",
+      "businessCta": "Para empresas",
+      "helpCta": "Central de ajuda",
       "sections": {
         "0": {
           "title": "O que construímos",
@@ -2866,6 +2930,146 @@
       "titleHighlight": "oportunidade",
       "subtitle": "Imóveis, veículos, projetos e serviços de empresas verificadas."
     },
+    "residence": {
+      "eyebrow": "Residências excepcionais",
+      "title": "Arquitetura para uma outra forma de viver.",
+      "subtitle": "Residências selecionadas nos destinos mais desejados do mundo. Para quem espera mais do que um imóvel.",
+      "signIn": "Entrar",
+      "account": "Conta",
+      "saved": "Salvos",
+      "nav": {
+        "properties": "Imóveis",
+        "collections": "Coleções",
+        "destinations": "Destinos",
+        "journal": "Revista"
+      },
+      "rail": {
+        "estates": "Casas",
+        "apartments": "Apartamentos",
+        "waterfront": "Beira-mar",
+        "mountain": "Montanha",
+        "investment": "Investimento",
+        "collection": "Uma coleção global"
+      },
+      "search": {
+        "destination": "Destino",
+        "destinationPlaceholder": "Cidade, região ou país",
+        "residenceType": "Tipo de residência",
+        "priceRange": "Faixa de preço",
+        "anyPrice": "Qualquer preço",
+        "explore": "Explorar",
+        "types": {
+          "any": "Casas, apartamentos, estates",
+          "house": "Casas",
+          "apartment": "Apartamentos",
+          "estate": "Estates"
+        }
+      },
+      "featured": {
+        "label": "Residência em destaque",
+        "emptyTitle": "A coleção",
+        "beds": "Quartos",
+        "baths": "Banheiros",
+        "interior": "Interior",
+        "land": "Terreno",
+        "viewDetails": "Ver detalhes",
+        "prev": "Residência anterior",
+        "next": "Próxima residência"
+      },
+      "body":       {
+        "collectionsEyebrow": "Coleções selecionadas",
+        "collectionsTitle": "Viva o extraordinário.",
+        "collectionsText": "Explore nossas coleções exclusivas de residências excepcionais ao redor do mundo.",
+        "collectionsLink": "Explorar todas as coleções",
+        "collections": {
+          "estates": {
+            "title": "Casas modernas",
+            "subtitle": "Arquitetura e espaço"
+          },
+          "waterfront": {
+            "title": "Residências à beira-mar",
+            "subtitle": "Vida no litoral"
+          },
+          "apartments": {
+            "title": "Apartamentos de luxo",
+            "subtitle": "Cidades globais"
+          },
+          "retreats": {
+            "title": "Retiros privados",
+            "subtitle": "Natureza e privacidade"
+          }
+        },
+        "featuredEyebrow": "Imóveis em destaque",
+        "featuredBadge": "Destaque",
+        "featuredTitle": "Residências excepcionais.",
+        "featuredText": "Residências publicadas por imobiliárias e anunciantes verificados ao redor do mundo.",
+        "featuredLink": "Ver todos os imóveis",
+        "featuredEmpty": "Novas residências aparecerão aqui.",
+        "save": "Salvar",
+        "beds": "quartos",
+        "baths": "banheiros",
+        "destinationsEyebrow": "Principais destinos",
+        "destinationsTitle": "Lugares extraordinários.",
+        "destinationsText": "Descubra residências excepcionais nos lugares mais desejados do mundo.",
+        "destinationsLink": "Ver todos os destinos",
+        "fromPrice": "A partir de {price}",
+        "propertiesCount": "{count, plural, one {# imóvel} other {# imóveis}}"
+      }
+    },
+    "destinationsPage": {
+      "eyebrow": "Destinos globais",
+      "title": "Casas excepcionais. Lugares notáveis.",
+      "subtitle": "Explore os destinos mais desejados do mundo e encontre residências extraordinárias em lugares únicos.",
+      "explore": "Explorar destinos",
+      "viewOnMap": "Ver no mapa",
+      "featuredTitle": "Destinos em destaque",
+      "featuredText": "De cidades icônicas a refúgios ocultos, descubra imóveis excepcionais nos destinos mais procurados.",
+      "prev": "Destinos anteriores",
+      "next": "Próximos destinos",
+      "exploreTitle": "Explorar por país",
+      "viewAllCountries": "Ver todos os países",
+      "empty": "Os destinos aparecem aqui quando há residências publicadas.",
+      "propertiesCount": "{count, plural, one {# imóvel} other {# imóveis}}",
+      "regions": {
+        "all": "Todas as regiões",
+        "europe": "Europa",
+        "northAmerica": "América do Norte",
+        "southAmerica": "América do Sul",
+        "middleEast": "Oriente Médio",
+        "asia": "Ásia",
+        "africa": "África",
+        "oceania": "Oceania"
+      }
+    },
+    "journal": {
+      "eyebrow": "The journal",
+      "title": "Arquitetura, lugares e uma forma melhor de viver.",
+      "subtitle": "Ideias, inspiração e olhares especializados sobre o mercado imobiliário global, o design e o estilo de vida.",
+      "featuredLabel": "Artigo em destaque",
+      "readArticle": "Ler o artigo",
+      "prev": "Artigo anterior",
+      "next": "Próximo artigo",
+      "searchPlaceholder": "Buscar artigos, lugares, temas...",
+      "trending": "Em alta",
+      "latest": "Artigos recentes",
+      "viewAll": "Ver todos os artigos",
+      "empty": "Os artigos novos aparecem aqui quando a equipe editorial os publica.",
+      "minutes": "{count} min de leitura",
+      "newsletterEyebrow": "Reeskova Journal",
+      "newsletterTitle": "Ideias que levam mais longe.",
+      "newsletterText": "Receba os últimos artigos, destinos e leituras de mercado.",
+      "emailPlaceholder": "Seu e-mail",
+      "subscribe": "Assinar",
+      "subscribed": "Você está na lista.",
+      "invalidEmail": "Informe um e-mail válido.",
+      "categories": {
+        "all": "Todos",
+        "architecture": "Arquitetura",
+        "destinations": "Destinos",
+        "living": "Estilo de vida",
+        "market": "Mercado"
+      }
+    },
     "search": {
       "tabs": {
         "properties": "Imóveis",
@@ -2917,6 +3121,10 @@
       "land": {
         "title": "Terrenos",
         "subtitle": "Para investir"
+      },
+      "beach": {
+        "title": "Beira-mar",
+        "subtitle": "Casas e apartamentos"
       }
     },
     "promos": {
@@ -2939,6 +3147,10 @@
       "cta": {
         "explore": "Explorar",
         "deals": "Ver ofertas"
+      },
+      "rentals": {
+        "title": "Imóveis para alugar",
+        "subtitle": "Apartamentos e casas prontos para morar"
       }
     },
     "categories": {
@@ -2953,7 +3165,11 @@
       "projects": "Novos Projetos",
       "businesses": "Empresas",
       "services": "Serviços",
-      "more": "Mais"
+      "more": "Mais",
+      "luxury": "Luxo",
+      "penthouses": "Coberturas",
+      "beach": "Praia",
+      "studios": "Estúdios"
     },
     "trust": {
       "verified": {
@@ -3705,6 +3921,25 @@
       "invest": "Investir",
       "unknown": "Não tenho certeza"
     },
+    "types": {
+      "apartment": "Apartamento",
+      "house": "Casa",
+      "land": "Terreno",
+      "commercial": "Comercial"
+    },
+    "prefs": {
+      "near_public_transport": "Perto de transporte público",
+      "parking": "Vaga de garagem",
+      "balcony": "Varanda",
+      "pool": "Piscina",
+      "quiet_neighborhood": "Bairro tranquilo",
+      "near_schools": "Perto de escolas",
+      "rental_potential": "Potencial de aluguel",
+      "more_space": "Mais espaço",
+      "lower_price": "Preço menor",
+      "furnished": "Mobiliado",
+      "pets": "Aceita pets"
+    },
     "intent": {
       "placeholder": "Diga o que você está procurando...",
       "submit": "Encontrar matches",
@@ -3723,20 +3958,68 @@
     "builder": {
       "kicker": "REESKOVA MATCH",
       "title": "É isso que entendemos.",
+      "empty": "Conte um pouco mais e refinamos a busca.",
       "mustHave": "Obrigatório",
-      "preferences": "Preferências"
+      "preferences": "Preferências",
+      "noneYet": "Nada por aqui ainda",
+      "editBedrooms": "Quartos (mín.)",
+      "editBudget": "Orçamento máximo",
+      "editCity": "Cidade",
+      "bedroomsMin": "{count}+ quartos",
+      "budgetMax": "Até {price}"
+    },
+    "conversation": {
+      "placeholder": "Acrescente o que mais importa…",
+      "send": "Enviar",
+      "typeAnswer": "Digite sua resposta abaixo."
     },
     "results": {
       "headline": "Seus melhores matches",
       "found": "Encontramos {count, plural, one {# imóvel que atende seus requisitos.} other {# imóveis que atendem seus requisitos.}}",
+      "empty": "Ainda não encontramos imóveis que atendam esses requisitos. Tente relaxar um item obrigatório.",
       "why": "Por que combina",
       "viewProperty": "Ver imóvel",
-      "whyPercent": "Por que {score}%?"
+      "whyPercent": "Por que {score}%?",
+      "compare": "Comparar",
+      "compareSelected": "Comparar {count} imóveis"
+    },
+    "compare": {
+      "metric": "",
+      "price": "Preço",
+      "size": "Área",
+      "bedrooms": "Quartos",
+      "priceM2": "Preço/m²"
+    },
+    "explain": {
+      "kicker": "Por que este imóvel combina com você",
+      "close": "Fechar",
+      "loading": "Preparando a explicação…",
+      "insight": "Leitura da REESKOVA",
+      "ask": "Perguntar sobre este imóvel",
+      "askPlaceholder": "O condomínio está incluso?",
+      "askSubmit": "Perguntar",
+      "asking": "Pensando…",
+      "rating": {
+        "excellent": "Excelente",
+        "good": "Bom",
+        "fair": "Razoável",
+        "weak": "Fraco",
+        "unknown": "Não avaliado"
+      }
     },
     "property": {
       "whyTitle": "Por que combina",
+      "whyPercent": "Por que {score}%?",
       "affordTitle": "Você consegue pagar?",
-      "estimateDisclaimer": "Estimativa com base nas informações fornecidas."
+      "price": "Preço do imóvel",
+      "down": "Entrada estimada",
+      "financing": "Parcela mensal estimada",
+      "monthly": "Custo mensal estimado",
+      "estimateDisclaimer": "Estimativa com base nas informações fornecidas.",
+      "askTitle": "Pergunte à REESKOVA",
+      "askPlaceholder": "Por que este imóvel recebeu esse match?",
+      "askSubmit": "Perguntar",
+      "askError": "Não tenho informação suficiente para responder isso."
     }
   }
 }

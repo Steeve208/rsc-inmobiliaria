@@ -1,4 +1,6 @@
+import { businessListings } from "@/features/negocios/mock-data";
 import type { BusinessListing } from "@/features/negocios/types";
+import { SHOW_MARKETPLACE_MOCKS } from "@/lib/marketplace/features";
 import {
   fetchAllBackofficeListingsResult,
   fetchBackofficeListingById,
@@ -7,11 +9,17 @@ import {
 import { mapBackofficeToBusinessListing } from "@/lib/backoffice/mappers";
 
 export async function listBusinesses(): Promise<BusinessListing[]> {
-  if (!isBackofficeConfigured()) return [];
+  let live: BusinessListing[] = [];
+  if (isBackofficeConfigured()) {
+    const result = await fetchAllBackofficeListingsResult({ category: "business" });
+    if (result.status === "ok") {
+      live = result.listings.map(mapBackofficeToBusinessListing);
+    }
+  }
+  if (!SHOW_MARKETPLACE_MOCKS) return live;
 
-  const result = await fetchAllBackofficeListingsResult({ category: "business" });
-  if (result.status !== "ok") return [];
-  return result.listings.map(mapBackofficeToBusinessListing);
+  const seen = new Set(live.map((item) => item.id));
+  return [...businessListings.filter((item) => !seen.has(item.id)), ...live];
 }
 
 export async function getBusinessById(

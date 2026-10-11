@@ -5,16 +5,19 @@ import { getTranslations } from "next-intl/server";
 import { VehicleCityLandingPage } from "@/features/veiculos/components/city-landing-page";
 import { cityLandingPages, resolveCitySlug } from "@/lib/veiculos/city-slugs";
 import { listVehiclesByCity } from "@/lib/listings/vehicle-repository";
+import { PUBLIC_MODULES } from "@/lib/marketplace/features";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
 };
 
 export async function generateStaticParams() {
+  if (!PUBLIC_MODULES.vehicles) return [];
   return cityLandingPages.map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  if (!PUBLIC_MODULES.vehicles) return {};
   const { locale, slug } = await params;
   const entry = resolveCitySlug(slug);
   if (!entry) return {};
@@ -43,6 +46,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function CityVeiculosPage({ params }: Props) {
+  if (!PUBLIC_MODULES.vehicles) notFound();
+
   const { locale, slug } = await params;
   setRequestLocale(locale);
 

@@ -1,9 +1,8 @@
 "use client";
 
-import { Heart, MapPin, ShieldCheck } from "lucide-react";
+import { MapPin, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ListingImage } from "@/components/listing-image";
-import { useFavoriteButton } from "@/hooks/use-favorites";
 import { Link } from "@/lib/i18n/routing";
 import {
   formatMarketplacePrice,
@@ -93,10 +92,6 @@ export function ListingProjectCard({
   onLeave,
 }: Props) {
   const t = useTranslations("marketplace.projects");
-  const { active, handleClick } = useFavoriteButton(
-    "property",
-    item.propertyId ?? item.id,
-  );
   const location = listingLocation([
     item.neighborhood,
     item.city,
@@ -150,22 +145,6 @@ export function ListingProjectCard({
           compact ? "text-[12px]" : "text-[15px]",
         )}
       />
-      <button
-        type="button"
-        onClick={(event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          handleClick(event);
-        }}
-        className={cn(
-          "absolute right-2 top-2 inline-flex items-center justify-center rounded-full backdrop-blur-md",
-          compact ? "size-7" : "size-8",
-          active ? "bg-[#2BB8A8] text-[#070B14]" : "bg-white/90 text-[#1A1F2B]",
-        )}
-        aria-label={t("save")}
-      >
-        <Heart className={cn(compact ? "size-3.5" : "size-4", active && "fill-current")} />
-      </button>
     </div>
   );
 

@@ -8,6 +8,12 @@ import { listProjects } from "@/lib/listings/project-repository";
 import { listVehicles } from "@/lib/listings/vehicle-repository";
 import { getCatalogHomeEditorial } from "@/lib/marketplace/catalog";
 import {
+  isPublicListingKind,
+  PUBLIC_MODULES,
+  SHOW_MARKETPLACE_MOCKS,
+} from "@/lib/marketplace/features";
+import { getMockMarketplaceHomeData } from "@/lib/marketplace/mock-home";
+import {
   formatMileage,
   listingLocation,
 } from "@/lib/marketplace/format";
@@ -170,7 +176,7 @@ async function getLiveMarketplaceHomeData(
 ): Promise<MarketplaceHomeData> {
   const [properties, vehicles, projects] = await Promise.all([
     listProperties(),
-    listVehicles(),
+    PUBLIC_MODULES.vehicles ? listVehicles() : Promise.resolve([]),
     listProjects(),
   ]);
 
@@ -197,7 +203,7 @@ async function getLiveMarketplaceHomeData(
       ),
     ],
     6,
-  );
+  ).filter((item) => isPublicListingKind(item.kind));
 
   const featuredProperties = takeListings(
     [
@@ -209,15 +215,17 @@ async function getLiveMarketplaceHomeData(
     8,
   );
 
-  const popularVehicles = takeListings(
-    [
-      ...liveVehicles
-        .filter((item) => item.premium || item.featured || item.verified)
-        .map((item) => mapVehicleListing(item, locale)),
-      ...vehicleCards,
-    ],
-    8,
-  );
+  const popularVehicles = PUBLIC_MODULES.vehicles
+    ? takeListings(
+        [
+          ...liveVehicles
+            .filter((item) => item.premium || item.featured || item.verified)
+            .map((item) => mapVehicleListing(item, locale)),
+          ...vehicleCards,
+        ],
+        8,
+      )
+    : [];
 
   const newest = [
     ...liveProperties.map((item) => ({
@@ -242,8 +250,40 @@ async function getLiveMarketplaceHomeData(
     newListings: takeListings(
       newest.map((item) => item.card),
       12,
-    ),
+    ).filter((item) => isPublicListingKind(item.kind)),
     featuredCity: featuredCityFromProperties(liveProperties),
+  };
+}
+
+function mergePreviewListings(
+  mocks: MarketplaceListing[],
+  live: MarketplaceListing[],
+) {
+  const seen = new Set<string>();
+  const out: MarketplaceListing[] = [];
+  for (const item of [...mocks, ...live]) {
+    if (!isPublicListingKind(item.kind)) continue;
+    const key = `${item.kind}:${item.id}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(item);
+  }
+  return out;
+}
+
+function withMarketplaceMocks(data: MarketplaceHomeData): MarketplaceHomeData {
+  if (!SHOW_MARKETPLACE_MOCKS) return data;
+  const mock = getMockMarketplaceHomeData();
+  return {
+    ...data,
+    deals: mergePreviewListings(mock.deals, data.deals).slice(0, 8),
+    featuredProperties: mergePreviewListings(
+      mock.featuredProperties,
+      data.featuredProperties,
+    ).slice(0, 8),
+    newListings: mergePreviewListings(mock.newListings, data.newListings).slice(0, 12),
+    popularVehicles: [],
+    featuredCity: mock.featuredCity,
   };
 }
 
@@ -251,6 +291,10 @@ export async function getMarketplaceHomeData(
   locale = "en",
 ): Promise<MarketplaceHomeData> {
   const published = await fetchBackofficeHome(locale);
-  if (published) return mapBackofficeHomeDocument(published);
-  return getLiveMarketplaceHomeData(locale);
+  if (SHOW_MARKETPLACE_MOCKS) return getMockMarketplaceHomeData();
+
+  const data = published
+    ? mapBackofficeHomeDocument(published)
+    : await getLiveMarketplaceHomeData(locale);
+  return withMarketplaceMocks(data);
 }

@@ -83,10 +83,10 @@ export function AuthForm({ mode }: Props) {
   return (
     <div className="w-full max-w-md">
       <div className="mb-8 text-center">
-        <h1 className="text-2xl font-semibold text-white">
+        <h1 className="text-2xl font-semibold text-[#0B1220]">
           {isSignUp ? t("signUp.title") : t("signIn.title")}
         </h1>
-        <p className="mt-2 text-sm text-white/60">
+        <p className="mt-2 text-sm text-[#5C6570]">
           {isSignUp ? t("signUp.subtitle") : t("signIn.subtitle")}
         </p>
       </div>
@@ -94,7 +94,7 @@ export function AuthForm({ mode }: Props) {
       <Button
         type="button"
         variant="outline"
-        className="h-11 w-full border-white/15 bg-white/5 text-white hover:bg-white/10"
+        className="h-11 w-full border-[#D9DEE5] bg-white text-[#0B1220] hover:bg-[#F4F7FA]"
         onClick={handleGoogleSignIn}
         disabled={isGoogleLoading || isLoading}
       >
@@ -103,15 +103,15 @@ export function AuthForm({ mode }: Props) {
       </Button>
 
       <div className="my-6 flex items-center gap-3">
-        <div className="h-px flex-1 bg-white/10" />
-        <span className="text-xs text-white/40">{t("orContinueWithEmail")}</span>
-        <div className="h-px flex-1 bg-white/10" />
+        <div className="h-px flex-1 bg-[#D9DEE5]" />
+        <span className="text-xs text-[#5C6570]">{t("orContinueWithEmail")}</span>
+        <div className="h-px flex-1 bg-[#D9DEE5]" />
       </div>
 
       <form onSubmit={handleEmailSubmit} className="space-y-4">
         {isSignUp && (
           <div className="space-y-2">
-            <Label htmlFor="name" className="text-white/80">
+            <Label htmlFor="name" className="text-[#0B1220]">
               {t("fields.name")}
             </Label>
             <Input
@@ -122,7 +122,7 @@ export function AuthForm({ mode }: Props) {
               required
               value={name}
               onChange={(event) => setName(event.target.value)}
-              className="h-11 border-white/15 bg-white/5 text-white placeholder:text-white/40"
+              className="h-11 border-[#D9DEE5] bg-white text-[#0B1220] placeholder:text-[#8B939E]"
               placeholder={t("fields.namePlaceholder")}
             />
           </div>
@@ -130,7 +130,7 @@ export function AuthForm({ mode }: Props) {
 
         {isSignUp && (
           <div className="space-y-2">
-            <Label htmlFor="phone" className="text-white/80">
+            <Label htmlFor="phone" className="text-[#0B1220]">
               {t("fields.phone")}
             </Label>
             <Input
@@ -141,14 +141,14 @@ export function AuthForm({ mode }: Props) {
               required
               value={phone}
               onChange={(event) => setPhone(event.target.value)}
-              className="h-11 border-white/15 bg-white/5 text-white placeholder:text-white/40"
+              className="h-11 border-[#D9DEE5] bg-white text-[#0B1220] placeholder:text-[#8B939E]"
               placeholder={t("fields.phonePlaceholder")}
             />
           </div>
         )}
 
         <div className="space-y-2">
-          <Label htmlFor="email" className="text-white/80">
+          <Label htmlFor="email" className="text-[#0B1220]">
             {t("fields.email")}
           </Label>
           <Input
@@ -159,14 +159,14 @@ export function AuthForm({ mode }: Props) {
             required
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="h-11 border-white/15 bg-white/5 text-white placeholder:text-white/40"
+            className="h-11 border-[#D9DEE5] bg-white text-[#0B1220] placeholder:text-[#8B939E]"
             placeholder={t("fields.emailPlaceholder")}
           />
         </div>
 
         <div className="space-y-2">
           <div className="flex items-center justify-between gap-3">
-            <Label htmlFor="password" className="text-white/80">
+            <Label htmlFor="password" className="text-[#0B1220]">
               {t("fields.password")}
             </Label>
             {!isSignUp ? (
@@ -187,13 +187,13 @@ export function AuthForm({ mode }: Props) {
             minLength={8}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="h-11 border-white/15 bg-white/5 text-white placeholder:text-white/40"
+            className="h-11 border-[#D9DEE5] bg-white text-[#0B1220] placeholder:text-[#8B939E]"
             placeholder={t("fields.passwordPlaceholder")}
           />
         </div>
 
         {error && (
-          <p className="rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-300">
+          <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
             {error}
           </p>
         )}
@@ -211,7 +211,7 @@ export function AuthForm({ mode }: Props) {
         </Button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-white/60">
+      <p className="mt-6 text-center text-sm text-[#5C6570]">
         {isSignUp ? t("signUp.hasAccount") : t("signIn.noAccount")}{" "}
         <Link
           href={isSignUp ? "/entrar" : "/cadastrar"}

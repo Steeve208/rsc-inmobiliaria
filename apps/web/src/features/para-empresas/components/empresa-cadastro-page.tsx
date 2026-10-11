@@ -8,6 +8,7 @@ import {
   COMPANY_ACCOUNT_TYPES,
   type CompanyAccountType,
 } from "@/lib/company/kinds";
+import { PUBLIC_MODULES } from "@/lib/marketplace/features";
 import { cn } from "@/lib/utils";
 
 type Field = "company" | "cnpj" | "email" | "phone";
@@ -120,7 +121,9 @@ export function EmpresaCadastroPage() {
                   {t("accountTypeHint")}
                 </p>
                 <div className="grid gap-2">
-                  {COMPANY_ACCOUNT_TYPES.map((type) => {
+                  {COMPANY_ACCOUNT_TYPES.filter(
+                    (type) => type !== "automotive" || PUBLIC_MODULES.vehicles,
+                  ).map((type) => {
                     const Icon = ACCOUNT_ICONS[type];
                     const selected = accountType === type;
                     return (

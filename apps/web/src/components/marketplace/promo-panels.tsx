@@ -34,9 +34,9 @@ const PANEL_STYLE: Record<string, { gradient: string; solid?: string }> = {
     gradient: "from-[#0F3D3A] via-[#0F766E]/85 to-[#14B8A6]/25",
     solid: "bg-[#0F766E]",
   },
-  vehicles: {
-    gradient: "from-[#3B0764] via-[#6B21A8]/90 to-[#A855F7]/30",
-    solid: "bg-[#6B21A8]",
+  rentals: {
+    gradient: "from-[#0C4A6E] via-[#0369A1]/90 to-[#38BDF8]/30",
+    solid: "bg-[#0369A1]",
   },
   hot: {
     gradient: "from-[#B91C1C] via-[#DC2626] to-[#EF4444]/80",

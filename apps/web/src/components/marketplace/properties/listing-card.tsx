@@ -1,9 +1,8 @@
 "use client";
 
-import { Bath, BedDouble, Heart, MapPin, ShieldCheck } from "lucide-react";
+import { Bath, BedDouble, MapPin, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ListingImage } from "@/components/listing-image";
-import { useFavoriteButton } from "@/hooks/use-favorites";
 import { Link } from "@/lib/i18n/routing";
 import {
   formatCompactMoney,
@@ -67,7 +66,6 @@ export function ListingPropertyCard({
 }: Props) {
   const t = useTranslations("marketplace.listing");
   const tBadges = useTranslations("marketplace.badges");
-  const { active, handleClick } = useFavoriteButton("property", item.id);
   const typeLabel = listingTypeLabel(item, t);
   const transactionLabel =
     item.transaction === "rent" ? t("forRent") : t("forSale");
@@ -83,7 +81,7 @@ export function ListingPropertyCard({
     <div
       className={cn(
         "relative overflow-hidden",
-        variant === "list" && "h-44 w-full shrink-0 sm:h-auto sm:w-[240px]",
+        variant === "list" && "aspect-[16/10] w-full shrink-0 sm:aspect-auto sm:h-auto sm:w-[240px] sm:self-stretch",
         variant === "grid" && "aspect-[4/3]",
         compact && "h-full w-[112px] shrink-0",
       )}
@@ -122,22 +120,6 @@ export function ListingPropertyCard({
           compact ? "text-[12px]" : "text-[15px]",
         )}
       />
-      <button
-        type="button"
-        onClick={(event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          handleClick(event);
-        }}
-        className={cn(
-          "absolute right-2 top-2 inline-flex items-center justify-center rounded-full backdrop-blur-md",
-          compact ? "size-7" : "size-8",
-          active ? "bg-[#2BB8A8] text-[#070B14]" : "bg-white/90 text-[#1A1F2B]",
-        )}
-        aria-label={t("save")}
-      >
-        <Heart className={cn(compact ? "size-3.5" : "size-4", active && "fill-current")} />
-      </button>
     </div>
   );
 
@@ -184,7 +166,7 @@ export function ListingPropertyCard({
         ) : null}
         <p
           className={cn(
-            "font-bold",
+            "min-w-0 break-words font-bold",
             item.originalPrice && item.originalPrice > item.price
               ? "text-[#EA580C]"
               : "text-[#0B1220]",

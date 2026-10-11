@@ -160,6 +160,34 @@
   --rk-nav-bg: rgba(6, 8, 15, 0.9);
   --font-display: "Satoshi", var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-body: "Satoshi", var(--font-manrope), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --rk-bp-phone: 375px;
+  --rk-bp-phone-lg: 430px;
+  --rk-bp-tablet: 600px;
+  --rk-bp-laptop: 900px;
+  --rk-bp-desktop: 1200px;
+  --rk-bp-wide: 1600px;
+  --rk-gutter: clamp(1rem, 0.55rem + 1.5vw, 2rem);
+  --rk-container: 90rem;
+  --rk-wide: 100rem;
+  --rk-header: 3.5rem;
+  --rk-nav: 4rem;
+  --rk-bottom-nav: 4.25rem;
+  --rk-touch: 2.75rem;
+  --rk-radius-card: 1rem;
+  --rk-radius-panel: 1.25rem;
+  --rk-gap: clamp(0.75rem, 0.45rem + 0.8vw, 1.25rem);
+  --rk-aspect-hero: 16 / 10;
+  --rk-aspect-card: 4 / 3;
+  --rk-aspect-destination: 3 / 4;
+  --rk-z-header: 40;
+  --rk-z-nav: 50;
+  --rk-z-overlay: 60;
+  --rk-z-drawer: 70;
+  --rk-z-toast: 80;
+  --rk-type-display: clamp(1.75rem, 1.05rem + 2.8vw, 3.25rem);
+  --rk-type-title: clamp(1.45rem, 1.1rem + 1.5vw, 2.35rem);
+  --rk-type-body: clamp(0.875rem, 0.82rem + 0.15vw, 1rem);
 }
 
 
@@ -169,7 +197,11 @@
   }
 
   .rk-container {
-    @apply mx-auto w-full max-w-[1440px] px-3;
+    margin-inline: auto;
+    width: 100%;
+    max-width: var(--rk-container);
+    padding-inline: max(var(--rk-gutter), env(safe-area-inset-left))
+      max(var(--rk-gutter), env(safe-area-inset-right));
   }
 
   .rk-display {
@@ -239,6 +271,11 @@
   }
   html {
     @apply font-sans;
+    overflow-x: clip;
+  }
+  :focus-visible {
+    outline: 2px solid var(--rk-gold);
+    outline-offset: 2px;
   }
 }
 
@@ -261,6 +298,10 @@
   animation-play-state: paused;
 }
 
+.mapboxgl-ctrl-logo {
+  display: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .rk-partners-track {
     animation: none;
@@ -269,6 +310,16 @@
     width: 100% !important;
     max-width: 1440px;
     margin-inline: auto;
+    transform: none;
+  }
+
+  .rk-card,
+  .rk-btn-gold,
+  .rk-btn-ghost,
+  .rk-card:hover,
+  .rk-btn-gold:hover,
+  .rk-btn-ghost:hover {
+    transition: none;
     transform: none;
   }
 }

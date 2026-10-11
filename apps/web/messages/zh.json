@@ -2830,6 +2830,146 @@
       "titleHighlight": "机会",
       "subtitle": "来自认证企业的房产、车辆、项目与服务。"
     },
+    "residence": {
+      "eyebrow": "Exceptional residences",
+      "title": "Architecture for a different way of living.",
+      "subtitle": "Curated residences in the world's most desirable locations. For those who expect more than a property.",
+      "signIn": "Sign in",
+      "account": "Account",
+      "saved": "Saved",
+      "nav": {
+        "properties": "Properties",
+        "collections": "Collections",
+        "destinations": "Destinations",
+        "journal": "Journal"
+      },
+      "rail": {
+        "estates": "Estates",
+        "apartments": "Apartments",
+        "waterfront": "Waterfront",
+        "mountain": "Mountain",
+        "investment": "Investment",
+        "collection": "A global collection"
+      },
+      "search": {
+        "destination": "Destination",
+        "destinationPlaceholder": "City, region or country",
+        "residenceType": "Residence type",
+        "priceRange": "Price range",
+        "anyPrice": "Any price",
+        "explore": "Explore",
+        "types": {
+          "any": "Houses, apartments, estates",
+          "house": "Houses",
+          "apartment": "Apartments",
+          "estate": "Estates"
+        }
+      },
+      "featured": {
+        "label": "Featured residence",
+        "emptyTitle": "The collection",
+        "beds": "Beds",
+        "baths": "Baths",
+        "interior": "Interior",
+        "land": "Land",
+        "viewDetails": "View details",
+        "prev": "Previous residence",
+        "next": "Next residence"
+      },
+      "body":       {
+        "collectionsEyebrow": "Curated collections",
+        "collectionsTitle": "Extraordinary places. Distinct lifestyles.",
+        "collectionsText": "探索我们在世界各地甄选的非凡住宅系列。",
+        "collectionsLink": "Explore all collections",
+        "collections": {
+          "estates": {
+            "title": "Modern Estates",
+            "subtitle": "Architecture & space"
+          },
+          "waterfront": {
+            "title": "Waterfront Residences",
+            "subtitle": "Oceanfront living"
+          },
+          "apartments": {
+            "title": "Luxury Apartments",
+            "subtitle": "Global cities"
+          },
+          "retreats": {
+            "title": "Private Retreats",
+            "subtitle": "Nature & privacy"
+          }
+        },
+        "featuredEyebrow": "Featured properties",
+        "featuredBadge": "精选",
+        "featuredTitle": "非凡住宅。",
+        "featuredText": "Exceptional residences published by verified agencies and advertisers around the world.",
+        "featuredLink": "View all properties",
+        "featuredEmpty": "New residences will appear here.",
+        "save": "Save",
+        "beds": "beds",
+        "baths": "baths",
+        "destinationsEyebrow": "Top destinations",
+        "destinationsTitle": "非凡之地。",
+        "destinationsText": "在世界上最理想的地方发现非凡住宅。",
+        "destinationsLink": "查看全部目的地",
+        "fromPrice": "{price} 起",
+        "propertiesCount": "{count} properties"
+      }
+    },
+    "destinationsPage": {
+      "eyebrow": "Global destinations",
+      "title": "Exceptional homes. Remarkable places.",
+      "subtitle": "Explore the world's most desirable destinations and find extraordinary residences in unique locations.",
+      "explore": "Explore destinations",
+      "viewOnMap": "View on map",
+      "featuredTitle": "Featured destinations",
+      "featuredText": "From iconic cities to hidden retreats, discover exceptional properties in the world's most sought-after destinations.",
+      "prev": "Previous destinations",
+      "next": "Next destinations",
+      "exploreTitle": "Explore by country",
+      "viewAllCountries": "View all countries",
+      "empty": "Destinations appear here as residences are published.",
+      "propertiesCount": "{count, plural, one {# property} other {# properties}}",
+      "regions": {
+        "all": "All regions",
+        "europe": "Europe",
+        "northAmerica": "North America",
+        "southAmerica": "South America",
+        "middleEast": "Middle East",
+        "asia": "Asia",
+        "africa": "Africa",
+        "oceania": "Oceania"
+      }
+    },
+    "journal": {
+      "eyebrow": "The journal",
+      "title": "Architecture, places and a better way to live.",
+      "subtitle": "Insights, inspiration and expert perspectives on global real estate, design and lifestyle.",
+      "featuredLabel": "Featured article",
+      "readArticle": "Read the article",
+      "prev": "Previous article",
+      "next": "Next article",
+      "searchPlaceholder": "Search articles, places, topics...",
+      "trending": "Trending",
+      "latest": "Latest articles",
+      "viewAll": "View all articles",
+      "empty": "New articles will appear here when the editorial team publishes them.",
+      "minutes": "{count} min read",
+      "newsletterEyebrow": "Reeskova Journal",
+      "newsletterTitle": "Insights that take you further.",
+      "newsletterText": "Get the latest articles, destinations and market insights.",
+      "emailPlaceholder": "Your email address",
+      "subscribe": "Subscribe",
+      "subscribed": "You are on the list.",
+      "invalidEmail": "Enter a valid email address.",
+      "categories": {
+        "all": "All",
+        "architecture": "Architecture",
+        "destinations": "Destinations",
+        "living": "Living",
+        "market": "Market insights"
+      }
+    },
     "search": {
       "tabs": {
         "properties": "房产",
@@ -2881,6 +3021,10 @@
       "land": {
         "title": "土地",
         "subtitle": "投资用地"
+      },
+      "beach": {
+        "title": "海景",
+        "subtitle": "住宅与公寓"
       }
     },
     "promos": {
@@ -2903,6 +3047,10 @@
       "cta": {
         "explore": "探索",
         "deals": "查看优惠"
+      },
+      "rentals": {
+        "title": "出租房源",
+        "subtitle": "可立即入住的公寓和住宅"
       }
     },
     "categories": {
@@ -2917,7 +3065,11 @@
       "projects": "新项目",
       "businesses": "企业",
       "services": "服务",
-      "more": "更多"
+      "more": "更多",
+      "luxury": "豪华",
+      "penthouses": "顶层公寓",
+      "beach": "海滨",
+      "studios": "开间"
     },
     "trust": {
       "verified": {
@@ -3631,5 +3783,118 @@
   "footer": {
     "rights": "保留所有权利。",
     "tagline": "数以千计的企业在此市场提供房产、车辆与服务。"
+  },
+  "match": {
+    "loading": "正在理解您的需求…",
+    "working": "正在查找匹配…",
+    "errors": {
+      "generic": "暂时无法完成。请再试一次。"
+    },
+    "purpose": {
+      "buy": "购买",
+      "rent": "租赁",
+      "invest": "投资",
+      "unknown": "还不确定"
+    },
+    "types": {
+      "apartment": "公寓",
+      "house": "住宅",
+      "land": "土地",
+      "commercial": "商业"
+    },
+    "prefs": {
+      "near_public_transport": "靠近公共交通",
+      "parking": "停车位",
+      "balcony": "阳台",
+      "pool": "泳池",
+      "quiet_neighborhood": "安静社区",
+      "near_schools": "靠近学校",
+      "rental_potential": "出租潜力",
+      "more_space": "更大空间",
+      "lower_price": "更低价格",
+      "furnished": "带家具",
+      "pets": "可养宠物"
+    },
+    "intent": {
+      "placeholder": "告诉我们您在找什么...",
+      "submit": "查找匹配",
+      "examplesLabel": "试试",
+      "examples": {
+        "0": "一套靠近市中心、适合家人的公寓。",
+        "1": "一栋三居室、价格在70万雷亚尔以内的住宅。",
+        "2": "一套出租潜力不错的投资房产。"
+      }
+    },
+    "page": {
+      "title": "您在找什么？",
+      "subtitle": "告诉 REESKOVA 您的需要。我们来找到合适的。",
+      "findMatches": "查看我的匹配"
+    },
+    "builder": {
+      "kicker": "REESKOVA MATCH",
+      "title": "这是我们理解到的。",
+      "empty": "再补充一点细节，我们会把搜索收得更准。",
+      "mustHave": "必须具备",
+      "preferences": "偏好",
+      "noneYet": "这里还没有内容",
+      "editBedrooms": "卧室（最少）",
+      "editBudget": "预算上限",
+      "editCity": "城市",
+      "bedroomsMin": "{count}+ 间卧室",
+      "budgetMax": "不超过 {price}"
+    },
+    "conversation": {
+      "placeholder": "补充其他重要的条件…",
+      "send": "发送",
+      "typeAnswer": "请在下方输入您的回答。"
+    },
+    "results": {
+      "headline": "最适合您的匹配",
+      "found": "{count, plural, other {我们找到 # 套符合您要求的房产。}}",
+      "empty": "还没有找到符合这些要求的房产。试着放宽一项必要条件。",
+      "why": "为什么匹配",
+      "viewProperty": "查看房产",
+      "whyPercent": "为什么是 {score}%？",
+      "compare": "对比",
+      "compareSelected": "对比 {count} 套房产"
+    },
+    "compare": {
+      "metric": "",
+      "price": "价格",
+      "size": "面积",
+      "bedrooms": "卧室",
+      "priceM2": "单价/平方米"
+    },
+    "explain": {
+      "kicker": "为什么这套房适合您",
+      "close": "关闭",
+      "loading": "正在准备说明…",
+      "insight": "REESKOVA 解读",
+      "ask": "询问这套房",
+      "askPlaceholder": "物业费包含在内吗？",
+      "askSubmit": "提问",
+      "asking": "思考中…",
+      "rating": {
+        "excellent": "优秀",
+        "good": "良好",
+        "fair": "一般",
+        "weak": "较弱",
+        "unknown": "未知"
+      }
+    },
+    "property": {
+      "whyTitle": "为什么匹配",
+      "whyPercent": "为什么是 {score}%？",
+      "affordTitle": "您负担得起吗？",
+      "price": "房产价格",
+      "down": "预估首付",
+      "financing": "预估月供",
+      "monthly": "预估月成本",
+      "estimateDisclaimer": "根据所提供的信息估算。",
+      "askTitle": "询问 REESKOVA",
+      "askPlaceholder": "这套房为什么得到这个匹配度？",
+      "askSubmit": "提问",
+      "askError": "我没有足够的信息来判断。"
+    }
   }
 }

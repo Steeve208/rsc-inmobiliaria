@@ -9,6 +9,11 @@ import type {
   BackofficeHomeSection,
 } from "@/lib/backoffice/types";
 import { getCatalogHomeEditorial } from "@/lib/marketplace/catalog";
+import {
+  isPublicCatalogEntry,
+  isPublicListingKind,
+  PUBLIC_MODULES,
+} from "@/lib/marketplace/features";
 import { listingImageUrl } from "@/lib/listings/listing-image";
 import {
   appendCountryToLocation,
@@ -163,7 +168,8 @@ function mapListings(
 ): MarketplaceListing[] {
   return sectionItems(value)
     .map(mapBackofficeHomeListing)
-    .filter((item): item is MarketplaceListing => item !== null);
+    .filter((item): item is MarketplaceListing => item !== null)
+    .filter((item) => isPublicListingKind(item.kind) && isPublicCatalogEntry(item));
 }
 
 function mapQuickPicks(
@@ -178,7 +184,8 @@ function mapQuickPicks(
       href: item.href.trim(),
       title: item.title?.trim() || undefined,
       subtitle: item.subtitle?.trim() || undefined,
-    }));
+    }))
+    .filter((item) => isPublicCatalogEntry(item));
 }
 
 function mapPromoPanels(
@@ -196,7 +203,8 @@ function mapPromoPanels(
       subtitle: item.subtitle?.trim() || undefined,
       cta: item.cta?.trim() || undefined,
       graphic: item.graphic ?? null,
-    }));
+    }))
+    .filter((item) => isPublicCatalogEntry(item));
 }
 
 function mapCategoryShortcuts(
@@ -210,7 +218,8 @@ function mapCategoryShortcuts(
       id: item.id.trim(),
       href: item.href.trim(),
       label: item.label?.trim() || undefined,
-    }));
+    }))
+    .filter((item) => isPublicCatalogEntry(item));
 }
 
 function mapFeaturedCity(
@@ -259,7 +268,9 @@ export function mapBackofficeHomeDocument(
     dealsSeeAllHref: sectionSeeAllHref(document.deals),
     featuredProperties: mapListings(document.featuredProperties),
     featuredPropertiesSeeAllHref: sectionSeeAllHref(document.featuredProperties),
-    popularVehicles: mapListings(document.popularVehicles),
+    popularVehicles: PUBLIC_MODULES.vehicles
+      ? mapListings(document.popularVehicles)
+      : [],
     popularVehiclesSeeAllHref: sectionSeeAllHref(document.popularVehicles),
     newListings: mapListings(document.newListings),
     newListingsSeeAllHref: sectionSeeAllHref(document.newListings),

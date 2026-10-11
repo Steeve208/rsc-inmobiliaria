@@ -5,12 +5,9 @@ import {
   Briefcase,
   Building2,
   Car,
-  Heart,
   Home,
   Menu,
-  ShoppingCart,
   Smartphone,
-  Sparkles,
   Tag,
   Users,
   Wrench,
@@ -21,17 +18,14 @@ import { GlobalSearch } from "@/components/layout/global-search";
 import { RegionSwitcher } from "@/components/layout/region-switcher";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 import { MarketDetectionBanner } from "@/components/layout/market-detection-banner";
-import { HeaderAuthActions } from "@/features/auth";
 import { Link, usePathname } from "@/lib/i18n/routing";
 import { useUiStore } from "@/hooks/use-ui-store";
-import { useFavorites } from "@/hooks/use-favorites";
 import { SECONDARY_NAV } from "@/lib/marketplace/catalog";
 
 const navIcons = {
   home: Home,
   properties: Building2,
   vehicles: Car,
-  projects: Sparkles,
   businesses: Briefcase,
   services: Wrench,
   deals: Tag,
@@ -41,18 +35,23 @@ const navIcons = {
 export function Header() {
   const t = useTranslations("marketplace.header");
   const tNav = useTranslations("nav");
-  const { count, isLoggedIn } = useFavorites();
   const { isMobileMenuOpen, setMobileMenuOpen, toggleMobileMenu } =
     useUiStore();
   const pathname = usePathname();
 
+  if (pathname === "/" || pathname === "/destinos" || pathname === "/revistas") return null;
+
   return (
     <>
       <MarketDetectionBanner />
-      <header className="sticky top-0 z-50">
+      <header className="sticky top-0 z-50 pt-[env(safe-area-inset-top)]">
         <div className="bg-[#0B0F19]">
-          <div className="rk-container flex h-[52px] items-center gap-3">
-            <Logo className="shrink-0" compact />
+          <div className="rk-container flex h-14 min-w-0 items-center gap-2 sm:gap-3">
+            <Logo
+              className="min-w-0 shrink gap-2"
+              compact
+              wordmarkClassName="max-[379px]:hidden"
+            />
 
             <GlobalSearch
               key="desktop-search"
@@ -60,42 +59,13 @@ export function Header() {
             />
 
             <div className="ms-auto flex shrink-0 items-center gap-1 sm:gap-2">
-              <LocaleSwitcher key="header-locale" />
-
-              <Link
-                href={isLoggedIn ? "/dashboard" : "/saved"}
-                className="relative inline-flex items-center gap-1.5 rounded-md px-2 py-1.5 text-xs font-semibold text-white/90 hover:text-[#EBAD5B]"
-              >
-                <Heart className="size-4" />
-                <span className="hidden lg:inline">{t("saved")}</span>
-                {count > 0 ? (
-                  <span className="absolute -right-0.5 -top-0.5 flex size-4 items-center justify-center rounded-full bg-[#EBAD5B] text-[10px] font-bold text-[#1A1205]">
-                    {count > 9 ? "9+" : count}
-                  </span>
-                ) : null}
-              </Link>
-
-              <HeaderAuthActions variant="compact" />
-
-              <Link
-                href="/para-empresas"
-                className="hidden h-9 items-center rounded-md bg-[#EBAD5B] px-3.5 text-xs font-bold text-[#1A1205] hover:bg-[#F2C06E] lg:inline-flex"
-              >
-                {t("listCta")}
-              </Link>
-
-              <Link
-                href="/favoritos"
-                className="hidden size-9 items-center justify-center rounded-md text-white/90 hover:text-[#EBAD5B] lg:inline-flex"
-                aria-label={t("cart")}
-              >
-                <ShoppingCart className="size-5" />
-              </Link>
+              <LocaleSwitcher key="header-locale" size="lg" />
 
               <button
                 type="button"
-                className="inline-flex rounded-md p-2 text-white xl:hidden"
+                className="inline-flex size-11 items-center justify-center rounded-md text-white lg:hidden"
                 onClick={toggleMobileMenu}
+                aria-expanded={isMobileMenuOpen}
                 aria-label={tNav("toggleMenu")}
               >
                 {isMobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -108,7 +78,7 @@ export function Header() {
           </div>
         </div>
 
-        <nav className="bg-[#111827]">
+        <nav className="hidden bg-[#111827] lg:block">
           <div className="rk-container flex h-9 items-center gap-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {SECONDARY_NAV.map((link) => {
               const Icon = navIcons[link.icon];
@@ -118,8 +88,6 @@ export function Header() {
                   (pathname === "/imoveis" || pathname.startsWith("/imoveis/"))) ||
                 (link.labelKey === "vehicles" &&
                   (pathname === "/veiculos" || pathname.startsWith("/veiculos/"))) ||
-                (link.labelKey === "projects" &&
-                  (pathname === "/projetos" || pathname.startsWith("/projetos/"))) ||
                 (link.labelKey === "businesses" &&
                   (pathname === "/negocios" || pathname.startsWith("/negocios/"))) ||
                 (link.labelKey === "services" &&
@@ -154,7 +122,7 @@ export function Header() {
         </nav>
 
         {isMobileMenuOpen ? (
-          <div className="border-t border-white/10 bg-[#0B0F19] px-5 py-4 xl:hidden">
+          <div className="max-h-[min(70vh,32rem)] overflow-y-auto border-t border-white/10 bg-[#0B0F19] px-5 py-4 lg:hidden">
             <div className="mb-4 flex flex-col gap-3 border-b border-white/10 pb-4">
               <RegionSwitcher key="mobile-region" />
               <LocaleSwitcher key="mobile-locale" />
@@ -166,7 +134,7 @@ export function Header() {
                   <Link
                     key={link.labelKey}
                     href={link.href}
-                    className="inline-flex items-center gap-2 rounded-xl px-2 py-2.5 text-sm font-medium text-[#AEB7C5] hover:bg-[#161F31] hover:text-[#EBAD5B]"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-xl px-2 text-sm font-medium text-[#AEB7C5] hover:bg-[#161F31] hover:text-[#EBAD5B]"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <Icon className="size-4" />
@@ -177,16 +145,6 @@ export function Header() {
                 );
               })}
             </nav>
-            <div className="mt-4 flex flex-col gap-3 border-t border-white/10 pt-4">
-              <Link
-                href="/para-empresas"
-                className="inline-flex h-12 items-center justify-center rounded-2xl bg-[#EBAD5B] text-sm font-bold text-[#1A1205]"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {t("listCta")}
-              </Link>
-              <HeaderAuthActions variant="mobile" />
-            </div>
           </div>
         ) : null}
       </header>

@@ -18,6 +18,7 @@ import type {
 import type { BackofficePublicListing } from "@/lib/backoffice/types";
 import { listingCodeValue } from "@/lib/listings/listing-code";
 import { listingImageUrl } from "@/lib/listings/listing-image";
+import { isValidMapCoord } from "@/lib/maps/mapbox";
 
 function num(value: unknown, fallback = 0): number {
   if (typeof value === "number" && Number.isFinite(value)) return value;
@@ -26,6 +27,15 @@ function num(value: unknown, fallback = 0): number {
     return Number.isFinite(parsed) ? parsed : fallback;
   }
   return fallback;
+}
+
+function coordsFromMeta(meta: Record<string, unknown>) {
+  const lat = num(meta.lat, Number.NaN);
+  const lng = num(meta.lng, Number.NaN);
+  if (!isValidMapCoord(lng, lat)) {
+    return { lat: Number.NaN, lng: Number.NaN };
+  }
+  return { lat, lng };
 }
 
 function optionalPositiveNum(value: unknown): number | undefined {
@@ -202,8 +212,7 @@ export function mapBackofficeToPropertyListing(
     launch: bool(meta.launch) || undefined,
     virtualTour: Boolean(str(meta.virtualTourUrl)),
     image: coverImage(listing),
-    lat: num(meta.lat),
-    lng: num(meta.lng),
+    ...coordsFromMeta(meta),
     publishedAt: publishedDate(listing),
     videoUrl: str(meta.videoUrl) || undefined,
     code: listingCodeValue(
@@ -229,6 +238,7 @@ export function mapBackofficeToPropertyDetail(
       str(listing.organization.whatsappNumber) ||
       str(listing.organization.whatsappUrl) ||
       str(meta.whatsappNumber),
+    contactEmail: str(meta.email) || str(meta.contactEmail) || undefined,
     images,
     featured: listing.isFeatured || bool(meta.featured),
     virtualTourUrl: str(meta.virtualTourUrl) || undefined,
@@ -291,8 +301,7 @@ export function mapBackofficeToVehicleListing(
     premium: listing.isFeatured || bool(meta.premium) || undefined,
     featured: listing.isFeatured || bool(meta.featured) || undefined,
     image: coverImage(listing),
-    lat: num(meta.lat),
-    lng: num(meta.lng),
+    ...coordsFromMeta(meta),
     publishedAt: publishedDate(listing),
     code: listingCodeValue(
       listing.id,
@@ -447,8 +456,7 @@ export function mapBackofficeToProjectListing(
     featured: listing.isFeatured || bool(meta.featured) || undefined,
     premium: listing.isFeatured || bool(meta.premium) || undefined,
     image: coverImage(listing),
-    lat: num(meta.lat),
-    lng: num(meta.lng),
+    ...coordsFromMeta(meta),
     publishedAt: publishedDate(listing),
     propertyId: unitIds[0] || str(meta.parentProjectId) || undefined,
     companyId: listing.organization.slug,
@@ -509,8 +517,7 @@ export function mapBackofficeToBusinessListing(
     verified: bool(meta.verified) || undefined,
     featured: listing.isFeatured || bool(meta.featured) || undefined,
     image: coverImage(listing),
-    lat: num(meta.lat),
-    lng: num(meta.lng),
+    ...coordsFromMeta(meta),
     publishedAt: publishedDate(listing),
     code: listingCodeValue(
       listing.id,
@@ -583,8 +590,7 @@ export function mapBackofficeToServiceListing(
     availableWeek: bool(meta.availableWeek) || undefined,
     online: bool(meta.online) || undefined,
     image: coverImage(listing),
-    lat: num(meta.lat),
-    lng: num(meta.lng),
+    ...coordsFromMeta(meta),
     publishedAt: publishedDate(listing),
   };
 }

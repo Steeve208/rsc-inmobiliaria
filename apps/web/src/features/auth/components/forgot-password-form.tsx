@@ -48,20 +48,20 @@ export function ForgotPasswordForm() {
   return (
     <div className="w-full max-w-md">
       <div className="mb-8 text-center">
-        <h1 className="text-2xl font-semibold text-white">
+        <h1 className="text-2xl font-semibold text-[#0B1220]">
           {t("forgotPassword.title")}
         </h1>
-        <p className="mt-2 text-sm text-white/60">
+        <p className="mt-2 text-sm text-[#5C6570]">
           {t("forgotPassword.subtitle")}
         </p>
       </div>
 
       {sent ? (
         <div className="space-y-6">
-          <p className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-3 py-3 text-sm text-emerald-200">
+          <p className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-3 text-sm text-emerald-800">
             {t("forgotPassword.success")}
           </p>
-          <p className="text-center text-sm text-white/60">
+          <p className="text-center text-sm text-[#5C6570]">
             <Link
               href="/entrar"
               className="font-medium text-[#3DCCBC] hover:text-[#fcd34d]"
@@ -74,7 +74,7 @@ export function ForgotPasswordForm() {
         <>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-white/80">
+              <Label htmlFor="email" className="text-[#0B1220]">
                 {t("fields.email")}
               </Label>
               <Input
@@ -85,13 +85,13 @@ export function ForgotPasswordForm() {
                 required
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                className="h-11 border-white/15 bg-white/5 text-white placeholder:text-white/40"
+                className="h-11 border-[#D9DEE5] bg-white text-[#0B1220] placeholder:text-[#8B939E]"
                 placeholder={t("fields.emailPlaceholder")}
               />
             </div>
 
             {error ? (
-              <p className="rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-300">
+              <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
                 {error}
               </p>
             ) : null}
@@ -105,7 +105,7 @@ export function ForgotPasswordForm() {
             </Button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-white/60">
+          <p className="mt-6 text-center text-sm text-[#5C6570]">
             <Link
               href="/entrar"
               className="font-medium text-[#3DCCBC] hover:text-[#fcd34d]"

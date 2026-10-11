@@ -12,7 +12,6 @@ import {
   Flag,
   Fuel,
   Gauge,
-  Heart,
   MapPin,
   MessageCircle,
   Share2,
@@ -23,7 +22,6 @@ import {
 import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
 import { useMarket } from "@/lib/providers/market-provider";
-import { useFavoriteButton } from "@/hooks/use-favorites";
 import { shareListing } from "@/lib/listings/share-listing";
 import { VirtualTourEmbed } from "@/features/listings/components/virtual-tour-embed";
 import { CompanyPresenceCard } from "@/components/company";
@@ -59,10 +57,6 @@ export function VehicleDetailPage({
   const t = useTranslations("veiculos.detail");
   const tc = useTranslations("veiculos.categories");
   const { market } = useMarket();
-  const { active: isFavorite, handleClick: handleFavoriteClick } = useFavoriteButton(
-    "vehicle",
-    vehicle.id,
-  );
   const [activeImage, setActiveImage] = useState(0);
   const [mediaTab, setMediaTab] = useState<(typeof mediaTabs)[number]>("photos");
   const [expandedDesc, setExpandedDesc] = useState(false);
@@ -154,19 +148,6 @@ export function VehicleDetailPage({
           >
             <Share2 className="size-4" />
             {shareMessage || t("share")}
-          </button>
-          <button
-            type="button"
-            onClick={handleFavoriteClick}
-            className={cn(
-              "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition-colors",
-              isFavorite
-                ? "bg-[#2BB8A8] text-[#000a1a]"
-                : "bg-[#111d2f] text-white/80 hover:bg-white/5",
-            )}
-          >
-            <Heart className={cn("size-4", isFavorite && "fill-current")} />
-            {t("save")}
           </button>
           <button
             type="button"

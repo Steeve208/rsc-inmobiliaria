@@ -1,10 +1,8 @@
 "use client";
 
 import { ListingImage } from "@/components/listing-image";
-import { Heart } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
-import { useFavoriteButton } from "@/hooks/use-favorites";
 import { CountryFlag } from "@/components/marketplace/country-flag";
 import { formatMarketplacePrice } from "@/lib/marketplace/format";
 import type { MarketplaceListing } from "@/lib/marketplace/types";
@@ -14,10 +12,6 @@ type Props = {
   item: MarketplaceListing;
   featured?: boolean;
 };
-
-function listingKind(item: MarketplaceListing): "property" | "vehicle" {
-  return item.kind === "vehicle" ? "vehicle" : "property";
-}
 
 function Badge({
   item,
@@ -60,7 +54,6 @@ function Badge({
 
 export function DealCard({ item, featured = false }: Props) {
   const t = useTranslations("marketplace");
-  const { active, handleClick } = useFavoriteButton(listingKind(item), item.id);
   const categoryKey =
     item.kind === "vehicle"
       ? `types.vehicle.${item.type}`
@@ -102,19 +95,6 @@ export function DealCard({ item, featured = false }: Props) {
           country={item.country ?? item.location}
           className="absolute bottom-2.5 right-2.5 z-10 text-[15px] drop-shadow-[0_1px_2px_rgba(0,0,0,.7)]"
         />
-        <button
-          type="button"
-          onClick={handleClick}
-          className={cn(
-            "absolute right-2.5 top-2.5 z-10 inline-flex size-7 items-center justify-center rounded-full backdrop-blur-md transition",
-            active
-              ? "bg-[#EBAD5B] text-[#1A1205]"
-              : "bg-white/90 text-[#1A1F2B] hover:bg-white",
-          )}
-          aria-label={t("save")}
-        >
-          <Heart className={cn("size-3.5", active && "fill-current")} />
-        </button>
         <Link
           href={item.href}
           className="relative z-10 mt-auto flex flex-col p-3 text-white"
@@ -165,19 +145,6 @@ export function DealCard({ item, featured = false }: Props) {
           country={item.country ?? item.location}
           className="absolute bottom-1.5 right-1.5 text-[13px] drop-shadow-[0_1px_2px_rgba(0,0,0,.7)]"
         />
-        <button
-          type="button"
-          onClick={handleClick}
-          className={cn(
-            "absolute right-1.5 top-1.5 inline-flex size-6 items-center justify-center rounded-full backdrop-blur-md transition",
-            active
-              ? "bg-[#EBAD5B] text-[#1A1205]"
-              : "bg-white/90 text-[#1A1F2B] hover:bg-white",
-          )}
-          aria-label={t("save")}
-        >
-          <Heart className={cn("size-3", active && "fill-current")} />
-        </button>
       </div>
       <Link href={item.href} className="flex flex-1 flex-col p-2">
         <p className="text-[9px] font-bold tracking-[0.14em] text-[#8C97A8] uppercase">

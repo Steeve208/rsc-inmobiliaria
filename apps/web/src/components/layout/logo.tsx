@@ -4,42 +4,16 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/routing";
 import { cn } from "@/lib/utils";
 
-/**
- * Brand isotipo: geometric R with skyline bars in the stem (REESKOVA brand kit).
- * Refined proportions for web — same concept, cleaner craft.
- */
+/** Official REESKOVA mark: gold isometric house. */
 export function ReeskovaMark({ className }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 64 64"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/brand/reeskova-mark.png"
+      alt=""
       aria-hidden
-      className={cn("shrink-0", className)}
-    >
-      {/* Outer R */}
-      <path
-        stroke="#D49A3F"
-        strokeWidth="3.4"
-        strokeLinejoin="round"
-        strokeLinecap="round"
-        d="M17 13.5h19.2c6.9 0 11.4 4.1 11.4 10.5 0 4.7-2.7 8.2-7.3 9.7L48 50.5H38.6L31.2 36H26.4V50.5H17V13.5Z"
-      />
-      {/* Inner bowl */}
-      <path
-        stroke="#D49A3F"
-        strokeWidth="3.4"
-        strokeLinejoin="round"
-        d="M26.4 13.5V36h7.6c3.2 0 5.2-1.85 5.2-5s-2-5-5.2-5h-7.6"
-      />
-      {/* Skyline bars */}
-      <g stroke="#D49A3F" strokeWidth="2.3" strokeLinecap="round">
-        <path d="M21.2 39.2V31.4" />
-        <path d="M24.8 39.2V27.2" />
-        <path d="M28.4 39.2V29.6" />
-        <path d="M32 39.2V25.4" />
-      </g>
-    </svg>
+      className={cn("shrink-0 object-contain", className)}
+    />
   );
 }
 
@@ -48,12 +22,17 @@ type LogoProps = {
   /** Footer only */
   showPoweredBy?: boolean;
   compact?: boolean;
+  wordmarkClassName?: string;
+  /** Light page surface. Keeps the wordmark dark enough to read. */
+  onLight?: boolean;
 };
 
 export function Logo({
   className,
   showPoweredBy = false,
   compact = false,
+  wordmarkClassName,
+  onLight = false,
 }: LogoProps) {
   const t = useTranslations("brand");
 
@@ -63,18 +42,27 @@ export function Logo({
       aria-label="Reeskova home"
       className={cn("flex items-center gap-3", className)}
     >
-      <ReeskovaMark className={compact ? "size-8" : "size-11"} />
-      <div className="flex flex-col leading-none">
+      <ReeskovaMark className={compact ? "size-10" : "size-12"} />
+      <div className={cn("flex min-w-0 flex-col leading-none", wordmarkClassName)}>
         <span
           className={cn(
             "font-bold tracking-[0.12em] uppercase",
-            compact ? "text-[17px] text-[#EBAD5B]" : "text-[18px] text-white",
+            compact
+              ? "text-[17px] text-[#EBAD5B]"
+              : onLight
+                ? "text-[18px] text-[#9A6B24]"
+                : "text-[18px] text-white",
           )}
         >
           REESKOVA
         </span>
         {compact ? null : (
-          <span className="mt-1.5 max-w-[11rem] text-[9px] font-medium leading-snug tracking-[0.04em] text-[#D49A3F]">
+          <span
+            className={cn(
+              "mt-1.5 max-w-[11rem] text-[9px] font-medium leading-snug tracking-[0.04em]",
+              onLight ? "text-[#6B5428]" : "text-[#D49A3F]",
+            )}
+          >
             {t("tagline")}
           </span>
         )}

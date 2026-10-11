@@ -1,6 +1,5 @@
 "use client";
 
-import { Bookmark, Check } from "lucide-react";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
@@ -38,21 +37,13 @@ export function SplitMapList({
   hasSearched,
   onViewChange,
   onHighlight,
-  onSaveSearch,
 }: Props) {
   const t = useTranslations("veiculos.results");
-  const [savedFlash, setSavedFlash] = useState(false);
   const [visibleCount, setVisibleCount] = useState(VEHICLE_PAGE_SIZE);
 
   useEffect(() => {
     setVisibleCount(VEHICLE_PAGE_SIZE);
   }, [results]);
-
-  function handleSave() {
-    onSaveSearch?.();
-    setSavedFlash(true);
-    setTimeout(() => setSavedFlash(false), 2000);
-  }
 
   const showGallery = view === "grid";
   const visibleResults = results.slice(0, visibleCount);
@@ -77,23 +68,6 @@ export function SplitMapList({
           </div>
           <ViewSwitcher view={view} onChange={onViewChange} />
         </div>
-
-        {onSaveSearch ? (
-          <div className="mt-4 flex justify-end">
-            <button
-              type="button"
-              onClick={handleSave}
-              className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-sm text-white/75 transition-colors hover:bg-white/[0.08]"
-            >
-              {savedFlash ? (
-                <Check className="size-4 text-emerald-400" />
-              ) : (
-                <Bookmark className="size-4" />
-              )}
-              {savedFlash ? t("searchSaved") : t("saveSearch")}
-            </button>
-          </div>
-        ) : null}
 
         {results.length === 0 ? (
           <div className="rounded-xl bg-[#081128]/40 px-6 py-16 text-center">

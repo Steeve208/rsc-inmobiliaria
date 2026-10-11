@@ -12,6 +12,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/lib/i18n/routing";
 import { marketplace } from "@/lib/layout/marketplace";
 import { buildCitySearchHref } from "@/lib/imoveis/city-search-href";
+import { PUBLIC_MODULES } from "@/lib/marketplace/features";
 import type { CityLandingEntry } from "@/lib/imoveis/city-slugs";
 import { readMarketFromCookies } from "@/lib/markets/server";
 import { PropertyCard } from "./property-card";
@@ -257,11 +258,13 @@ export async function CityLandingPage({ entry, listings, relatedCities }: Props)
                     {t("links.help")}
                   </Link>
                 </li>
-                <li>
-                  <Link href="/services" className="text-white/65 hover:text-[#3DCCBC]">
-                    {t("links.services")}
-                  </Link>
-                </li>
+                {PUBLIC_MODULES.services ? (
+                  <li>
+                    <Link href="/services" className="text-white/65 hover:text-[#3DCCBC]">
+                      {t("links.services")}
+                    </Link>
+                  </li>
+                ) : null}
               </ul>
             </div>
 
