@@ -1,3 +1,4 @@
+import { unstable_rethrow } from "next/navigation";
 import {
   getBackofficeBaseUrl,
   isBackofficeConfigured,
@@ -75,6 +76,7 @@ async function backofficeFetch<T>(
     }
     return (await response.json()) as T;
   } catch (error) {
+    unstable_rethrow(error);
     if (isAbortOrTimeout(error)) {
       logBackofficeOnce(
         `timeout:${path}`,
@@ -111,7 +113,8 @@ export async function fetchBackofficeHealth(): Promise<{
       baseUrl: base,
       payload,
     };
-  } catch {
+  } catch (error) {
+    unstable_rethrow(error);
     return { ok: false, baseUrl: base };
   }
 }
@@ -250,6 +253,7 @@ export async function probeBackofficeListingById(
     if (!payload?.data) return { status: "not_found" };
     return { status: "ok", listing: payload.data };
   } catch (error) {
+    unstable_rethrow(error);
     if (isAbortOrTimeout(error)) {
       logBackofficeOnce(
         `timeout:listing:${id}`,
@@ -285,8 +289,8 @@ export async function recordBackofficeListingEvent(
       body: JSON.stringify({ event }),
       signal: AbortSignal.timeout(EVENT_TIMEOUT_MS),
     });
-  } catch {
-    // non-blocking
+  } catch (error) {
+    unstable_rethrow(error);
   }
 }
 
@@ -338,6 +342,7 @@ export async function fetchBackofficeHome(
       const payload = (await response.json()) as BackofficeHomeResponse;
       return payload?.data ?? null;
     } catch (error) {
+      unstable_rethrow(error);
       if (isAbortOrTimeout(error)) {
         logBackofficeOnce(
           `timeout:${path}`,
@@ -402,6 +407,7 @@ export async function fetchBackofficeMagazines(): Promise<BackofficeMagazine[] |
       const payload = (await response.json()) as BackofficeMagazinesResponse;
       return Array.isArray(payload?.data) ? payload.data : [];
     } catch (error) {
+      unstable_rethrow(error);
       if (isAbortOrTimeout(error)) {
         logBackofficeOnce(
           `timeout:${path}`,

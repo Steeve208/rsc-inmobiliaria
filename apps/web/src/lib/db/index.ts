@@ -27,7 +27,13 @@ function getDb(): Db {
     throw new Error("DATABASE_URL is not set");
   }
 
-  const client = postgres(connectionString, { prepare: false });
+  const client = postgres(connectionString, {
+    prepare: false,
+    // A blocked database must not hold static generation until the 60s page timeout.
+    ...(process.env.NEXT_PHASE === "phase-production-build"
+      ? { connect_timeout: 5 }
+      : {}),
+  });
   dbInstance = drizzle(client, { schema });
   return dbInstance;
 }

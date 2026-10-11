@@ -1,3 +1,4 @@
+import { unstable_rethrow } from "next/navigation";
 import { randomUUID } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -106,13 +107,15 @@ function mergeIssues(lists: MagazineIssue[][]) {
 }
 
 async function listFromDb(): Promise<MagazineIssue[]> {
+  if (process.env.NEXT_PHASE === "phase-production-build") return [];
   try {
     const rows = await db
       .select()
       .from(magazine)
       .orderBy(desc(magazine.publishedAt));
     return rows.map(mapRow);
-  } catch {
+  } catch (error) {
+    unstable_rethrow(error);
     return [];
   }
 }
@@ -174,7 +177,10 @@ async function upsertDb(item: MagazineIssue): Promise<boolean> {
 
 export async function listMagazines(options?: { includeDrafts?: boolean }) {
   const [remote, localDb, localFile] = await Promise.all([
-    fetchBackofficeMagazines().catch(() => null),
+    fetchBackofficeMagazines().catch((error: unknown) => {
+      unstable_rethrow(error);
+      return null;
+    }),
     listFromDb(),
     readFromFile(),
   ]);
